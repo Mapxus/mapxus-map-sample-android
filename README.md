@@ -1,0 +1,1 @@
+Mapxus Map sample app for android.

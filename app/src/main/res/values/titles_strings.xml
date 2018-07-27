@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ****** These strings are of individual example titles which appear in
+    each example's recyclerview card ****** -->
+
+    <string name="activity_basic_simple_mapview_title">A simple map view</string>
+    <string name="activity_basic_support_map_frag_title">Support map fragment</string>
+    <string name="activity_basic_beemap_options_title">Dynamically build a map view</string>
+    <string name="activity_styles_default_title">Default styles</string>
+    <string name="activity_annotation_marker_title">Draw a marker</string>
+    <string name="activity_annotation_custom_marker_title">Draw a custom marker icon</string>
+    <string name="activity_annotation_polygon_title">Draw a polygon</string>
+    <string name="activity_annotation_polygon_holes_title">Draw a polygon with holes</string>
+    <string name="activity_annotation_animated_marker_title">Animate marker position</string>
+    <string name="activity_camera_animate_title">Animate the map camera</string>
+    <string name="activity_camera_restrict_title">Restrict map panning</string>
+
+
+    <string name="activity_listener_building_floor_change_title">Building and floor change</string>
+    <string name="activity_listener_poi_click_title">Poi click listener</string>
+    <string name="activity_listener_camera_change_listener_title">Camera change </string>
+
+
+    <string name="activity_search_service_route_planning_title">Route Planning </string>
+    <string name="activity_search_service_building_nearby_title">Search building nearby </string>
+    <string name="activity_search_service_building_in_bound_title">Search building in bound </string>
+    <string name="activity_search_service_building_by_id_title">Search building detail by id </string>
+    <string name="activity_search_service_building_global_title">Search building global </string>
+
+    <string name="activity_search_service_poi_nearby_title">Search poi nearby </string>
+    <string name="activity_search_service_poi_in_bound_title">Search poi in bound </string>
+    <string name="activity_search_service_poi_by_id_title">Search poi detail by id </string>
+    <string name="activity_search_service_poi_in_building_title">Search poi in building  </string>
+
+
+    <string name="activity_display_location_title">Displaying the users location </string>
+
+
+</resources>

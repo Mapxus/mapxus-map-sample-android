@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+
+
+def secretPropertiesFile = rootProject.file("./secret.properties")
+def secretProperties = new Properties()
+secretProperties.load(new FileInputStream(secretPropertiesFile))
+
+android {
+    compileSdkVersion androidVersions.compileSdkVersion
+    buildToolsVersion androidVersions.buildToolsVersion
+
+
+    defaultConfig {
+        applicationId "com.mapxus.mapxusmapandroiddemo"
+
+        minSdkVersion androidVersions.minSdkVersion
+        targetSdkVersion androidVersions.targetSdkVersion
+
+        versionCode androidVersions.versionCode
+        versionName androidVersions.versionName
+
+        vectorDrawables.useSupportLibrary = true
+
+        buildConfigField "int", "MIN_SDK_VERSION", "$minSdkVersion.apiLevel"
+
+        multiDexEnabled true
+
+//        playAccountConfig = playAccountConfigs.defaultAccountConfig
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "beemapSample_${defaultConfig.versionName}_${buildType.name}.apk"
+        }
+    }
+
+    buildTypes {
+        debug {
+            manifestPlaceholders = ["appid": secretProperties['appid'], "secret": secretProperties['secret']]
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-Debug'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            manifestPlaceholders = ["appid": secretProperties['appid'], "secret": secretProperties['secret']]
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+    }
+
+    flavorDimensions "env"
+    productFlavors {
+        dev {
+            // Enable pre-dexing to produce an APK that can be tested on
+            // Android 5.0+ without the time-consuming DEX build processes.
+            minSdkVersion 21
+        }
+        prod {
+            // The actual minSdkVersion for the production version.
+            minSdkVersion androidVersions.minSdkVersion
+        }
+    }
+
+    splits {
+        abi {
+            enable false
+            universalApk false
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+
+    // Support libraries
+    implementation dependenciesList.supportGridLayout
+    implementation dependenciesList.supportAppcompatV7
+    implementation dependenciesList.supportCardView
+    implementation dependenciesList.supportRecyclerView
+    implementation dependenciesList.supportDesign
+    implementation dependenciesList.supportCustomTabs
+    implementation dependenciesList.supportV4
+    implementation dependenciesList.supportConstraintLayout
+    implementation dependenciesList.supportMultidex
+    implementation dependenciesList.easypermissions
+
+    // MapxusMap
+    implementation dependenciesList.beemapSdk
+
+    implementation dependenciesList.positioningProvider
+
+    //mapbox
+    implementation dependenciesList.mapboxMapSdk
+
+    // Firebase
+    implementation dependenciesList.firebaseCrash
+    implementation dependenciesList.firebasePerf
+//    gpservicesImplementation dependenciesList.firebaseCrash
+
+    // Other dependencies
+    implementation dependenciesList.gson
+
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    implementation 'com.github.Cutta:GifView:1.1'
+
+    // Square crew
+    implementation dependenciesList.timber
+    implementation dependenciesList.okhttp3
+    implementation dependenciesList.picasso
+    implementation dependenciesList.retrofit
+    implementation dependenciesList.retrofitGsonConverter
+
+    api dependenciesList.slf4jApi
+    api dependenciesList.logbackAndroid
+}
+
+apply from: "${rootDir}/gradle/checkstyle.gradle"

@@ -1,0 +1,5 @@
+<resources>
+    <string name="follow_me_none">NONE</string>
+    <string name="follow_me_follow_user">FOLLOW_USER</string>
+    <string name="follow_me_follow_user_and_heading">FOLLOW_USER_AND_HEADING</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ****** These strings are of individual example descriptions which appear in
+    each example's recyclerview card ****** -->
+
+    <string name="activity_basic_simple_mapview_description">Show a map in your app using the Beemap Maps SDK.</string>
+    <string name="activity_basic_support_map_frag_description">Include a map fragment within your app using Android support library.</string>
+    <string name="activity_basic_beemap_options_description">Add a mapview in a dynamically created layout.</string>
+    <string name="activity_styles_default_description">Use a variety of professionally designed styles with the Beemap Maps SDK.</string>
+    <string name="activity_annotation_custom_marker_description">Create a marker with a custom icon using the Beemap Maps SDK.</string>
+    <string name="activity_annotation_polygon_description">Draw a vector polygon on a map with the Beemap Maps SDK.</string>
+    <string name="activity_annotation_polygon_holes_description">Draw a vector polygon with holes on a map using the Beemap Maps SDK.</string>
+    <string name="activity_annotation_animated_marker_description">Animate the marker to a new position on the map.</string>
+    <string name="activity_camera_animate_description">"Animate the map's camera position, tilt, bearing, and zoom."</string>
+    <string name="activity_camera_restrict_description">Prevent a map from being panned to a different place.</string>
+
+
+    <string name="activity_listener_building_floor_change_description">Building and floor change</string>
+    <string name="activity_listener_poi_click_description">Poi click listener</string>
+    <string name="activity_listener_camera_change_listener_description">Camera change </string>
+
+
+    <string name="activity_search_service_route_planning_description">Route Planning </string>
+    <string name="activity_search_service_building_nearby_description">Search building nearby </string>
+    <string name="activity_search_service_building_in_bound_description">Search building in bound </string>
+    <string name="activity_search_service_building_by_id_description">Search building detail by id </string>
+    <string name="activity_search_service_building_global_description">Search building global </string>
+
+    <string name="activity_search_service_poi_nearby_description">Search poi nearby </string>
+    <string name="activity_search_service_poi_in_bound_description">Search poi in bound </string>
+    <string name="activity_search_service_poi_by_id_description">Search poi detail by id </string>
+    <string name="activity_search_service_poi_in_building_description">Search poi in building  </string>
+
+
+    <string name="activity_display_location_description">Displaying the users location </string>
+
+
+</resources>

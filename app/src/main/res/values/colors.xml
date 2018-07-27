@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#607d9c</color>
+    <color name="colorPrimaryDark">@color/appGrayDark10</color>
+    <color name="colorAccent">@color/appPink</color>
+
+    <color name="materialGrey">#F5F5F5</color>
+    <color name="materialDarkGrey">#DFDFDF</color>
+
+    <color name="appGrayDark10">#77787B</color>
+    <color name="appGrayExtraDark">#2d3c4f</color>
+
+    <color name="appPink">#ee4e8b</color>
+
+    <color name="appPurpleDark10">#5E3AD2</color>
+    <color name="appPurple">#7753eb</color>
+    <color name="appPurpleLight10">#916DFF</color>
+
+
+    <color name="appGrayDark11">#6c6d70</color>
+
+    <!-- FAB menu colors -->
+
+
+    <color name="grey">#898989</color>
+    <color name="darkgrey">#C0C0C0</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="distance_text_color">#6289cc</color>
+
+
+    <color name="bound_polygon_color">#20FF0000</color>
+</resources>

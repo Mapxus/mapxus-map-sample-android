@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    tools:context=".examples.basics.SimpleMapViewActivity">
+
+    <!-- Set the starting camera position and map style using xml-->
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       app:mapbox_cameraTargetLat="22.304716516178253"
+        app:mapbox_cameraTargetLng="114.16186609400843"
+        app:mapbox_cameraZoom="2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/offset_bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/follow_me_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/follow_me_none"
+            android:textSize="10sp"/>
+
+        <Button
+            android:id="@+id/follow_me_follow_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/follow_me_follow_user"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/follow_me_follow_user_and_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/follow_me_follow_user_and_heading"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ****** These strings are random ones that are for the Android system
+    and don't have to do with particular examples ****** -->
+
+    <string name="app_name">Mapxus Map Sample</string>
+    <string name="mapxus_map_sdk" translatable="false">Mapxus Map SDK</string>
+    <string name="examples">Android examples</string>
+
+    <!-- Access Token -->
+
+    <!-- UI Strings -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- snapshotter -->
+
+    <!-- toolbar items -->
+
+    <!-- nav drawer categories -->
+    <string name="getting_started_category">Getting started</string>
+    <string name="styles_category">Styles</string>
+    <string name="annotations_category">Annotations</string>
+    <string name="camera_category">Camera</string>
+    <string name="listener_category">Listener</string>
+    <string name="search_services_category">Search services</string>
+    <string name="dispay_location_category">Display location</string>
+
+</resources>

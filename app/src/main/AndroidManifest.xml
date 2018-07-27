@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mapxus.mapxusmapandroiddemo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:launchMode="singleTop"
+        android:theme="@style/AppTheme">
+
+
+        <!--setup your appid and secret-->
+        <meta-data
+            android:name="com.mapxus.api.v1.appid"
+            android:value="${appid}" />
+        <meta-data
+            android:name="com.mapxus.api.v1.secret"
+            android:value="${secret}" />
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.basics.SimpleMapViewActivity"
+            android:label="@string/activity_basic_simple_mapview_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.basics.SupportMapFragmentActivity"
+            android:label="@string/activity_basic_support_map_frag_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.styles.DefaultStyleActivity"
+            android:label="@string/activity_styles_default_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawMarkerActivity"
+            android:label="@string/activity_annotation_marker_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawCustomMarkerActivity"
+            android:label="@string/activity_annotation_custom_marker_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawPolygonActivity"
+            android:label="@string/activity_annotation_polygon_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.camera.AnimateMapCameraActivity"
+            android:label="@string/activity_camera_animate_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapOptionActivity"
+            android:label="@string/activity_basic_beemap_options_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.annotations.AnimatedMarkerActivity"
+            android:label="@string/activity_annotation_animated_marker_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.camera.RestrictCameraActivity"
+            android:label="@string/activity_camera_restrict_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.annotations.PolygonHolesActivity"
+            android:label="@string/activity_annotation_polygon_holes_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.listener.BuildingAndFloorChangeListenerActivity"
+            android:label="@string/activity_listener_building_floor_change_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.listener.PoiClickListenerActivity"
+            android:label="@string/activity_listener_poi_click_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.listener.CameraListenerActivity"
+            android:label="@string/activity_listener_camera_change_listener_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingNearbyActivity"
+            android:label="@string/activity_search_service_building_nearby_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingInboundActivity"
+            android:label="@string/activity_search_service_building_in_bound_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingDetailActivity"
+            android:label="@string/activity_search_service_building_by_id_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingGlobalActivity"
+            android:label="@string/activity_search_service_building_global_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiNearbyActivity"
+            android:label="@string/activity_search_service_poi_nearby_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInboundActivity"
+            android:label="@string/activity_search_service_poi_in_bound_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiDetailActivity"
+            android:label="@string/activity_search_service_poi_by_id_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInBuildingActivity"
+            android:label="@string/activity_search_service_poi_in_building_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.searchservices.RoutePlanningActivity"
+            android:label="@string/activity_search_service_route_planning_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.displaylocation.LocationProviderActivity"
+            android:label="@string/activity_display_location_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+
+    </application>
+
+</manifest>

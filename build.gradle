@@ -1,0 +1,48 @@
+// Top-level build file which has configuration options common to all sub-projects/modules.
+buildscript {
+
+    apply from: "${rootDir}/gradle/dependencies.gradle"
+
+    repositories {
+        jcenter()
+        google()
+    }
+
+    dependencies {
+        classpath pluginDependencies.gradle
+//        classpath pluginDependencies.firebase
+//        classpath pluginDependencies.playPublisher
+    }
+
+}
+
+plugins {
+    id 'com.palantir.circle.style' version '1.1.2'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url "https://jitpack.io" }
+        maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+        // ogips
+        maven {
+            credentials {
+                username PARTNER_USER
+                password PARTNER_PASSWORD
+            }
+            url "http://nexus.maphive.io:8081/nexus/content/repositories/partner/"
+        }
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects {
+    // apply plugin: 'idea'
+    apply from: "${rootDir}/gradle/dependencies.gradle"
+}
