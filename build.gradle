@@ -10,8 +10,6 @@ buildscript {
 
     dependencies {
         classpath pluginDependencies.gradle
-//        classpath pluginDependencies.firebase
-//        classpath pluginDependencies.playPublisher
     }
 
 }
@@ -26,14 +24,6 @@ allprojects {
         google()
         maven { url "https://jitpack.io" }
         maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
-        // ogips
-        maven {
-            credentials {
-                username PARTNER_USER
-                password PARTNER_PASSWORD
-            }
-            url "http://nexus.maphive.io:8081/nexus/content/repositories/partner/"
-        }
 
     }
 }
