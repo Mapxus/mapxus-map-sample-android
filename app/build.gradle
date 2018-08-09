@@ -35,7 +35,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "beemapSample_${defaultConfig.versionName}_${buildType.name}.apk"
+            outputFileName = "MapxusMapSampleApp_${defaultConfig.versionName}_${buildType.name}.apk"
         }
     }
 
