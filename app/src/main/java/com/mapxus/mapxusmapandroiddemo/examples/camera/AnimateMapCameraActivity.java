@@ -11,6 +11,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.MapViewProvider;
+import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
 
@@ -22,6 +24,7 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
 
     private MapView mapView;
     private MapboxMap mapboxMap;
+    private MapViewProvider mapViewProvider;
     private boolean isElement = false;
 
 
@@ -35,6 +38,7 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+        mapViewProvider = new MapboxMapViewProvider(AnimateMapCameraActivity.this,mapView);
         mapView.getMapAsync(this);
     }
 

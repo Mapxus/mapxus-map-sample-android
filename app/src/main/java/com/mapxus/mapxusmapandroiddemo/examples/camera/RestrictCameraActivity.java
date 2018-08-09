@@ -14,6 +14,8 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.MapViewProvider;
+import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 
@@ -25,7 +27,7 @@ public class RestrictCameraActivity extends AppCompatActivity implements OnMapRe
 
     private MapView mapView;
     private MapboxMap mapboxMap;
-
+    private MapViewProvider mapViewProvider;
     private LatLngBounds latLngBounds;
 
     @Override
@@ -36,6 +38,7 @@ public class RestrictCameraActivity extends AppCompatActivity implements OnMapRe
 
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+        mapViewProvider = new MapboxMapViewProvider(RestrictCameraActivity.this,mapView);
         mapView.getMapAsync(this);
 
         LatLng southweast = new LatLng(22.3032765,114.1591187);
