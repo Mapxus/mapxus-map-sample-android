@@ -24,8 +24,6 @@ android {
         buildConfigField "int", "MIN_SDK_VERSION", "$minSdkVersion.apiLevel"
 
         multiDexEnabled true
-
-//        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     compileOptions {
@@ -127,6 +125,9 @@ dependencies {
 
     api dependenciesList.slf4jApi
     api dependenciesList.logbackAndroid
+
+    implementation 'com.tencent.bugly:crashreport:2.6.6.1'
+    implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
 }
 
 apply from: "${rootDir}/gradle/checkstyle.gradle"
