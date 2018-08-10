@@ -14,6 +14,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.MapViewProvider;
+import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarker;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarkerOptions;
@@ -33,7 +35,7 @@ public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapR
     private MapView mapView;
     private MapboxMap mapboxMap;
 
-
+    private MapViewProvider mapViewProvider;
     private RelativeLayout mBuildingDetail;
     private TextView mBuildingName, mBuildingAddress;
     private String keyWord = "";
@@ -51,6 +53,7 @@ public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapR
         // Setup the MapView
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+        mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
 
 

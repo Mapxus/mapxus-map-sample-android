@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.MapViewProvider;
+import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
@@ -29,6 +31,7 @@ public class SearchPoiNearbyActivity extends AppCompatActivity
 
     private MapView mapView;
     private MapboxMap mapboxMap;
+    private MapViewProvider mapViewProvider;
 
 
     private String keyWord = "";
@@ -46,6 +49,7 @@ public class SearchPoiNearbyActivity extends AppCompatActivity
         // Setup the MapView
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+        mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
 
 
