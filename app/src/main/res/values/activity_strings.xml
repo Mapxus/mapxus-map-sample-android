@@ -52,4 +52,7 @@
 
     <string name="draw_marker_tips">Switch floor to L2 or L3 for check other marker</string>
     <string name="draw_custom_marker_tips">Switch floor to  L3 for check custom marker</string>
+    <string name="location_dialog_message">Positioning</string>
+    <string name="location_dialog_title">Please wait a moment</string>
+    <string name="location_positioning_error_toast">Positioning Error</string>
 </resources>
