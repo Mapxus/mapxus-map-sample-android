@@ -10,6 +10,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.MapViewProvider;
+import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 /**
@@ -20,6 +22,7 @@ public class CameraListenerActivity extends AppCompatActivity implements OnMapRe
     private MapView mapView;
     private TextView mapMoveTv;
     private TextView mapClickTv;
+    private MapViewProvider mapViewProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class CameraListenerActivity extends AppCompatActivity implements OnMapRe
         mapMoveTv = findViewById(R.id.map_move_tv);
         mapClickTv = findViewById(R.id.map_click_tv);
         mapView.onCreate(savedInstanceState);
+        mapViewProvider = new MapboxMapViewProvider(CameraListenerActivity.this,mapView);
         mapView.getMapAsync(this);
     }
 
@@ -108,5 +112,6 @@ public class CameraListenerActivity extends AppCompatActivity implements OnMapRe
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        mapViewProvider.onDestroy();
     }
 }
