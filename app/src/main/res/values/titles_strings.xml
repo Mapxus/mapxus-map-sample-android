@@ -36,5 +36,9 @@
 
     <string name="activity_display_location_title">Displaying the users location </string>
 
+    <string name="activity_selector_position_title">Indoor Map Selector Position </string>
+
+    <string name="activity_hidden_selector_title">Indoor Map Selector Hidden </string>
+
 
 </resources>

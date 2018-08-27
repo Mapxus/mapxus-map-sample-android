@@ -18,7 +18,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.perf.metrics.AddTrace;
@@ -34,6 +33,8 @@ import com.mapxus.mapxusmapandroiddemo.examples.basics.SimpleMapViewActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SupportMapFragmentActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.camera.AnimateMapCameraActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.camera.RestrictCameraActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.controllers.SelectorPositionActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.controllers.HiddenSelectorActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.displaylocation.LocationProviderActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.listener.BuildingAndFloorChangeListenerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.listener.CameraListenerActivity;
@@ -311,8 +312,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_search_service_poi_in_building_description,
                         new Intent(MainActivity.this, SearchPoiInBuildingActivity.class),
                         R.drawable.searchservice_06_9, false, BuildConfig.MIN_SDK_VERSION));
-
-
                 currentCategory = R.id.nav_search_services;
                 break;
 
@@ -324,6 +323,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.drawable.location_07_1, false, BuildConfig.MIN_SDK_VERSION));
 
                 currentCategory = R.id.nav_dispay_location;
+                break;
+
+            case R.id.nav_controllers:
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_selector_position_title,
+                        R.string.activity_selector_position_description,
+                        new Intent(MainActivity.this, SelectorPositionActivity.class),
+                        R.drawable.controller_2, false, BuildConfig.MIN_SDK_VERSION));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_hidden_selector_title,
+                        R.string.activity_hidden_selector_description,
+                        new Intent(MainActivity.this, HiddenSelectorActivity.class),
+                        R.drawable.controller_1, false, BuildConfig.MIN_SDK_VERSION));
+
+                currentCategory = R.id.nav_controllers;
                 break;
 
             default:

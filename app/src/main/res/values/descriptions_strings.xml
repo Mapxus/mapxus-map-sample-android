@@ -33,7 +33,10 @@
     <string name="activity_search_service_poi_in_building_description">Search poi in building  </string>
 
 
-    <string name="activity_display_location_description">Displaying the users location </string>
+    <string name="activity_display_location_description">Displaying the users location. </string>
+
+    <string name="activity_selector_position_description">Place the indoor map selector as you need. </string>
+    <string name="activity_hidden_selector_description">Set the indoor map selector always hidden. </string>
 
 
 </resources>

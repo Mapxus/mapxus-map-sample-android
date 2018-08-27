@@ -4,6 +4,11 @@
         <item
             android:id="@+id/nav_basics"
             android:title="@string/getting_started_category" />
+
+
+        <item
+            android:id="@+id/nav_controllers"
+            android:title="@string/controllers_category" />
         <item
             android:id="@+id/nav_styles"
             android:title="@string/styles_category" />

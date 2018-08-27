@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <uses-feature
         android:name="android.hardware.location.gps"
@@ -237,6 +236,24 @@
         <activity
             android:name="com.mapxus.mapxusmapandroiddemo.examples.displaylocation.LocationProviderActivity"
             android:label="@string/activity_display_location_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".examples.controllers.SelectorPositionActivity"
+            android:label="@string/activity_selector_position_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name=".examples.controllers.HiddenSelectorActivity"
+            android:label="@string/activity_hidden_selector_title"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

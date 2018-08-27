@@ -20,6 +20,7 @@
 
     <!-- nav drawer categories -->
     <string name="getting_started_category">Getting started</string>
+    <string name="controllers_category">Controllers</string>
     <string name="styles_category">Styles</string>
     <string name="annotations_category">Annotations</string>
     <string name="camera_category">Camera</string>
