@@ -17,6 +17,7 @@ import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.positioning.provider.MapxusPositioningProvider;
 import com.mapxus.positioning.provider.api.IndoorLocation;
+import com.mapxus.positioning.provider.api.IndoorLocationProvider;
 import com.mapxus.positioning.provider.api.IndoorLocationProviderListener;
 
 /**
@@ -108,7 +109,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         this.mapxusMap = mapxusMap;
-        MapxusPositioningProvider mapxusPositioningProvider = new MapxusPositioningProvider(this);
+        IndoorLocationProvider mapxusPositioningProvider = new MapxusPositioningProvider(this);
         mapxusPositioningProvider.addListener(new IndoorLocationProviderListener() {
             @Override
             public void onProviderStarted() {
