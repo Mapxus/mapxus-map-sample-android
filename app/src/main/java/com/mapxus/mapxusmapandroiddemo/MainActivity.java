@@ -28,6 +28,8 @@ import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawCustomMarkerActi
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawMarkerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawPolygonActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.PolygonHolesActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapInitWithBuildingActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapInitWithPoiActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapOptionActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SimpleMapViewActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SupportMapFragmentActivity;
@@ -359,6 +361,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_basic_beemap_options_description,
                         new Intent(MainActivity.this, MapxusMapOptionActivity.class),
                         R.drawable.getstarted_1_3, false, BuildConfig.MIN_SDK_VERSION));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_basic_beemap_init_with_building_title,
+                        R.string.activity_basic_beemap_init_with_building_description,
+                        new Intent(MainActivity.this, MapxusMapInitWithBuildingActivity.class),
+                        R.drawable.getstarted_1_4, false, BuildConfig.MIN_SDK_VERSION));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_basic_beemap_init_with_poi_title,
+                        R.string.activity_basic_beemap_init_with_poi_description,
+                        new Intent(MainActivity.this, MapxusMapInitWithPoiActivity.class),
+                        R.drawable.getstarted_1_5, false, BuildConfig.MIN_SDK_VERSION));
 
                 currentCategory = R.id.nav_basics;
                 break;

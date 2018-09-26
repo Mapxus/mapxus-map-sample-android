@@ -263,6 +263,26 @@
         </activity>
 
         <activity
+            android:name=".examples.basics.MapxusMapInitWithBuildingActivity"
+            android:label="@string/activity_basic_beemap_init_with_building_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".examples.basics.MapxusMapInitWithPoiActivity"
+            android:label="@string/activity_basic_beemap_init_with_poi_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+
+        <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />

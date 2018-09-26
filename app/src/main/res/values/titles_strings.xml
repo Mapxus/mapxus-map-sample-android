@@ -7,6 +7,8 @@
     <string name="activity_basic_simple_mapview_title">A simple map view</string>
     <string name="activity_basic_support_map_frag_title">Support map fragment</string>
     <string name="activity_basic_beemap_options_title">Dynamically build a map view</string>
+    <string name="activity_basic_beemap_init_with_building_title">Initialize map with building directly.</string>
+    <string name="activity_basic_beemap_init_with_poi_title">Initialize map with poi directly.</string>
     <string name="activity_styles_default_title">Default styles</string>
     <string name="activity_annotation_marker_title">Draw a marker</string>
     <string name="activity_annotation_custom_marker_title">Draw a custom marker icon</string>
