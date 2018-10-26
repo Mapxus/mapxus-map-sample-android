@@ -1,18 +1,24 @@
 package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
+
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.component.overlay.WalkRouteOverlay;
+import com.mapxus.map.model.LatLng;
+import com.mapxus.map.model.MapxusMarkerOptions;
+import com.mapxus.map.model.overlay.MapxusMarker;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.mapxusmapandroiddemo.model.overlay.WalkRouteOverlay;
 import com.mapxus.map.MapViewProvider;
 import com.mapxus.map.MapxusMap;
 import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.services.RoutePlanning;
 import com.mapxus.services.model.planning.RoutePlanningPoint;
 import com.mapxus.services.model.planning.RoutePlanningResult;
@@ -29,11 +35,22 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     private MapxusMap mMapxusMap;
     private MapboxMap mapboxMap;
     private MapViewProvider mapViewProvider;
-    private RouteResponseDto currentRoute;
     private RoutePlanning routePlanning;
-    private RoutePlanningPoint origin = new RoutePlanningPoint("elements_hk_dc005f", "L1", 114.16130, 22.30585);
-    private RoutePlanningPoint destination = new RoutePlanningPoint("elements_hk_dc005f", "L3", 114.16185, 22.30405);
 
+    private RoutePlanningPoint origin = null;
+    private RoutePlanningPoint destination = null;
+
+    private Button planningBtn;
+
+    private TextView pointStartTv;
+
+    private TextView pointEndTv;
+
+
+    private MapxusMarker startMarker;
+    private MapxusMarker endMarker;
+
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +58,23 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
         setContentView(R.layout.activity_searchservices_route_planning);
 
+        planningBtn = findViewById(R.id.btn_planning);
+        pointStartTv = findViewById(R.id.point_start);
+        pointEndTv = findViewById(R.id.point_end);
+
         // Setup the MapView
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                RoutePlanningActivity.this.mapboxMap = mapboxMap;
-            }
-        });
+        mapView.getMapAsync(mapboxMap -> RoutePlanningActivity.this.mapboxMap = mapboxMap);
 
-        mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
-            @Override
-            public void onMapxusMapReady(MapxusMap mapxusMap) {
-                RoutePlanningActivity.this.mMapxusMap = mapxusMap;
-                routePlanning = RoutePlanning.newInstance();
-                routePlanning.setRoutePlanningListener(RoutePlanningActivity.this);
-                getRoute(origin, destination);
-            }
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> {
+            RoutePlanningActivity.this.mMapxusMap = mapxusMap;
+            routePlanning = RoutePlanning.newInstance();
+            routePlanning.setRoutePlanningListener(RoutePlanningActivity.this);
+            pointStartTv.setOnClickListener(pointClickListener);
+            pointEndTv.setOnClickListener(pointClickListener);
+            planningBtn.setOnClickListener(planningBtnClickListener);
         });
 
     }
@@ -70,9 +85,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     }
 
     private void drawRoute(RouteResponseDto route) {
-        // Convert LineString coordinates into LatLng[]
-
-        WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(this, mapboxMap, mMapxusMap, route, origin, destination);
+       WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(this, mapboxMap, mMapxusMap, route, origin, destination);
         walkRouteOverlay.addToMap();
     }
 
@@ -124,6 +137,10 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     @Override
     public void onGetRoutePlanningResult(RoutePlanningResult routePlanningResult) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
         if (routePlanningResult.status != 0) {
             Toast.makeText(this, routePlanningResult.error.toString(), Toast.LENGTH_LONG).show();
             return;
@@ -136,4 +153,90 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         drawRoute(routeResponseDto);
         mMapxusMap.switchFloor(origin.getFloor());
     }
+
+
+    private View.OnClickListener pointClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.point_start: {
+                pointStartClick();
+                break;
+            }
+
+            case R.id.point_end: {
+                pointEndClick();
+                break;
+            }
+        }
+
+    };
+
+    private View.OnClickListener planningBtnClickListener = v -> {
+        if (origin == null || destination == null) {
+            return;
+        }
+        dialog = new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("wait");
+        dialog.setMessage("get route");
+        dialog.show();
+        removeAllSelectedMapClickListener();
+        getRoute(origin, destination);
+    };
+
+
+    private void pointStartClick() {
+
+        pointStartTv.setText("please click map");
+        removeAllSelectedMapClickListener();
+
+        mMapxusMap.addOnMapClickListener(pointStartMapClickListener);
+    }
+
+    private void pointEndClick() {
+        pointEndTv.setText("please click map");
+        removeAllSelectedMapClickListener();
+        mMapxusMap.addOnMapClickListener(pointEndMapClickListener);
+    }
+
+    private void removeAllSelectedMapClickListener() {
+        mMapxusMap.removeOnMapClickListener(pointEndMapClickListener);
+        mMapxusMap.removeOnMapClickListener(pointStartMapClickListener);
+    }
+
+
+    private MapxusMap.OnMapClickListener pointStartMapClickListener = new MapxusMap.OnMapClickListener() {
+        @Override
+        public void onMapClick(LatLng latLng, String floor, String buildingId) {
+            origin = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
+            pointStartTv.setText(String.format("%s,%s,%s", latLng.getLatitude(), latLng.getLongitude(),floor));
+            if (startMarker != null) {
+                mMapxusMap.removeMarker(startMarker);
+                startMarker = null;
+            }
+            MapxusMarkerOptions mapxusMarkerOptions = new MapxusMarkerOptions();
+            mapxusMarkerOptions.setPosition(latLng);
+            mapxusMarkerOptions.setBuildingId(buildingId);
+            mapxusMarkerOptions.setFloor(floor);
+            startMarker = mMapxusMap.addMarker(mapxusMarkerOptions);
+        }
+    };
+
+    private MapxusMap.OnMapClickListener pointEndMapClickListener = new MapxusMap.OnMapClickListener() {
+        @Override
+        public void onMapClick(LatLng latLng, String floor, String buildingId) {
+            destination = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
+            pointEndTv.setText(String.format("%s,%s,%s", latLng.getLatitude(), latLng.getLongitude(),floor));
+
+            if (endMarker != null) {
+                mMapxusMap.removeMarker(endMarker);
+                endMarker = null;
+            }
+            MapxusMarkerOptions mapxusMarkerOptions = new MapxusMarkerOptions();
+            mapxusMarkerOptions.setPosition(latLng);
+            mapxusMarkerOptions.setBuildingId(buildingId);
+            mapxusMarkerOptions.setFloor(floor);
+            endMarker = mMapxusMap.addMarker(mapxusMarkerOptions);
+        }
+    };
+
 }

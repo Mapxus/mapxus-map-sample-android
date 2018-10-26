@@ -11,10 +11,11 @@ ext {
 
     version = [
             // mapxusMap
-            mapxusMapSDK       : '2.3.3-beta',
-            positioningProvider: '0.3.6',
+            mapxusMapSDK       : '2.4.1',
+            mapxusMapComponent : '1.0',
+            positioningProvider: '0.3.7',
 
-            mapboxMapSdk       : '6.1.3',
+            mapboxMapSdk       : '6.6.1',
 
             // Support
             supportLib         : '27.1.0',
@@ -50,7 +51,8 @@ ext {
     ]
 
     dependenciesList = [
-            beemapSdk              : "com.mapxus.map:mapxusmap:${version.mapxusMapSDK}",
+            mapxusMapSDK           : "com.mapxus.map:mapxusmap:${version.mapxusMapSDK}",
+            mapxusMapComponent     : "com.mapxus.map:mapxusmap-component:${version.mapxusMapComponent}",
             positioningProvider    : "com.mapxus.map:mapxus-positioning-provider:${version.positioningProvider}",
             //mapbox
             mapboxMapSdk           : "com.mapbox.mapboxsdk:mapbox-android-sdk:${version.mapboxMapSdk}",

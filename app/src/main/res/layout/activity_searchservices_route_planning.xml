@@ -14,5 +14,77 @@
        app:mapbox_cameraTargetLat="22.304716516178253"
         app:mapbox_cameraTargetLng="114.16186609400843"
         app:mapbox_cameraZoom="17" />
+    <LinearLayout
+
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/logo_gray"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#16A0CA"
+                    android:padding="8dp"
+                    android:text="A"
+                    android:textColor="@color/white"
+
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/point_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="please choose address" />
+
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="1dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#7873C6"
+                    android:padding="8dp"
+                    android:text="B"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/point_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="please choose address" />
+
+
+            </TableRow>
+        </TableLayout>
+
+
+        <Button
+            android:id="@+id/btn_planning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#16A7C7"
+            android:text="Planning"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </RelativeLayout>

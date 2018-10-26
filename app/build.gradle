@@ -100,7 +100,8 @@ dependencies {
     implementation dependenciesList.easypermissions
 
     // MapxusMap
-    implementation dependenciesList.beemapSdk
+    implementation dependenciesList.mapxusMapSDK
+    implementation dependenciesList.mapxusMapComponent
 
     implementation dependenciesList.positioningProvider
 
