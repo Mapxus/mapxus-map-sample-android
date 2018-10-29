@@ -191,7 +191,13 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements c
         IndoorBuildingInfo indoorBuildingInfo = (IndoorBuildingInfo) objectMarker.getObject();
         mBuildingName.setText(indoorBuildingInfo.getName().get("default"));
         Address address = indoorBuildingInfo.getAddress().get("default") == null ? indoorBuildingInfo.getAddress().get("en") : indoorBuildingInfo.getAddress().get("default");
-        mBuildingAddress.setText(address.getStreet() + address.getHousenumber());
+        String addressText = "";
+        if (address != null) {
+            String streetText = address.getStreet() != null ? address.getStreet() : "";
+            String housenumberText = address.getHousenumber() != null ? address.getHousenumber() : "";
+            addressText = streetText + housenumberText;
+        }
+        mBuildingAddress.setText(addressText);
         mBuildingDetail.setVisibility(View.VISIBLE);
         return true;
     }
