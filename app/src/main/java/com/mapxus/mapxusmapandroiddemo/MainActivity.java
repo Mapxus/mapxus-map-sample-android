@@ -54,9 +54,12 @@ import com.mapxus.mapxusmapandroiddemo.examples.styles.DefaultStyleActivity;
 import com.mapxus.mapxusmapandroiddemo.model.ExampleItemModel;
 import com.mapxus.mapxusmapandroiddemo.model.views.CircularPagerIndicatorDecoration;
 import com.mapxus.mapxusmapandroiddemo.utils.ItemClickSupport;
+import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private String categoryTitleForToolbar;
+    private Timer timer = new Timer();
 
     @Override
     @AddTrace(name = "onCreateMainActivity")
@@ -142,8 +146,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         TextView versionTv = findViewById(R.id.tv_version);
         versionTv.setText(BuildConfig.VERSION_NAME);
+        versionTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Beta.checkUpgrade();
+            }
+        });
 
         methodRequiresPermission();
+
+        checkUpgrade();
     }
 
     @Override
@@ -439,4 +451,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    private void checkUpgrade() {
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Beta.checkUpgrade(false, false);
+            }
+        }, 4000);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
 }
