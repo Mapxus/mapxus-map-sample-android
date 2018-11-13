@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.map.FollowUserMode;
 import com.mapxus.map.MapViewProvider;
 import com.mapxus.map.MapxusMap;
 import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.positioning.provider.MapxusPositioningProvider;
+import com.mapxus.positioning.provider.api.ErrorInfo;
 import com.mapxus.positioning.provider.api.IndoorLocation;
 import com.mapxus.positioning.provider.api.IndoorLocationProvider;
 import com.mapxus.positioning.provider.api.IndoorLocationProviderListener;
@@ -31,6 +33,8 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
 
     private Dialog dialog;
 
+    private TextView latTv, lonTv, floorTv, accuracyTv, buildingTv, timestampTv, compassTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
         initButtons();
+        initTextView();
         dialog = ProgressDialog.show(LocationProviderActivity.this, getString(R.string.location_dialog_title), getString(R.string.location_dialog_message));
         dialog.show();
     }
@@ -51,6 +56,16 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         followMeNone.setOnClickListener(this);
         followUser.setOnClickListener(this);
         followUserAndHeading.setOnClickListener(this);
+    }
+
+    private void initTextView() {
+        latTv = findViewById(R.id.tv_lat);
+        lonTv = findViewById(R.id.tv_lon);
+        floorTv = findViewById(R.id.tv_floor);
+        accuracyTv = findViewById(R.id.tv_accuracy);
+        buildingTv = findViewById(R.id.tv_building);
+        timestampTv = findViewById(R.id.tv_timestamp);
+        compassTv = findViewById(R.id.tv_compass);
     }
 
     // Add the mapView lifecycle to the activity's lifecycle methods
@@ -122,12 +137,12 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
             }
 
             @Override
-            public void onProviderError(Error error) {
+            public void onProviderError(ErrorInfo error) {
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
                     dialog = null;
                 }
-                Toast.makeText(LocationProviderActivity.this, R.string.location_positioning_error_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocationProviderActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -136,10 +151,13 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
                     dialog.dismiss();
                     dialog = null;
                 }
+                showLocationInfo(indoorLocation);
             }
 
             @Override
             public void onCompassChanged(float v) {
+                compassTv.setText(String.valueOf(v));
+
 
             }
         });
@@ -147,6 +165,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -163,5 +182,14 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
             default:
                 mapxusMap.setFollowUserMode(FollowUserMode.NONE);
         }
+    }
+
+    private void showLocationInfo(IndoorLocation indoorLocation) {
+        latTv.setText(String.valueOf(indoorLocation.getLatitude()));
+        lonTv.setText(String.valueOf(indoorLocation.getLongitude()));
+        floorTv.setText(indoorLocation.getFloor());
+        accuracyTv.setText(String.valueOf(indoorLocation.getAccuracy()));
+        buildingTv.setText(indoorLocation.getBuilding());
+        timestampTv.setText(String.valueOf(indoorLocation.getTime()));
     }
 }

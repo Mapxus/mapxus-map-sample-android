@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="bottom"
-    tools:context=".examples.basics.SimpleMapViewActivity">
+    android:layout_gravity="bottom">
 
     <!-- Set the starting camera position and map style using xml-->
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       app:mapbox_cameraTargetLat="22.304716516178253"
+        app:mapbox_cameraTargetLat="22.304716516178253"
         app:mapbox_cameraTargetLng="114.16186609400843"
         app:mapbox_cameraZoom="2" />
 
@@ -27,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/follow_me_none"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/follow_me_follow_user"
@@ -44,5 +43,133 @@
             android:textSize="10sp" />
 
     </LinearLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="#99000000"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:stretchColumns="1,3">
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="lat:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="lon:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_lon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow
+
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="floor:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_floor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="accuracy:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_accuracy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow
+
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="compass:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_compass"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="timestamp:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow
+
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="building:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_building"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:text=""
+                android:textColor="@color/white" />
+
+
+        </TableRow>
+
+
+    </TableLayout>
 
 </FrameLayout>
