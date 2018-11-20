@@ -1,13 +1,14 @@
 package com.mapxus.mapxusmapandroiddemo.examples.displaylocation;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.FollowUserMode;
@@ -142,7 +143,13 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
                     dialog.dismiss();
                     dialog = null;
                 }
-                Toast.makeText(LocationProviderActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(LocationProviderActivity.this).setMessage(error.getErrorMessage()).setPositiveButton(R.string.location_positioning_button_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+                alertDialog.show();
             }
 
             @Override

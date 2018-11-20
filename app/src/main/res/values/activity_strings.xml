@@ -11,10 +11,8 @@
     <string name="menu_map_style_hallowmas">Hallowmas</string>
 
 
-
     <!--Fragment below textview in support fragment activity-->
     <string name="fragment_in_card_below">Map fragment container in card below</string>
-
 
 
     <!--Marker strings for DrawCustomMarkerActivity activity-->
@@ -27,8 +25,6 @@
 
 
     <string name="tap_on_map_instruction">Tap anywhere on the map</string>
-
-
 
 
     <string name="change_building_and_floor">Change the floor or move map to other building</string>
@@ -55,4 +51,7 @@
     <string name="location_dialog_message">Positioning</string>
     <string name="location_dialog_title">Please wait a moment</string>
     <string name="location_positioning_error_toast">Positioning Error</string>
+    <string name="location_positioning_button_ok">OK</string>
+
+
 </resources>
