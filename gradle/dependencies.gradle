@@ -11,8 +11,8 @@ ext {
 
     version = [
             // mapxusMap
-            mapxusMapSDK       : '2.4.6',
-            mapxusMapComponent : '1.0',
+            mapxusMapSDK       : '2.6.0',
+            mapxusMapComponent : '1.1',
             positioningProvider: '0.3.12',
 
             mapboxMapSdk       : '6.6.1',
