@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ****** These strings are of individual example titles which appear in
+    each example's recyclerview card ****** -->
+
+    <string name="activity_basic_simple_mapview_title">显示地图</string>
+    <string name="activity_basic_support_map_frag_title">用Fragment显示地图</string>
+    <string name="activity_basic_beemap_options_title">动态创建一个MapView</string>
+    <string name="activity_basic_beemap_init_with_building_title">指定建筑初始化</string>
+    <string name="activity_basic_beemap_init_with_poi_title">指定POI初始化</string>
+    <string name="activity_basic_beemap_without_outdoor_title">隐藏室外地图</string>
+    <string name="activity_styles_default_title">默认样式</string>
+    <string name="activity_annotation_marker_title">绘制标注</string>
+    <string name="activity_annotation_custom_marker_title">绘制定义图标的标注</string>
+    <string name="activity_annotation_polygon_title">绘制多边形</string>
+    <string name="activity_annotation_polygon_holes_title">绘制带孔的多边形</string>
+    <string name="activity_annotation_animated_marker_title">移动标注位置</string>
+    <string name="activity_camera_animate_title">移动镜头位置</string>
+    <string name="activity_camera_restrict_title">限制地图平移</string>
+
+
+    <string name="activity_listener_building_floor_change_title">楼层变更事件</string>
+    <string name="activity_listener_poi_click_title">Poi点击事件</string>
+    <string name="activity_listener_camera_change_listener_title">地图移动事件</string>
+
+
+    <string name="activity_search_service_route_planning_title">点到点路径</string>
+    <string name="activity_search_service_building_nearby_title">搜索附近建筑</string>
+    <string name="activity_search_service_building_in_bound_title">按范围搜索建筑 </string>
+    <string name="activity_search_service_building_by_id_title">按ID搜索建筑 </string>
+    <string name="activity_search_service_building_global_title">全球搜索建筑</string>
+
+    <string name="activity_search_service_poi_nearby_title">搜索附近POI </string>
+    <string name="activity_search_service_poi_in_bound_title">按范围搜索POI </string>
+    <string name="activity_search_service_poi_by_id_title">按ID搜索POI </string>
+    <string name="activity_search_service_poi_in_building_title">建筑范围内搜索POI </string>
+
+
+    <string name="activity_display_location_title">显示用户当前位置</string>
+
+    <string name="activity_selector_position_title">室内地图控件位置 </string>
+
+    <string name="activity_hidden_selector_title">隐藏室内地图控件 </string>
+
+
+</resources>
