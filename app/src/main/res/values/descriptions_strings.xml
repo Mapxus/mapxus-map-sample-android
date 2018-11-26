@@ -9,6 +9,7 @@
     <string name="activity_basic_beemap_options_description">Add a mapview in a dynamically created layout.</string>
     <string name="activity_basic_beemap_init_with_building_description">Create the map with particular building directly.</string>
     <string name="activity_basic_beemap_init_with_poi_description">create the map with particular poi directly.</string>
+    <string name="activity_basic_beemap_without_outdoor_description">hide the outdoor map and only show the indoor map.</string>
     <string name="activity_styles_default_description">Use a variety of professionally designed styles with the Beemap Maps SDK.</string>
     <string name="activity_annotation_custom_marker_description">Create a marker with a custom icon using the Beemap Maps SDK.</string>
     <string name="activity_annotation_polygon_description">Draw a vector polygon on a map with the Beemap Maps SDK.</string>

@@ -31,6 +31,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.annotations.PolygonHolesActivity
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapInitWithBuildingActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapInitWithPoiActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapOptionActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapWithoutOutdoorActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SimpleMapViewActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SupportMapFragmentActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.camera.AnimateMapCameraActivity;
@@ -199,8 +200,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new Intent(MainActivity.this, DefaultStyleActivity.class),
                         R.drawable.styles_2_1, false, BuildConfig.MIN_SDK_VERSION));
 
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_basic_beemap_without_outdoor_title,
+                        R.string.activity_basic_beemap_without_outdoor_description,
+                        new Intent(MainActivity.this, MapxusMapWithoutOutdoorActivity.class),
+                        R.drawable.styles_2_2, false, BuildConfig.MIN_SDK_VERSION));
+
                 currentCategory = R.id.nav_styles;
                 break;
+
+
 
             case R.id.nav_annotations:
                 exampleItemModels.add(new ExampleItemModel(
@@ -385,6 +394,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_basic_beemap_init_with_poi_description,
                         new Intent(MainActivity.this, MapxusMapInitWithPoiActivity.class),
                         R.drawable.getstarted_1_5, false, BuildConfig.MIN_SDK_VERSION));
+
 
                 currentCategory = R.id.nav_basics;
                 break;

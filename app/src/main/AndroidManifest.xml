@@ -103,6 +103,14 @@
         </activity>
 
         <activity
+            android:name="com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapWithoutOutdoorActivity"
+            android:label="@string/activity_basic_beemap_without_outdoor_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
             android:name="com.mapxus.mapxusmapandroiddemo.examples.annotations.AnimatedMarkerActivity"
             android:label="@string/activity_annotation_animated_marker_title">
             <meta-data
@@ -286,6 +294,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -293,7 +302,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
 

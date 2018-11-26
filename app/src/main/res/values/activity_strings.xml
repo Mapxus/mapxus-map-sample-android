@@ -54,4 +54,8 @@
     <string name="location_positioning_button_ok">OK</string>
 
 
+    <string name="map_without_outdoor_button_hide">hide</string>
+    <string name="map_without_outdoor_button_show">show</string>
+
+
 </resources>
