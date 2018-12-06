@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,9 @@ import com.mapxus.positioning.provider.api.IndoorLocationProviderListener;
  * The most basic example of adding a map to an activity.
  */
 public class LocationProviderActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, View.OnClickListener {
+
+    private static final String TAG = "LocationProvider";
+
 
     private MapView mapView;
     private MapxusMap mapxusMap;
@@ -142,6 +146,10 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
                     dialog = null;
+                }
+                if (error.getErrorCode() == ErrorInfo.WARNING) {
+                    Log.w(TAG, error.getErrorMessage());
+                    return;
                 }
                 AlertDialog alertDialog = new AlertDialog.Builder(LocationProviderActivity.this).setMessage(error.getErrorMessage()).setPositiveButton(R.string.location_positioning_button_ok, new DialogInterface.OnClickListener() {
                     @Override
