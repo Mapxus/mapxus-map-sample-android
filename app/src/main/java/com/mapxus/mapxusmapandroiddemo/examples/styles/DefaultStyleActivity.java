@@ -35,7 +35,7 @@ public class DefaultStyleActivity extends AppCompatActivity implements AdapterVi
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this,mapView);
+        mapViewProvider = new MapboxMapViewProvider(this, mapView);
 
         mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
             @Override
@@ -105,15 +105,17 @@ public class DefaultStyleActivity extends AppCompatActivity implements AdapterVi
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
+                mapViewProvider.setStyle(Style.MAPXUS);
+            case 1:
                 mapViewProvider.setStyle(Style.COMMON);
                 return;
-            case 1:
+            case 2:
                 mapViewProvider.setStyle(Style.MAPPYBEE);
                 return;
-            case 2:
+            case 3:
                 mapViewProvider.setStyle(Style.HALLOWMAS);
                 return;
-            case 3:
+            case 4:
                 mapViewProvider.setStyle(Style.CHRISTMAS);
                 return;
             default:

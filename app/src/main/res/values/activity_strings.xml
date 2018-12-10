@@ -9,6 +9,7 @@
     <string name="menu_map_style_common">Common</string>
     <string name="menu_map_style_christmas">Christmas</string>
     <string name="menu_map_style_hallowmas">Hallowmas</string>
+    <string name="menu_map_style_mapxus">Mapxus</string>
 
 
     <!--Fragment below textview in support fragment activity-->
