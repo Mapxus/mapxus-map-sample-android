@@ -170,11 +170,10 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
             }
 
             @Override
-            public void onCompassChanged(float v) {
-                compassTv.setText(String.valueOf(v));
-
-
+            public void onCompassChanged(float angle, int sensorAccuracy) {
+                compassTv.setText(String.valueOf(angle));
             }
+
         });
         mapxusMap.setLocationProvider(mapxusPositioningProvider);
         mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
