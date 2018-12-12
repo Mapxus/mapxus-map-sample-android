@@ -73,6 +73,9 @@ public class SearchPoiNearbyActivity extends AppCompatActivity
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(this);
 
+
+        Toast.makeText(this, getString(R.string.poi_nearby_toast), Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -137,10 +140,11 @@ public class SearchPoiNearbyActivity extends AppCompatActivity
     protected void doSearchQuery() {
         keyWord = mSearchText.getText().toString().trim();
         NearbySearchOption nearbySearchOption = new NearbySearchOption();
-        nearbySearchOption.mRadius = 2;
+        nearbySearchOption.mRadius = 1;
+        com.mapbox.mapboxsdk.geometry.LatLng mapCenter = mapboxMap.getCameraPosition().target;
         nearbySearchOption.location(new LatLng(
-                LatLngConstant.ELEMENT_LATLON.getLatitude(),
-                LatLngConstant.ELEMENT_LATLON.getLongitude()));
+                mapCenter.getLatitude(),
+                mapCenter.getLongitude()));
         nearbySearchOption.keyword(keyWord);
 
 

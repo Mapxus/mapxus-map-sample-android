@@ -25,47 +25,42 @@
     <string name="draw_marker_options_snippet">Welcome to my marker.</string>
 
 
-    <string name="tap_on_map_instruction">Tap anywhere on the map</string>
+    <string name="tap_on_map_instruction">点击地图的任何位置</string>
 
 
-    <string name="change_building_and_floor">Change the floor or move map to other building</string>
+    <string name="change_building_and_floor">切换楼层或者移动地图到其他建筑</string>
     <string name="building_name_tips">BuildingName:</string>
     <string name="floor_tips">Floor:</string>
 
 
-    <string name="click_poi_on_the_map">Click poi on the map</string>
+    <string name="click_poi_on_the_map">点击地图的POI</string>
     <string name="click_poi_message">Click poi : %s</string>
 
-    <string name="click_or_move_the_map">Click or move the map</string>
+    <string name="click_or_move_the_map">点击或者移动地图</string>
 
-    <string name="click_point_on_the_map">Click point on the map: %f,%f</string>
-    <string name="camera_move_on">Camera move on: %f,%f</string>w
-
-
-    <string name="no_result">Not found any data</string>
-
-    <string name="click_toobar_switch_style">Click toolbar menu switch style</string>
+    <string name="click_point_on_the_map">在地图上点击的点是: %f,%f</string>
+    <string name="camera_move_on">摄像头移动到: %f,%f</string>w
 
 
-    <string name="draw_marker_tips">Switch floor to L2 or L3 for check other marker</string>
-    <string name="draw_custom_marker_tips">Switch floor to  L3 for check custom marker</string>
+    <string name="no_result">无数据</string>
+
+    <string name="click_toobar_switch_style">点击工具条的菜单切换不同风格</string>
+
+
+    <string name="draw_marker_tips">切换楼层到L2或者L3查看Marker</string>
+    <string name="draw_custom_marker_tips">切换楼层到L3查看自定义的Marker</string>
     <string name="location_dialog_message">Positioning</string>
-    <string name="location_dialog_title">Please wait a moment</string>
-    <string name="location_positioning_error_toast">Positioning Error</string>
+    <string name="location_dialog_title">请稍候</string>
+    <string name="location_positioning_error_toast">定位错误</string>
     <string name="location_positioning_button_ok">OK</string>
 
 
-    <string name="map_without_outdoor_button_hide">hide</string>
-    <string name="map_without_outdoor_button_show">show</string>
+    <string name="map_without_outdoor_button_hide">隐藏</string>
+    <string name="map_without_outdoor_button_show">显示</string>
 
 
-
-    <string name="poi_nearby_toast">Search for pois 1 km near the center of the map</string>
-    <string name="building_nearby_toast">Search for building 2 km near the center of the map</string>
-
-
-
-
+    <string name="poi_nearby_toast">搜索地图中心点附近1公里的POI</string>
+    <string name="building_nearby_toast">搜索地图中心点附近2公里的建筑</string>
 
 
 </resources>

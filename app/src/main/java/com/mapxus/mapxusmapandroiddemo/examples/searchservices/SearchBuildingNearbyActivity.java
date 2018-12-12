@@ -70,6 +70,8 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
         buildingSearch = BuildingSearch.newInstance();
         buildingSearch.setBuildingSearchResultListener(this);
 
+        Toast.makeText(this, getString(R.string.building_nearby_toast), Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -135,7 +137,10 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
         keyWord = mSearchText.getText().toString().trim();
         NearbySearchOption nearbySearchOption = new NearbySearchOption();
         nearbySearchOption.mRadius = 2;
-        nearbySearchOption.location(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(), LatLngConstant.ELEMENT_LATLON.getLongitude()));
+        com.mapbox.mapboxsdk.geometry.LatLng mapCenter = mapboxMap.getCameraPosition().target;
+        nearbySearchOption.location(new LatLng(
+                mapCenter.getLatitude(),
+                mapCenter.getLongitude()));
         nearbySearchOption.keyword(keyWord);
         buildingSearch.searchNearby(nearbySearchOption);
     }
