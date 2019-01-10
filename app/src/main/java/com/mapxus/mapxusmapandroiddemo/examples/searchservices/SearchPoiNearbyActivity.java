@@ -12,12 +12,11 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.MapViewProvider;
 import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
-import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 import com.mapxus.map.model.LatLng;
+import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 import com.mapxus.services.PoiSearch;
-import com.mapxus.services.model.NearbySearchOption;
+import com.mapxus.services.model.PoiNearbySearchOption;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiResult;
 
@@ -139,8 +138,8 @@ public class SearchPoiNearbyActivity extends AppCompatActivity
      */
     protected void doSearchQuery() {
         keyWord = mSearchText.getText().toString().trim();
-        NearbySearchOption nearbySearchOption = new NearbySearchOption();
-        nearbySearchOption.mRadius = 1;
+        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
+        nearbySearchOption.meterRadius(1000);
         com.mapbox.mapboxsdk.geometry.LatLng mapCenter = mapboxMap.getCameraPosition().target;
         nearbySearchOption.location(new LatLng(
                 mapCenter.getLatitude(),

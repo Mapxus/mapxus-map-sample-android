@@ -15,7 +15,7 @@ import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 import com.mapxus.services.PoiSearch;
-import com.mapxus.services.model.InBuildingSearchOption;
+import com.mapxus.services.model.PoiInBuildingSearchOption;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiResult;
 
@@ -44,7 +44,7 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
         setContentView(R.layout.activity_searchservices_search_poi_in_building);
 
         // Setup the MapView
-        mapView =  findViewById(R.id.mapView);
+        mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
@@ -136,7 +136,7 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
 
         String buildingId = mBuildingText.getText().toString().trim();
 
-        InBuildingSearchOption inBuildingSearchOption = new InBuildingSearchOption();
+        PoiInBuildingSearchOption inBuildingSearchOption = new PoiInBuildingSearchOption();
         inBuildingSearchOption.buildingId(buildingId);
         inBuildingSearchOption.keyword(keyWord);
 

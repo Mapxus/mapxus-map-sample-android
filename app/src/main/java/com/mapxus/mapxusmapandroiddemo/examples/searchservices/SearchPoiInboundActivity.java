@@ -15,11 +15,11 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.MapViewProvider;
 import com.mapxus.map.impl.MapboxMapViewProvider;
+import com.mapxus.map.model.LatLngBounds;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
-import com.mapxus.map.model.LatLngBounds;
 import com.mapxus.services.PoiSearch;
-import com.mapxus.services.model.BoundSearchOption;
+import com.mapxus.services.model.PoiBoundSearchOption;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiResult;
 
@@ -152,7 +152,7 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
      */
     protected void doSearchQuery() {
         keyWord = mSearchText.getText().toString().trim();
-        BoundSearchOption boundSearchOption = new BoundSearchOption();
+        PoiBoundSearchOption boundSearchOption = new PoiBoundSearchOption();
 
         boundSearchOption.bound(latLngBounds);
         boundSearchOption.keyword(keyWord);
