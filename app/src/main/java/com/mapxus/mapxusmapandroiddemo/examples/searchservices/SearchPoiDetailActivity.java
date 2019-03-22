@@ -21,6 +21,7 @@ import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarker;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarkerOptions;
 import com.mapxus.services.PoiSearch;
 import com.mapxus.services.model.DetailSearchOption;
+import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiInfo;
 import com.mapxus.services.model.poi.PoiResult;
@@ -137,10 +138,7 @@ public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapR
     }
 
     /**
-     * 开始进行poi搜索
-     */
-    /**
-     * 开始进行poi搜索
+     * 开始进行poi搜索, 根据ID查询详细POI信息
      */
     protected void doSearchQuery() {
         keyWord = mSearchText.getText().toString().trim();
@@ -187,6 +185,11 @@ public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapR
                 .title(poiInfo.getName().get("default")).snippet("buildingId:" + poiInfo.getBuildingId())
                 .object(poiInfo));
         mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 19));
+    }
+
+    @Override
+    public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
+
     }
 }
 

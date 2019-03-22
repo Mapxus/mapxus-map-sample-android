@@ -15,6 +15,7 @@ import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
 import com.mapxus.services.PoiSearch;
 import com.mapxus.services.model.DetailSearchOption;
+import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiInfo;
 import com.mapxus.services.model.poi.PoiResult;
@@ -122,6 +123,11 @@ public class MapxusMapInitWithPoiActivity extends AppCompatActivity implements O
                 mapxusMap.addMarker(mapxusMarkerOptions);
 
             }
+        }
+
+        @Override
+        public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
+
         }
     };
 }

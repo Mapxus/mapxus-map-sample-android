@@ -60,7 +60,7 @@ public class AnimatedMarkerActivity extends AppCompatActivity implements OnMapRe
     }
 
     @Override
-    public void onMapClick(@NonNull LatLng point) {
+    public boolean onMapClick(@NonNull LatLng point) {
         // When the user clicks on the map, we want to animate the marker to that
         // location.
 
@@ -69,6 +69,7 @@ public class AnimatedMarkerActivity extends AppCompatActivity implements OnMapRe
                 new LatLngEvaluator(), marker.getPosition(), point);
         markerAnimator.setDuration(1000);
         markerAnimator.start();
+        return false;
     }
 
     @Override

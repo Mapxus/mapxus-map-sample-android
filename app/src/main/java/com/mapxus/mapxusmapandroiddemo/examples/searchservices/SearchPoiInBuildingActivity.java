@@ -15,7 +15,9 @@ import com.mapxus.map.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 import com.mapxus.services.PoiSearch;
+import com.mapxus.services.model.PoiCategorySearchOption;
 import com.mapxus.services.model.PoiInBuildingSearchOption;
+import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiResult;
 
@@ -33,6 +35,7 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
     private String keyWord = "";
     private EditText mSearchText;
     private EditText mBuildingText;
+    private EditText mFloorText;
 
     private int currentPage;
     private PoiSearch poiSearch;
@@ -67,6 +70,7 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
 
         mSearchText = (EditText) findViewById(R.id.input_edittext);
         mBuildingText = (EditText) findViewById(R.id.building_edittext);
+        mFloorText = findViewById(R.id.floor_edittext);
 
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(this);
@@ -126,23 +130,33 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
     }
 
     /**
-     * 开始进行poi搜索
-     */
-    /**
-     * 开始进行poi搜索
+     * 开始进行poi搜索, 指定建筑/楼层/关键字
      */
     protected void doSearchQuery() {
         keyWord = mSearchText.getText().toString().trim();
 
         String buildingId = mBuildingText.getText().toString().trim();
+        String floor = mFloorText.getText().toString().trim();
 
         PoiInBuildingSearchOption inBuildingSearchOption = new PoiInBuildingSearchOption();
         inBuildingSearchOption.buildingId(buildingId);
+        inBuildingSearchOption.floor(floor);
         inBuildingSearchOption.keyword(keyWord);
 
         poiSearch.searchInBuilding(inBuildingSearchOption);
+
+        searchAllPoiCategory(buildingId, floor);
     }
 
+    /**
+     * 搜索建筑中的所有POI类型
+     */
+    protected void searchAllPoiCategory(String buildingId, String floor) {
+        PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
+        poiCategorySearchOption.buildingId(buildingId);
+        poiCategorySearchOption.floor(floor);
+        poiSearch.searchPoiCategoryInBuilding(poiCategorySearchOption);
+    }
 
     @Override
     public void onGetPoiResult(PoiResult poiResult) {
@@ -164,6 +178,20 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
     @Override
     public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
 
+    }
+
+    @Override
+    public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
+        if (poiCategoryResult.status != 0) {
+            Toast.makeText(this, poiCategoryResult.error.toString(), Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (poiCategoryResult.getResult() == null || poiCategoryResult.getResult().isEmpty()) {
+            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Toast.makeText(this, poiCategoryResult.getResult().toString(), Toast.LENGTH_LONG).show();
     }
 
 

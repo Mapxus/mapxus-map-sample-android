@@ -60,7 +60,7 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
     }
 
     @Override
-    public void onMapClick(@NonNull LatLng point) {
+    public boolean onMapClick(@NonNull LatLng point) {
 
         // Toast instructing user to tap on the map
         Toast.makeText(
@@ -90,6 +90,7 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
 
         mapboxMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(position));
+        return false;
     }
 
     @Override

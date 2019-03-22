@@ -50,12 +50,13 @@ public class CameraListenerActivity extends AppCompatActivity implements OnMapRe
         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
             @SuppressLint("StringFormatInvalid")
             @Override
-            public void onMapClick(LatLng latLng) {
+            public boolean onMapClick(LatLng latLng) {
 
                 String message = String.format(getString(R.string.click_point_on_the_map), latLng.getLatitude(), latLng.getLongitude());
 
                 mapClickTv.setText(message);
 
+                return false;
             }
         });
 
