@@ -106,6 +106,7 @@ public class DefaultStyleActivity extends AppCompatActivity implements AdapterVi
         switch (position) {
             case 0:
                 mapViewProvider.setStyle(Style.MAPXUS);
+                return;
             case 1:
                 mapViewProvider.setStyle(Style.COMMON);
                 return;
@@ -119,7 +120,7 @@ public class DefaultStyleActivity extends AppCompatActivity implements AdapterVi
                 mapViewProvider.setStyle(Style.CHRISTMAS);
                 return;
             default:
-                mapViewProvider.setStyle(Style.COMMON);
+                mapViewProvider.setStyle(Style.MAPXUS);
         }
     }
 
