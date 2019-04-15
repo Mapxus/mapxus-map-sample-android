@@ -35,6 +35,8 @@
     <string name="activity_search_service_poi_in_bound_title">Search poi in bound </string>
     <string name="activity_search_service_poi_by_id_title">Search poi detail by id </string>
     <string name="activity_search_service_poi_in_building_title">Search poi in building  </string>
+    <string name="activity_search_service_poi_with_orientation">Search Poi with orientation</string>
+
 
 
     <string name="activity_display_location_title">Displaying the users location </string>

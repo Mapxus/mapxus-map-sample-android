@@ -19,6 +19,7 @@ import com.mapxus.services.PoiSearch;
 import com.mapxus.services.model.PoiNearbySearchOption;
 import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
+import com.mapxus.services.model.poi.PoiOrientationResult;
 import com.mapxus.services.model.poi.PoiResult;
 
 /**
@@ -171,6 +172,11 @@ public class SearchPoiNearbyActivity extends AppCompatActivity
 
     @Override
     public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+
+    }
+
+    @Override
+    public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 
     }
 

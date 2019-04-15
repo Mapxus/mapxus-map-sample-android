@@ -51,6 +51,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiDetailAc
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInBuildingActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInboundActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiNearbyActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiWithOrientationActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.styles.DefaultStyleActivity;
 import com.mapxus.mapxusmapandroiddemo.model.ExampleItemModel;
 import com.mapxus.mapxusmapandroiddemo.model.views.CircularPagerIndicatorDecoration;
@@ -334,6 +335,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_search_service_poi_in_building_title,
                         R.string.activity_search_service_poi_in_building_description,
                         new Intent(MainActivity.this, SearchPoiInBuildingActivity.class),
+                        R.drawable.searchservice_06_9, false, BuildConfig.MIN_SDK_VERSION));
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_search_service_poi_with_orientation,
+                        R.string.activity_search_service_poi_with_orientation_description,
+                        new Intent(MainActivity.this, SearchPoiWithOrientationActivity.class),
                         R.drawable.searchservice_06_9, false, BuildConfig.MIN_SDK_VERSION));
                 currentCategory = R.id.nav_search_services;
                 break;

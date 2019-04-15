@@ -24,12 +24,13 @@ import com.mapxus.services.model.DetailSearchOption;
 import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiInfo;
+import com.mapxus.services.model.poi.PoiOrientationResult;
 import com.mapxus.services.model.poi.PoiResult;
 
 /**
  * Use MapxusMap Search Services to request directions
  */
-public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener, MapboxMap.OnMarkerClickListener {
+public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMarkerClickListener {
 
     private static final String TAG = "SearchPoiDetailActivity";
 
@@ -80,7 +81,7 @@ public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapR
         mSearchText = (EditText) findViewById(R.id.input_edittext);
 
         poiSearch = PoiSearch.newInstance();
-        poiSearch.setPoiSearchResultListener(this);
+        poiSearch.setPoiSearchResultListener(searchResultListenerAdapter);
 
     }
 
@@ -158,39 +159,70 @@ public class SearchPoiDetailActivity extends AppCompatActivity implements OnMapR
         return true;
     }
 
-    @Override
-    public void onGetPoiResult(PoiResult poiResult) {
+    private PoiSearch.PoiSearchResultListenerAdapter searchResultListenerAdapter = new PoiSearch.PoiSearchResultListenerAdapter() {
+        @Override
+        public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+            if (poiDetailResult.status != 0) {
+                Toast.makeText(SearchPoiDetailActivity.this, poiDetailResult.error.toString(), Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (poiDetailResult.getPoiInfo() == null) {
+                Toast.makeText(SearchPoiDetailActivity.this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
+                return;
+            }
 
-    }
+            mapboxMap.clear();
+            PoiInfo poiInfo = poiDetailResult.getPoiInfo();
 
-    @Override
-    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-        if (poiDetailResult.status != 0) {
-            Toast.makeText(this, poiDetailResult.error.toString(), Toast.LENGTH_LONG).show();
-            return;
+            Marker marker = mapboxMap.addMarker(new ObjectMarkerOptions()
+                    .position(
+                            new LatLng(poiInfo.getLocation()
+                                    .getLat(), poiInfo
+                                    .getLocation().getLon()))
+                    .title(poiInfo.getName().get("default")).snippet("buildingId:" + poiInfo.getBuildingId())
+                    .object(poiInfo));
+            mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 19));
         }
-        if (poiDetailResult.getPoiInfo() == null) {
-            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
-            return;
-        }
+    };
 
-        mapboxMap.clear();
-        PoiInfo poiInfo = poiDetailResult.getPoiInfo();
-
-        Marker marker = mapboxMap.addMarker(new ObjectMarkerOptions()
-                .position(
-                        new LatLng(poiInfo.getLocation()
-                                .getLat(), poiInfo
-                                .getLocation().getLon()))
-                .title(poiInfo.getName().get("default")).snippet("buildingId:" + poiInfo.getBuildingId())
-                .object(poiInfo));
-        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 19));
-    }
-
-    @Override
-    public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
-
-    }
+//    @Override
+//    public void onGetPoiResult(PoiResult poiResult) {
+//
+//    }
+//
+//    @Override
+//    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+//        if (poiDetailResult.status != 0) {
+//            Toast.makeText(this, poiDetailResult.error.toString(), Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        if (poiDetailResult.getPoiInfo() == null) {
+//            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//
+//        mapboxMap.clear();
+//        PoiInfo poiInfo = poiDetailResult.getPoiInfo();
+//
+//        Marker marker = mapboxMap.addMarker(new ObjectMarkerOptions()
+//                .position(
+//                        new LatLng(poiInfo.getLocation()
+//                                .getLat(), poiInfo
+//                                .getLocation().getLon()))
+//                .title(poiInfo.getName().get("default")).snippet("buildingId:" + poiInfo.getBuildingId())
+//                .object(poiInfo));
+//        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 19));
+//    }
+//
+//    @Override
+//    public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
+//
+//    }
+//
+//    @Override
+//    public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
+//
+//    }
 }
 
 

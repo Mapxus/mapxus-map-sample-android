@@ -35,6 +35,7 @@
     <string name="activity_search_service_poi_in_bound_title">按範圍搜索POI </string>
     <string name="activity_search_service_poi_by_id_title">按ID搜索POI </string>
     <string name="activity_search_service_poi_in_building_title">建築範圍內搜索POI </string>
+    <string name="activity_search_service_poi_with_orientation">根據手機朝向搜索POI返回角度信息</string>
 
 
     <string name="activity_display_location_title">顯示用戶當前位置</string>

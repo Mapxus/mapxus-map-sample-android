@@ -19,6 +19,7 @@ import com.mapxus.services.model.PoiCategorySearchOption;
 import com.mapxus.services.model.PoiInBuildingSearchOption;
 import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
+import com.mapxus.services.model.poi.PoiOrientationResult;
 import com.mapxus.services.model.poi.PoiResult;
 
 /**
@@ -177,6 +178,11 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
 
     @Override
     public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+
+    }
+
+    @Override
+    public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 
     }
 

@@ -34,6 +34,8 @@
     <string name="activity_search_service_poi_in_bound_description">在您指定的区域内搜索POI。</string>
     <string name="activity_search_service_poi_by_id_description">通过POI的ID搜索POI的详细信息。 </string>
     <string name="activity_search_service_poi_in_building_description">在指定建筑内搜索POI。</string>
+    <string name="activity_search_service_poi_with_orientation_description">根据手机朝向查找带有角度信息的POI信息 </string>
+
 
 
     <string name="activity_display_location_description">用Mapxus Positioning 定位用户当前的位置。</string>

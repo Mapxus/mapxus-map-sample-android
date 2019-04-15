@@ -18,6 +18,7 @@ import com.mapxus.services.model.DetailSearchOption;
 import com.mapxus.services.model.poi.PoiCategoryResult;
 import com.mapxus.services.model.poi.PoiDetailResult;
 import com.mapxus.services.model.poi.PoiInfo;
+import com.mapxus.services.model.poi.PoiOrientationResult;
 import com.mapxus.services.model.poi.PoiResult;
 
 /**
@@ -123,6 +124,11 @@ public class MapxusMapInitWithPoiActivity extends AppCompatActivity implements O
                 mapxusMap.addMarker(mapxusMarkerOptions);
 
             }
+        }
+
+        @Override
+        public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
+
         }
 
         @Override

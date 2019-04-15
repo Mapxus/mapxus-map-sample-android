@@ -11,11 +11,11 @@ ext {
 
     version = [
             // mapxusMap
-            mapxusMapSDK       : '3.0.0',
+            mapxusMapSDK       : '3.1.0',
             mapxusMapComponent : '2.0.0',
             positioningProvider: '0.4.0',
 
-            mapboxMapSdk       : '7.2.0',
+            mapboxMapSdk       : '7.3.1',
 
             // Support
             supportLib         : '27.1.0',
