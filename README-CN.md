@@ -44,10 +44,10 @@ dependencies {
  ...
 
 	// MapxusMap
-	implementation "com.mapxus.map:mapxusmap:3.0.0"
+	implementation "com.mapxus.map:mapxusmap:3.1.0"
 	
 	// Mapbox
-	implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:7.2.0"
+	implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.1"
 
  ...
 }	
@@ -824,6 +824,32 @@ public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult){
 	poiCategoryResult.getResult();
 }
 ~~~
+
+#### 3.6.6 根据手机朝向搜索返回带角度信息的POI
+
+##### 3.6.6.1 设置查询参数
+
+~~~java
+PoiOrientationSearchOption option = new PoiOrientationSearchOption();
+option.orientation(mOrientation);
+option.indoorLatLng(indoorLatLng);
+option.meterRadius(distance);
+~~~
+
+##### 3.6.6.2 执行搜索
+
+~~~java
+ poiSearch.searchPoiByOrientation(option);
+~~~
+
+##### 3.6.6.3 搜索结果处理
+
+~~~java
+ @Override
+public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
+}
+~~~
+![](Image/Search_services10.jpg)
 
 ### 3.7 路径查找
 
