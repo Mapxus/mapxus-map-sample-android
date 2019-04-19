@@ -58,10 +58,10 @@ dependencies {
  ...
 
  // MapxusMap
-    implementation "com.mapxus.map:mapxusmap:3.0.0"
+    implementation "com.mapxus.map:mapxusmap:3.1.0"
 
     //mapbox
-    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:7.2.0"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.1"
 
  ...
 }	
