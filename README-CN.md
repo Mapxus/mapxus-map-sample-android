@@ -183,7 +183,7 @@ dependencies {
 ```
 在项目中使用地图的时候需要注意，需要合理的管理地图生命周期。
 
-![](Image/Getting_started1.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started1.png)
 
 #### 2.2.2 使用Fragment显示地图
 向Activity文件添加 SupportMapxusMapFragment：
@@ -215,7 +215,7 @@ dependencies {
         }
     }
 ```
-![](Image/Getting_started2.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started2.png)
 ##### 2.2.3 动态创建地图
 向Activity文件中添加 MapView：
 
@@ -237,7 +237,7 @@ dependencies {
         setContentView(mapboxMapView);
     }
 ```
-![](Image/Getting_started3.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started3.png)
 
 #### 2.2.4 初始化地图指定buildingId和floor
 
@@ -321,7 +321,7 @@ mapxusUiSettings.setBuildingSelectorEnabled(false);
 mapxusMap.addOnBuildingChangeListener(new MapxusMap.OnBuildingChangeListener() {
             @Override
             public void onBuildingChange(IndoorBuilding indoorBuildingInfo) {
-                
+
             }
         });
 ```
@@ -333,7 +333,7 @@ mapxusMap.addOnBuildingChangeListener(new MapxusMap.OnBuildingChangeListener() {
 mapxusMap.addOnFloorChangeListener(new MapxusMap.OnFloorChangeListener() {
             @Override
             public void onFloorChange(IndoorBuilding indoorBuilding, String floor) {
-                
+
             }
         });
     }
@@ -366,7 +366,7 @@ Marker用来在地图上标记任何位置，例如用户位置、车辆位置�
 创建marker的时候，可以指定buildingId和floor，使marker只在指定floor可见。
 创建一个Marker：
 
-```java 
+```java
      mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
             @Override
             public void onMapxusMapReady(MapxusMap mapxusMap) {
@@ -391,7 +391,7 @@ Marker用来在地图上标记任何位置，例如用户位置、车辆位置�
             }
         });
 ```
-![](Image/Annotations1.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Annotations1.png)
 
 #### 3.3.2 绘制自定义Marker
 
@@ -413,7 +413,7 @@ Marker用来在地图上标记任何位置，例如用户位置、车辆位置�
             }
         });
 ```
-![](Image/Annotations2.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Annotations2.png)
 
 ### 3.5 建筑搜索
 
@@ -439,7 +439,7 @@ Marker用来在地图上标记任何位置，例如用户位置、车辆位置�
         nearbySearchOption.mRadius = 2;
         nearbySearchOption.location(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(), LatLngConstant.ELEMENT_LATLON.getLongitude()));
         nearbySearchOption.keyword(keyWord);
-        
+
     }
 ```
 
@@ -475,13 +475,13 @@ buildingSearch.searchNearby(nearbySearchOption);
 
     }
 ```
-![](Image/Search_services2.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services2.png)
 
 #### 3.5.2 指定范围内搜索
 
 ##### 3.5.2.1 设置查询范围参数
 
-```java       
+```java
         private LatLngBounds latLngBounds;
         com.mapxus.map.model.LatLng southweast = new com.mapxus.map.model.LatLng(22.2918962, 114.1353782);
         com.mapxus.map.model.LatLng northeast = new com.mapxus.map.model.LatLng(22.3418344, 114.2089048);
@@ -496,9 +496,9 @@ buildingSearch.searchNearby(nearbySearchOption);
 ##### 3.5.2.2 执行搜索
 
 ```java
-        
+
         buildingSearch.searchInBound(boundSearchOption);
-        
+
 ```
 
 ##### 3.5.2.3 搜索结果处理
@@ -527,9 +527,9 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ```
 
-       
 
-![](Image/Search_services3.png)
+
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services3.png)
 
 #### 3.5.3 根据建筑ID搜索建筑物信息
 
@@ -575,7 +575,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![](Image/Search_services4.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services4.png)
 
 ####3.5.4搜索全球建筑
 
@@ -621,8 +621,8 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ```
 
-    
-![](Image/Search_services5.png)
+
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services5.png)
 
 ### 3.6 POI搜索
 POI搜索是通过PoiSearch类提供功能，实用如下方式初始化：
@@ -677,7 +677,7 @@ public void onGetPoiResult(PoiResult poiResult) {
     }
 
 ```
-![](Image/Search_services6.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services6.png)
 
 #### 3.6.2 POI的搜索范围
 
@@ -717,9 +717,9 @@ public void onGetPoiResult(PoiResult poiResult) {
 
 ```
 
-![](Image/Search_services7.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services7.png)
 
-       
+
 #### 3.6.3 根据ID搜索POI
 
 ##### 3.6.3.1 设置查询参数
@@ -761,7 +761,7 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
     }
 
 ```
-![](Image/Search_services8.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services8.png)
 #### 3.6.4 搜索室内POI信息
 
 ##### 3.6.4.1 设置查询参数
@@ -799,7 +799,7 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ```
 
-![](Image/Search_services9.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services9.png)
 
 #### 3.6.5 搜索室内POI的类别
 
@@ -849,7 +849,7 @@ option.meterRadius(distance);
 public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 }
 ~~~
-![](Image/Search_services10.jpg)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services10.jpg)
 
 ### 3.7 路径查找
 
@@ -872,7 +872,7 @@ public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResul
      private RoutePlanningPoint origin = new RoutePlanningPoint("elements_hk_dc005f", "L1", 114.16130, 22.30585);
     private RoutePlanningPoint destination = new RoutePlanningPoint("elements_hk_dc005f", "L3", 114.16185, 22.30405);
 ```
-  
+
 ##### 第四步,查询路线
 
 ```java
@@ -906,7 +906,7 @@ public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResul
         walkRouteOverlay.addToMap();
     }
 ```
-![](Image/Search_services1.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services1.png)
 
 ### 3.8 自定义地图样式
 
@@ -917,13 +917,12 @@ public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResul
 ```java
 mapViewProvider.setStyle(Style.COMMON);
 ```
-      
-![](Image/Styles.png)
+
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Styles.png)
+
 
 ## 4. API
 
 请点击 [HERE] 查看 APIs.
 
-[HERE]: https://service.mapxus.com/dpw/digitalMapAndroid
-
-
+[HERE]: https://service.mapxus.com/dpw/api/v1/api/digitalMap/android/3.1.0/index.html

@@ -202,7 +202,7 @@ Then, add map codes as follows in Activity file:
 
 Please be aware that maps lifecycle requires reasonable management during using map in your project.
 
-![image](Image/Getting_started1.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started1.png)
 
 #### 2.2.2 Display Map by Fragment
 
@@ -235,7 +235,7 @@ Add SupportMapxusMapFragment in Activity file:
         }
     }
 ```
-![image](Image/Getting_started2.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started2.png)
 
 #### 2.2.3 Create Dynamic Map
 
@@ -258,7 +258,7 @@ Add MapView in Activity file:
         setContentView(mapboxMapView);
     }
 ```
-![image](Image/Getting_started3.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started3.png)
 
 #### 2.2.4 Create Your Map with Particular buildingId and floor
 
@@ -307,7 +307,7 @@ Add MapView in Activity file:
 
 ### 3.1 Map Controllers
 
-Controllers refer to components displaying above the map with the function of operating maps, such as floor selector, etc. MapxusUiSettings class is used to manage these controllers so as to tailor your map view. MapxusUiSettings could be instantiated by MapxusMap. 
+Controllers refer to components displaying above the map with the function of operating maps, such as floor selector, etc. MapxusUiSettings class is used to manage these controllers so as to tailor your map view. MapxusUiSettings could be instantiated by MapxusMap.
 
 ``` java
      mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
@@ -320,7 +320,7 @@ Controllers refer to components displaying above the map with the function of op
 
 #### 3.1.1 Selector
 
-Selector is a button for APP users to alter displaying or hiding floor selecting list and building selecting list on the map. It is on (displaying) by default but you can hide it by the following interface: 
+Selector is a button for APP users to alter displaying or hiding floor selecting list and building selecting list on the map. It is on (displaying) by default but you can hide it by the following interface:
 
 
 ```java
@@ -343,7 +343,7 @@ mapxusUiSettings.setBuildingSelectorEnabled(false);
 mapxusMap.addOnBuildingChangeListener(new MapxusMap.OnBuildingChangeListener() {
             @Override
             public void onBuildingChange(IndoorBuilding indoorBuildingInfo) {
-                
+
             }
         });
 ```
@@ -354,7 +354,7 @@ mapxusMap.addOnBuildingChangeListener(new MapxusMap.OnBuildingChangeListener() {
 mapxusMap.addOnFloorChangeListener(new MapxusMap.OnFloorChangeListener() {
             @Override
             public void onFloorChange(IndoorBuilding indoorBuilding, String floor) {
-                
+
             }
         });
     }
@@ -388,7 +388,7 @@ A marker can mark any site containing position information on the map, such as u
 When creating a marker, you can set its buildingID and floor. In this case, the marker is only displayed with corresponding building and floor.
 To draw a marker:
 
-```java 
+```java
      mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
             @Override
             public void onMapxusMapReady(MapxusMap mapxusMap) {
@@ -413,7 +413,7 @@ To draw a marker:
             }
         });
 ```
-![image](Image/Annotations1.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Annotations1.png)
 
 #### 3.3.2 Draw a Customized Marker
 
@@ -435,7 +435,7 @@ To create a marker with custom icon:
             }
         });
 ```
-![image](Image/Annotations2.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Annotations2.png)
 
 ### 3.5 Search a Building
 
@@ -459,7 +459,7 @@ To create a marker with custom icon:
         nearbySearchOption.mRadius = 2;
         nearbySearchOption.location(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(), LatLngConstant.ELEMENT_LATLON.getLongitude()));
         nearbySearchOption.keyword(keyWord);
-        
+
     }
 ```
 
@@ -495,13 +495,13 @@ buildingSearch.searchNearby(nearbySearchOption);
 
     }
 ```
-![image](Image/Search_services2.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services2.png)
 
 #### 3.5.2 Search by Area
 
 ##### 3.5.2.1 Set Parameters
 
-```java       
+```java
         private LatLngBounds latLngBounds;
         com.mapxus.map.model.LatLng southweast = new com.mapxus.map.model.LatLng(22.2918962, 114.1353782);
         com.mapxus.map.model.LatLng northeast = new com.mapxus.map.model.LatLng(22.3418344, 114.2089048);
@@ -516,9 +516,9 @@ buildingSearch.searchNearby(nearbySearchOption);
 ##### 3.5.2.2 Implement Searching
 
 ```java
-        
+
         buildingSearch.searchInBound(boundSearchOption);
-        
+
 ```
 
 ##### 3.5.2.3 Get Search Result
@@ -547,9 +547,9 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ```
 
-       
 
-![image](Image/Search_services3.png)
+
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services3.png)
 
 #### 3.5.3 Search by Building ID
 
@@ -595,7 +595,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](Image/Search_services4.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services4.png)
 
 #### 3.5.4 Global Search
 
@@ -641,8 +641,8 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ```
 
-    
-![image](Image/Search_services5.png)
+
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services5.png)
 
 ### 3.6 Search POI
 
@@ -698,7 +698,7 @@ public void onGetPoiResult(PoiResult poiResult) {
     }
 
 ```
-![image](Image/Search_services6.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services6.png)
 
 #### 3.6.2 Search POI by Area
 
@@ -738,9 +738,9 @@ public void onGetPoiResult(PoiResult poiResult) {
 
 ```
 
-![image](Image/Search_services7.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services7.png)
 
-       
+
 #### 3.6.3 Search POI by ID
 
 ##### 3.6.3.1 Set Parameters
@@ -782,7 +782,7 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
     }
 
 ```
-![image](Image/Search_services8.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services8.png)
 
 #### 3.6.4 Search Indoor POI
 
@@ -821,7 +821,7 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ```
 
-![image](Image/Search_services9.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services9.png)
 
 #### 3.6.5 Search Indoor POI Category
 
@@ -871,7 +871,7 @@ option.meterRadius(distance);
 public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 }
 ~~~
-![](Image/Search_services10.jpg)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services10.jpg)
 
 ### 3.7 Route Planning
 
@@ -894,7 +894,7 @@ Route planning can draw a route, including start point, end point and turning po
      private RoutePlanningPoint origin = new RoutePlanningPoint("elements_hk_dc005f", "L1", 114.16130, 22.30585);
     private RoutePlanningPoint destination = new RoutePlanningPoint("elements_hk_dc005f", "L3", 114.16185, 22.30405);
 ```
-  
+
 ##### Fourth step, request route
 
 ```java
@@ -928,11 +928,11 @@ Route planning can draw a route, including start point, end point and turning po
         walkRouteOverlay.addToMap();
     }
 ```
-![image](Image/Search_services1.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services1.png)
 
 ### 3.8 Change Map Style
 
-You can change your map style by changing color, visibility of elements and characters of the basemap. Therefore, it will render differently to fit different APP styles. 
+You can change your map style by changing color, visibility of elements and characters of the basemap. Therefore, it will render differently to fit different APP styles.
 
 Mapxus Map presents four styles now: Style.COMMON, Style.MAPPYBEE, Style.HALLOWEEN, Style.CHRISTMAS, and Style.COMMON.
 You can change your map style by this interface:
@@ -940,14 +940,12 @@ You can change your map style by this interface:
 ```java
 mapViewProvider.setStyle(Style.COMMON);
 ```
-      
-![image](Image/Styles.png)
+
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Styles.png)
 
 
 ## 4. API
 
 Please click [HERE] to check our APIs.
 
-[HERE]: https://service.mapxus.com/dpw/digitalMapAndroid
-
-
+[HERE]: https://service.mapxus.com/dpw/api/v1/api/digitalMap/android/3.1.0/index.html
