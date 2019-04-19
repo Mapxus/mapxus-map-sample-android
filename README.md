@@ -948,6 +948,6 @@ mapViewProvider.setStyle(Style.COMMON);
 
 Please click [HERE] to check our APIs.
 
-[HERE]: https://dpw.maphive.cloud/api/v1/api/digitalMap/android/2.2.0/index.html
+[HERE]: https://service.mapxus.com/dpw/digitalMapAndroid
 
 
