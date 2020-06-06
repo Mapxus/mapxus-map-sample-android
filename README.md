@@ -412,7 +412,7 @@ To draw a marker:
             }
         });
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Annotations_marker.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Annotations_marker.png)
 
 #### 3.3.2 Draw a Customized Marker
 
@@ -434,7 +434,7 @@ To create a marker with custom icon:
             }
         });
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Annotations_customized_marker.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Annotations_customized_marker.png)
 
 ### 3.5 Search a Building
 
@@ -494,7 +494,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_nearby.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_nearby.png)
 
 #### 3.5.2 Search by Area
 
@@ -548,7 +548,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_inbound.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_inbound.png)
 
 #### 3.5.3 Search by Building ID
 
@@ -594,7 +594,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_id.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_id.png)
 
 #### 3.5.4 Global Search
 
@@ -641,7 +641,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_global.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_global.png)
 
 ### 3.6 Search POI
 
@@ -697,7 +697,7 @@ public void onGetPoiResult(PoiResult poiResult) {
     }
 
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_nearby.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_nearby.png)
 
 #### 3.6.2 Search POI by Area
 
@@ -737,7 +737,7 @@ public void onGetPoiResult(PoiResult poiResult) {
 
 ```
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_inbound.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_inbound.png)
 
 
 #### 3.6.3 Search POI by ID
@@ -781,7 +781,7 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
     }
 
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_id.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_id.png)
 
 #### 3.6.4 Search Indoor POI
 
@@ -820,7 +820,7 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ```
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_inbuilding.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_inbuilding.png)
 
 #### 3.6.5 Search Indoor POI Category
 
@@ -870,7 +870,7 @@ option.meterRadius(distance);
 public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 }
 ~~~
-![](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_orientation.png)
+![](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_orientation.png)
 
 ### 3.7 Route Planning
 
@@ -927,7 +927,7 @@ Route planning can draw a route, including start point, end point and turning po
         walkRouteOverlay.addToMap();
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_rounte_planning.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_rounte_planning.png)
 
 ### 3.8 Change Map Style
 
@@ -940,7 +940,7 @@ You can change your map style by this interface:
 mapViewProvider.setStyle(Style.COMMON);
 ```
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Styles.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/%20Styles.png)
 
 ## 4. API
 
