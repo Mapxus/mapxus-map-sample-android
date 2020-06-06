@@ -201,7 +201,7 @@ Then, add map codes as follows in Activity file:
 
 Please be aware that maps lifecycle requires reasonable management during using map in your project.
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Getting_started_simple.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Getting_started_simple.png)
 
 #### 2.2.2 Display Map by Fragment
 
@@ -234,7 +234,7 @@ Add SupportMapxusMapFragment in Activity file:
         }
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Getting_started_fragment.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Getting_started_fragment.png)
 
 #### 2.2.3 Create Dynamic Map
 
@@ -257,7 +257,7 @@ Add MapView in Activity file:
         setContentView(mapboxMapView);
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Getting_started_dynamic.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Getting_started_dynamic.png)
 
 #### 2.2.4 Create Your Map with Particular buildingId and floor
 
@@ -946,4 +946,4 @@ mapViewProvider.setStyle(Style.COMMON);
 
 Please click [HERE] to check our APIs.
 
-[HERE]: https://github.com/Mapxus/mapxus-map-sample-android/tree/master/javadoc/index.html
+[HERE]: https://github.com/Mapxus/mapxus-map-sample-android/blob/master/javadoc/index.html
