@@ -1,26 +1,26 @@
 package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
+import com.mapxus.map.mapxusmap.api.services.model.NearbySearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult;
+import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.model.LatLng;
-import com.mapxus.services.BuildingSearch;
-import com.mapxus.services.model.NearbySearchOption;
-import com.mapxus.services.model.building.BuildingDetailResult;
-import com.mapxus.services.model.building.BuildingResult;
 
 /**
  * Use MapxusMap Search Services to request directions

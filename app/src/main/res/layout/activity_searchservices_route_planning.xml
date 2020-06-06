@@ -11,9 +11,9 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       app:mapbox_cameraTargetLat="22.304716516178253"
-        app:mapbox_cameraTargetLng="114.16186609400843"
-        app:mapbox_cameraZoom="17" />
+        app:mapbox_cameraTargetLat="@string/harbour_city_lat"
+        app:mapbox_cameraTargetLng="@string/harbour_city_lon"
+        app:mapbox_cameraZoom="16" />
     <LinearLayout
 
         android:layout_width="250dp"
@@ -70,6 +70,40 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="please choose address" />
+
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="1dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#7873C6"
+                    android:padding="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/foot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="foot" />
+
+                    <RadioButton
+                        android:id="@+id/wheelchair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="wheelchair" />
+                </RadioGroup>
 
 
             </TableRow>

@@ -1,11 +1,12 @@
 package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -13,17 +14,17 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.model.LatLngBounds;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
+import com.mapxus.map.mapxusmap.api.services.PoiSearch;
+import com.mapxus.map.mapxusmap.api.services.model.PoiBoundSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
-import com.mapxus.services.PoiSearch;
-import com.mapxus.services.model.PoiBoundSearchOption;
-import com.mapxus.services.model.poi.PoiCategoryResult;
-import com.mapxus.services.model.poi.PoiDetailResult;
-import com.mapxus.services.model.poi.PoiOrientationResult;
-import com.mapxus.services.model.poi.PoiResult;
 
 /**
  * Use MapxusMap Search Services to request directions
@@ -78,8 +79,8 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(this);
 
-        com.mapxus.map.model.LatLng southweast = new com.mapxus.map.model.LatLng(22.3032765, 114.1591187);
-        com.mapxus.map.model.LatLng northeast = new com.mapxus.map.model.LatLng(22.3071406, 114.1647615);
+        com.mapxus.map.mapxusmap.api.map.model.LatLng southweast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(22.2932765, 114.1491187);
+        com.mapxus.map.mapxusmap.api.map.model.LatLng northeast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(22.3171406, 114.1747615);
         latLngBounds = new LatLngBounds(southweast, northeast);
 
     }

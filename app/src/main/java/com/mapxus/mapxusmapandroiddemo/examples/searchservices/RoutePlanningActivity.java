@@ -3,26 +3,30 @@ package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapxus.map.component.overlay.WalkRouteOverlay;
-import com.mapxus.map.model.LatLng;
-import com.mapxus.map.model.MapxusMarkerOptions;
-import com.mapxus.map.model.overlay.MapxusMarker;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
+import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusMarker;
+import com.mapxus.map.mapxusmap.api.services.RoutePlanning;
+import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningPoint;
+import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningRequest;
+import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningResult;
+import com.mapxus.map.mapxusmap.api.services.model.planning.RouteResponseDto;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.overlay.WalkRouteOverlay;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.services.RoutePlanning;
-import com.mapxus.services.model.planning.RoutePlanningPoint;
-import com.mapxus.services.model.planning.RoutePlanningResult;
-import com.mapxus.services.model.planning.RouteResponseDto;
 
 /**
  * Use MapxusMap Search Services to request directions
@@ -52,6 +56,8 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private ProgressDialog dialog;
 
+    private String vehicle = "foot";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +76,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             RoutePlanningActivity.this.mMapxusMap = mapxusMap;
+            mMapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.BOTTOM_RIGHT);
             routePlanning = RoutePlanning.newInstance();
             routePlanning.setRoutePlanningListener(RoutePlanningActivity.this);
             pointStartTv.setOnClickListener(pointClickListener);
@@ -80,13 +87,33 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     }
 
     private void getRoute(RoutePlanningPoint origin, RoutePlanningPoint destination) {
-
-        routePlanning.route(origin, destination);
+        RoutePlanningRequest request = new RoutePlanningRequest(origin, destination);
+        request.setVehicle(vehicle);
+        routePlanning.route(request);
     }
 
     private void drawRoute(RouteResponseDto route) {
-       WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(this, mapboxMap, mMapxusMap, route, origin, destination);
+        WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(this, mapboxMap, mMapxusMap, route, origin, destination);
         walkRouteOverlay.addToMap();
+    }
+
+
+    //radio 选择事件
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.foot:
+                if (checked)
+                    vehicle = "foot";
+                break;
+            case R.id.wheelchair:
+                if (checked)
+                    vehicle = "wheelchair";
+                break;
+        }
     }
 
     @Override
@@ -206,9 +233,9 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private MapxusMap.OnMapClickListener pointStartMapClickListener = new MapxusMap.OnMapClickListener() {
         @Override
-        public void onMapClick(LatLng latLng, String floor, String buildingId) {
+        public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
             origin = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
-            pointStartTv.setText(String.format("%s,%s,%s", latLng.getLatitude(), latLng.getLongitude(),floor));
+            pointStartTv.setText(String.format("%s,%s,%s", latLng.getLatitude(), latLng.getLongitude(), floor));
             if (startMarker != null) {
                 mMapxusMap.removeMarker(startMarker);
                 startMarker = null;
@@ -223,9 +250,9 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private MapxusMap.OnMapClickListener pointEndMapClickListener = new MapxusMap.OnMapClickListener() {
         @Override
-        public void onMapClick(LatLng latLng, String floor, String buildingId) {
+        public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
             destination = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
-            pointEndTv.setText(String.format("%s,%s,%s", latLng.getLatitude(), latLng.getLongitude(),floor));
+            pointEndTv.setText(String.format("%s,%s,%s", latLng.getLatitude(), latLng.getLongitude(), floor));
 
             if (endMarker != null) {
                 mMapxusMap.removeMarker(endMarker);

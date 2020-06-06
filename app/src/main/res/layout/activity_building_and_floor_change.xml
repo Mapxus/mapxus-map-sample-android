@@ -11,24 +11,26 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       app:mapbox_cameraTargetLat="22.304716516178253"
-        app:mapbox_cameraTargetLng="114.16186609400843"
+        app:mapbox_cameraTargetLat="@string/default_lat"
+        app:mapbox_cameraTargetLng="@string/default_lon"
         app:mapbox_cameraZoom="17" />
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/building_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Building:"/>
+            android:text="Building:" />
 
         <TextView
             android:id="@+id/floor_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Floor:"/>
+            android:text="Floor:" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,12 +1,14 @@
 package com.mapxus.mapxusmapandroiddemo.examples.basics;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.model.MapxusMapOptions;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 /**
@@ -23,7 +25,7 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_basic_init_with_building);
         mapboxMapView = (MapView) findViewById(R.id.mapView);
-        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setBuildingId("elements_hk_dc005f").setFloor("L2");
+        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setBuildingId(getString(R.string.default_search_text_building_id)).setFloor("L3");
         mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
     }
 
@@ -65,7 +67,7 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapboxMapView.onSaveInstanceState(outState);
     }

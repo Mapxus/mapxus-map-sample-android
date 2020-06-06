@@ -17,12 +17,8 @@
 
 
     <!--Marker strings for DrawCustomMarkerActivity activity-->
-    <string name="draw_custom_marker_options_title">Element</string>
-    <string name="draw_custom_marker_options_snippet">One of the mall in Hong Kong</string>
 
     <!--Marker strings for DrawMarkerActivity activity-->
-    <string name="draw_marker_options_title">Hello World!</string>
-    <string name="draw_marker_options_snippet">Welcome to my marker.</string>
 
 
     <string name="tap_on_map_instruction">點擊地圖的任何位置</string>
@@ -47,11 +43,9 @@
     <string name="click_toobar_switch_style">點擊工具條的菜單切換不同風格</string>
 
 
-    <string name="draw_marker_tips">切換樓層到L2或者L3查看Marker</string>
     <string name="draw_custom_marker_tips">切換樓層到L3查看個性化的Marker</string>
     <string name="location_dialog_message">Positioning</string>
     <string name="location_dialog_title">請稍候</string>
-    <string name="location_positioning_error_toast">定位錯誤</string>
     <string name="location_positioning_button_ok">OK</string>
 
 

@@ -30,6 +30,9 @@
         <item
             android:id="@+id/nav_dispay_location"
             android:title="@string/dispay_location_category" />
+        <item
+            android:id="@+id/nav_dispay_visual"
+            android:title="@string/dispay_360_category" />
 
     </group>
     <!--<group android:id="@+id/settings_group" android:checkableBehavior="single">-->

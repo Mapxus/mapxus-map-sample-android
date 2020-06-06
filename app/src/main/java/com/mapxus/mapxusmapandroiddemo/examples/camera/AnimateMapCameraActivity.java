@@ -1,9 +1,10 @@
 package com.mapxus.mapxusmapandroiddemo.examples.camera;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -11,8 +12,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
 
@@ -33,12 +34,11 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
         super.onCreate(savedInstanceState);
 
 
-
         setContentView(R.layout.activity_camera_animate);
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(AnimateMapCameraActivity.this,mapView);
+        mapViewProvider = new MapboxMapViewProvider(AnimateMapCameraActivity.this, mapView);
         mapView.getMapAsync(this);
     }
 
@@ -46,8 +46,7 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
     public void onMapReady(MapboxMap mapboxMap) {
 
         AnimateMapCameraActivity.this.mapboxMap = mapboxMap;
-        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLngConstant.ADMIRALTY_STATION_LATLON, 19));//金钟
-
+        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLngConstant.HARBOUR_CITY_LATLON, 16));//海港城
 
         // Toast instructing user to tap on the map
         Toast.makeText(
@@ -72,24 +71,22 @@ public class AnimateMapCameraActivity extends AppCompatActivity implements OnMap
         CameraPosition position = null;
         if (isElement == false) {
             position = new CameraPosition.Builder()
-                    .target(LatLngConstant.ELEMENT_LATLON) // Sets the new camera position
-                    .zoom(17) // Sets the zoom
-                    .bearing(180) // Rotate the camera
+                    .target(LatLngConstant.HONG_KONG_CONVENTION_AND_EXHIBITION_CENTRE) // Sets the new camera position
+                    .zoom(16) // Sets the zoom
                     .build(); // Creates a CameraPosition from the builder
             isElement = true;
 
         } else {
             position = new CameraPosition.Builder()
-                    .target(LatLngConstant.ADMIRALTY_STATION_LATLON) // Sets the new camera position
+                    .target(LatLngConstant.HARBOUR_CITY_LATLON) // Sets the new camera position
                     .zoom(16) // Sets the zoom
-                    .bearing(180) // Rotate the camera
                     .build(); // Creates a CameraPosition from the builder
             isElement = false;
         }
 
 
-        mapboxMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(position));
+        mapboxMap.easeCamera(CameraUpdateFactory
+                .newCameraPosition(position), 2000);
         return false;
     }
 

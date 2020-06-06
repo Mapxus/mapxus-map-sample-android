@@ -1,5 +1,24 @@
 <resources>
-    <string name="follow_me_none">NONE</string>
-    <string name="follow_me_follow_user">FOLLOW_USER</string>
-    <string name="follow_me_follow_user_and_heading">FOLLOW_USER_AND_HEADING</string>
+    <string name="follow_me_none" translatable="false">NONE</string>
+    <string name="follow_me_follow_user" translatable="false">FOLLOW_USER</string>
+    <string name="follow_me_follow_user_and_heading" translatable="false">FOLLOW_USER_AND_HEADING</string>
+    
+    <string name="default_lat" translatable="false">22.3707866</string>
+    <string name="default_lon" translatable="false">114.1112654</string>
+
+    <string name="harbour_city_lat" translatable="false">22.296943</string>
+    <string name="harbour_city_lon" translatable="false">114.168458</string>
+
+    <string name="default_search_text" translatable="false">荃湾</string>
+    <string name="default_search_text_hint" translatable="false">Please input building name. e.g. Element</string>
+    <string name="default_search_text_hint_poi" translatable="false">please input POI name e.g. Starbuck</string>
+    <string name="default_search_text_building_id" translatable="false">tsuenwanplaza_hk_369d01</string>
+    <string name="default_poi_id" translatable="false">12586</string>
+    <string name="default_poi_text" translatable="false">Gym</string>
+    <string name="default_floor" translatable="false">1</string>
+
+    <string name="update_dialog_title" translatable="false">update tip</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="cancel" translatable="false">Cancel</string>
+
 </resources>

@@ -1,0 +1,17 @@
+com.mapxus.map.mapxusmap.api.map
+com.mapxus.map.mapxusmap.api.map.interfaces
+com.mapxus.map.mapxusmap.api.map.interfaces.overlay
+com.mapxus.map.mapxusmap.api.map.model
+com.mapxus.map.mapxusmap.api.map.model.anno
+com.mapxus.map.mapxusmap.api.map.model.overlay
+com.mapxus.map.mapxusmap.api.map.utils
+com.mapxus.map.mapxusmap.api.services
+com.mapxus.map.mapxusmap.api.services.constant
+com.mapxus.map.mapxusmap.api.services.interfaces
+com.mapxus.map.mapxusmap.api.services.model
+com.mapxus.map.mapxusmap.api.services.model.building
+com.mapxus.map.mapxusmap.api.services.model.planning
+com.mapxus.map.mapxusmap.api.services.model.poi
+com.mapxus.map.mapxusmap.api.services.model.point
+com.mapxus.map.mapxusmap.overlay
+com.mapxus.map.mapxusmap.positioning

@@ -27,5 +27,6 @@
     <string name="listener_category">Listener</string>
     <string name="search_services_category">Search services</string>
     <string name="dispay_location_category">Display location</string>
+    <string name="dispay_360_category">360 view</string>
 
 </resources>

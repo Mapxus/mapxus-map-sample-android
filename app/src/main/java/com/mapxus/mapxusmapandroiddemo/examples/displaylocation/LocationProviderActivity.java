@@ -5,24 +5,24 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapxus.map.FollowUserMode;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.FollowUserMode;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.positioning.ErrorInfo;
+import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
+import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
+import com.mapxus.map.mapxusmap.positioning.IndoorLocationProviderListener;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.positioning.provider.MapxusPositioningProvider;
-import com.mapxus.positioning.provider.api.ErrorInfo;
-import com.mapxus.positioning.provider.api.IndoorLocation;
-import com.mapxus.positioning.provider.api.IndoorLocationProvider;
-import com.mapxus.positioning.provider.api.IndoorLocationProviderListener;
 
 /**
  * The most basic example of adding a map to an activity.
@@ -129,7 +129,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         this.mapxusMap = mapxusMap;
-        IndoorLocationProvider mapxusPositioningProvider = new MapxusPositioningProvider(this);
+        IndoorLocationProvider mapxusPositioningProvider = new MapxusPositioningProvider(this, getApplicationContext());
         mapxusPositioningProvider.addListener(new IndoorLocationProviderListener() {
             @Override
             public void onProviderStarted() {
@@ -147,7 +147,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
                     dialog.dismiss();
                     dialog = null;
                 }
-                if (error.getErrorCode() == ErrorInfo.WARNING) {
+                if (error.getErrorCode() == ErrorInfo.WARNING || error.getErrorCode() == 109) {
                     Log.w(TAG, error.getErrorMessage());
                     return;
                 }

@@ -1,26 +1,26 @@
 package com.mapxus.mapxusmapandroiddemo.examples.annotations;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.api.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.model.LatLng;
-import com.mapxus.map.model.MapxusMarkerOptions;
 
 /**
  * Create a default marker with an InfoWindow
  */
-public class DrawMarkerActivity extends AppCompatActivity {
+public class DrawMarkerActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener {
 
     private MapView mapView;
     private MapViewProvider mapViewProvider;
+    private MapxusMap mapxusMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,32 +33,11 @@ public class DrawMarkerActivity extends AppCompatActivity {
 
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
 
-        mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
-            @Override
-            public void onMapxusMapReady(MapxusMap mapxusMap) {
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> {
+            DrawMarkerActivity.this.mapxusMap = mapxusMap;
 
-                MapxusMarkerOptions mapxusMarkerOptions = new MapxusMarkerOptions();
-                mapxusMarkerOptions.setPosition(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(), LatLngConstant.ELEMENT_LATLON.getLongitude()));
-                mapxusMarkerOptions.setFloor("L3");
-                mapxusMarkerOptions.setBuildingId("elements_hk_dc005f");
-
-
-                MapxusMarkerOptions mapxusMarkerOptions2 = new MapxusMarkerOptions();
-                mapxusMarkerOptions2.setPosition(new LatLng(22.304616516178253, 114.16176609400843)).setFloor("L2");
-                mapxusMarkerOptions2.setBuildingId("elements_hk_dc005f");
-
-
-                MapxusMarkerOptions mapxusMarkerOptions3 = new MapxusMarkerOptions();
-                mapxusMarkerOptions3.setPosition(new LatLng(22.304516516178253, 114.16186609400843));
-
-                mapxusMap.addMarker(mapxusMarkerOptions);
-                mapxusMap.addMarker(mapxusMarkerOptions2);
-                mapxusMap.addMarker(mapxusMarkerOptions3);
-            }
+            mapxusMap.addOnBuildingChangeListener(DrawMarkerActivity.this);
         });
-
-        Toast.makeText(this, R.string.draw_marker_tips, Toast.LENGTH_LONG).show();
-
     }
 
     @Override
@@ -102,5 +81,18 @@ public class DrawMarkerActivity extends AppCompatActivity {
         super.onDestroy();
         mapView.onDestroy();
         mapViewProvider.onDestroy();
+    }
+
+    @Override
+    public void onBuildingChange(IndoorBuilding indoorBuilding) {
+        String buildingId = getString(R.string.default_search_text_building_id);
+        if (indoorBuilding.getBuildingId().equals(buildingId)) {
+            mapxusMap.removeMarkers();
+            mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.370779, 114.111341)));
+            mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.371144, 114.111062)).setFloor("L1").setBuildingId(buildingId));
+            mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.371003, 114.111679)).setFloor("L2").setBuildingId(buildingId));
+            mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.370557, 114.111291)).setFloor("L2").setBuildingId(buildingId));
+            mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.370603, 114.111828)).setFloor("L3").setBuildingId(buildingId));
+        }
     }
 }

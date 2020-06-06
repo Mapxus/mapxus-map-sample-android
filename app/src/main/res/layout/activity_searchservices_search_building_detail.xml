@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-       app:mapbox_cameraTargetLat="22.304716516178253"
-        app:mapbox_cameraTargetLng="114.16186609400843"
+        app:mapbox_cameraTargetLat="@string/default_lat"
+        app:mapbox_cameraTargetLng="@string/default_lon"
         app:mapbox_cameraZoom="14" />
 
     <RelativeLayout
@@ -67,7 +67,7 @@
                 android:singleLine="true"
                 android:textColor="@color/grey"
                 android:textColorHint="@color/darkgrey"
-                android:text="elements_hk_dc005f"
+                android:text="@string/default_search_text_building_id"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>

@@ -1,12 +1,13 @@
 package com.mapxus.mapxusmapandroiddemo.utils;
 
-import static android.support.v7.widget.RecyclerView.OnChildAttachStateChangeListener;
-import static android.support.v7.widget.RecyclerView.ViewHolder;
-
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapxus.mapxusmapandroiddemo.R;
+
+import static androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener;
+import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 public class ItemClickSupport {
   private final RecyclerView recyclerView;

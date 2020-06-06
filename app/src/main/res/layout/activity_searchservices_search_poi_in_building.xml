@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,8 +8,8 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       app:mapbox_cameraTargetLat="22.304716516178253"
-        app:mapbox_cameraTargetLng="114.16186609400843"
+        app:mapbox_cameraTargetLat="@string/default_lat"
+        app:mapbox_cameraTargetLng="@string/default_lon"
         app:mapbox_cameraZoom="17" />
 
     <RelativeLayout
@@ -40,7 +39,7 @@
                 android:background="@color/transparent"
                 android:hint="input building id"
                 android:singleLine="true"
-                android:text="elements_hk_dc005f"
+                android:text="@string/default_search_text_building_id"
                 android:textColor="@color/grey"
                 android:textColorHint="@color/darkgrey"
                 android:textSize="14sp" />
@@ -53,7 +52,6 @@
                 android:background="@color/transparent"
                 android:hint="input floor"
                 android:singleLine="true"
-                android:text="L2"
                 android:textColor="@color/grey"
                 android:textColorHint="@color/darkgrey"
                 android:textSize="14sp"/>
@@ -108,9 +106,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
                 android:drawableLeft="@drawable/search_input"
-                android:hint="please input keyword"
+                android:hint="@string/default_search_text_hint_poi"
                 android:singleLine="true"
-                android:text="starbuck"
                 android:textColor="@color/grey"
                 android:textColorHint="@color/darkgrey"
                 android:textSize="14sp" />

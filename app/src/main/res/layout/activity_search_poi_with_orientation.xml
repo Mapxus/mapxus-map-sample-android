@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        app:mapbox_cameraTargetLat="23.03566177875929"
-        app:mapbox_cameraTargetLng="113.18252357250441"
+        app:mapbox_cameraTargetLat="@string/default_lat"
+        app:mapbox_cameraTargetLng="@string/default_lon"
+        app:mapbox_maxZoom="23"
         app:mapbox_cameraZoom="17" />
 
     <RelativeLayout
@@ -44,42 +45,49 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/btn_search"
             android:layout_toStartOf="@+id/btn_search"
             android:background="@drawable/search_input_half"
             android:clickable="true"
-            android:gravity="center_vertical"
-            android:weightSum="2">
+            android:gravity="center_vertical">
 
+            <RadioGroup android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/btn_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Point"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/btn_polygon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Polygon"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="半径"
+                android:paddingRight="20dp"
+                android:textColor="@color/grey"
+                android:textSize="12dp" />
 
             <EditText
-                android:layout_weight="1"
                 android:id="@+id/input_edittext"
-                android:layout_width="match_parent"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
-                android:drawableLeft="@drawable/search_input"
-                android:hint="orientation"
                 android:singleLine="true"
                 android:inputType="number"
                 android:textColor="@color/grey"
                 android:textColorHint="@color/darkgrey"
-                android:textSize="14sp" />
-
-            <EditText
-                android:layout_weight="1"
-                android:id="@+id/input_distance"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:layout_marginLeft="20dp"
-                android:hint="distance"
-                android:singleLine="true"
-                android:inputType="number"
-                android:textColor="@color/grey"
-                android:textColorHint="@color/darkgrey"
+                android:text="10"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>

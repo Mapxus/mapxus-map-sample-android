@@ -2,10 +2,11 @@ package com.mapxus.mapxusmapandroiddemo.examples.camera;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -14,8 +15,8 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 
@@ -41,8 +42,8 @@ public class RestrictCameraActivity extends AppCompatActivity implements OnMapRe
         mapViewProvider = new MapboxMapViewProvider(RestrictCameraActivity.this,mapView);
         mapView.getMapAsync(this);
 
-        LatLng southweast = new LatLng(22.3032765,114.1591187);
-        LatLng northeast = new LatLng(22.3071406,114.1647615);
+        LatLng southweast = new LatLng(22.3702127,114.110572);
+        LatLng northeast = new LatLng(22.3710112,114.1116603);
         latLngBounds = LatLngBounds.from(northeast.getLatitude(),northeast.getLongitude(),southweast.getLatitude(),southweast.getLongitude());
     }
 
@@ -54,13 +55,13 @@ public class RestrictCameraActivity extends AppCompatActivity implements OnMapRe
 
         // Set bounds
         mapboxMap.setLatLngBoundsForCameraTarget(latLngBounds);
-        mapboxMap.setMinZoomPreference(16);
+        mapboxMap.setMinZoomPreference(17);
         mapboxMap.setMaxZoomPreference(19);
 
         // Visualise bounds area
-        showBoundsArea();
-
-        showCrosshair();
+//        showBoundsArea();
+//
+//        showCrosshair();
 
     }
 

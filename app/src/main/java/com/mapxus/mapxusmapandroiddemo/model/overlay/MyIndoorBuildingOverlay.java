@@ -1,15 +1,15 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapxus.services.model.building.Address;
-import com.mapxus.services.model.building.IndoorBuildingInfo;
+import com.mapxus.map.mapxusmap.api.services.model.building.Address;
+import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyIndoorBuildingOverlay {
     private MapboxMap mapboxMap;

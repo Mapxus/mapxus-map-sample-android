@@ -12,6 +12,7 @@
     <string name="activity_basic_beemap_without_outdoor_title">Hide Outdoor Map.</string>
     <string name="activity_styles_default_title">Default styles</string>
     <string name="activity_annotation_marker_title">Draw a marker</string>
+    <string name="activity_annotation_line">Draw a line</string>
     <string name="activity_annotation_custom_marker_title">Draw a custom marker icon</string>
     <string name="activity_annotation_polygon_title">Draw a polygon</string>
     <string name="activity_annotation_polygon_holes_title">Draw a polygon with holes</string>
@@ -45,5 +46,5 @@
 
     <string name="activity_hidden_selector_title">Indoor Map Selector Hidden </string>
 
-
+    <string name="activity_360_view_title">360 view </string>
 </resources>

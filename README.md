@@ -16,15 +16,13 @@ Mapxus Map SDK is a set of call interface for developing indoor map. Developers 
 
 ### 1.1 Minimum Android Version
 
-The Mapxus Map SDK for Android is deployed on Android 4.4 and above.
+The Mapxus Map SDK for Android is deployed on Android 5.0 and above.
 
 Notice: 
 
-**When using Mapxus Map 3.0.0 and above version, please use Mapxus Positioning Map 0.4.0 and above version if you need to use Mapxus Positioning Map.** 
+**1.When using Mapxus Map 4.0.0 and above version, please use Mapxus Positioning Map 2.0.0and above version if you need to use Mapxus Positioning Map.** 
 
-**When using Mapxus Map 2.4.1 and above version, please use Mapxus Positioning Map 0.3.7 and above version if you need to use Mapxus Positioning Map.** 
-
-**When using Mapxus Map 2.3.3-beta and above version, please use Mapxus Positioning Map 0.3.6 and above version if you need to use Mapxus Positioning Map.**
+**1.When using Mapxus Map 4.0.0 and above version, please use Mapxus Positioning Map 2.0.0and above version if you need to use Mapxus Positioning Map.** 
 
 ### 1.2 Get an API key
 
@@ -52,16 +50,14 @@ allprojects {
 
 Add dependencies in your **build.gradle** in app
 
+
 ```java
 
 dependencies { 
  ...
 
  // MapxusMap
-    implementation "com.mapxus.map:mapxusmap:3.1.0"
-
-    //mapbox
-    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.1"
+    implementation "com.mapxus.map:mapxusmap:4.0.0"
 
  ...
 }	
@@ -75,21 +71,24 @@ dependencies {
 Please refer to Google about Java 8 language documentation and set Java 8 Support. 
 [https://developer.android.com/studio/write/java8-support](https://developer.android.com/studio/write/java8-support)
 
+#### 2.1.4 Set Android x Support
 
-#### 2.1.4 Prevent Obfuscation
+Please refer to Google about Migrating to AndroidX documentation and set Android x Support. 
+[https://developer.android.google.cn/jetpack/androidx/migrate](https://developer.android.google.cn/jetpack/androidx/migrate)
+
+
+#### 2.1.5 Prevent Obfuscation
 
 Please configurate these in ProGuard to avoid obfuscation:
 
 ```
 -keep class com.mapxus.map.** {*;}
--keep class com.mapxus.services.** {*;}
 -dontwarn com.mapxus.map.**
--dontwarn com.mapxus.services.**
 
 ```
 
 
-#### 2.1.5 Set Key and Secret
+#### 2.1.6 Set Key and Secret
 
 There are two options to set your api key and secret:
 
@@ -131,8 +130,8 @@ First of all, add Mapbox Map controllers in the layout xml file:
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:mapbox_cameraTargetLat="22.304716516178253"
-        app:mapbox_cameraTargetLng="114.16186609400843"
+        app:mapbox_cameraTargetLat="22.3707866"
+        app:mapbox_cameraTargetLng="114.1112654"
         app:mapbox_cameraZoom="17" />
 ```
 
@@ -202,7 +201,7 @@ Then, add map codes as follows in Activity file:
 
 Please be aware that maps lifecycle requires reasonable management during using map in your project.
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started1.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Getting_started_simple.png)
 
 #### 2.2.2 Display Map by Fragment
 
@@ -235,7 +234,7 @@ Add SupportMapxusMapFragment in Activity file:
         }
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started2.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Getting_started_fragment.png)
 
 #### 2.2.3 Create Dynamic Map
 
@@ -258,7 +257,7 @@ Add MapView in Activity file:
         setContentView(mapboxMapView);
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Getting_started3.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Getting_started_dynamic.png)
 
 #### 2.2.4 Create Your Map with Particular buildingId and floor
 
@@ -275,7 +274,7 @@ Add MapView in Activity file:
 
         setContentView(R.layout.activity_basic_init_with_building);
         mapboxMapView = (MapView) findViewById(R.id.mapView);
-        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setBuildingId("elements_hk_dc005f").setFloor("L2");
+        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setBuildingId("tsuenwanplaza_hk_369d01").setFloor("L2");
         mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
     }
 ```
@@ -288,7 +287,7 @@ Add MapView in Activity file:
 
     private MapViewProvider mapViewProvider;
     private MapView mapboxMapView;
-    private static final String POI_ID = "74233";
+    private static final String POI_ID = "12586";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -395,17 +394,17 @@ To draw a marker:
 
                 MapxusMarkerOptions mapxusMarkerOptions = new MapxusMarkerOptions();
                 mapxusMarkerOptions.setPosition(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(), LatLngConstant.ELEMENT_LATLON.getLongitude()));
-                mapxusMarkerOptions.setFloor("3");
-                mapxusMarkerOptions.setBuildingId("elements_hk_dc005f");
+                mapxusMarkerOptions.setFloor("L3");
+                mapxusMarkerOptions.setBuildingId("tsuenwanplaza_hk_369d01");
 
 
                 MapxusMarkerOptions mapxusMarkerOptions2 = new MapxusMarkerOptions();
-                mapxusMarkerOptions2.setPosition(new LatLng(22.304616516178253, 114.16176609400843)).setFloor("2");
-                mapxusMarkerOptions2.setBuildingId("elements_hk_dc005f");
+                mapxusMarkerOptions2.setPosition(new LatLng(22.370779, 114.111341)).setFloor("L2");
+                mapxusMarkerOptions2.setBuildingId("tsuenwanplaza_hk_369d01");
 
 
                 MapxusMarkerOptions mapxusMarkerOptions3 = new MapxusMarkerOptions();
-                mapxusMarkerOptions3.setPosition(new LatLng(22.304516516178253, 114.16186609400843));
+                mapxusMarkerOptions3.setPosition(new LatLng(22.371144, 114.111062));
 
                 mapxusMap.addMarker(mapxusMarkerOptions);
                 mapxusMap.addMarker(mapxusMarkerOptions2);
@@ -413,7 +412,7 @@ To draw a marker:
             }
         });
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Annotations1.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Annotations_marker.png)
 
 #### 3.3.2 Draw a Customized Marker
 
@@ -426,8 +425,8 @@ To create a marker with custom icon:
             @Override
             public void onMapxusMapReady(MapxusMap mapxusMap) {
                 mapxusMap.addMarker(new MapxusMarkerOptions()
-                        .setBuildingId("elements_hk_dc005f")
-                        .setFloor("3")
+                        .setBuildingId("tsuenwanplaza_hk_369d01")
+                        .setFloor("L3")
                         .setPosition(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(),LatLngConstant.ELEMENT_LATLON.getLongitude()))
                         .setTitle(getString(R.string.draw_custom_marker_options_title))
                         .setSnippet(getString(R.string.draw_custom_marker_options_snippet))
@@ -435,7 +434,7 @@ To create a marker with custom icon:
             }
         });
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Annotations2.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Annotations_customized_marker.png)
 
 ### 3.5 Search a Building
 
@@ -495,7 +494,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services2.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_nearby.png)
 
 #### 3.5.2 Search by Area
 
@@ -549,7 +548,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services3.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_inbound.png)
 
 #### 3.5.3 Search by Building ID
 
@@ -595,7 +594,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services4.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_id.png)
 
 #### 3.5.4 Global Search
 
@@ -642,7 +641,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services5.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_building_global.png)
 
 ### 3.6 Search POI
 
@@ -698,7 +697,7 @@ public void onGetPoiResult(PoiResult poiResult) {
     }
 
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services6.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_nearby.png)
 
 #### 3.6.2 Search POI by Area
 
@@ -738,7 +737,7 @@ public void onGetPoiResult(PoiResult poiResult) {
 
 ```
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services7.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_inbound.png)
 
 
 #### 3.6.3 Search POI by ID
@@ -782,7 +781,7 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
     }
 
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services8.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_id.png)
 
 #### 3.6.4 Search Indoor POI
 
@@ -821,7 +820,7 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ```
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services9.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_inbuilding.png)
 
 #### 3.6.5 Search Indoor POI Category
 
@@ -871,7 +870,7 @@ option.meterRadius(distance);
 public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 }
 ~~~
-![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services10.jpg)
+![](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_poi_orientation.png)
 
 ### 3.7 Route Planning
 
@@ -891,8 +890,8 @@ Route planning can draw a route, including start point, end point and turning po
 ##### Third step, set searching parameters
 
 ```java
-     private RoutePlanningPoint origin = new RoutePlanningPoint("elements_hk_dc005f", "L1", 114.16130, 22.30585);
-    private RoutePlanningPoint destination = new RoutePlanningPoint("elements_hk_dc005f", "L3", 114.16185, 22.30405);
+     private RoutePlanningPoint origin = new RoutePlanningPoint("harbourcity_hk_8b580b", "G", 114.16802419399949, 22.298414559331476);
+    private RoutePlanningPoint destination = new RoutePlanningPoint("harbourcity_hk_8b580b", "L3", 114.16835321304131, 22.298373814183165);
 ```
 
 ##### Fourth step, request route
@@ -928,24 +927,23 @@ Route planning can draw a route, including start point, end point and turning po
         walkRouteOverlay.addToMap();
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Search_services1.png)
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Search_services_rounte_planning.png)
 
 ### 3.8 Change Map Style
 
 You can change your map style by changing color, visibility of elements and characters of the basemap. Therefore, it will render differently to fit different APP styles.
 
-Mapxus Map presents four styles now: Style.COMMON, Style.MAPPYBEE, Style.HALLOWEEN, Style.CHRISTMAS, and Style.COMMON.
+Mapxus Map presents four styles now: Style.Mapxus, Style.MAPPYBEE, Style.HALLOWEEN, Style.CHRISTMAS, and Style.COMMON.
 You can change your map style by this interface:
 
 ```java
 mapViewProvider.setStyle(Style.COMMON);
 ```
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/3.1.0/Styles.png)
-
+![image](https://github.com/Mapxus/mapxus-map-sample-android/tree/master/image/Styles.png)
 
 ## 4. API
 
 Please click [HERE] to check our APIs.
 
-[HERE]: https://service.mapxus.com/dpw/api/v1/api/digitalMap/android/3.1.0/index.html
+[HERE]: https://github.com/Mapxus/mapxus-map-sample-android/tree/master/javadoc/index.html

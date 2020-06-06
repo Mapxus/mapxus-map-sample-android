@@ -5,39 +5,38 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.perf.metrics.AddTrace;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.perf.metrics.AddTrace;
 import com.mapxus.mapxusmapandroiddemo.adapter.ExampleAdapter;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.AnimatedMarkerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawCustomMarkerActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawLineActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawMarkerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawPolygonActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.PolygonHolesActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapInitWithBuildingActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapInitWithPoiActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapOptionActivity;
-import com.mapxus.mapxusmapandroiddemo.examples.basics.MapxusMapWithoutOutdoorActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SimpleMapViewActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.basics.SupportMapFragmentActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.camera.AnimateMapCameraActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.camera.RestrictCameraActivity;
-import com.mapxus.mapxusmapandroiddemo.examples.controllers.SelectorPositionActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.controllers.HiddenSelectorActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.controllers.SelectorPositionActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.displaylocation.LocationProviderActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.listener.BuildingAndFloorChangeListenerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.listener.CameraListenerActivity;
@@ -53,15 +52,15 @@ import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInboundA
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiNearbyActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiWithOrientationActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.styles.DefaultStyleActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.styles.MapxusMapWithoutOutdoorActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.visual.DisplayVisualActivity;
 import com.mapxus.mapxusmapandroiddemo.model.ExampleItemModel;
 import com.mapxus.mapxusmapandroiddemo.model.views.CircularPagerIndicatorDecoration;
 import com.mapxus.mapxusmapandroiddemo.utils.ItemClickSupport;
-import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -69,8 +68,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static com.mapxus.mapxusmapandroiddemo.utils.StringConstants.SKIPPED_KEY;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    // Used to track internal navigation to the Snapshotter section
-    public static String EXTRA_NAV = "EXTRA_NAV";
 
     private ArrayList<ExampleItemModel> exampleItemModels;
     private ExampleAdapter adapter;
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         if (savedInstanceState == null) {
             toolbar.setTitle(" ");
@@ -99,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Create the adapter to convert the array to views
         adapter = new ExampleAdapter(this, exampleItemModels);
         // Attach the adapter to a ListView
-        recyclerView = (RecyclerView) findViewById(R.id.details_list);
+        recyclerView = findViewById(R.id.details_list);
         if (recyclerView != null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -112,21 +109,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState != null) {
             currentCategory = savedInstanceState.getInt("CURRENT_CATEGORY");
             categoryTitleForToolbar = savedInstanceState.getString("CURRENT_CATEGORY_TOOLBAR_TITLE");
-//            toolbar.setTitle(categoryTitleForToolbar);
             listItems(currentCategory);
         } else {
             listItems(R.id.nav_basics);
         }
 
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            @AddTrace(name = "onItemClicked")
-            public void onItemClicked(RecyclerView recyclerView, int position, View view) {
-                startActivity(exampleItemModels.get(position).getActivity());
-            }
-        });
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener((recyclerView, position, view) -> startActivity(exampleItemModels.get(position).getActivity()));
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         if (drawer != null) {
@@ -134,35 +124,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(this);
             navigationView.setCheckedItem(R.id.nav_basics);
         }
-//
-//        loggedIn = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-//                .getBoolean(TOKEN_SAVED_KEY, false);
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
                 .putBoolean(SKIPPED_KEY, true)
                 .apply();
 
         TextView versionTv = findViewById(R.id.tv_version);
         versionTv.setText(BuildConfig.VERSION_NAME);
-        versionTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Beta.checkUpgrade();
-            }
-        });
 
         methodRequiresPermission();
 
-        checkUpgrade();
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer != null) {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
@@ -180,10 +160,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id != currentCategory) {
             listItems(id);
             categoryTitleForToolbar = item.getTitle().toString();
-//            toolbar.setTitle(categoryTitleForToolbar);
-
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer != null) {
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -242,6 +220,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_annotation_animated_marker_description,
                         new Intent(MainActivity.this, AnimatedMarkerActivity.class),
                         R.drawable.annotations_3_5, false, BuildConfig.MIN_SDK_VERSION));
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_annotation_line,
+                        R.string.activity_annotation_line_description,
+                        new Intent(MainActivity.this, DrawLineActivity.class),
+                        R.drawable.annotations_3_5, false, BuildConfig.MIN_SDK_VERSION));
 
                 currentCategory = R.id.nav_annotations;
                 break;
@@ -252,12 +235,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_camera_animate_description,
                         new Intent(MainActivity.this, AnimateMapCameraActivity.class),
                         R.drawable.camera_4_1, false, BuildConfig.MIN_SDK_VERSION));
-
-//                exampleItemModels.add(new ExampleItemModel(
-//                        R.string.activity_camera_bounding_box_title,
-//                        R.string.activity_camera_bounding_box_description,
-//                        new Intent(MainActivity.this, BoundingBoxCameraActivity.class),
-//                        R.string.activity_camera_bounding_box_url, false, BuildConfig.MIN_SDK_VERSION));
 
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_camera_restrict_title,
@@ -352,6 +329,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.drawable.location_07_1, false, BuildConfig.MIN_SDK_VERSION));
 
                 currentCategory = R.id.nav_dispay_location;
+                break;
+
+            case R.id.nav_dispay_visual:
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_360_view_title,
+                        R.string.activity_360_view_description,
+                        new Intent(MainActivity.this, DisplayVisualActivity.class),
+                        R.drawable.visualmap_08_1, false, BuildConfig.MIN_SDK_VERSION));
+
+                currentCategory = R.id.nav_dispay_visual;
                 break;
 
             case R.id.nav_controllers:
@@ -465,18 +452,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             EasyPermissions.requestPermissions(this, "request permission", 1010, perms);
         }
     }
-
-
-    private void checkUpgrade() {
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Beta.checkUpgrade(false, false);
-            }
-        }, 4000);
-    }
-
 
     @Override
     protected void onDestroy() {

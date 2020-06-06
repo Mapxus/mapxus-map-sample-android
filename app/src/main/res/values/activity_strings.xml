@@ -17,12 +17,8 @@
 
 
     <!--Marker strings for DrawCustomMarkerActivity activity-->
-    <string name="draw_custom_marker_options_title">Element</string>
-    <string name="draw_custom_marker_options_snippet">One of the mall in Hong Kong</string>
 
     <!--Marker strings for DrawMarkerActivity activity-->
-    <string name="draw_marker_options_title">Hello World!</string>
-    <string name="draw_marker_options_snippet">Welcome to my marker.</string>
 
 
     <string name="tap_on_map_instruction">Tap anywhere on the map</string>
@@ -47,11 +43,9 @@
     <string name="click_toobar_switch_style">Click toolbar menu switch style</string>
 
 
-    <string name="draw_marker_tips">Switch floor to L2 or L3 for check other marker</string>
     <string name="draw_custom_marker_tips">Switch floor to  L3 for check custom marker</string>
     <string name="location_dialog_message">Positioning</string>
     <string name="location_dialog_title">Please wait a moment</string>
-    <string name="location_positioning_error_toast">Positioning Error</string>
     <string name="location_positioning_button_ok">OK</string>
 
 

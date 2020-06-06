@@ -15,6 +15,7 @@
     <string name="activity_annotation_polygon_description">通過Mapxus Maps SDK繪制多邊形。</string>
     <string name="activity_annotation_polygon_holes_description">通過Mapxus Maps SDK繪制帶孔的多邊形。</string>
     <string name="activity_annotation_animated_marker_description">移動地圖上的標註到新的位置。</string>
+    <string name="activity_annotation_line_description">在地圖上畫線。</string>
     <string name="activity_camera_animate_description">"帶動畫效果的改變地圖的鏡頭位置，平鋪，方位和縮放。"</string>
     <string name="activity_camera_restrict_description">防止地圖被移到不同的地方。</string>
 
@@ -43,5 +44,5 @@
     <string name="activity_selector_position_description">把室內地圖控件放置在你想要的位置。 </string>
     <string name="activity_hidden_selector_description">把室內地圖控件設置為總是隱藏。 </string>
 
-
+    <string name="activity_360_view_description">展示360全景視覺 </string>
 </resources>

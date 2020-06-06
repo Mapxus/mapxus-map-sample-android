@@ -1,18 +1,18 @@
 package com.mapxus.mapxusmapandroiddemo.examples.annotations;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.model.LatLng;
-import com.mapxus.map.model.MapxusMarkerOptions;
 
 /**
  * Create a marker with a custom icon using the Beemap Android SDK.
@@ -31,17 +31,15 @@ public class DrawCustomMarkerActivity extends AppCompatActivity {
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
-        mapViewProvider = new MapboxMapViewProvider(this,mapView);
+        mapViewProvider = new MapboxMapViewProvider(this, mapView);
 
         mapViewProvider.getMapxusMapAsync(new OnMapxusMapReadyCallback() {
             @Override
             public void onMapxusMapReady(MapxusMap mapxusMap) {
                 mapxusMap.addMarker(new MapxusMarkerOptions()
-                        .setBuildingId("elements_hk_dc005f")
-                        .setFloor("L3")
-                        .setPosition(new LatLng(LatLngConstant.ELEMENT_LATLON.getLatitude(),LatLngConstant.ELEMENT_LATLON.getLongitude()))
-                        .setTitle(getString(R.string.draw_custom_marker_options_title))
-                        .setSnippet(getString(R.string.draw_custom_marker_options_snippet))
+                        .setPosition(new LatLng(22.370784, 114.111375))
+                        .setTitle("Test Point")
+                        .setSnippet("Test Point Snippt")
                         .setIcon(R.drawable.purple_marker));
             }
         });

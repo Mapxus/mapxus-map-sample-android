@@ -1,17 +1,18 @@
 package com.mapxus.mapxusmapandroiddemo.examples.listener;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.model.IndoorBuilding;
 
 /**
  * Animate the map's camera position, tilt, bearing, and zoom.

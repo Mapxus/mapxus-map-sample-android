@@ -12,6 +12,7 @@
     <string name="activity_basic_beemap_without_outdoor_title">隱藏室外地圖</string>
     <string name="activity_styles_default_title">默認樣式</string>
     <string name="activity_annotation_marker_title">繪制標註</string>
+    <string name="activity_annotation_line">畫線</string>
     <string name="activity_annotation_custom_marker_title">繪制定義圖標的標註</string>
     <string name="activity_annotation_polygon_title">繪制多邊形</string>
     <string name="activity_annotation_polygon_holes_title">繪制帶孔的多邊形</string>
@@ -43,6 +44,8 @@
     <string name="activity_selector_position_title">室內地圖控件位置 </string>
 
     <string name="activity_hidden_selector_title">隱藏室內地圖控件 </string>
+
+    <string name="activity_360_view_title">360全景視覺 </string>
 
 
 </resources>

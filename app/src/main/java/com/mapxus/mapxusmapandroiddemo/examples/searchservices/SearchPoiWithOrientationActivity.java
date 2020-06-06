@@ -1,48 +1,44 @@
 package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.mapbox.mapboxsdk.annotations.Polyline;
+import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.mapboxsdk.style.sources.Source;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.model.LatLng;
-import com.mapxus.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusMarker;
+import com.mapxus.map.mapxusmap.api.services.PoiSearch;
+import com.mapxus.map.mapxusmap.api.services.constant.DistanceSearchType;
+import com.mapxus.map.mapxusmap.api.services.model.IndoorLatLng;
+import com.mapxus.map.mapxusmap.api.services.model.PoiOrientationSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationInfo;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
-import com.mapxus.services.PoiSearch;
-import com.mapxus.services.model.IndoorLatLng;
-import com.mapxus.services.model.PoiOrientationSearchOption;
-import com.mapxus.services.model.poi.PoiOrientationInfo;
-import com.mapxus.services.model.poi.PoiOrientationResult;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class SearchPoiWithOrientationActivity extends AppCompatActivity implements OnMapReadyCallback, OnMapxusMapReadyCallback {
 
-    private static final String TAG = "SearchPoiWithOrientationActivity";
+    private static final String TAG = "SearchPoiByOrientationActivity";
 
     private MapView mapView;
     private MapboxMap mMapboxMap;
@@ -50,17 +46,27 @@ public class SearchPoiWithOrientationActivity extends AppCompatActivity implemen
     private MapxusMap mMapxusMap;
 
     private EditText mSearchText;
-    private EditText mDistanceText;
-    private int mOrientation;
-    private int mDistance;
 
+    //搜索类型
+    private String searchType = DistanceSearchType.POINT;
+
+    //搜索对象
     private PoiSearch poiSearch;
+
+    //中心点marker
+    private MapxusMarker centerMarker;
+
+    //中心点坐标
     private IndoorLatLng indoorLatLng;
 
-    private String MARKER_SOURCE = "orientation-result-marker-source";
-    private String MARKER_LAYER = "orientation-result-marker-layer";
-    private String MARKER_IMAGE = "orientation-result-marker-image";
-    private String IMAGE_KEY = "orientation-result";
+    //搜索半径
+    private int radius;
+
+    //圆圈
+    private Polyline circleLine;
+
+    //查询结果poi列表
+    private List<MapxusMarker> markerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,10 @@ public class SearchPoiWithOrientationActivity extends AppCompatActivity implemen
         mapViewProvider.getMapxusMapAsync(this);
 
         mSearchText = findViewById(R.id.input_edittext);
-        mDistanceText = findViewById(R.id.input_distance);
+
+        updateRadius();
+
+
         TextView searchButton = findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,43 +93,45 @@ public class SearchPoiWithOrientationActivity extends AppCompatActivity implemen
             }
         });
 
-        indoorLatLng = new IndoorLatLng();
-        indoorLatLng.setLat(23.03566177875929);
-        indoorLatLng.setLon(113.18252357250441);
-        indoorLatLng.setBuildingId("vivocity_foshan_d3fmv9");
-        indoorLatLng.setFloor("1");
-
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(adapter);
     }
 
-    @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        mMapboxMap = mapboxMap;
-    }
 
-    @Override
-    public void onMapxusMapReady(MapxusMap mapxusMap) {
-        mMapxusMap = mapxusMap;
-        MapxusMarkerOptions markerOptions = new MapxusMarkerOptions();
-        markerOptions.setPosition(new LatLng(indoorLatLng.getLat(), indoorLatLng.getLon()));
-        markerOptions.setFloor(indoorLatLng.getFloor());
-        markerOptions.setBuildingId(indoorLatLng.getBuildingId());
-        mMapxusMap.addMarker(markerOptions);
+    //radio 选择搜索类型
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.btn_point:
+                if (checked)
+                    searchType = DistanceSearchType.POINT;
+                break;
+            case R.id.btn_polygon:
+                if (checked)
+                    searchType = DistanceSearchType.POLYGON;
+                break;
+        }
     }
 
     /**
      * 开始进行poi搜索
      */
     protected void doSearchQuery() {
-        mOrientation = Integer.valueOf(mSearchText.getText().toString().trim());
-        mDistance = Integer.valueOf(mDistanceText.getText().toString().trim());
+        if (null == indoorLatLng) {
+            Toast.makeText(SearchPoiWithOrientationActivity.this, "请点击地图进行选点", Toast.LENGTH_LONG).show();
+            return;
+        }
+        updateRadius();
         PoiOrientationSearchOption option = new PoiOrientationSearchOption();
-        //当前手机朝向
-        option.orientation(mOrientation);
+
+        //方向0度，正北方向
+        option.orientation(0);
         option.indoorLatLng(indoorLatLng);
-        //搜索范围
-        option.meterRadius(mDistance);
+        option.meterRadius(radius);
+        option.searchType(searchType);
         poiSearch.searchPoiByOrientation(option);
     }
 
@@ -137,24 +148,11 @@ public class SearchPoiWithOrientationActivity extends AppCompatActivity implemen
                 return;
             }
 
-            List<Feature> markerFeatureList = new ArrayList<>();
-            for (PoiOrientationInfo info : poiOrientationResult.getPoiOrientationInfos()) {
-                Feature feature = Feature.fromGeometry(Point.fromLngLat(info.getLocation().getLon(),
-                        info.getLocation().getLat()));
-                feature.addStringProperty(IMAGE_KEY, MARKER_IMAGE + info.getAngle());
-                markerFeatureList.add(feature);
-                drawImage(info.getAngle());
-            }
             removeMarkerLayer();
-            FeatureCollection markerFeatureCollection = FeatureCollection.fromFeatures(markerFeatureList);
-            Source markerSource = new GeoJsonSource(MARKER_SOURCE, markerFeatureCollection);
-            mMapboxMap.getStyle().addSource(markerSource);
 
-
-            SymbolLayer symbolLayer = new SymbolLayer(MARKER_LAYER, MARKER_SOURCE)
-                    .withProperties(PropertyFactory.iconImage(Expression.get(IMAGE_KEY)));
-            mMapboxMap.getStyle().addLayer(symbolLayer);
-
+            for (PoiOrientationInfo info : poiOrientationResult.getPoiOrientationInfos()) {
+                drawPoiMarker(info);
+            }
         }
     };
 
@@ -162,42 +160,104 @@ public class SearchPoiWithOrientationActivity extends AppCompatActivity implemen
      * 清除图标
      */
     private void removeMarkerLayer() {
-        Objects.requireNonNull(mMapboxMap.getStyle()).removeLayer(MARKER_LAYER);
-        mMapboxMap.getStyle().removeSource(MARKER_SOURCE);
-        mMapboxMap.getStyle().removeImage(MARKER_IMAGE);
+        for (MapxusMarker marker : markerList) {
+            mMapxusMap.removeMarker(marker);
+        }
+
+        markerList.clear();
     }
 
-    private void drawImage(int angle) {
-        Bitmap bitmap = Bitmap.createBitmap(60, 60, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        //画圆
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setAntiAlias(false);
-        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, 25, paint);
+    private void drawPoiMarker(PoiOrientationInfo poi) {
+        markerList.add(mMapxusMap.addMarker(new MapxusMarkerOptions()
+                .setBuildingId(poi.getBuildingId())
+                .setFloor(poi.getFloor())
+                .setPosition(new LatLng(poi.getLocation().getLat(), poi.getLocation().getLon()))
+                .setTitle(poi.getName().get("default"))
+                .setSnippet("source=from " + poi.getDistanceSource() + " ,distance=" + poi.getDistance() + " ,angle=" + poi.getAngle())
+                .setIcon(R.drawable.purple_marker)));
+    }
 
-        //写字体
-        Paint textPaint = new Paint();
-        int size;
-        if (angle < 10) {
-            size = 40;
-        } else if (angle < 100) {
-            size = 30;
-        } else {
-            size = 20;
+
+    private MapxusMap.OnMapClickListener choosePointMapClickListener = new MapxusMap.OnMapClickListener() {
+        @Override
+        public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
+            updateRadius();
+
+            indoorLatLng = new IndoorLatLng(latLng.getLatitude(), latLng.getLongitude(), floor, buildingId);
+            if (centerMarker != null) {
+                mMapxusMap.removeMarker(centerMarker);
+                centerMarker = null;
+            }
+            MapxusMarkerOptions mapxusMarkerOptions = new MapxusMarkerOptions();
+            mapxusMarkerOptions.setPosition(latLng);
+            mapxusMarkerOptions.setBuildingId(buildingId);
+            mapxusMarkerOptions.setFloor(floor);
+            centerMarker = mMapxusMap.addMarker(mapxusMarkerOptions);
+
+            if (null != circleLine) {
+                mMapboxMap.removePolyline(circleLine);
+                circleLine = null;
+            }
+
+            drawCircle();
         }
-        textPaint.setAntiAlias(true);
-        textPaint.setDither(true);
-        textPaint.setTextSize(size);
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTextAlign(Paint.Align.CENTER);
+    };
 
-        Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
-        float textHigh = fontMetrics.descent - fontMetrics.ascent;
-        canvas.drawText(angle + "", canvas.getWidth() / 2, canvas.getHeight() / 2 + textHigh / 2, textPaint);
+    //更新搜索半径
+    private void updateRadius() {
+        radius = Integer.valueOf(mSearchText.getText().toString().trim());
+    }
 
-        Objects.requireNonNull(mMapboxMap.getStyle()).addImage(MARKER_IMAGE + angle, bitmap);
+    //画圆圈
+    public void drawCircle() {
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.color(R.color.grey);
+        polylineOptions.width(0.5f); // change the line width here
+        polylineOptions.addAll(getCirclePoints());
+        circleLine = mMapboxMap.addPolyline(polylineOptions);
+    }
+
+    //计算圆上的点
+    private ArrayList<com.mapbox.mapboxsdk.geometry.LatLng> getCirclePoints() {
+        int degreesBetweenPoints = 10; // change here for shape
+        int numberOfPoints = (int) Math.floor(360 / degreesBetweenPoints);
+        double distRadians = radius / 6371000.0; // earth radius in meters
+        double centerLatRadians = indoorLatLng.getLat() * Math.PI / 180;
+        double centerLonRadians = indoorLatLng.getLon() * Math.PI / 180;
+        ArrayList<com.mapbox.mapboxsdk.geometry.LatLng> polygons = new ArrayList<>(); // array to hold all the points
+        for (int index = 0; index < numberOfPoints; index++) {
+            double degrees = index * degreesBetweenPoints;
+            double degreeRadians = degrees * Math.PI / 180;
+            double pointLatRadians = Math.asin(sin(centerLatRadians) * cos(distRadians)
+                    + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians));
+            double pointLonRadians = centerLonRadians + Math.atan2(sin(degreeRadians)
+                            * sin(distRadians) * cos(centerLatRadians),
+                    cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians));
+            double pointLat = pointLatRadians * 180 / Math.PI;
+            double pointLon = pointLonRadians * 180 / Math.PI;
+            com.mapbox.mapboxsdk.geometry.LatLng point = new com.mapbox.mapboxsdk.geometry.LatLng(pointLat, pointLon);
+            polygons.add(point);
+        }
+        // add first point at end to close circle
+        polygons.add(polygons.get(0));
+        return polygons;
+    }
+
+    @Override
+    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+        mMapboxMap = mapboxMap;
+    }
+
+    @Override
+    public void onMapxusMapReady(MapxusMap mapxusMap) {
+        mMapxusMap = mapxusMap;
+        mMapxusMap.addOnMapClickListener(choosePointMapClickListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
     @Override
@@ -235,11 +295,4 @@ public class SearchPoiWithOrientationActivity extends AppCompatActivity implemen
         super.onDestroy();
         mapView.onDestroy();
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
-
 }

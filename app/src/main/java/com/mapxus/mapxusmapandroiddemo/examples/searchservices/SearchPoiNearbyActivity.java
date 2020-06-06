@@ -1,26 +1,27 @@
 package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.model.LatLng;
+import com.mapxus.map.mapxusmap.api.services.PoiSearch;
+import com.mapxus.map.mapxusmap.api.services.model.PoiNearbySearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
-import com.mapxus.services.PoiSearch;
-import com.mapxus.services.model.PoiNearbySearchOption;
-import com.mapxus.services.model.poi.PoiCategoryResult;
-import com.mapxus.services.model.poi.PoiDetailResult;
-import com.mapxus.services.model.poi.PoiOrientationResult;
-import com.mapxus.services.model.poi.PoiResult;
 
 /**
  * Use MapxusMap Search Services to request directions

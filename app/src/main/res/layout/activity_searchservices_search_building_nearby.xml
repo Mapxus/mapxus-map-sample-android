@@ -8,9 +8,9 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       app:mapbox_cameraTargetLat="22.304716516178253"
-        app:mapbox_cameraTargetLng="114.16186609400843"
-        app:mapbox_cameraZoom="11" />
+        app:mapbox_cameraTargetLat="@string/default_lat"
+        app:mapbox_cameraTargetLng="@string/default_lon"
+        app:mapbox_cameraZoom="17" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,10 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
-                android:drawableLeft="@drawable/search_input"
-                android:hint="please input building name"
+                android:drawableStart="@drawable/search_input"
+                android:hint="@string/default_search_text_hint"
                 android:singleLine="true"
-                android:text="element"
                 android:textColor="@color/grey"
                 android:textColorHint="@color/darkgrey"
                 android:textSize="14sp" />

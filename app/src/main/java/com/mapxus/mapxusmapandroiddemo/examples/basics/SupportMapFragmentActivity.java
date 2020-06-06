@@ -1,15 +1,16 @@
 package com.mapxus.mapxusmapandroiddemo.examples.basics;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
+import com.mapxus.map.mapxusmap.impl.SupportMapxusMapFragment;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.constant.LatLngConstant;
-import com.mapxus.map.impl.SupportMapxusMapFragment;
 
 /**
  * Include a map fragment within your app using Android support library.

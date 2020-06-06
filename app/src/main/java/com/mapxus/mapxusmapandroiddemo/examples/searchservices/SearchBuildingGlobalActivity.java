@@ -1,36 +1,36 @@
 package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
+import com.mapxus.map.mapxusmap.api.services.model.GlobalSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.building.Address;
+import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult;
+import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
+import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
+import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
-
-import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarker;
-import com.mapxus.map.MapViewProvider;
-import com.mapxus.map.MapxusMap;
-
-import com.mapxus.map.impl.MapboxMapViewProvider;
-import com.mapxus.services.BuildingSearch;
-import com.mapxus.services.model.building.Address;
-import com.mapxus.services.model.building.BuildingDetailResult;
-import com.mapxus.services.model.building.BuildingResult;
-import com.mapxus.services.model.GlobalSearchOption;
-import com.mapxus.services.model.building.IndoorBuildingInfo;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
+import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarker;
 
 /**
  * Use MapxusMap Search Services to request directions
  */
-public class SearchBuildingGlobalActivity extends AppCompatActivity implements com.mapxus.map.interfaces.OnMapxusMapReadyCallback, BuildingSearch.BuildingSearchResultListener, MapboxMap.OnMarkerClickListener, OnMapReadyCallback {
+public class SearchBuildingGlobalActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, BuildingSearch.BuildingSearchResultListener, MapboxMap.OnMarkerClickListener, OnMapReadyCallback {
 
     private static final String TAG = "SearchBuildingGlobalActivity";
 
