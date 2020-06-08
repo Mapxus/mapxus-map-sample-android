@@ -1,57 +1,57 @@
-Mapxus Map sample app for android.
+# Mapxus Map sample app for Android
 
-Before running the project, create the **secret.properties** file in the project root directory and fill in the application appid and secret in the following format
+This is a sample project to demonstrate how to use mapxus map android sdk.
+
+# Table of Contents
+- [Installation](#Installation)
+- [Mapxus Map Android SDK Instruction](#Mapxus_Map_Android_SDK_Instruction)
+  - [About Mapxus Map SDK](#About_Mapxus_Map_SDK)
+  - [Install Mapxus Map SDK](#Install_Mapxus_Map_SDK)
+    - [Create a Project](#Create_A_Project)
+
+# Installation
+
+We highly recommend using the latest stable version of Android Studio (Current version: 4.0) to open this project.
+
+Before running this project, please create the **secret.properties** file in the project root directory and fill in the application appid and secret in the following format.
 
 	appid=
 	secret=
 
+Please contact us  <support@mapxus.com> to get appid and secret if you do not have them.
 
+# Mapxus Map Android SDK Instruction
 
-# MapxusMap Android SDK Instruction
-
-## 1. About Mapxus Map
+## About Mapxus Map SDK
 
 Mapxus Map SDK is a set of call interface for developing indoor map. Developers can easily install map features in their own Android application, including displaying map, changing map style, map events, drawing on the map, searching building, searching POI, route planning, etc.
 
+## Install Mapxus Map SDK
 
-### 1.1 Minimum Android Version
+### Create a Project
 
-The Mapxus Map SDK for Android is deployed on Android 5.0 and above.
+First of all, please create a project for your APP. Then, configure mapxus map SDK through the following steps:
 
-Notice: 
+#### Step1: Add jcenter repository
 
-**1.When using Mapxus Map 4.0.0 and above version, please use Mapxus Positioning Map 2.0.0and above version if you need to use Mapxus Positioning Map.** 
+Add jcenter repository to your root project's **build.gradle** file:
 
-**1.When using Mapxus Map 4.0.0 and above version, please use Mapxus Positioning Map 2.0.0and above version if you need to use Mapxus Positioning Map.** 
-
-### 1.2 Get an API key
-
-Please contact us for api Key and secret。
-
-## 2. Install Mapxus Map SDK
-
-### 2.1 Create a Project
-
-First of all, please create a project for your APP. Then, integrate your SDK through the following steps.
-
-#### 2.1.1 Add jcenter repository
-
-
-```java
+```grovvy
 
 allprojects {
     repositories {
         jcenter()
+        ...
     }
 }
 
 ```
-#### 2.1.2 Add Dependencies
+#### Step2: Add Mapxus Map SDK Dependencies
 
-Add dependencies in your **build.gradle** in app
+Add dependencies in your **build.gradle** in app if you use
 
 
-```java
+```grovvy
 
 dependencies { 
  ...
@@ -68,12 +68,12 @@ dependencies {
 
 #### 2.1.3 Set Java 8 Support
 
-Please refer to Google about Java 8 language documentation and set Java 8 Support. 
+Please refer to Google about Java 8 language documentation and set Java 8 Support.
 [https://developer.android.com/studio/write/java8-support](https://developer.android.com/studio/write/java8-support)
 
 #### 2.1.4 Set Android x Support
 
-Please refer to Google about Migrating to AndroidX documentation and set Android x Support. 
+Please refer to Google about Migrating to AndroidX documentation and set Android x Support.
 [https://developer.android.google.cn/jetpack/androidx/migrate](https://developer.android.google.cn/jetpack/androidx/migrate)
 
 
@@ -120,7 +120,7 @@ Add them in onCreate() Method of BaseApplication
 ```
 
 ### 2.2 Create Your First Map
-	
+
 #### 2.2.1 Add Your Map in Activity Application
 
 First of all, add Mapbox Map controllers in the layout xml file:
@@ -257,7 +257,7 @@ Add MapView in Activity file:
         setContentView(mapboxMapView);
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Getting_started_dynamic.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_dynamic.png)
 
 #### 2.2.4 Create Your Map with Particular buildingId and floor
 
@@ -412,7 +412,7 @@ To draw a marker:
             }
         });
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Annotations_marker.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Annotations_marker.png)
 
 #### 3.3.2 Draw a Customized Marker
 
@@ -434,7 +434,7 @@ To create a marker with custom icon:
             }
         });
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Annotations_customized_marker.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Annotations_customized_marker.png)
 
 ### 3.5 Search a Building
 
@@ -494,7 +494,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_nearby.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_nearby.png)
 
 #### 3.5.2 Search by Area
 
@@ -548,7 +548,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_inbound.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_inbound.png)
 
 #### 3.5.3 Search by Building ID
 
@@ -594,7 +594,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_id.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_id.png)
 
 #### 3.5.4 Global Search
 
@@ -641,7 +641,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_building_global.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_global.png)
 
 ### 3.6 Search POI
 
@@ -697,7 +697,7 @@ public void onGetPoiResult(PoiResult poiResult) {
     }
 
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_nearby.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_nearby.png)
 
 #### 3.6.2 Search POI by Area
 
@@ -737,7 +737,7 @@ public void onGetPoiResult(PoiResult poiResult) {
 
 ```
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_inbound.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_inbound.png)
 
 
 #### 3.6.3 Search POI by ID
@@ -781,7 +781,7 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
     }
 
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_id.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_id.png)
 
 #### 3.6.4 Search Indoor POI
 
@@ -820,7 +820,7 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ```
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_inbuilding.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_inbuilding.png)
 
 #### 3.6.5 Search Indoor POI Category
 
@@ -870,7 +870,7 @@ option.meterRadius(distance);
 public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 }
 ~~~
-![](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_poi_orientation.png)
+![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_orientation.png)
 
 ### 3.7 Route Planning
 
@@ -927,7 +927,7 @@ Route planning can draw a route, including start point, end point and turning po
         walkRouteOverlay.addToMap();
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Search_services_rounte_planning.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_rounte_planning.png)
 
 ### 3.8 Change Map Style
 
@@ -940,7 +940,7 @@ You can change your map style by this interface:
 mapViewProvider.setStyle(Style.COMMON);
 ```
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/%20Styles.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Styles.png)
 
 ## 4. API
 
