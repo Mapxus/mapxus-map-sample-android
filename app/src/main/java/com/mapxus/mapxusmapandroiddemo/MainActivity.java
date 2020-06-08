@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.perf.metrics.AddTrace;
 import com.mapxus.mapxusmapandroiddemo.adapter.ExampleAdapter;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.AnimatedMarkerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.annotations.DrawCustomMarkerActivity;
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Timer timer = new Timer();
 
     @Override
-    @AddTrace(name = "onCreateMainActivity")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -168,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @AddTrace(name = "listItems")
     private void listItems(int id) {
         exampleItemModels.clear();
         switch (id) {
