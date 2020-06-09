@@ -4,7 +4,7 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
 
 # Table of Contents
 - [Installation](#installation)
-- [Mapxus Map Android SDK Instruction](#Mapxus%20Map%20Android%20SDK%20Instruction)
+- [Mapxus Map Android SDK Instruction](#Mapxus-Map-Android-SDK-Instruction)
   - [About Mapxus Map SDK](#About_Mapxus_Map_SDK)
   - [Install Mapxus Map SDK](#Install_Mapxus_Map_SDK)
     - [Create a Project](#Create_A_Project)
