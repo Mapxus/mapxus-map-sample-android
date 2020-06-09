@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_annotations:
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_annotation_marker_title,
-                        R.string.activity_annotation_custom_marker_description,
+                        R.string.activity_annotation_default_marker_description,
                         new Intent(MainActivity.this, DrawMarkerActivity.class),
                         R.drawable.annotations_3_1, false, BuildConfig.MIN_SDK_VERSION));
 

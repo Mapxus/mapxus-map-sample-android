@@ -11,6 +11,7 @@
     <string name="activity_basic_beemap_init_with_poi_description">直接创建定位在特定poi的地图。</string>
     <string name="activity_basic_beemap_without_outdoor_description">隐藏室外地图，只显示室内地图。</string>
     <string name="activity_styles_default_description">通过Mapxus Maps SDK使用各种专业设计的样式。</string>
+    <string name="activity_annotation_default_marker_description">通过Mapxus Maps SDK添加默认标注。</string>
     <string name="activity_annotation_custom_marker_description">通过Mapxus Maps SDK添加自定义图标标注。</string>
     <string name="activity_annotation_polygon_description">通过Mapxus Maps SDK绘制多边形。</string>
     <string name="activity_annotation_polygon_holes_description">通过Mapxus Maps SDK绘制带孔的多边形。</string>

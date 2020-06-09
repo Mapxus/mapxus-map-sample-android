@@ -13,7 +13,7 @@
     <string name="activity_styles_default_title">默認樣式</string>
     <string name="activity_annotation_marker_title">繪制標註</string>
     <string name="activity_annotation_line">畫線</string>
-    <string name="activity_annotation_custom_marker_title">繪制定義圖標的標註</string>
+    <string name="activity_annotation_custom_marker_title">繪制自定義標註圖標</string>
     <string name="activity_annotation_polygon_title">繪制多邊形</string>
     <string name="activity_annotation_polygon_holes_title">繪制帶孔的多邊形</string>
     <string name="activity_annotation_animated_marker_title">移動標註位置</string>
