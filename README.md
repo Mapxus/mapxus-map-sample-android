@@ -8,12 +8,38 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
   - [About Mapxus Map SDK](#About_Mapxus_Map_SDK)
   - [Install Mapxus Map SDK](#Install_Mapxus_Map_SDK)
     - [Create a Project](#Create_A_Project)
+  - [Display Digital Map with Static Layout](#Display_Digital_Map_With_Static_Layout)
+    - [Display in Activity](#Display_In_Activity)
+    - [Display in Fragment](#Display_In_Fragment)
+  - [Display Digital Map Dynamically/Programatically](#Display_Digital_Map_Dynamically_Programatically)
+    - [Display via lat/log and zoom level](#Display_Via_Lat_Log_And_Zoom_Level)
+    - [Display via specified building and floor](#Display_Via_Specified_Building_And_Floor)
+    - [Display via specified POI](#Display_Via_Specified_POI)
+  - [Digital Map Customizations](#Digital_Map_Customizations)
+    - [Digital Map Controllers](#Digital_Map_Controllers)
+    - [Digital Map Events](#Digital_Map_Events)
+    - [Digital Map Drawing](#Digital_Map_Drawing)
+    - [Digital Map Style](#Digital_Map_Style)
+  - [Searching in Digital Map](#Searching_In_Digital_Map)
+    - [Building Search](#Building_Search)
+      - [Search nearby buildings](#Search_Nearby_Buildings)
+      - [Search Buildings by Area](#Search_Buildings_By_Area)
+      - [Search by Building ID](#Search_By_Building_ID)
+      - [Global Search](#Global_Search)
+    - [POI Search](#POI_Search)
+      - [Search nearby POIs](#Search_Nearby_POIs)
+      - [Search POIs by Area](#Search_POIs_By_Area)
+      - [Search POI by ID](#Search_POI_By_ID)
+      - [Search Indoor POIs by Keywords](#Search_Indoor_POIs_By_Keywords)
+      - [Search Indoor POIs by Category](#Search_Indoor_POIs_By_Category)
+      - [Search Indoor POIs with user orientation](#Search_Indoor_POIs_With_User_Orientation)
+    - [Route Planning](#Route_Planning)
 
 # Installation
 
 We highly recommend using the latest stable version of Android Studio (Current version: 4.0) to open this project.
 
-Before running this project, please create the **secret.properties** file in the project root directory and fill in the application appid and secret in the following format.
+Before running this project, please create the **secret.properties** file in the project root directory and fill in the application appid and secret in the following format:
 
 	appid=
 	secret=
@@ -24,7 +50,9 @@ Please contact us  <support@mapxus.com> to get appid and secret if you do not ha
 
 ## About Mapxus Map SDK
 
-Mapxus Map SDK is a set of call interface for developing indoor map. Developers can easily install map features in their own Android application, including displaying map, changing map style, map events, drawing on the map, searching building, searching POI, route planning, etc.
+Mapxus Map SDK is a set of developer-friendly tools to empower your android applications with our cutting edge city-based indoor location services, including digital map displaying, digital map customizations, indoor search, route planning, positioning, 360 visual view etc.
+
+For more information about Mapxus Indoor Location Service, please check our website: [https://www.mapxus.com/](https://www.mapxus.com/).
 
 ## Install Mapxus Map SDK
 
@@ -66,18 +94,18 @@ dependencies {
 
 
 
-#### 2.1.3 Set Java 8 Support
+#### Step3: Set Java 8 Support
 
 Please refer to Google about Java 8 language documentation and set Java 8 Support.
 [https://developer.android.com/studio/write/java8-support](https://developer.android.com/studio/write/java8-support)
 
-#### 2.1.4 Set Android x Support
+#### Step4: Set AndroidX Support
 
-Please refer to Google about Migrating to AndroidX documentation and set Android x Support.
+Please refer to Google about Migrating to AndroidX documentation and set AndroidX Support.
 [https://developer.android.google.cn/jetpack/androidx/migrate](https://developer.android.google.cn/jetpack/androidx/migrate)
 
 
-#### 2.1.5 Prevent Obfuscation
+#### Step5: Prevent Obfuscation
 
 Please configurate these in ProGuard to avoid obfuscation:
 
@@ -88,7 +116,7 @@ Please configurate these in ProGuard to avoid obfuscation:
 ```
 
 
-#### 2.1.6 Set Key and Secret
+#### Step6: Set Key and Secret
 
 There are two options to set your api key and secret:
 
@@ -119,9 +147,9 @@ Add them in onCreate() Method of BaseApplication
 	MapxusMapContext.init(getApplicationContext()，Key，secret);
 ```
 
-### 2.2 Create Your First Map
+## Display Digital Map with Static Layout
 
-#### 2.2.1 Add Your Map in Activity Application
+### Display in Activity
 
 First of all, add Mapbox Map controllers in the layout xml file:
 
@@ -201,9 +229,9 @@ Then, add map codes as follows in Activity file:
 
 Please be aware that maps lifecycle requires reasonable management during using map in your project.
 
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Getting_started_simple.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_simple.png)
 
-#### 2.2.2 Display Map by Fragment
+### Display in Fragment
 
 Add SupportMapxusMapFragment in Activity file:
 
@@ -234,11 +262,11 @@ Add SupportMapxusMapFragment in Activity file:
         }
     }
 ```
-![image](https://github.com/Mapxus/mapxus-map-sample-android/blob/master/image/Getting_started_fragment.png)
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_fragment.png)
 
-#### 2.2.3 Create Dynamic Map
+## Display Digital Map Dynamically/Programatically
 
-Add MapView in Activity file:
+### Display via lat/log and zoom level
 
 ```java
     private MapViewProvider mapViewProvider;
@@ -259,7 +287,7 @@ Add MapView in Activity file:
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_dynamic.png)
 
-#### 2.2.4 Create Your Map with Particular buildingId and floor
+### Display via specified building and floor
 
 Add MapView in Activity file:
 
@@ -279,7 +307,7 @@ Add MapView in Activity file:
     }
 ```
 
-#### 2.2.5 Create Your Map with Particular POI
+### Display via specified POI
 
 Add MapView in Activity file:
 
@@ -302,9 +330,9 @@ Add MapView in Activity file:
 
 
 
-## 3.SDK Features
+## Digital Map Customizations
 
-### 3.1 Map Controllers
+### Digital Map Controllers
 
 Controllers refer to components displaying above the map with the function of operating maps, such as floor selector, etc. MapxusUiSettings class is used to manage these controllers so as to tailor your map view. MapxusUiSettings could be instantiated by MapxusMap.
 
@@ -317,7 +345,7 @@ Controllers refer to components displaying above the map with the function of op
     }
 ```
 
-#### 3.1.1 Selector
+#### Selector
 
 Selector is a button for APP users to alter displaying or hiding floor selecting list and building selecting list on the map. It is on (displaying) by default but you can hide it by the following interface:
 
@@ -326,7 +354,7 @@ Selector is a button for APP users to alter displaying or hiding floor selecting
 mapxusUiSettings.setSelectorEnabled(false);
 ```
 
-#### 3.1.2 Building Selector
+#### Building Selector
 
 Building selector allows APP users to decide whether displaying building selecting list on the map or not. It is on (displaying) by default but you can hide it by this interface:
 
@@ -334,9 +362,9 @@ Building selector allows APP users to decide whether displaying building selecti
 mapxusUiSettings.setBuildingSelectorEnabled(false);
 ```
 
-### 3.2 Map Events
+### Digital Map Events
 
-#### 3.2.1 Change Building Listener
+#### Change Building Listener
 
 ```java
 mapxusMap.addOnBuildingChangeListener(new MapxusMap.OnBuildingChangeListener() {
@@ -346,7 +374,7 @@ mapxusMap.addOnBuildingChangeListener(new MapxusMap.OnBuildingChangeListener() {
             }
         });
 ```
-#### 3.2.2 Change Floor Listener
+#### Change Floor Listener
 
 ```java
 
@@ -359,7 +387,7 @@ mapxusMap.addOnFloorChangeListener(new MapxusMap.OnFloorChangeListener() {
     }
 ```
 
-#### 3.2.3 Click Indoor POI Listener
+#### Click Indoor POI Listener
 
 Click on the map and listen to the change of POI position:
 
@@ -379,9 +407,9 @@ Click on the map and listen to the change of POI position:
     }
 ```
 
-### 3.3 Draw on the Map
+### Digital Map Drawing
 
-#### 3.3.1 Draw a Marker
+#### Draw a Marker
 
 A marker can mark any site containing position information on the map, such as user position, car position, store position, etc.
 When creating a marker, you can set its buildingID and floor. In this case, the marker is only displayed with corresponding building and floor.
@@ -414,7 +442,7 @@ To draw a marker:
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Annotations_marker.png)
 
-#### 3.3.2 Draw a Customized Marker
+#### Draw a Customized Marker
 
 You can specify your marker as needed.
 
@@ -436,22 +464,36 @@ To create a marker with custom icon:
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Annotations_customized_marker.png)
 
-### 3.5 Search a Building
+### Digital Map Style
 
-##### Instantiate BuildingSearch Object
+You can change your map style by changing color, visibility of elements and characters of the basemap. Therefore, it will render differently to fit different APP styles.
+
+Mapxus Map presents four styles now: Style.Mapxus, Style.MAPPYBEE, Style.HALLOWEEN, Style.CHRISTMAS, and Style.COMMON.
+You can change your map style by this interface:
+
+```java
+mapViewProvider.setStyle(Style.COMMON);
+```
+
+![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Styles.png)
+
+## Searching in Digital Map
+
+### Building Search
+Instantiate BuildingSearch Object
 
 ```java
         buildingSearch = BuildingSearch.newInstance();
 ```
-##### Set Search Result Listener
+Set Search Result Listener
 
 ```java
         buildingSearch.setBuildingSearchResultListener(this);
 ```
 
-#### 3.5.1 Search Nearby Building
+#### Search nearby buildings
 
-##### 3.5.1.1 Set Parameters
+##### Set Parameters
 
 ```java
         NearbySearchOption nearbySearchOption = new NearbySearchOption();
@@ -462,12 +504,12 @@ To create a marker with custom icon:
     }
 ```
 
-##### 3.5.1.2 Implement Searching
+##### Implement Searching
 
 ```java
 buildingSearch.searchNearby(nearbySearchOption);
 ```
-##### 3.5.1.3 Get Search Result
+##### Get Search Result
 
 ```java
      @Override
@@ -496,9 +538,9 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_nearby.png)
 
-#### 3.5.2 Search by Area
+#### Search Buildings by Area
 
-##### 3.5.2.1 Set Parameters
+##### Set Parameters
 
 ```java
         private LatLngBounds latLngBounds;
@@ -512,7 +554,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ```
 
-##### 3.5.2.2 Implement Searching
+##### Implement Searching
 
 ```java
 
@@ -520,7 +562,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ```
 
-##### 3.5.2.3 Get Search Result
+##### Get Search Result
 
 ```java
  @Override
@@ -550,21 +592,21 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_inbound.png)
 
-#### 3.5.3 Search by Building ID
+#### Search by Building ID
 
-##### 3.5.3.1 Set Parameters
+##### Set Parameters
 
 ```java
 	DetailSearchOption detailSearchOption = new DetailSearchOption();
 	detailSearchOption.id(keyWord);
 
 ```
-##### 3.5.3.2 Implement Searching
+##### Implement Searching
 
 ```java
 	buildingSearch.searchBuildingDetail(detailSearchOption);
 ```
-##### 3.5.3.3 Get Searching Result
+##### Get Searching Result
 
 ```java
 	@Override
@@ -596,23 +638,22 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_id.png)
 
-#### 3.5.4 Global Search
+#### Global Search
 
-##### 3.5.4.1 Set Parameters
+##### Set Parameters
 
 ```java
 
 	GlobalSearchOption globalSearchOption = new GlobalSearchOption();
 	globalSearchOption.keyword(keyWord);
 ```
-##### 3.5.4.2 Implement Searching
+##### Implement Searching
 
 ```java
 
 	buildingSearch.searchInGlobal(globalSearchOption);
 ```
-##### 3.5.4.3 Get Searching Result
-
+##### Get Searching Result
 ```java
 @Override
     public void onGetBuildingResult(BuildingResult buildingResult) {
@@ -643,24 +684,24 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_global.png)
 
-### 3.6 Search POI
+### POI Search
 
 POI Search is implemented through PoiSearch. It could be instantiated through the following steps:
 
-##### Instantiate BuildingSearch Object
+Instantiate BuildingSearch Object
 
 ```java
         poiSearch = PoiSearch.newInstance();
 ```
-##### Set POI Search Result Listener
+Set POI Search Result Listener
 
 ```java
         poiSearch.setPoiSearchResultListener(this);
 ```
 
-#### 3.6.1 Search Nearby POI
+#### Search nearby POIs
 
-##### 3.6.1.1 Set Parameters
+##### Set Parameters
 
 ```java
 		NearbySearchOption nearbySearchOption = new NearbySearchOption();
@@ -671,13 +712,13 @@ POI Search is implemented through PoiSearch. It could be instantiated through th
 		nearbySearchOption.keyword(keyWord);
 
 ```
-##### 3.6.1.2 Implement Searching
+##### Implement Searching
 
 ```java
 poiSearch.searchNearby(nearbySearchOption);
 
 ```
-##### 3.6.1.3 Get Search Result
+##### Get Search Result
 
 ```java
 public void onGetPoiResult(PoiResult poiResult) {
@@ -699,10 +740,10 @@ public void onGetPoiResult(PoiResult poiResult) {
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_nearby.png)
 
-#### 3.6.2 Search POI by Area
+#### Search POIs by Area
 
 
-##### 3.6.2.1 Set Parameters
+##### Set Parameters
 
 ```java
 
@@ -711,12 +752,12 @@ boundSearchOption.bound(latLngBounds);
 boundSearchOption.keyword(keyWord);
 
 ```
-##### 3.6.2.2 Implement Searching
+##### Implement Searching
 
 ```java
 poiSearch.searchInBound(boundSearchOption);
 ```
-##### 3.6.2.3 Get Search Result
+##### Get Search Result
 
 ```java
 public void onGetPoiResult(PoiResult poiResult) {
@@ -740,21 +781,21 @@ public void onGetPoiResult(PoiResult poiResult) {
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_inbound.png)
 
 
-#### 3.6.3 Search POI by ID
+#### Search POI by ID
 
-##### 3.6.3.1 Set Parameters
+##### Set Parameters
 
 ```java
 DetailSearchOption detailSearchOption = new DetailSearchOption();
 detailSearchOption.id(keyWord);
 
 ```
-##### 3.6.3.2 Implement Search
+##### Implement Search
 
 ```java
 poiSearch.searchPoiDetail(detailSearchOption);
 ```
-##### 3.6.3.3 Get Search Result
+##### Get Search Result
 
 ```java
 public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
@@ -783,9 +824,9 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_id.png)
 
-#### 3.6.4 Search Indoor POI
+#### Search Indoor POIs by Keywords
 
-##### 3.6.4.1 Set Parameters
+##### Set Parameters
 
 ```java
 InBuildingSearchOption inBuildingSearchOption = new InBuildingSearchOption();
@@ -793,12 +834,12 @@ inBuildingSearchOption.buildingId(buildingId);
 inBuildingSearchOption.keyword(keyWord);
 
 ```
-##### 3.6.4.2 Implement Searching
+##### Implement Searching
 
 ```java
 poiSearch.searchInBuilding(inBuildingSearchOption);
 ```
-##### 3.6.4.3 Get Search Result
+##### Get Search Result
 
 ```java
 @Override
@@ -822,22 +863,22 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_inbuilding.png)
 
-#### 3.6.5 Search Indoor POI Category
+#### Search Indoor POIs by Category
 
-##### 3.6.5.1 Set Parameters
+##### Set Parameters
 
 ~~~java
 PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
 poiCategorySearchOption.buildingId(buildingId);
 poiCategorySearchOption.floor(floor);
 ~~~
-##### 3.6.5.2 Implement Searching
+##### Implement Searching
 
 ~~~java
 poisearch.searchPoiCategoryInBuilding(poiCategorySearchOption);
 ~~~
 
-##### 3.6.5.3 Get Search Result
+##### Get Search Result
 
 ~~~java
 @Override
@@ -846,9 +887,9 @@ public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult){
 }
 ~~~
 
-#### 3.6.6 Search Indoor POI with orientation
+#### Search Indoor POIs with user orientation
 
-##### 3.6.6.1 Set Parameters
+##### Set Parameters
 
 ~~~java
 PoiOrientationSearchOption option = new PoiOrientationSearchOption();
@@ -857,13 +898,13 @@ option.indoorLatLng(indoorLatLng);
 option.meterRadius(distance);
 ~~~
 
-##### 3.6.6.2 Implement Searching
+##### Implement Searching
 
 ~~~java
  poiSearch.searchPoiByOrientation(option);
 ~~~
 
-##### 3.6.6.3 Get Search Result
+##### Get Search Result
 
 ~~~java
  @Override
@@ -872,34 +913,34 @@ public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResul
 ~~~
 ![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_orientation.png)
 
-### 3.7 Route Planning
+### Route Planning
 
 Route planning can draw a route, including start point, end point and turning point, with WalkRouteOverlay according to the start point and end point.
 
-##### First step, instantiate RoutePlanning object
+#### Step 1: Instantiate RoutePlanning object
 
 ```java
         private RoutePlanning routePlanning;
         routePlanning = RoutePlanning.newInstance();
 ```
-##### Second step, set route planning listener
+#### Step 2: Set route planning listener
 
 ```java
         routePlanning.setRoutePlanningListener(this);
 ```
-##### Third step, set searching parameters
+#### Step 3: Set searching parameters
 
 ```java
      private RoutePlanningPoint origin = new RoutePlanningPoint("harbourcity_hk_8b580b", "G", 114.16802419399949, 22.298414559331476);
     private RoutePlanningPoint destination = new RoutePlanningPoint("harbourcity_hk_8b580b", "L3", 114.16835321304131, 22.298373814183165);
 ```
 
-##### Fourth step, request route
+#### Step 4: Request route
 
 ```java
         routePlanning.route(origin, destination);
 ```
-##### Fifth step, get route planning result
+#### Step 5: Get route planning result
 
 ```java
    @Override
@@ -917,7 +958,7 @@ Route planning can draw a route, including start point, end point and turning po
         mMapxusMap.switchFloor(origin.getFloor());
     }
 ```
-##### Sixth step, draw the route
+#### Step 6: Draw the route
 
 ```java
     private void drawRoute(RouteResponseDto route) {
@@ -928,19 +969,6 @@ Route planning can draw a route, including start point, end point and turning po
     }
 ```
 ![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_rounte_planning.png)
-
-### 3.8 Change Map Style
-
-You can change your map style by changing color, visibility of elements and characters of the basemap. Therefore, it will render differently to fit different APP styles.
-
-Mapxus Map presents four styles now: Style.Mapxus, Style.MAPPYBEE, Style.HALLOWEEN, Style.CHRISTMAS, and Style.COMMON.
-You can change your map style by this interface:
-
-```java
-mapViewProvider.setStyle(Style.COMMON);
-```
-
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Styles.png)
 
 ## 4. API
 
