@@ -229,7 +229,7 @@ Then, add map codes as follows in Activity file:
 
 Please be aware that maps lifecycle requires reasonable management during using map in your project.
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_simple.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Getting_started_simple.png)
 
 ### Display in Fragment
 
@@ -262,7 +262,7 @@ Add SupportMapxusMapFragment in Activity file:
         }
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_fragment.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Getting_started_fragment.png)
 
 ## Display Digital Map Dynamically/Programatically
 
@@ -285,7 +285,7 @@ Add SupportMapxusMapFragment in Activity file:
         setContentView(mapboxMapView);
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Getting_started_dynamic.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Getting_started_dynamic.png)
 
 ### Display via specified building and floor
 
@@ -440,7 +440,7 @@ To draw a marker:
             }
         });
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Annotations_marker.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Annotations_marker.png)
 
 #### Draw a Customized Marker
 
@@ -462,7 +462,7 @@ To create a marker with custom icon:
             }
         });
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Annotations_customized_marker.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Annotations_customized_marker.png)
 
 ### Digital Map Style
 
@@ -475,7 +475,7 @@ You can change your map style by this interface:
 mapViewProvider.setStyle(Style.COMMON);
 ```
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Styles.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Styles.png)
 
 ## Searching in Digital Map
 
@@ -536,7 +536,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_nearby.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_nearby.png)
 
 #### Search Buildings by Area
 
@@ -590,7 +590,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_inbound.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_inbound.png)
 
 #### Search by Building ID
 
@@ -636,7 +636,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_id.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_id.png)
 
 #### Global Search
 
@@ -682,7 +682,7 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_building_global.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_global.png)
 
 ### POI Search
 
@@ -738,7 +738,7 @@ public void onGetPoiResult(PoiResult poiResult) {
     }
 
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_nearby.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_nearby.png)
 
 #### Search POIs by Area
 
@@ -778,7 +778,7 @@ public void onGetPoiResult(PoiResult poiResult) {
 
 ```
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_inbound.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_inbound.png)
 
 
 #### Search POI by ID
@@ -822,7 +822,7 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
     }
 
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_id.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_id.png)
 
 #### Search Indoor POIs by Keywords
 
@@ -861,7 +861,7 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 
 ```
 
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_inbuilding.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_inbuilding.png)
 
 #### Search Indoor POIs by Category
 
@@ -911,7 +911,7 @@ option.meterRadius(distance);
 public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
 }
 ~~~
-![](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_poi_orientation.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_orientation.png)
 
 ### Route Planning
 
