@@ -968,10 +968,10 @@ Route planning can draw a route, including start point, end point and turning po
         walkRouteOverlay.addToMap();
     }
 ```
-![image](https://service.mapxus.com/dpw/api/v1/image/digitalMap/android/4.0.0/Search_services_rounte_planning.png)
+![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_rounte_planning.png)
 
 ## 4. API
 
 Please click [HERE] to check our APIs.
 
-[HERE]: https://github.com/Mapxus/mapxus-map-sample-android/blob/master/javadoc/index.html
+[HERE]: https://service.mapxus.com/dpw/api/v1/api/digitalMap/android/4.0.0/index.html
