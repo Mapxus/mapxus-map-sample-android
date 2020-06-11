@@ -2,7 +2,7 @@
 
 ## Introduction 
 
-** This document is about how to migrate to MapxusMap Android SDK 4.0.0 **
+**This document is about how to migrate to MapxusMap Android SDK 4.0.0**
 
 ## Guidance 
 
@@ -14,7 +14,7 @@ Please refer to Google about Migrating to AndroidX documentation and set Android
 
 Notice:
 
-** In the past , you are reminded to add mapbox dependency . Since version 4.0.0 ，it is not recommend that add mapbox dependency in your application . If you want to use some functions of mapbox, we have included the mapbox API in the SDK .**
+**In the past , you are reminded to add mapbox dependency . Since version 4.0.0 ，it is not recommend that add mapbox dependency in your application . If you want to use some functions of mapbox, we have included the mapbox API in the SDK .**
 
 Old version
 ```
@@ -36,11 +36,12 @@ New version
 
 Notice 1:
 
-** In the past , if you want to draw navigation line when you are planning a route , you need to add mapxus map component dependency （com.mapxus.map:mapxusmap-component）.Since version 4.0.0 , we have included component API in SDK, so you can remove this dependency in build.gradle and use component functions as usual when you modify package name according to the following mapping table . **
+**In the past , if you want to draw navigation line when you are planning a route , you need to add mapxus map component dependency （com.mapxus.map:mapxusmap-component）.Since version 4.0.0 , we have included component API in SDK, so you can remove this dependency in build.gradle and use component functions as usual when you modify package name according to the following mapping table .**
 
 Notice 2:
 
-** In the past , when you are doing indoor positioning , you need to add mapxus positioning provider dependency (com.mapxus.map:mapxus-positioning-provider) . Since version 4.0.0 , we have included this module but not MapxusPositioningProvider in Mapxus Map SDK. So you can remove this dependency in build.gradle and use API as usual when you modify package name according to the following mapping table . More importantly , you should add Positioning SDK dependency(com.mapxus.positioning:positioning) to use indoor positioning functions . More positioning details you can check in the MapxusSample-mapxus-positioning-sample-android project. **
+**In the past , when you are doing indoor positioning , you need to add mapxus positioning provider dependency (com.mapxus.map:mapxus-positioning-provider) . Since version 4.0.0 , we have included this module but not MapxusPositioningProvider in Mapxus Map SDK. So you can remove this dependency in build.gradle and use API as usual when you modify package name according to the following mapping table . More importantly , you should add Positioning SDK dependency(com.mapxus.positioning:positioning) to use indoor positioning functions . More positioning details you can check in the [MapxusSample-mapxus-positioning-sample-android] project.**
+[MapxusSample-mapxus-positioning-sample-android]: https://github.com/Mapxus/MapxusSample-mapxus-positioning-sample-android
 
 
 Here is the Mapping table between old package name and new package name 
@@ -73,4 +74,5 @@ New confusion :
 
 ## More
 
-For more instructions , please check in the README.md.
+For more instructions , please check in the [README.md].
+[README.md]: https://github.com/Mapxus/mapxus-map-sample-android/blob/master/README.md
