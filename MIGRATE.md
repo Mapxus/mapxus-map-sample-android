@@ -41,6 +41,7 @@ Notice 1:
 Notice 2:
 
 **In the past , when you are doing indoor positioning , you need to add mapxus positioning provider dependency (com.mapxus.map:mapxus-positioning-provider) . Since version 4.0.0 , we have included this module but not MapxusPositioningProvider in Mapxus Map SDK. So you can remove this dependency in build.gradle and use API as usual when you modify package name according to the following mapping table . More importantly , you should add Positioning SDK dependency(com.mapxus.positioning:positioning) to use indoor positioning functions . More positioning details you can check in the [MapxusSample-mapxus-positioning-sample-android] project.**
+
 [MapxusSample-mapxus-positioning-sample-android]: https://github.com/Mapxus/MapxusSample-mapxus-positioning-sample-android
 
 
@@ -75,4 +76,5 @@ New confusion :
 ## More
 
 For more instructions , please check in the [README.md].
+
 [README.md]: https://github.com/Mapxus/mapxus-map-sample-android/blob/master/README.md
