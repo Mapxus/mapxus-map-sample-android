@@ -1095,7 +1095,7 @@ Then set your indoor location provider to mapxus map:
     }
 ```
 
-Please check [HERE](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/displaylocation/LocationProviderActivity.java) for complete example.
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/displaylocation/LocationProviderActivity.java) for complete example.
 
 ## API Docs
 
