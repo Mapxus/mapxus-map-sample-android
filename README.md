@@ -34,6 +34,8 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
       - [Search Indoor POIs by Category](#Search-Indoor-POIs-by-Category)
       - [Search Indoor POIs with user orientation](#Search-Indoor-POIs-with-user-orientation)
     - [Route Planning](#Route-Planning)
+  - [Display Location](#Display-Location)
+  - [API Docs](#API-Docs)
 
 # Installation
 
@@ -970,7 +972,132 @@ Route planning can draw a route, including start point, end point and turning po
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_rounte_planning.png)
 
-## 4. API
+## Display Location
+First, Implement IndoorLocationProvider from mapxusmap dependency:
+```java
+public final class MapxusPositioningProvider extends IndoorLocationProvider {
+
+    private static final String TAG = "MapxusPositioningProvider";
+
+    private Context context;
+    private MapxusPositioningClient positioningClient;
+    LifecycleOwner lifecycleOwner;
+    private boolean started;
+
+    public MapxusPositioningProvider(LifecycleOwner lifecycleOwner, Context context) {
+        this.lifecycleOwner = lifecycleOwner;
+        this.context = context;
+    }
+
+    @Override
+    public boolean supportsFloor() {
+        return true;
+    }
+
+    @Override
+    public void start() {
+        positioningClient = MapxusPositioningClient.getInstance(lifecycleOwner, context.getApplicationContext());
+        positioningClient.addPositioningListener(mapxusPositioningListener);
+        positioningClient.start();
+        started = true;
+
+    }
+
+    @Override
+    public void stop() {
+        if (positioningClient != null) {
+            positioningClient.stop();
+        }
+        started = false;
+    }
+
+    @Override
+    public boolean isStarted() {
+        return started;
+    }
+
+
+    private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
+        @Override
+        public void onStateChange(PositioningState positionerState) {
+            switch (positionerState) {
+                case STOPPED: {
+                    dispatchOnProviderStopped();
+                    break;
+                }
+                case RUNNING: {
+                    dispatchOnProviderStarted();
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void onError(ErrorInfo errorInfo) {
+            Log.e(TAG, errorInfo.getErrorMessage());
+            dispatchOnProviderError(new com.mapxus.map.mapxusmap.positioning.ErrorInfo(errorInfo.getErrorCode(), errorInfo.getErrorMessage()));
+        }
+
+        @Override
+        public void onOrientationChange(float orientation, int sensorAccuracy) {
+            dispatchCompassChange(orientation,sensorAccuracy);
+        }
+
+        @Override
+        public void onLocationChange(MapxusLocation mapxusLocation) {
+            if (mapxusLocation == null) {
+                return;
+            }
+            Location location = new Location("MapxusPositioning");
+            location.setLatitude(mapxusLocation.getLatitude());
+            location.setLongitude(mapxusLocation.getLongitude());
+            location.setTime(System.currentTimeMillis());
+            String floor = mapxusLocation.getMapxusFloor() == null ? null : mapxusLocation.getMapxusFloor().getCode();
+            String building = mapxusLocation.getBuildingId();
+            IndoorLocation indoorLocation = new IndoorLocation(location, building, floor);
+            indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
+
+            dispatchIndoorLocationChange(indoorLocation);
+        }
+    };
+}
+```
+
+Then set your indoor location provider to mapxus map:
+
+```java
+@Override
+    public void onMapxusMapReady(MapxusMap mapxusMap) {
+        this.mapxusMap = mapxusMap;
+        IndoorLocationProvider mapxusPositioningProvider = new MapxusPositioningProvider(this, getApplicationContext());
+        mapxusPositioningProvider.addListener(new IndoorLocationProviderListener() {
+            @Override
+            public void onProviderStarted() {
+            }
+            @Override
+            public void onProviderStopped() {
+            }
+            @Override
+            public void onProviderError(ErrorInfo error) {
+            }
+            @Override
+            public void onIndoorLocationChange(IndoorLocation indoorLocation) {
+               // add your location change logic
+            }
+            @Override
+            public void onCompassChanged(float angle, int sensorAccuracy) {
+                compassTv.setText(String.valueOf(angle));
+            }
+        });
+        mapxusMap.setLocationProvider(mapxusPositioningProvider);
+    }
+```
+
+Please check [HERE](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/displaylocation/LocationProviderActivity.java) for complete example.
+
+## API Docs
 
 Please click [HERE] to check our APIs.
 

@@ -2,21 +2,21 @@
 
 ## Introduction 
 
-** This document is about how to migrate to MapxusMap Android SDK 4.0.0 **
+This document is about how to migrate to latest Mapxus Map Android SDKs.
 
 ## Guidance 
 
 ### Step1: Set AndroidX Support
 
-Please refer to Google about Migrating to AndroidX documentation and set AndroidX Support. https://developer.android.google.cn/jetpack/androidx/migrate
+Please refer to Google about Migrating to AndroidX documentation and set AndroidX Support. [https://developer.android.google.cn/jetpack/androidx/migrate](https://developer.android.google.cn/jetpack/androidx/migrate)
 
-### Step2: Change version of MapxusMap Android SDK
+### Step2: Change version of mapxusmap dependency declaration
 
 Notice:
 
-** In the past , you are reminded to add mapbox dependency . Since version 4.0.0 ，it is not recommend that add mapbox dependency in your application . If you want to use some functions of mapbox, we have included the mapbox API in the SDK .**
+**In older versions, you need to explicitly add mapbox dependency in order to use mapxusmap sdk properly. Since version 4.0.0, we have already defined mapbox dependencies as [transitive dependencies](https://docs.gradle.org/current/userguide/dependency_management_terminology.html#sub:terminology_transitive_dependency). As a result, you only need to declare mapxusmap dependency and use mapbox sdk as usual.**
 
-Old version
+Old version dependencies declaration:
 ```
 //mapbox
 "com.mapbox.mapboxsdk:mapbox-android-sdk:7.32"
@@ -25,7 +25,7 @@ Old version
 
 ```
 
-New version
+New version dependencies declaration:
 ```
 //mapxus
 "com.mapxus.map:mapxusmap:4.0.0"
@@ -36,11 +36,11 @@ New version
 
 Notice 1:
 
-** In the past , if you want to draw navigation line when you are planning a route , you need to add mapxus map component dependency （com.mapxus.map:mapxusmap-component）.Since version 4.0.0 , we have included component API in SDK, so you can remove this dependency in build.gradle and use component functions as usual when you modify package name according to the following mapping table . **
+**In older verion, if you want to draw navigation line when you are planning a route, you need to add mapxus map component dependency (com.mapxus.map:mapxusmap-component). Since version 4.0.0, we have merged component logic to mapxusmap, so please remove com.mapxus.map:mapxusmap-component dependency in build.gradle.**
 
 Notice 2:
 
-** In the past , when you are doing indoor positioning , you need to add mapxus positioning provider dependency (com.mapxus.map:mapxus-positioning-provider) . Since version 4.0.0 , we have included this module but not MapxusPositioningProvider in Mapxus Map SDK. So you can remove this dependency in build.gradle and use API as usual when you modify package name according to the following mapping table . More importantly , you should add Positioning SDK dependency(com.mapxus.positioning:positioning) to use indoor positioning functions . More positioning details you can check in the MapxusSample-mapxus-positioning-sample-android project. **
+**In older version, when you are doing indoor positioning , you need to add mapxus positioning provider dependency (com.mapxus.map:mapxus-positioning-provider). Since version 4.0.0, we no longer use com.mapxus.map:mapxus-positioning-provider, instead we use com.mapxus.positioning:positioning. More positioning details you can check Display Location section in README.md.**
 
 
 Here is the Mapping table between old package name and new package name 
@@ -54,9 +54,9 @@ Old package name  |  New package name | Example class
   com.mapxus.map.impl  | com.mapxus.map.mapxusmap.impl  | MapboxMapViewProvider
  
 
-### Step4: Confusion Change
+### Step4: Obfuscation Rules Change
 
-Old confusion : 
+Old obfuscation rules:
 ```
 -keep class com.mapxus.map.** {*;}
 -keep class com.mapxus.services.** {*;}
@@ -65,7 +65,7 @@ Old confusion :
 
 ```
 
-New confusion : 
+New obfuscation rules:
 ```
 -keep class com.mapxus.map.** {*;}
 -dontwarn com.mapxus.map.**
