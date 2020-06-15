@@ -147,6 +147,33 @@ Add them in onCreate() Method of BaseApplication
 
 ``` java
 	MapxusMapContext.init(getApplicationContext()，Key，secret);
+```ur api key and secret:
+
+##### Option One:
+
+1. Add them in onCreate() Method of BaseApplication
+
+```java
+	MapxusMapContext.init(getApplicationContext());
+```
+
+2. Configure the following codes in AndroidManifest.xml:
+
+``` java
+	<meta-data
+	        android:name="com.mapxus.api.v1.appid"
+	        android:value="acquiredkey" />
+	<meta-data
+	    android:name="com.mapxus.api.v1.secret"
+	    android:value="acquiredsecret" />
+```
+
+##### Option Two:
+
+Add them in onCreate() Method of BaseApplication
+
+``` java
+	MapxusMapContext.init(getApplicationContext()，Key，secret);
 ```
 
 ## Display Digital Map with Static Layout
@@ -973,7 +1000,17 @@ Route planning can draw a route, including start point, end point and turning po
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_rounte_planning.png)
 
 ## Display Location
-First, Implement IndoorLocationProvider from mapxusmap dependency:
+
+### Step1: Add positioning sdk dependency to your project's build.gradle file:
+```groovy
+dependencies {
+    implementation 'com.mapxus.positioning:positioning:2.0.0'
+    
+}
+```
+
+### Step2: Implement IndoorLocationProvider from mapxusmap dependency.
+
 ```java
 public final class MapxusPositioningProvider extends IndoorLocationProvider {
 
@@ -1065,7 +1102,7 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
 }
 ```
 
-Then set your indoor location provider to mapxus map:
+### Step3:  Set your indoor location provider to mapxus map:
 
 ```java
 @Override
