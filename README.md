@@ -260,6 +260,8 @@ Please be aware that maps lifecycle requires reasonable management during using 
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Getting_started_simple.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/basics/SimpleMapViewActivity.java) for complete example.
+
 ### Display in Fragment
 
 Add SupportMapxusMapFragment in Activity file:
@@ -293,6 +295,8 @@ Add SupportMapxusMapFragment in Activity file:
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Getting_started_fragment.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/basics/SupportMapFragmentActivity.java) for complete example.
+
 ## Display Digital Map Dynamically/Programatically
 
 ### Display via lat/log and zoom level
@@ -315,6 +319,8 @@ Add SupportMapxusMapFragment in Activity file:
     }
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Getting_started_dynamic.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/basics/MapxusMapOptionActivity.java) for complete example.
 
 ### Display via specified building and floor
 
@@ -471,6 +477,8 @@ To draw a marker:
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Annotations_marker.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/annotations/DrawMarkerActivity.java) for complete example.
+
 #### Draw a Customized Marker
 
 You can specify your marker as needed.
@@ -493,6 +501,8 @@ To create a marker with custom icon:
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Annotations_customized_marker.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/annotations/DrawCustomMarkerActivity.java) for complete example.
+
 ### Digital Map Style
 
 You can change your map style by changing color, visibility of elements and characters of the basemap. Therefore, it will render differently to fit different APP styles.
@@ -505,6 +515,8 @@ mapViewProvider.setStyle(Style.COMMON);
 ```
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Styles.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/styles/DefaultStyleActivity.java) for complete example.
 
 ## Searching in Digital Map
 
@@ -567,6 +579,10 @@ buildingSearch.searchNearby(nearbySearchOption);
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_nearby.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingNearbyActivity.java) for complete example.
+
+
+
 #### Search Buildings by Area
 
 ##### Set Parameters
@@ -621,6 +637,8 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_inbound.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingInboundActivity.java) for complete example.
+
 #### Search by Building ID
 
 ##### Set Parameters
@@ -667,6 +685,8 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_id.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingDetailActivity.java) for complete example.
+
 #### Global Search
 
 ##### Set Parameters
@@ -712,6 +732,8 @@ buildingSearch.searchNearby(nearbySearchOption);
 
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_building_global.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingGlobalActivity.java) for complete example.
 
 ### POI Search
 
@@ -769,6 +791,8 @@ public void onGetPoiResult(PoiResult poiResult) {
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_nearby.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiNearbyActivity.java) for complete example.
+
 #### Search POIs by Area
 
 
@@ -808,6 +832,8 @@ public void onGetPoiResult(PoiResult poiResult) {
 ```
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_inbound.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiInboundActivity.java) for complete example.
 
 
 #### Search POI by ID
@@ -853,6 +879,8 @@ public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_id.png)
 
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiDetailActivity.java) for complete example.
+
 #### Search Indoor POIs by Keywords
 
 ##### Set Parameters
@@ -891,6 +919,9 @@ poiSearch.searchInBuilding(inBuildingSearchOption);
 ```
 
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_inbuilding.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiInBuildingActivity.java) for complete example.
+
 
 #### Search Indoor POIs by Category
 
@@ -941,6 +972,8 @@ public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResul
 }
 ~~~
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_poi_orientation.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiWithOrientationActivity.java) for complete example.
 
 ### Route Planning
 
@@ -998,6 +1031,8 @@ Route planning can draw a route, including start point, end point and turning po
     }
 ```
 ![image](https://raw.githubusercontent.com/Mapxus/mapxus-map-sample-android/master/image/Search_services_rounte_planning.png)
+
+Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/RoutePlanningActivity.java) for complete example.
 
 ## Display Location
 
