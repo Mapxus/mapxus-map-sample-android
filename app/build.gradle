@@ -62,7 +62,7 @@ dependencies {
     // MapxusMap
     implementation "com.mapxus.visual:mapxusvisual:0.2.0"
     implementation "com.mapxus.map:mapxusmap:4.0.0"
-    implementation 'com.mapxus.positioning:positioning:2.0.1'
+    implementation 'com.mapxus.positioning:positioning:2.0.2'
 
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
