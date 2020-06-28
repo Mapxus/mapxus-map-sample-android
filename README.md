@@ -1039,7 +1039,7 @@ Please check [HERE](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/s
 ### Step1: Add positioning sdk dependency to your project's build.gradle file:
 ```groovy
 dependencies {
-    implementation 'com.mapxus.positioning:positioning:2.0.0'
+    implementation 'com.mapxus.positioning:positioning:2.0.2'
     
 }
 ```
