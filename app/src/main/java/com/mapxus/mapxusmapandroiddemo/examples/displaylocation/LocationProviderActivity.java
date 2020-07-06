@@ -3,13 +3,19 @@ package com.mapxus.mapxusmapandroiddemo.examples.displaylocation;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -40,10 +46,19 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
 
     private TextView latTv, lonTv, floorTv, accuracyTv, buildingTv, timestampTv, compassTv;
 
+    private ConnectivityManager connectivityManager;
+
+    private boolean isPositioningFailed;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_provider);
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            connectivityManager.registerDefaultNetworkCallback(networkCallback);
+        }
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
@@ -53,6 +68,35 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         dialog = ProgressDialog.show(LocationProviderActivity.this, getString(R.string.location_dialog_title), getString(R.string.location_dialog_message));
         dialog.show();
     }
+
+    private ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(@NonNull Network network) {
+            super.onAvailable(network);
+            if (isPositioningFailed && mapxusMap != null) {
+                runOnUiThread(() -> setLocation(mapxusMap));
+                isPositioningFailed = false;
+            }
+        }
+
+        @Override
+        public void onLosing(@NonNull Network network, int maxMsToLive) {
+            super.onLosing(network, maxMsToLive);
+            isPositioningFailed = true;
+        }
+
+        @Override
+        public void onLost(@NonNull Network network) {
+            super.onLost(network);
+            isPositioningFailed = true;
+        }
+
+        @Override
+        public void onUnavailable() {
+            super.onUnavailable();
+            isPositioningFailed = true;
+        }
+    };
 
     private void initButtons() {
         Button followMeNone = findViewById(R.id.follow_me_none);
@@ -118,6 +162,9 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         if (mapViewProvider != null) {
             mapViewProvider.onDestroy();
         }
+        if (connectivityManager != null) {
+            connectivityManager.unregisterNetworkCallback(networkCallback);
+        }
     }
 
     @Override
@@ -129,6 +176,11 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         this.mapxusMap = mapxusMap;
+        setLocation(mapxusMap);
+        mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
+    }
+
+    private void setLocation(MapxusMap mapxusMap) {
         IndoorLocationProvider mapxusPositioningProvider = new MapxusPositioningProvider(this, getApplicationContext());
         mapxusPositioningProvider.addListener(new IndoorLocationProviderListener() {
             @Override
@@ -158,6 +210,8 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
                     }
                 }).create();
                 alertDialog.show();
+
+                isPositioningFailed = true;
             }
 
             @Override
@@ -176,8 +230,6 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
 
         });
         mapxusMap.setLocationProvider(mapxusPositioningProvider);
-        mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
-
     }
 
 
