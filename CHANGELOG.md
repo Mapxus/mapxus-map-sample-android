@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.1
+
+### Features
+* Add venue name and venue id in building search callback.
+
 ## 4.0.0
 
 ### Features
