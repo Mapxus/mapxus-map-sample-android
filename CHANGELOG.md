@@ -1,5 +1,22 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.2
+
+### Bugs
+* Fix map rotation animation problem when positioning in heading mode.
+* Fix the visibility of the building selector.
+* Fix the callback of finishing drawing on the map when the point is outdoor.
+* Fix can not search by multiple id (include building and poi) problem.
+
+### Features
+* Add set map label language function.
+* Add setBuildingGestureSwitch method to turn off the ability to switch buildings by clicking on a map.
+* Add setBuildingAutoSwitch method to turn off the ability to switch buildings when moving on the map.
+* Add long click on the map callback.
+* Add region field in IndoorBuildingInfo.
+* Add poi search result sorting function (just in search nearby).
+* Make compass icon is displayed by default.
+
 ## 4.0.1
 
 ### Features
