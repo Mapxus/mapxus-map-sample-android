@@ -1,5 +1,13 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.3
+
+### Bugs
+* Fix bugs caused by caching.
+
+### Features
+* Distinguish indoor and outdoor line colors when drawing navigation lines.
+
 ## 4.0.2
 
 ### Bugs
