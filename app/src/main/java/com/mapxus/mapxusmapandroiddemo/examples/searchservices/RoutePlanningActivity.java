@@ -25,7 +25,7 @@ import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningRequest
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningResult;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RouteResponseDto;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
-import com.mapxus.map.mapxusmap.overlay.WalkRouteOverlay;
+import com.mapxus.map.mapxusmap.overlay.route.WalkRouteOverlay;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 /**
