@@ -4,51 +4,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
-import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.GlobalSearchOption;
-import com.mapxus.map.mapxusmap.api.services.model.building.Address;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
-import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
-import com.mapxus.mapxusmapandroiddemo.model.overlay.ObjectMarker;
 
-/**
- * Use MapxusMap Search Services to request directions
- */
-public class SearchBuildingGlobalActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, BuildingSearch.BuildingSearchResultListener, MapboxMap.OnMarkerClickListener, OnMapReadyCallback {
+import org.jetbrains.annotations.NotNull;
 
-    private static final String TAG = "SearchBuildingGlobalActivity";
+public class SearchBuildingGlobalActivity extends BaseWithParamMenuActivity implements BuildingSearch.BuildingSearchResultListener, OnMapReadyCallback {
 
     private MapView mapView;
-    private MapViewProvider mapViewProvider;
-    private MapxusMap mapxusMap;
     private MapboxMap mapboxMap;
+    private MapxusMap mapxusMap;
 
-
-    private RelativeLayout mBuildingDetail;
-    private TextView mBuildingName, mBuildingAddress;
-    private String keyWord = "";
-    private EditText mSearchText;
-
-    //    private LatLng startPoint = new LatLng(22.0360235, 113.18262645);
-    private int currentPage;
     private BuildingSearch buildingSearch;
-    private MyIndoorBuildingOverlay indoorBuildingOverlay;
+    private RelativeLayout progressBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,44 +37,20 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements O
 
         setContentView(R.layout.activity_searchservices_search_building_global);
 
-        // Setup the MapView
-        mapView = (MapView) findViewById(R.id.mapView);
+        mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
-        mapViewProvider.getMapxusMapAsync(this);
+        MapboxMapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
-
-
-        TextView searchButton = (TextView) findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSearchQuery();
-            }
-        });
-
-
-        mBuildingDetail = (RelativeLayout) findViewById(R.id.poi_detail);
-        mBuildingName = (TextView) findViewById(R.id.poi_name);
-        mBuildingAddress = (TextView) findViewById(R.id.poi_address);
-        mSearchText = (EditText) findViewById(R.id.input_edittext);
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
+        progressBarView = findViewById(R.id.loding_view);
 
         buildingSearch = BuildingSearch.newInstance();
         buildingSearch.setBuildingSearchResultListener(this);
-
-
     }
 
     @Override
-    public void onMapxusMapReady(MapxusMap mapxusMap) {
-        this.mapxusMap = mapxusMap;
-
-    }
-
-    @Override
-    public void onMapReady(MapboxMap mapboxMap) {
+    public void onMapReady(@NotNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        this.mapboxMap.setOnMarkerClickListener(this);
     }
 
 
@@ -122,7 +79,7 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements O
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -130,7 +87,6 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel the directions API request
         if (buildingSearch != null) {
             buildingSearch.destroy();
         }
@@ -143,26 +99,18 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements O
         mapView.onLowMemory();
     }
 
-    /**
-     * 开始进行poi搜索
-     */
-    /**
-     * 开始进行poi搜索
-     */
-    protected void doSearchQuery() {
-        keyWord = mSearchText.getText().toString().trim();
-        currentPage = 0;
-
+    protected void doSearchQuery(String keyWord, int offset, int page) {
         GlobalSearchOption globalSearchOption = new GlobalSearchOption();
         globalSearchOption.keyword(keyWord);
-
-
+        globalSearchOption.pageCapacity(offset);
+        globalSearchOption.pageNum(page);
         buildingSearch.searchInGlobal(globalSearchOption);
     }
 
     @Override
     public void onGetBuildingResult(BuildingResult buildingResult) {
 
+        progressBarView.setVisibility(View.GONE);
         if (buildingResult.status != 0) {
             Toast.makeText(this, buildingResult.error.toString(), Toast.LENGTH_LONG).show();
             return;
@@ -172,8 +120,8 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements O
             return;
         }
 
-        mapboxMap.clear();
-        indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, buildingResult.getIndoorBuildingList());
+        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
+        indoorBuildingOverlay.removeFromMap();
         indoorBuildingOverlay.addToMap();
         indoorBuildingOverlay.zoomToSpan();
     }
@@ -181,28 +129,27 @@ public class SearchBuildingGlobalActivity extends AppCompatActivity implements O
     @Override
     public void onGetBuildingDetailResult(BuildingDetailResult buildingDetailResult) {
 
-
     }
 
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        ObjectMarker objectMarker = (ObjectMarker) marker;
-        IndoorBuildingInfo indoorBuildingInfo = (IndoorBuildingInfo) objectMarker.getObject();
-        mBuildingName.setText(indoorBuildingInfo.getName().get("default"));
-        Address address = indoorBuildingInfo.getAddress().get("default") == null ? indoorBuildingInfo.getAddress().get("en") : indoorBuildingInfo.getAddress().get("default");
-        String addressText = "";
-        if (address != null) {
-            String streetText = address.getStreet() != null ? address.getStreet() : "";
-            String housenumberText = address.getHousenumber() != null ? address.getHousenumber() : "";
-            addressText = streetText + housenumberText;
-        }
-        mBuildingAddress.setText(addressText);
-        mBuildingDetail.setVisibility(View.VISIBLE);
-        return true;
+    protected void initBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_global_search_style, this);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            progressBarView.setVisibility(View.VISIBLE);
+            getValueAndSearch(bottomSheetDialogView);
+        });
     }
 
+    private void getValueAndSearch(View bottomSheetDialogView) {
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
+        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
 
+        doSearchQuery(etKeywords.getText().toString().trim(),
+                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
+                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+    }
 }
 
 

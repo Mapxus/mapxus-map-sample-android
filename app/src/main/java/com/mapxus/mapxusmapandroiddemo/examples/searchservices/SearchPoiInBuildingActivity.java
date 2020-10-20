@@ -3,17 +3,15 @@ package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
-import com.mapxus.map.mapxusmap.api.services.model.PoiCategorySearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.PoiInBuildingSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
@@ -21,67 +19,42 @@ import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
-/**
- * Use MapxusMap Search Services to request directions
- */
-public class SearchPoiInBuildingActivity extends AppCompatActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener {
+import org.jetbrains.annotations.NotNull;
 
-    private static final String TAG = "SearchPoiInBuildingActivity";
+
+public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener, OnMapxusMapReadyCallback {
 
     private MapView mapView;
     private MapboxMap mapboxMap;
-    private MapViewProvider mapViewProvider;
+    private MapxusMap mapxusMap;
 
-    private String keyWord = "";
-    private EditText mSearchText;
-    private EditText mBuildingText;
-    private EditText mFloorText;
-
-    private int currentPage;
     private PoiSearch poiSearch;
-    private MyPoiOverlay poiOverlay;
+    private RelativeLayout progressBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchservices_search_poi_in_building);
 
-        // Setup the MapView
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapboxMapViewProvider mapboxMapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
-
-
-        TextView searchButton = (TextView) findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_search:
-                        doSearchQuery();
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
-
-        mSearchText = (EditText) findViewById(R.id.input_edittext);
-        mBuildingText = (EditText) findViewById(R.id.building_edittext);
-        mFloorText = findViewById(R.id.floor_edittext);
+        mapboxMapViewProvider.getMapxusMapAsync(this);
 
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(this);
 
+        progressBarView = findViewById(R.id.loding_view);
     }
 
     @Override
-    public void onMapReady(MapboxMap beeMap) {
-        mapboxMap = beeMap;
+    public void onMapReady(@NotNull MapboxMap mapboxMap) {
+        this.mapboxMap = mapboxMap;
     }
 
 
@@ -110,7 +83,7 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -118,7 +91,6 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel the directions API request
         if (poiSearch != null) {
             poiSearch.destroy();
         }
@@ -131,37 +103,22 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
         mapView.onLowMemory();
     }
 
-    /**
-     * 开始进行poi搜索, 指定建筑/楼层/关键字
-     */
-    protected void doSearchQuery() {
-        keyWord = mSearchText.getText().toString().trim();
-
-        String buildingId = mBuildingText.getText().toString().trim();
-        String floor = mFloorText.getText().toString().trim();
-
+    protected void doSearchQuery(String keyWord, String category, String buildingId, String floor, int offset, int page) {
         PoiInBuildingSearchOption inBuildingSearchOption = new PoiInBuildingSearchOption();
+        inBuildingSearchOption.keyword(keyWord);
+        inBuildingSearchOption.category(category);
         inBuildingSearchOption.buildingId(buildingId);
         inBuildingSearchOption.floor(floor);
-        inBuildingSearchOption.keyword(keyWord);
+        inBuildingSearchOption.pageCapacity(offset);
+        inBuildingSearchOption.pageNum(page);
 
         poiSearch.searchInBuilding(inBuildingSearchOption);
 
-        searchAllPoiCategory(buildingId, floor);
-    }
-
-    /**
-     * 搜索建筑中的所有POI类型
-     */
-    protected void searchAllPoiCategory(String buildingId, String floor) {
-        PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
-        poiCategorySearchOption.buildingId(buildingId);
-        poiCategorySearchOption.floor(floor);
-        poiSearch.searchPoiCategoryInBuilding(poiCategorySearchOption);
     }
 
     @Override
     public void onGetPoiResult(PoiResult poiResult) {
+        progressBarView.setVisibility(View.GONE);
         if (poiResult.status != 0) {
             Toast.makeText(this, poiResult.error.toString(), Toast.LENGTH_LONG).show();
             return;
@@ -171,8 +128,8 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
             return;
         }
 
-        mapboxMap.clear();
-        poiOverlay = new MyPoiOverlay(mapboxMap, poiResult.getAllPoi());
+        MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
+        poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan();
     }
@@ -189,19 +146,46 @@ public class SearchPoiInBuildingActivity extends AppCompatActivity implements On
 
     @Override
     public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
-        if (poiCategoryResult.status != 0) {
-            Toast.makeText(this, poiCategoryResult.error.toString(), Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (poiCategoryResult.getResult() == null || poiCategoryResult.getResult().isEmpty()) {
-            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-//        Toast.makeText(this, poiCategoryResult.getResult().toString(), Toast.LENGTH_LONG).show();
     }
 
 
+    @Override
+    protected void initBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_poi_in_building_search_style, this);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            progressBarView.setVisibility(View.VISIBLE);
+            getValueAndSearch(bottomSheetDialogView);
+        });
+    }
+
+    private void getValueAndSearch(View bottomSheetDialogView) {
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
+        EditText etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
+        EditText etFloor = bottomSheetDialogView.findViewById(R.id.et_floor_name);
+        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
+        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
+
+        String floorName = etFloor.getText().toString().trim();
+
+        doSearchQuery(etKeywords.getText().toString().trim(),
+                etCategory.getText().toString().trim(),
+                etBuildingId.getText().toString().trim(),
+                floorName,
+                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
+                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+
+        if (!floorName.isEmpty()) {
+            mapxusMap.switchFloor(floorName);
+        }
+    }
+
+    @Override
+    public void onMapxusMapReady(MapxusMap mapxusMap) {
+        this.mapxusMap = mapxusMap;
+    }
 }
 
 

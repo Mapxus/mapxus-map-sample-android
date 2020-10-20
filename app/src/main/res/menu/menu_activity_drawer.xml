@@ -2,45 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_basics"
-            android:title="@string/getting_started_category" />
-
-
-        <item
-            android:id="@+id/nav_controllers"
-            android:title="@string/controllers_category" />
-        <item
-            android:id="@+id/nav_styles"
-            android:title="@string/styles_category" />
-        <item
-            android:id="@+id/nav_annotations"
-            android:title="@string/annotations_category" />
+            android:id="@+id/nav_map_creation"
+            android:title="@string/map_creation" />
 
         <item
-            android:id="@+id/nav_camera"
-            android:title="@string/camera_category" />
+            android:id="@+id/nav_map_interaction"
+            android:title="@string/map_interaction" />
         <item
-            android:id="@+id/nav_listener"
-            android:title="@string/listener_category" />
+            android:id="@+id/nav_map_editing"
+            android:title="@string/map_editing" />
+        <item
+            android:id="@+id/nav_indoor_position"
+            android:title="@string/indoor_positioning" />
 
         <item
-            android:id="@+id/nav_search_services"
-            android:title="@string/search_services_category" />
-
+            android:id="@+id/nav_search_service"
+            android:title="@string/search_service" />
         <item
-            android:id="@+id/nav_dispay_location"
-            android:title="@string/dispay_location_category" />
-        <item
-            android:id="@+id/nav_dispay_visual"
-            android:title="@string/dispay_360_category" />
+            android:id="@+id/nav_integration_cases"
+            android:title="@string/integration_cases" />
 
     </group>
-    <!--<group android:id="@+id/settings_group" android:checkableBehavior="single">-->
-    <!--<item-->
-    <!--android:id="@+id/share_app_in_nav_drawer"-->
-    <!--android:title="@string/share"/>-->
-    <!--<item-->
-    <!--android:id="@+id/settings_in_nav_drawer"-->
-    <!--android:title="@string/settings"/>-->
-    <!--</group>-->
 </menu>

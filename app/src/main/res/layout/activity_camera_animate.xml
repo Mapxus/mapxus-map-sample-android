@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".examples.camera.AnimateMapCameraActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".examples.mapinteraction.FocusOnIndoorSceneActivity">
 
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:mapbox_cameraTargetLat="@string/default_lat"
+        app:mapbox_cameraTargetLng="@string/default_lon"
+        app:mapbox_cameraZoom="17"/>
 
 </RelativeLayout>

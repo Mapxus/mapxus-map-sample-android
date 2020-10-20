@@ -4,15 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLng;
 import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.NearbySearchOption;
@@ -20,62 +18,42 @@ import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
 
-/**
- * Use MapxusMap Search Services to request directions
- */
-public class SearchBuildingNearbyActivity extends AppCompatActivity implements OnMapReadyCallback, BuildingSearch.BuildingSearchResultListener {
+import org.jetbrains.annotations.NotNull;
 
-    private static final String TAG = "SearchBuildingNearbyActivity";
+public class SearchBuildingNearbyActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, BuildingSearch.BuildingSearchResultListener {
 
     private MapView mapView;
     private MapboxMap mapboxMap;
+    private MapxusMap mapxusMap;
     private MapViewProvider mapViewProvider;
 
-    private RelativeLayout mPoiDetail;
-    private TextView mPoiName, mPoiAddress;
-    private String keyWord = "";
-    private EditText mSearchText;
+    private RelativeLayout progressBarView;
 
     private BuildingSearch buildingSearch;
-    private MyIndoorBuildingOverlay indoorBuildingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_searchservices_search_building_nearby);
-        // Setup the MapView
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
 
-
-        TextView searchButton = findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSearchQuery();
-            }
-        });
-
-
-        mPoiDetail = findViewById(R.id.poi_detail);
-        mPoiName = findViewById(R.id.poi_name);
-        mPoiAddress = findViewById(R.id.poi_address);
-        mSearchText = findViewById(R.id.input_edittext);
+        progressBarView = findViewById(R.id.loding_view);
 
         buildingSearch = BuildingSearch.newInstance();
         buildingSearch.setBuildingSearchResultListener(this);
-
-        Toast.makeText(this, getString(R.string.building_nearby_toast), Toast.LENGTH_LONG).show();
-
     }
 
     @Override
-    public void onMapReady(MapboxMap mapboxMap) {
+    public void onMapReady(@NotNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
     }
 
@@ -105,7 +83,7 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -113,7 +91,6 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel the directions API request
         if (buildingSearch != null) {
             buildingSearch.destroy();
         }
@@ -127,27 +104,20 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
         mapView.onLowMemory();
     }
 
-    /**
-     * 开始进行poi搜索
-     */
-    /**
-     * 开始进行poi搜索
-     */
-    protected void doSearchQuery() {
-        keyWord = mSearchText.getText().toString().trim();
+    protected void doSearchQuery(LatLng location, int radius, String keyWord, int offset, int page) {
         NearbySearchOption nearbySearchOption = new NearbySearchOption();
-        nearbySearchOption.mRadius = 2;
-        com.mapbox.mapboxsdk.geometry.LatLng mapCenter = mapboxMap.getCameraPosition().target;
-        nearbySearchOption.location(new LatLng(
-                mapCenter.getLatitude(),
-                mapCenter.getLongitude()));
+        nearbySearchOption.radius(radius);
+        nearbySearchOption.location(location);
         nearbySearchOption.keyword(keyWord);
+        nearbySearchOption.pageCapacity(offset);
+        nearbySearchOption.pageNum(page);
         buildingSearch.searchNearby(nearbySearchOption);
     }
 
     @Override
     public void onGetBuildingResult(BuildingResult buildingResult) {
 
+        progressBarView.setVisibility(View.GONE);
         if (buildingResult.status != 0) {
             Toast.makeText(this, buildingResult.error.toString(), Toast.LENGTH_LONG).show();
             return;
@@ -157,8 +127,8 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
             return;
         }
 
-        mapboxMap.clear();
-        indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, buildingResult.getIndoorBuildingList());
+        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
+        indoorBuildingOverlay.removeFromMap();
         indoorBuildingOverlay.addToMap();
         indoorBuildingOverlay.zoomToSpan();
 
@@ -170,6 +140,37 @@ public class SearchBuildingNearbyActivity extends AppCompatActivity implements O
     }
 
 
+    @Override
+    protected void initBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_nearby_search_style, this);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            progressBarView.setVisibility(View.VISIBLE);
+            getValueAndSearch(bottomSheetDialogView);
+        });
+    }
+
+    private void getValueAndSearch(View bottomSheetDialogView) {
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
+        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
+
+        EditText etDistance = bottomSheetDialogView.findViewById(R.id.et_distance);
+        EditText etLat = bottomSheetDialogView.findViewById(R.id.et_lat);
+        EditText etLon = bottomSheetDialogView.findViewById(R.id.et_lon);
+
+        LatLng latLng = new LatLng(
+                etLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLat.getText().toString().trim()),
+                etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim())
+        );
+
+        doSearchQuery(latLng,
+                etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim()),
+                etKeywords.getText().toString().trim(),
+                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
+                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+    }
 }
 
 

@@ -5,14 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.ExampleItemModel;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -20,31 +22,21 @@ public class ExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private List<ExampleItemModel> dataSource;
     private Context context;
+    private onItemClickListener onItemClickListener;
 
     public ExampleAdapter(Context context, List<ExampleItemModel> dataSource) {
         this.dataSource = dataSource;
         this.context = context;
     }
 
+    @NotNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-
-        return new ViewHolder(view);
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return 0;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder.getItemViewType() != 0) {
-            return;
-        }
-
+    public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
         ExampleItemModel detailItem = dataSource.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
 
@@ -56,14 +48,13 @@ public class ExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     .into(viewHolder.imageView);
         }
 
-        if (detailItem.getShowNewIcon()) {
-            viewHolder.newIconImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.new_icon));
-        } else {
-            viewHolder.newIconImageView.setImageDrawable(null);
-        }
-
         viewHolder.titleTextView.setText(context.getString(detailItem.getTitle()));
         viewHolder.descriptionTextView.setText(context.getString(detailItem.getDescription()));
+        viewHolder.llExample.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(position, v);
+            }
+        });
     }
 
     @Override
@@ -76,22 +67,23 @@ public class ExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public TextView titleTextView;
         public TextView descriptionTextView;
         public ImageView imageView;
-        public ImageView newIconImageView;
+        public LinearLayout llExample;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            imageView = (ImageView) itemView.findViewById(R.id.example_image);
-            titleTextView = (TextView) itemView.findViewById(R.id.example_title);
-            descriptionTextView = (TextView) itemView.findViewById(R.id.example_description);
-            newIconImageView = (ImageView) itemView.findViewById(R.id.new_icon_image_view);
+            imageView = itemView.findViewById(R.id.example_image);
+            titleTextView = itemView.findViewById(R.id.example_title);
+            descriptionTextView = itemView.findViewById(R.id.example_description);
+            llExample = itemView.findViewById(R.id.ll_example);
         }
     }
 
-    public static class ViewHolderDescription extends RecyclerView.ViewHolder {
+    public interface onItemClickListener {
+        void onItemClick(int position, View view);
+    }
 
-        public ViewHolderDescription(final View itemView) {
-            super(itemView);
-        }
+    public void setOnItemClickListener(ExampleAdapter.onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

@@ -11,9 +11,6 @@ public class ExampleItemModel {
   public int description;
   public int img;
   public Intent activity;
-  public boolean showNewIcon;
-  public int minSdkVersion;
-
 
   public int getTitle() {
     return title;
@@ -47,34 +44,10 @@ public class ExampleItemModel {
     this.activity = activity;
   }
 
-  public boolean getShowNewIcon() {
-    return showNewIcon;
-  }
-
-  public void setShowNewIcon(boolean showNewIcon) {
-    this.showNewIcon = showNewIcon;
-  }
-
-  public int getMinSdkVersion() {
-    return minSdkVersion;
-  }
-
-  public ExampleItemModel(int title, int description, Intent activity, int img,
-                          boolean showNewIcon, int minSdkVersion) {
-    this.title = title;
-    this.description = description;
-    this.img = img;
-    this.activity = activity;
-    this.showNewIcon = showNewIcon;
-    this.minSdkVersion = minSdkVersion;
-  }
-
   public ExampleItemModel(int title, int description, Intent activity, int img) {
     this.title = title;
     this.description = description;
     this.img = img;
     this.activity = activity;
-    this.showNewIcon = false;
-    this.minSdkVersion = BuildConfig.MIN_SDK_VERSION;
   }
 }

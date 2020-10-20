@@ -1,22 +1,23 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyPoiOverlay {
     private MapboxMap mapboxMap;
+    private MapxusMap mapxusMap;
     private List<PoiInfo> mPoiInfoList;
-    private ArrayList<ObjectMarker> mPoiMarks = new ArrayList();
 
-    public MyPoiOverlay(MapboxMap mapboxMap, List<PoiInfo> poiInfos) {
+    public MyPoiOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<PoiInfo> poiInfos) {
         this.mapboxMap = mapboxMap;
+        this.mapxusMap = mapxusMap;
         mPoiInfoList = poiInfos;
     }
 
@@ -27,8 +28,7 @@ public class MyPoiOverlay {
      */
     public void addToMap() {
         for (int i = 0; i < mPoiInfoList.size(); i++) {
-            Marker marker = mapboxMap.addMarker(getMarkerOptions(i));
-            mPoiMarks.add((ObjectMarker) marker);
+            mapxusMap.addMarker(getMarkerOptions(i));
         }
     }
 
@@ -65,20 +65,18 @@ public class MyPoiOverlay {
 
 
     public void removeFromMap() {
-        for (Marker mark : mPoiMarks) {
-            mark.remove();
-        }
+        mapxusMap.removeMarkers();
     }
 
-
-    private ObjectMarkerOptions getMarkerOptions(int index) {
-        return new ObjectMarkerOptions()
-                .position(
-                        new LatLng(mPoiInfoList.get(index).getLocation()
+    private MapxusMarkerOptions getMarkerOptions(int index) {
+        return new MapxusMarkerOptions()
+                .setPosition(
+                        new com.mapxus.map.mapxusmap.api.map.model.LatLng(mPoiInfoList.get(index).getLocation()
                                 .getLat(), mPoiInfoList.get(index)
                                 .getLocation().getLon()))
-                .title(getTitle(index)).snippet(getSnippet(index))
-                .object(mPoiInfoList.get(index));
+                .setFloor(mPoiInfoList.get(index).getFloor())
+                .setBuildingId(mPoiInfoList.get(index).getBuildingId())
+                .setTitle(getTitle(index)).setSnippet(getSnippet(index));
     }
 
     protected String getTitle(int index) {

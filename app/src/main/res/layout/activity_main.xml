@@ -24,7 +24,6 @@
         app:menu="@menu/menu_activity_drawer">
 
         <TextView
-            android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""

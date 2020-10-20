@@ -4,47 +4,37 @@
     <!-- ****** These strings are of individual example titles which appear in
     each example's recyclerview card ****** -->
 
-    <string name="activity_basic_simple_mapview_title">显示地图</string>
+    <string name="activity_basic_simple_mapview_title">创建地图（代码）</string>
     <string name="activity_basic_support_map_frag_title">用Fragment显示地图</string>
-    <string name="activity_basic_beemap_options_title">动态创建一个MapView</string>
-    <string name="activity_basic_beemap_init_with_building_title">指定建筑初始化</string>
-    <string name="activity_basic_beemap_init_with_poi_title">指定POI初始化</string>
-    <string name="activity_basic_beemap_without_outdoor_title">隐藏室外地图</string>
-    <string name="activity_styles_default_title">默认样式</string>
-    <string name="activity_annotation_marker_title">绘制标注</string>
-    <string name="activity_annotation_line">画线</string>
-    <string name="activity_annotation_custom_marker_title">绘制自定义标注图标</string>
-    <string name="activity_annotation_polygon_title">绘制多边形</string>
-    <string name="activity_annotation_polygon_holes_title">绘制带孔的多边形</string>
-    <string name="activity_annotation_animated_marker_title">移动标注位置</string>
-    <string name="activity_camera_animate_title">移动镜头位置</string>
-    <string name="activity_camera_restrict_title">限制地图平移</string>
+    <string name="activity_basic_init_with_building_title">创建地图（指定初始建筑，楼层及建筑自适应边距）</string>
+    <string name="activity_basic_init_with_poi_title">创建地图（指定初始POI及地图缩放等级）</string>
 
+    <string name="activity_indoor_map_controller_title">室内地图控件交互 </string>
+    <string name="activity_styles_default_title">修改地图外观</string>
+    <string name="activity_gesture_interaction_for_switching_building">切换建筑的手势交互</string>
+    <string name="activity_camera_animate_title">方法交互（切换室内场景）</string>
+    <string name="activity_listener_click_title">事件交互（监听点击）</string>
+    <string name="activity_listener_building_floor_change_title">事件交互（监听室内场景切换）</string>
+    <string name="activity_listener_camera_change_listener_title">事件交互（监听进出室内场景）</string>
 
-    <string name="activity_listener_building_floor_change_title">楼层变更事件</string>
-    <string name="activity_listener_poi_click_title">Poi点击事件</string>
-    <string name="activity_listener_camera_change_listener_title">地图移动事件</string>
+    <string name="activity_annotation_marker_title">按楼层绘制标注</string>
+    <string name="activity_annotation_polygon_title">按楼层绘制多边形</string>
 
+    <string name="activity_display_location_title">室内定位效果展示</string>
 
-    <string name="activity_search_service_route_planning_title">点到点路径</string>
-    <string name="activity_search_service_building_nearby_title">搜索附近建筑</string>
-    <string name="activity_search_service_building_in_bound_title">按范围搜索建筑 </string>
-    <string name="activity_search_service_building_by_id_title">按ID搜索建筑 </string>
-    <string name="activity_search_service_building_global_title">全球搜索建筑</string>
+    <string name="activity_search_service_building_global_title">全球范围内搜索建筑</string>
+    <string name="activity_search_service_building_in_bound_title">指定矩形区域内搜索建筑 </string>
+    <string name="activity_search_service_building_nearby_title">在附近搜索建筑</string>
+    <string name="activity_search_service_building_by_id_title">指定建筑ID搜索建筑 </string>
+    <string name="activity_search_service_poi_categories_in_building_title">获取指定场景内包含的POI分类 </string>
+    <string name="activity_search_service_poi_in_building_title">指定场景内POI搜索</string>
+    <string name="activity_search_service_poi_in_bound_title">指定矩形区域内POI搜索 </string>
+    <string name="activity_search_service_poi_nearby_title">周边POI搜索 </string>
+    <string name="activity_search_service_poi_by_id_title">指定POI ID搜索 </string>
 
-    <string name="activity_search_service_poi_nearby_title">搜索附近POI </string>
-    <string name="activity_search_service_poi_in_bound_title">按范围搜索POI </string>
-    <string name="activity_search_service_poi_by_id_title">按ID搜索POI </string>
-    <string name="activity_search_service_poi_in_building_title">建筑范围内搜索POI </string>
-    <string name="activity_search_service_poi_with_orientation">根据手机朝向搜索POI返回角度信息</string>
+    <string name="activity_search_service_poi_with_orientation_title">周边环境识别 </string>
+    <string name="activity_search_service_route_planning_title">路线规划与路线吸附</string>
+    <string name="activity_visual_map_title">Visual map </string>
+    <string name="activity_explore_building_title">Explore搜索 </string>
 
-
-
-    <string name="activity_display_location_title">显示用户当前位置</string>
-
-    <string name="activity_selector_position_title">室内地图控件位置 </string>
-
-    <string name="activity_hidden_selector_title">隐藏室内地图控件 </string>
-
-    <string name="activity_360_view_title">360全景视觉 </string>
 </resources>

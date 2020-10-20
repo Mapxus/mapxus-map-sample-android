@@ -1,23 +1,24 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.services.model.building.Address;
 import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyIndoorBuildingOverlay {
     private MapboxMap mapboxMap;
+    private MapxusMap mapxusMap;
     private List<IndoorBuildingInfo> mIndoorBuildingInfos;
-    private ArrayList<ObjectMarker> mIndoorBuildingMarks = new ArrayList();
 
-    public MyIndoorBuildingOverlay(MapboxMap mapboxMap, List<IndoorBuildingInfo> indoorBuildingInfos) {
+    public MyIndoorBuildingOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<IndoorBuildingInfo> indoorBuildingInfos) {
         this.mapboxMap = mapboxMap;
+        this.mapxusMap = mapxusMap;
         mIndoorBuildingInfos = indoorBuildingInfos;
     }
 
@@ -28,8 +29,7 @@ public class MyIndoorBuildingOverlay {
      */
     public void addToMap() {
         for (int i = 0; i < mIndoorBuildingInfos.size(); i++) {
-            Marker marker = mapboxMap.addMarker(getMarkerOptions(i));
-            mIndoorBuildingMarks.add((ObjectMarker) marker);
+            mapboxMap.addMarker(getMarkerOptions(i));
         }
     }
 
@@ -55,7 +55,7 @@ public class MyIndoorBuildingOverlay {
         }
     }
 
-    private com.mapbox.mapboxsdk.geometry.LatLngBounds getLatLngBounds() {
+    private LatLngBounds getLatLngBounds() {
         LatLngBounds.Builder b = new LatLngBounds.Builder();
         for (int i = 0; i < mIndoorBuildingInfos.size(); i++) {
             b.include(new LatLng(mIndoorBuildingInfos.get(i).getLabelCenter().getLat(),
@@ -66,21 +66,18 @@ public class MyIndoorBuildingOverlay {
 
 
     public void removeFromMap() {
-        for (Marker mark : mIndoorBuildingMarks) {
-            mark.remove();
-        }
+        mapxusMap.removeMarkers();
     }
 
 
-    private ObjectMarkerOptions getMarkerOptions(int index) {
+    private MarkerOptions getMarkerOptions(int index) {
 
         IndoorBuildingInfo indoorBuildingInfo = mIndoorBuildingInfos.get(index);
-        return new ObjectMarkerOptions()
+        return new MarkerOptions()
                 .position(
                         new LatLng(indoorBuildingInfo.getLabelCenter()
                                 .getLat(), indoorBuildingInfo.getLabelCenter().getLon()))
-                .title(getTitle(index)).snippet(getSnippet(index))
-                .object(indoorBuildingInfo);
+                .title(getTitle(index)).snippet(getSnippet(index));
     }
 
     protected String getTitle(int index) {
@@ -100,23 +97,4 @@ public class MyIndoorBuildingOverlay {
             return "";
         }
     }
-
-    public int getPoiIndex(Marker marker) {
-        for (int i = 0; i < mIndoorBuildingMarks.size(); i++) {
-            if (mIndoorBuildingMarks.get(i).equals(marker)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-
-    public IndoorBuildingInfo getIndoorBuildingInfoItem(int index) {
-        if (index < 0 || index >= mIndoorBuildingInfos.size()) {
-            return null;
-        }
-        return mIndoorBuildingInfos.get(index);
-    }
-
-
 }

@@ -12,18 +12,22 @@
 
     <color name="appPink">#ee4e8b</color>
 
-
     <color name="appGrayDark11">#6c6d70</color>
 
     <!-- FAB menu colors -->
 
+    <color name="gray">#898989</color>
+    <color name="darker_gray">#C0C0C0</color>
+    <color name="bound_polygon_color_gray">#aa808A87</color>
+    <color name="lighter_gray">#ddd</color>
 
-    <color name="grey">#898989</color>
-    <color name="darkgrey">#C0C0C0</color>
     <color name="white">#FFFFFF</color>
-
     <color name="transparent">#00000000</color>
+    <color name="white_transparent">#CCFFFFFF</color>
 
-
+    <color name="light_red">#F05C66</color>
     <color name="bound_polygon_color">#20FF0000</color>
+    <color name="darker_blue">#6A5ACD</color>
+    <color name="black">#000000</color>
+
 </resources>

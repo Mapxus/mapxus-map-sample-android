@@ -1,24 +1,132 @@
 <resources>
+    <!-- app -->
+    <string name="app_name" translatable="false">Mapxus Map Sample</string>
+    <string name="mapxus_map_sdk" translatable="false">Mapxus Map SDK</string>
+    <string name="examples" translatable="false">Android examples</string>
+
+    <!-- UI Strings -->
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+    <!--Default style names-->
+    <string name="style">Style</string>
+    <string name="menu_map_style_common">Common</string>
+    <string name="menu_map_style_christmas">Christmas</string>
+    <string name="menu_map_style_hallowmas">Hallowmas</string>
+    <string name="menu_map_style_mappy_bee">MappyBee</string>
+    <string name="menu_map_style_mapxus">Mapxus</string>
+    <string name="cancel">Cancel</string>
+
+
+    <!--Fragment below textview in support fragment activity-->
+    <string name="fragment_in_card_below" translatable="false">Map fragment container in card below</string>
+
+    <!--activity_building_and_floor_change-->
+    <string name="building_name_tips" translatable="false">BuildingName:</string>
+    <string name="floor_tips" translatable="false">Floor:</string>
+
+    <string name="no_result">Not found any data</string>
+
+    <string name="location_dialog_message" translatable="false">Positioning</string>
+    <string name="location_dialog_title">Please wait a moment</string>
+
+    <!-- nav drawer categories -->
+    <string name="map_creation">Map Creation</string>
+    <string name="map_interaction">Map Interaction</string>
+    <string name="map_editing">Map Editing</string>
+    <string name="indoor_positioning">Indoor Positioning</string>
+    <string name="search_service">Search Service</string>
+    <string name="integration_cases">Integration Cases</string>
+
     <string name="follow_me_none" translatable="false">NONE</string>
-    <string name="follow_me_follow_user" translatable="false">FOLLOW_USER</string>
-    <string name="follow_me_follow_user_and_heading" translatable="false">FOLLOW_USER_AND_HEADING</string>
-    
-    <string name="default_lat" translatable="false">22.3707866</string>
-    <string name="default_lon" translatable="false">114.1112654</string>
-
-    <string name="harbour_city_lat" translatable="false">22.296943</string>
-    <string name="harbour_city_lon" translatable="false">114.168458</string>
-
-    <string name="default_search_text" translatable="false">荃湾</string>
-    <string name="default_search_text_hint" translatable="false">Please input building name. e.g. Element</string>
-    <string name="default_search_text_hint_poi" translatable="false">please input POI name e.g. Starbuck</string>
-    <string name="default_search_text_building_id" translatable="false">tsuenwanplaza_hk_369d01</string>
-    <string name="default_poi_id" translatable="false">12586</string>
-    <string name="default_poi_text" translatable="false">Gym</string>
-    <string name="default_floor" translatable="false">1</string>
-
-    <string name="update_dialog_title" translatable="false">update tip</string>
+    <string name="follow_me_follow_user" translatable="false">FOLLOW</string>
+    <string name="follow_me_follow_user_and_heading" translatable="false">HEADING</string>
+    <string name="update_dialog_title" translatable="false">Update Available</string>
     <string name="ok" translatable="false">OK</string>
-    <string name="cancel" translatable="false">Cancel</string>
+
+    <string name="building_id_with_star" translatable="false">buildingId *</string>
+    <string name="floor" translatable="false">floor</string>
+    <string name="default_floor_name" translatable="false">L3</string>
+    <string name="zoom_insets" translatable="false">zoomInsets</string>
+    <string name="right" translatable="false">right</string>
+    <string name="left" translatable="false">left</string>
+    <string name="num_0" translatable="false">0</string>
+    <string name="bottom" translatable="false">bottom</string>
+    <string name="top" translatable="false">Top</string>
+    <string name="create" translatable="false">Create</string>
+    <string name="poi_id" translatable="false">poiId</string>
+    <string name="zoom_level" translatable="false">zoomLevel</string>
+    <string name="zoom_level_value" translatable="false">20</string>
+    <string name="is_always_hidden" translatable="false">isAlwaysHidden</string>
+    <string name="position" translatable="false">Position</string>
+    <string name="language" translatable="false">Language</string>
+    <string name="is_outdoor_hidden" translatable="false">isOutdoorHiddem</string>
+    <string name="default_text" translatable="false">default</string>
+    <string name="en" translatable="false">en</string>
+    <string name="zh_hant" translatable="false">zh-Hant</string>
+    <string name="zh_hans" translatable="false">zh-Hans</string>
+    <string name="ja" translatable="false">ja</string>
+    <string name="ko" translatable="false">ko</string>
+    <string name="gesture_switch" translatable="false">gesture switch</string>
+    <string name="auton_switch" translatable="false">auton switch</string>
+    <string name="please_long_press_or_click_on_the_map" translatable="false">Please long press or click on the map.</string>
+    <string name="params" translatable="false">Params</string>
+    <string name="zoom_mode" translatable="false">zoomMode</string>
+    <string name="lat" translatable="false">lat :</string>
+    <string name="lon" translatable="false">lon :</string>
+    <string name="accuracy" translatable="false">accuracy :</string>
+    <string name="compass" translatable="false">compass :</string>
+    <string name="time_stamp" translatable="false">timestamp :</string>
+    <string name="keywords" translatable="false">keywords</string>
+    <string name="offset" translatable="false">offset</string>
+    <string name="default_offset" translatable="false">10</string>
+    <string name="page" translatable="false">page</string>
+    <string name="default_page" translatable="false">1</string>
+    <string name="bbox" translatable="false">bbox</string>
+    <string name="min_latitude" translatable="false">min_latitude</string>
+    <string name="min_longitude" translatable="false">min_longitude</string>
+    <string name="max_latitude" translatable="false">max_latitude</string>
+    <string name="max_longitude" translatable="false">max_longitude</string>
+    <string name="default_min_lat" translatable="false">22.292540</string>
+    <string name="default_min_lon" translatable="false">114.158608</string>
+    <string name="default_max_lat" translatable="false">22.310600</string>
+    <string name="default_max_lon" translatable="false">114.172422</string>
+    <string name="center" translatable="false">center</string>
+    <string name="latitude" translatable="false">latitude</string>
+    <string name="longitude" translatable="false">longitude</string>
+    <string name="distance" translatable="false">distance</string>
+    <string name="default_distance" translatable="false">5</string>
+    <string name="default_distance_30" translatable="false">30</string>
+    <string name="add_id" translatable="false">Add ID</string>
+    <string name="search_in_building" translatable="false">Search In Building</string>
+    <string name="search_on_floor" translatable="false">Search On Floor</string>
+    <string name="close" translatable="false">Close</string>
+    <string name="category" translatable="false">category</string>
+    <string name="building_id" translatable="false">buildingId</string>
+    <string name="search" translatable="false">Search</string>
+    <string name="location" translatable="false">location</string>
+    <string name="ordinal" translatable="false">ordinal</string>
+    <string name="distance_search_type" translatable="false">distanceSearchType</string>
+    <string name="point" translatable="false">Point</string>
+    <string name="polygon" translatable="false">Polygon</string>
+    <string name="go" translatable="false">Go</string>
+    <string name="start" translatable="false">Start</string>
+    <string name="stop" translatable="false">Stop</string>
+    <string name="end" translatable="false">End</string>
+    <string name="to_door" translatable="false">toDoor</string>
+    <string name="tap_screen_for_start" translatable="false">Tap screen for Start</string>
+    <string name="tap_screen_for_end" translatable="false">Tap screen for End</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="located_inside" translatable="false">Located Inside</string>
+    <string name="delete" translatable="false">delete</string>
+    <string name="sort" translatable="false">sort</string>
+    <string name="meter_distance" translatable="false">meterDistance</string>
+    <string name="default_meter_distance" translatable="false">10</string>
+    <string name="actual_distance" translatable="false">ActualDistance</string>
+    <string name="absoulute_distance" translatable="false">AbsouluteDistance</string>
+    <string name="download" translatable="false">Download</string>
+    <string name="warning" translatable="false">Warning</string>
+    <string name="search_first" translatable="false">Please search the route first</string>
+    <string name="reach_toast_text" translatable="false">You have arrived . </string>
 
 </resources>

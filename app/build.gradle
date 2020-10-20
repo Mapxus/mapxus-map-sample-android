@@ -51,12 +51,12 @@ android {
 dependencies {
     //Android Libraries
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.browser:browser:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation "pub.devrel:easypermissions:1.2.0"
 
     // MapxusMap
@@ -68,7 +68,12 @@ dependencies {
 
     // Square crew
     implementation "com.squareup.picasso:picasso:2.5.2"
-
+    //Android auto size
+    implementation 'me.jessyan:autosize:1.2.1'
+    //Slide delete library
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    //navigation
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 }
 
 apply from: "${rootDir}/gradle/checkstyle.gradle"

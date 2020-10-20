@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Default style names-->
+    <string name="style">外观</string>
+    <string name="menu_map_style_common">通用样式</string>
+    <string name="menu_map_style_christmas">圣诞节样式</string>
+    <string name="menu_map_style_hallowmas">万圣节样式</string>
+    <string name="menu_map_style_mappy_bee">MAPPYBEE样式</string>
+    <string name="menu_map_style_mapxus">MAPXUS样式</string>
+    <string name="cancel">取消</string>
+
+    <string name="no_result">无数据</string>
+
+    <string name="location_dialog_title">请稍候</string>
+
+    <!-- nav drawer categories -->
+    <string name="map_creation">创建地图</string>
+    <string name="map_interaction">地图交互</string>
+    <string name="map_editing">在地图上绘制</string>
+    <string name="indoor_positioning">室内定位效果展示</string>
+    <string name="search_service">地图数据检索</string>
+    <string name="integration_cases">集成案例</string>
+
+</resources>

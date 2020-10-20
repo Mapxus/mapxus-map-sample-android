@@ -3,18 +3,17 @@ package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapbox.mapboxsdk.plugins.annotation.FillManager;
+import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.PoiBoundSearchOption;
@@ -24,26 +23,24 @@ import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
-/**
- * Use MapxusMap Search Services to request directions
- */
-public class SearchPoiInboundActivity extends AppCompatActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener {
+import org.jetbrains.annotations.NotNull;
 
-    private static final String TAG = "SearchPoiInboundActivity";
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener {
 
     private MapView mapView;
     private MapboxMap mapboxMap;
-    private MapViewProvider mapViewProvider;
-
-    private String keyWord = "";
-    private EditText mSearchText;
+    private MapxusMap mapxusMap;
 
     private PoiSearch poiSearch;
-    private MyPoiOverlay poiOverlay;
-
-    private LatLngBounds latLngBounds;
+    private RelativeLayout progressBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,53 +48,21 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
 
         setContentView(R.layout.activity_searchservices_search_poi_inbound);
 
-
-        // Setup the MapView
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapboxMapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
-
-
-        TextView searchButton = (TextView) findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_search:
-                        doSearchQuery();
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
-
-        mSearchText = (EditText) findViewById(R.id.input_edittext);
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
 
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(this);
 
-        com.mapxus.map.mapxusmap.api.map.model.LatLng southweast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(22.2932765, 114.1491187);
-        com.mapxus.map.mapxusmap.api.map.model.LatLng northeast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(22.3171406, 114.1747615);
-        latLngBounds = new LatLngBounds(southweast, northeast);
-
+        progressBarView = findViewById(R.id.loding_view);
     }
 
     @Override
-    public void onMapReady(MapboxMap mapboxMap) {
+    public void onMapReady(@NotNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-
-        com.mapbox.mapboxsdk.geometry.LatLngBounds maoboxLatLngBounds =
-                com.mapbox.mapboxsdk.geometry.LatLngBounds.from(
-                        latLngBounds.northeast.getLatitude(),
-                        latLngBounds.northeast.getLongitude(),
-                        latLngBounds.southwest.getLatitude(),
-                        latLngBounds.southwest.getLongitude());
-
-        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(maoboxLatLngBounds, 100));
-        showBoundsArea();
     }
 
 
@@ -126,7 +91,7 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -134,7 +99,6 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel the directions API request
         if (poiSearch != null) {
             poiSearch.destroy();
         }
@@ -147,26 +111,21 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
         mapView.onLowMemory();
     }
 
-    /**
-     * 开始进行poi搜索
-     */
-    /**
-     * 开始进行poi搜索
-     */
-    protected void doSearchQuery() {
-        keyWord = mSearchText.getText().toString().trim();
+    protected void doSearchQuery(LatLngBounds latLngBounds, String keyWord, String category, int offset, int page) {
         PoiBoundSearchOption boundSearchOption = new PoiBoundSearchOption();
 
         boundSearchOption.bound(latLngBounds);
         boundSearchOption.keyword(keyWord);
-
-
+        boundSearchOption.category(category);
+        boundSearchOption.pageCapacity(offset);
+        boundSearchOption.pageNum(page);
         poiSearch.searchInBound(boundSearchOption);
     }
 
 
     @Override
     public void onGetPoiResult(PoiResult poiResult) {
+        progressBarView.setVisibility(View.GONE);
         if (poiResult.status != 0) {
             Toast.makeText(this, poiResult.error.toString(), Toast.LENGTH_LONG).show();
             return;
@@ -176,8 +135,8 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
             return;
         }
 
-        mapboxMap.clear();
-        poiOverlay = new MyPoiOverlay(mapboxMap, poiResult.getAllPoi());
+        MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
+        poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan();
     }
@@ -197,7 +156,7 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
 
     }
 
-    private void showBoundsArea() {
+    private void showBoundsArea(LatLngBounds latLngBounds) {
         PolygonOptions boundsArea = new PolygonOptions();
 
         boundsArea.add(new LatLng(latLngBounds.northeast.latitude, latLngBounds.southwest.longitude));
@@ -205,11 +164,53 @@ public class SearchPoiInboundActivity extends AppCompatActivity implements OnMap
         boundsArea.add(new LatLng(latLngBounds.southwest.latitude, latLngBounds.northeast.longitude));
         boundsArea.add(new LatLng(latLngBounds.southwest.latitude, latLngBounds.southwest.longitude));
 
-        boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color));
+        boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color_gray));
         mapboxMap.addPolygon(boundsArea);
     }
 
 
+    @Override
+    protected void initBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_bound_search_style, this);
+        bottomSheetDialogView.findViewById(R.id.tv_category).setVisibility(View.VISIBLE);
+        bottomSheetDialogView.findViewById(R.id.et_category).setVisibility(View.VISIBLE);
+
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            progressBarView.setVisibility(View.VISIBLE);
+            getValueAndSearch(bottomSheetDialogView);
+        });
+    }
+
+    private void getValueAndSearch(View bottomSheetDialogView) {
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
+        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
+        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
+
+        EditText etMaxLat = bottomSheetDialogView.findViewById(R.id.et_max_lat);
+        EditText etMaxLon = bottomSheetDialogView.findViewById(R.id.et_max_lon);
+        EditText etMinLat = bottomSheetDialogView.findViewById(R.id.et_min_lat);
+        EditText etMinLon = bottomSheetDialogView.findViewById(R.id.et_min_lon);
+
+        com.mapxus.map.mapxusmap.api.map.model.LatLng southweast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(
+                etMinLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMinLat.getText().toString().trim()),
+                etMinLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMinLon.getText().toString().trim()));
+        com.mapxus.map.mapxusmap.api.map.model.LatLng northeast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(
+                etMaxLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMaxLat.getText().toString().trim()),
+                etMaxLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMaxLon.getText().toString().trim()));
+
+        LatLngBounds latLngBounds = new LatLngBounds(southweast, northeast);
+
+        showBoundsArea(latLngBounds);
+
+        doSearchQuery(latLngBounds,
+                etKeywords.getText().toString().trim(),
+                etCategory.getText().toString().trim(),
+                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
+                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+    }
 }
 
 

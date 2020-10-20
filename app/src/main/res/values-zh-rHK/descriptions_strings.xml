@@ -4,46 +4,37 @@
     <!-- ****** These strings are of individual example descriptions which appear in
     each example's recyclerview card ****** -->
 
-    <string name="activity_basic_simple_mapview_description">在您的APP中使用Mapxus Maps SDK來顯示地圖。</string>
+    <string name="activity_basic_simple_mapview_description">通過代碼創建地圖。</string>
     <string name="activity_basic_support_map_frag_description">在您的app內包含一個Fragment創建的地圖。</string>
-    <string name="activity_basic_beemap_options_description">在已創建的Layout中動態添加一個Mapview。</string>
-    <string name="activity_basic_beemap_init_with_building_description">直接創建定位在特定建築的地圖。</string>
-    <string name="activity_basic_beemap_init_with_poi_description">直接創建定位在特定poi的地圖。</string>
-    <string name="activity_basic_beemap_without_outdoor_description">隱藏室外地圖，只顯示室內地圖。</string>
-    <string name="activity_styles_default_description">通過Mapxus Maps SDK使用各種專業設計的樣式。</string>
-    <string name="activity_annotation_default_marker_description">通過Mapxus Maps SDK添加默認標註。</string>
-    <string name="activity_annotation_custom_marker_description">通過Mapxus Maps SDK添加自定義圖標標註。</string>
-    <string name="activity_annotation_polygon_description">通過Mapxus Maps SDK繪制多邊形。</string>
-    <string name="activity_annotation_polygon_holes_description">通過Mapxus Maps SDK繪制帶孔的多邊形。</string>
-    <string name="activity_annotation_animated_marker_description">移動地圖上的標註到新的位置。</string>
-    <string name="activity_annotation_line_description">在地圖上畫線。</string>
-    <string name="activity_camera_animate_description">"帶動畫效果的改變地圖的鏡頭位置，平鋪，方位和縮放。"</string>
-    <string name="activity_camera_restrict_description">防止地圖被移到不同的地方。</string>
+    <string name="activity_basic_init_with_building_description">創建地圖時在設置的邊距範圍內最大化顯示指定的建築並切換到設置樓層。</string>
+    <string name="activity_basic_init_with_poi_description">創建地圖時在地圖中心顯示指定的POI，並設置地圖縮放等級。</string>
 
+    <string name="activity_indoor_map_controller_description">室內地圖控件的位置。 </string>
+    <string name="activity_styles_default_description">修改地圖配色，標注語言及控制室外地圖隱藏。</string>
+    <string name="activity_gesture_interaction_for_switching_building_description">設置切換建築手勢。</string>
+    <string name="activity_camera_animate_description">代碼設置聚焦的室內場景。</string>
+    <string name="activity_listener_click_description">監聽單擊、長按地圖事件，單擊POI事件。</string>
+    <string name="activity_listener_building_floor_change_description">監聽室內場景切換事件。</string>
+    <string name="activity_listener_camera_change_listener_description">監聽進出室內場景事件。 </string>
 
-    <string name="activity_listener_building_floor_change_description">監聽樓層切換的事件</string>
-    <string name="activity_listener_poi_click_description">監聽POI點擊事件</string>
-    <string name="activity_listener_camera_change_listener_description">監聽鏡頭移動事件</string>
+    <string name="activity_annotation_default_marker_description">當前場景只顯示對應樓層的標注。</string>
+    <string name="activity_annotation_polygon_description">當前場景只顯示對應樓層的繪制多邊形。</string>
 
+    <string name="activity_display_location_description">展示室內定位及地圖跟隨的效果。</string>
 
-    <string name="activity_search_service_route_planning_description">點到點的搜索最優路徑 </string>
-    <string name="activity_search_service_building_nearby_description">搜索附近的建築</string>
-    <string name="activity_search_service_building_in_bound_description">在您指定區域內搜索建築</string>
-    <string name="activity_search_service_building_by_id_description">通過建築的ID搜索建築的詳細信息 </string>
-    <string name="activity_search_service_building_global_description">在全球範圍內搜索建築</string>
+    <string name="activity_search_service_building_global_description">在全球範圍內搜索建築。 </string>
+    <string name="activity_search_service_building_in_bound_description">在指定的矩形區域內搜索建築。 </string>
+    <string name="activity_search_service_building_nearby_description">在指定的圓形區域內搜索建築。 </string>
+    <string name="activity_search_service_building_by_id_description">按ID搜索建築。 </string>
+    <string name="activity_search_service_poi_category_in_building_description">獲取指定建築或樓層內所有包含的分類。 </string>
+    <string name="activity_search_service_poi_in_building_description">在指定場景內搜索POI。 </string>
+    <string name="activity_search_service_poi_in_bound_description">在指定的矩形區域內搜索POI。 </string>
+    <string name="activity_search_service_poi_nearby_description">在指定的圓形區域內搜索POI。</string>
+    <string name="activity_search_service_poi_by_id_description">按ID搜索POI。 </string>
 
-    <string name="activity_search_service_poi_nearby_description">搜索附近的POI。</string>
-    <string name="activity_search_service_poi_in_bound_description">在您指定的區域內搜索POI。</string>
-    <string name="activity_search_service_poi_by_id_description">通過POI的ID搜索POI的詳細信息。 </string>
-    <string name="activity_search_service_poi_in_building_description">在指定建築內搜索POI。</string>
-    <string name="activity_search_service_poi_with_orientation_description">根據手機朝向查找帶有角度信息的POI信息 </string>
+    <string name="activity_search_service_poi_with_orientation_description">制作虛擬定位並識別定位周邊POI信息。</string>
+    <string name="activity_search_service_route_planning_description">檢索起始點間的路線並實現路網吸附、縮短功能。</string>
+    <string name="activity_visual_map_description">介紹Visual的集成。 </string>
+    <string name="activity_explore_building_description">介紹建築內POI常見搜索的集成。</string>
 
-
-
-    <string name="activity_display_location_description">用Mapxus Positioning 定位用戶當前的位置。</string>
-
-    <string name="activity_selector_position_description">把室內地圖控件放置在你想要的位置。 </string>
-    <string name="activity_hidden_selector_description">把室內地圖控件設置為總是隱藏。 </string>
-
-    <string name="activity_360_view_description">展示360全景視覺 </string>
 </resources>

@@ -3,17 +3,19 @@ package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.plugins.annotation.AnnotationManager;
+import com.mapbox.mapboxsdk.plugins.annotation.FillManager;
+import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
+import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
 import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.BoundSearchOption;
@@ -21,64 +23,48 @@ import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
 
-/**
- * Use MapxusMap Search Services to request directions
- */
-public class SearchBuildingInboundActivity extends AppCompatActivity implements OnMapReadyCallback, BuildingSearch.BuildingSearchResultListener {
+import org.jetbrains.annotations.NotNull;
 
-    private static final String TAG = "SearchBuildingInboundActivity";
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, BuildingSearch.BuildingSearchResultListener {
 
     private MapView mapView;
     private MapboxMap mapboxMap;
+    private MapxusMap mapxusMap;
     private MapViewProvider mapViewProvider;
 
-    private String keyWord = "";
-    private EditText mSearchText;
+    private RelativeLayout progressBarView;
 
-    private LatLng startPoint = new LatLng(22.0360235, 113.18262645);
-    private int currentPage;
     private BuildingSearch buildingSearch;
     private MyIndoorBuildingOverlay indoorBuildingOverlay;
-    private LatLngBounds latLngBounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchservices_search_building_inbound);
 
-        // Setup the MapView
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
-
-
-        TextView searchButton = (TextView) findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSearchQuery();
-            }
-        });
-
-        mSearchText = (EditText) findViewById(R.id.input_edittext);
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
+        progressBarView = findViewById(R.id.loding_view);
 
         buildingSearch = BuildingSearch.newInstance();
         buildingSearch.setBuildingSearchResultListener(this);
 
-        com.mapxus.map.mapxusmap.api.map.model.LatLng southweast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(22.2918962, 114.1353782);
-        com.mapxus.map.mapxusmap.api.map.model.LatLng northeast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(22.3418344, 114.2089048);
-
-        latLngBounds = new LatLngBounds(southweast, northeast);
-
     }
 
     @Override
-    public void onMapReady(MapboxMap mapboxMap) {
+    public void onMapReady(@NotNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        showBoundsArea();
     }
 
 
@@ -107,7 +93,7 @@ public class SearchBuildingInboundActivity extends AppCompatActivity implements 
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -115,7 +101,6 @@ public class SearchBuildingInboundActivity extends AppCompatActivity implements 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel the directions API request
         if (buildingSearch != null) {
             buildingSearch.destroy();
         }
@@ -129,26 +114,20 @@ public class SearchBuildingInboundActivity extends AppCompatActivity implements 
         mapView.onLowMemory();
     }
 
-    /**
-     * 开始进行poi搜索
-     */
-    /**
-     * 开始进行poi搜索
-     */
-    protected void doSearchQuery() {
-        keyWord = mSearchText.getText().toString().trim();
-        currentPage = 0;
+    protected void doSearchQuery(LatLngBounds latLngBounds, String keyWord, int offset, int page) {
 
         BoundSearchOption boundSearchOption = new BoundSearchOption();
-
         boundSearchOption.bound(latLngBounds);
         boundSearchOption.keyword(keyWord);
-
+        boundSearchOption.pageCapacity(offset);
+        boundSearchOption.pageNum(page);
         buildingSearch.searchInBound(boundSearchOption);
     }
 
     @Override
     public void onGetBuildingResult(BuildingResult buildingResult) {
+
+        progressBarView.setVisibility(View.GONE);
 
         if (buildingResult.status != 0) {
             Toast.makeText(this, buildingResult.error.toString(), Toast.LENGTH_LONG).show();
@@ -159,12 +138,11 @@ public class SearchBuildingInboundActivity extends AppCompatActivity implements 
             return;
         }
 
-//        mBeemap.clexzar();
         if (indoorBuildingOverlay != null) {
             indoorBuildingOverlay.removeFromMap();
             indoorBuildingOverlay = null;
         }
-        indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, buildingResult.getIndoorBuildingList());
+        indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
         indoorBuildingOverlay.addToMap();
         indoorBuildingOverlay.zoomToSpan();
     }
@@ -174,7 +152,7 @@ public class SearchBuildingInboundActivity extends AppCompatActivity implements 
 
     }
 
-    private void showBoundsArea() {
+    private void showBoundsArea(LatLngBounds latLngBounds) {
         PolygonOptions boundsArea = new PolygonOptions();
 
         boundsArea.add(new LatLng(latLngBounds.northeast.latitude, latLngBounds.southwest.longitude));
@@ -182,11 +160,48 @@ public class SearchBuildingInboundActivity extends AppCompatActivity implements 
         boundsArea.add(new LatLng(latLngBounds.southwest.latitude, latLngBounds.northeast.longitude));
         boundsArea.add(new LatLng(latLngBounds.southwest.latitude, latLngBounds.southwest.longitude));
 
-        boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color));
+        boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color_gray));
         mapboxMap.addPolygon(boundsArea);
     }
 
 
+    @Override
+    protected void initBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_bound_search_style, this);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            progressBarView.setVisibility(View.VISIBLE);
+            getValueAndSearch(bottomSheetDialogView);
+        });
+    }
+
+    private void getValueAndSearch(View bottomSheetDialogView) {
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
+        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
+
+        EditText etMaxLat = bottomSheetDialogView.findViewById(R.id.et_max_lat);
+        EditText etMaxLon = bottomSheetDialogView.findViewById(R.id.et_max_lon);
+        EditText etMinLat = bottomSheetDialogView.findViewById(R.id.et_min_lat);
+        EditText etMinLon = bottomSheetDialogView.findViewById(R.id.et_min_lon);
+
+        com.mapxus.map.mapxusmap.api.map.model.LatLng southweast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(
+                etMinLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMinLat.getText().toString().trim()),
+                etMinLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMinLon.getText().toString().trim()));
+        com.mapxus.map.mapxusmap.api.map.model.LatLng northeast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(
+                etMaxLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMaxLat.getText().toString().trim()),
+                etMaxLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMaxLon.getText().toString().trim()));
+
+        LatLngBounds latLngBounds = new LatLngBounds(southweast, northeast);
+
+        showBoundsArea(latLngBounds);
+
+        doSearchQuery(latLngBounds,
+                etKeywords.getText().toString().trim(),
+                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
+                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+    }
 }
 
 

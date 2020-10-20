@@ -42,5 +42,20 @@
 -dontwarn org.slf4j.**
 
 # beemap
--keep class com.mapxus.**
+-keep class com.mapxus.** {*;}
 
+#visual map
+-keep class io.github.wax911.library.model.** { *; }
+
+#----------------------Mapbox----------------------
+-dontwarn com.mapzen.android.lost.api**
+-dontwarn com.google.android.gms.**
+-keep class com.mapbox.mapboxsdk.** { *; }
+-keep interface com.mapbox.mapboxsdk.** { *; }
+-keep class com.mapbox.services.android.telemetry.** { *; }
+-keep class com.mapbox.services.commons.** { *;}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}

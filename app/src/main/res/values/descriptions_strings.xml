@@ -4,45 +4,37 @@
     <!-- ****** These strings are of individual example descriptions which appear in
     each example's recyclerview card ****** -->
 
-    <string name="activity_basic_simple_mapview_description">Show a map in your app using the Mapxus Maps SDK.</string>
-    <string name="activity_basic_support_map_frag_description">Include a map fragment within your app using Android support library.</string>
-    <string name="activity_basic_beemap_options_description">Add a mapview in a dynamically created layout.</string>
-    <string name="activity_basic_beemap_init_with_building_description">Create the map with particular building directly.</string>
-    <string name="activity_basic_beemap_init_with_poi_description">create the map with particular poi directly.</string>
-    <string name="activity_basic_beemap_without_outdoor_description">hide the outdoor map and only show the indoor map.</string>
-    <string name="activity_styles_default_description">Use a variety of professionally designed styles with the Mapxus Maps SDK.</string>
-    <string name="activity_annotation_default_marker_description">Create a default marker using the Mapxus Maps SDK.</string>
-    <string name="activity_annotation_custom_marker_description">Create a marker with a custom icon using the Mapxus Maps SDK.</string>
-    <string name="activity_annotation_polygon_description">Draw a vector polygon on a map with the Mapxus Maps SDK.</string>
-    <string name="activity_annotation_polygon_holes_description">Draw a vector polygon with holes on a map using the Mapxus Maps SDK.</string>
-    <string name="activity_annotation_animated_marker_description">Animate the marker to a new position on the map.</string>
-    <string name="activity_annotation_line_description">Draw a line on the map.</string>
-    <string name="activity_camera_animate_description">"Animate the map's camera position, tilt, bearing, and zoom."</string>
-    <string name="activity_camera_restrict_description">Prevent a map from being panned to a different place.</string>
+    <string name="activity_basic_simple_mapview_description">Create map with code.</string>
+    <string name="activity_basic_support_map_frag_description">Create map with fragment.</string>
+    <string name="activity_basic_init_with_building_description">To Maximize the specified building indoor map by the setting margin range and switch to the setting floor.</string>
+    <string name="activity_basic_init_with_poi_description">To show the specified POI in the center of the map and show the map by the setting zoom level when creating map.</string>
 
+    <string name="activity_indoor_map_controller_description">Location of indoor map controllers. </string>
+    <string name="activity_styles_default_description">Modify map style, mark language and control outdoor map hiding.</string>
+    <string name="activity_gesture_interaction_for_switching_building_description">Setting gestures for switching buildings.</string>
+    <string name="activity_camera_animate_description">Use code settings to focus on indoor scenes.</string>
+    <string name="activity_listener_click_description">Listener for click or long on the map, and click POI event.</string>
+    <string name="activity_listener_building_floor_change_description">Listener for indoor scene switching events.</string>
+    <string name="activity_listener_camera_change_listener_description">Listener for get in indoor or leave indoor scene. </string>
 
-    <string name="activity_listener_building_floor_change_description">Building and floor change</string>
-    <string name="activity_listener_poi_click_description">Poi click listener</string>
-    <string name="activity_listener_camera_change_listener_description">Camera change </string>
+    <string name="activity_annotation_default_marker_description">Only display the markers on current floor.</string>
+    <string name="activity_annotation_polygon_description">Only display the polygon on current floor.</string>
 
+    <string name="activity_display_location_description">Show the positioning location and different following mode. </string>
 
-    <string name="activity_search_service_route_planning_description">Route Planning </string>
-    <string name="activity_search_service_building_nearby_description">Search building nearby </string>
-    <string name="activity_search_service_building_in_bound_description">Search building in bound </string>
-    <string name="activity_search_service_building_by_id_description">Search building detail by id </string>
-    <string name="activity_search_service_building_global_description">Search building global </string>
+    <string name="activity_search_service_building_global_description">Search building globally. </string>
+    <string name="activity_search_service_building_in_bound_description">Search building in the specified rectangular area. </string>
+    <string name="activity_search_service_building_nearby_description">Search building in the specified circular area. </string>
+    <string name="activity_search_service_building_by_id_description">Search building by building id. </string>
+    <string name="activity_search_service_poi_category_in_building_description">Get all the POI categories of the specified building or floor. </string>
+    <string name="activity_search_service_poi_in_building_description">Search POI in the specified scene. </string>
+    <string name="activity_search_service_poi_in_bound_description">Search POI in the specified rectangular area. </string>
+    <string name="activity_search_service_poi_nearby_description">Search POI in the specified circular area. </string>
+    <string name="activity_search_service_poi_by_id_description">Search POI by POI ID. </string>
 
-    <string name="activity_search_service_poi_nearby_description">Search poi nearby </string>
-    <string name="activity_search_service_poi_in_bound_description">Search poi in bound </string>
-    <string name="activity_search_service_poi_by_id_description">Search poi detail by id </string>
-    <string name="activity_search_service_poi_in_building_description">Search poi in building  </string>
-    <string name="activity_search_service_poi_with_orientation_description">Search poi with orientation  </string>
+    <string name="activity_search_service_poi_with_orientation_description">Make a virtual location and identify POI information around the location. </string>
+    <string name="activity_search_service_route_planning_description">Search the route between the starting point and end point, and show the road adsorption. </string>
+    <string name="activity_visual_map_description">Integration of Visual map. </string>
+    <string name="activity_explore_building_description">Common case of POI search in the building. </string>
 
-
-    <string name="activity_display_location_description">Displaying the users location. </string>
-
-    <string name="activity_selector_position_description">Place the indoor map selector as you need. </string>
-    <string name="activity_hidden_selector_description">Set the indoor map selector always hidden. </string>
-
-    <string name="activity_360_view_description">display 360 view </string>
 </resources>

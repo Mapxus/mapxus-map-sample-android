@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    tools:context=".examples.visual.DisplayVisualActivity">
+    tools:context=".examples.integrationcases.DisplayVisualActivity">
 
 
     <com.mapbox.mapboxsdk.maps.MapView
