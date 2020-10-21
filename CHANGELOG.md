@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.4
+
+### Features
+* Add navigation function include route shortener , route adsorber and callback when the destination is reached.
+
 ## 4.0.3
 
 ### Bugs

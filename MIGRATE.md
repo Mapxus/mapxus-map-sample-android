@@ -28,7 +28,7 @@ Old version dependencies declaration:
 New version dependencies declaration:
 ```
 //mapxus
-"com.mapxus.map:mapxusmap:4.0.3"
+"com.mapxus.map:mapxusmap:4.0.4"
 
 ```
 
