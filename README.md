@@ -128,7 +128,7 @@ For more information about Mapxus Indoor Map and Location Service, please check 
   * Set focus effect: no zoom, zoom by animation, zoom without animation.
   * Setting Architectural Adaptive Margins.
   
-###Click event listener
+### Click event listener
 
 * File name：[ClickEventListenerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapinteraction/ClickEventListenerActivity.java)
 
@@ -140,7 +140,7 @@ For more information about Mapxus Indoor Map and Location Service, please check 
     * Click on a map blank to trigger the `-onMapClick(LatLng latLng, String floor, String buildingId, String floorId)` callback method.
     * Press and hold the map to trigger the `-onMapLongClick(LatLng latLng, String floor, String buildingId, String floorId)` callback method.
 
-###Indoor scene switching event listener
+### Indoor scene switching event listener
 
 * File name：[IndoorSceneSwitchingListenerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapinteraction/IndoorSceneSwitchingListenerActivity.java)
 
@@ -150,7 +150,7 @@ For more information about Mapxus Indoor Map and Location Service, please check 
 
    * Triggers the `-onFloorChange(IndoorBuilding indoorBuilding, String floor)` callback method when switching to an indoor scene.
    
-###Get in or leave indoor scene event listener
+### Get in or leave indoor scene event listener
 
 * File name：[IndoorSceneInAndOutListenerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapinteraction/IndoorSceneInAndOutListenerActivity.java)
 
@@ -163,7 +163,7 @@ For more information about Mapxus Indoor Map and Location Service, please check 
 
 ## Map Editing
 
-###Drawing markers by floor
+### Drawing markers by floor
 
 * File name：[DrawMarkerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapediting/DrawMarkerActivity.java)
 
@@ -173,7 +173,7 @@ For more information about Mapxus Indoor Map and Location Service, please check 
 
    * Create Mapxus Marker with special floors and add them to the map.
 
-###Drawing polygons by floor
+### Drawing polygons by floor
 
 * File name：[DrawPolygonActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapediting/DrawPolygonActivity.java)
 
@@ -185,9 +185,9 @@ For more information about Mapxus Indoor Map and Location Service, please check 
    * Add layer to mapview.
    * Listen to floor switch, filter layer data.
    
-##Indoor Positioning
+## Indoor Positioning
 
-###Indoor Positioning
+### Indoor Positioning
 
 * File name：[LocationProviderActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/indoorpositioning/LocationProviderActivity.java)
 
@@ -210,7 +210,7 @@ dependencies {
 
 ## Search Service
 
-###Search building globally
+### Search building globally
 
 * File name：[SearchBuildingGlobalActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingGlobalActivity.java)
 
@@ -222,7 +222,7 @@ dependencies {
      * Create an instance of the search class BuildingSearch.
      * Get the search result by using the `-onGetBuildingResult(BuildingResult buildingResult)` callback method.
    
-###Search building in the specified area
+### Search building in the specified area
 
 * File name：[SearchBuildingInboundActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingInboundActivity.java)
 
@@ -235,7 +235,7 @@ dependencies {
      * Get the search result by using the `-onGetBuildingResult(BuildingResult buildingResult)` callback method.
 
 
-###Search building nearby
+### Search building nearby
 
 * File name：[SearchBuildingInboundActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingInboundActivity.java)
 
@@ -247,7 +247,7 @@ dependencies {
      * Create an instance of the search class BuildingSearch.
      * Get the search result by using the `-onGetBuildingResult(BuildingResult buildingResult)` callback method.
 
-###Search building by building ID
+### Search building by building ID
 
 * File name：[SearchBuildingDetailActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingDetailActivity.java)
 
@@ -259,7 +259,7 @@ dependencies {
      * Create an instance of the search class BuildingSearch.
      * Get the search result by using the `-onGetBuildingDetailResult(BuildingDetailResult buildingDetailResult)` callback method.
 
-###Get the POI categories by building or floor
+### Get the POI categories by building or floor
 
 * File name：[SearchPoiCategoriesInBuildingActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiCategoriesInBuildingActivity.java)
 
@@ -271,7 +271,7 @@ dependencies {
      * Create an instance of the search class PoiSearch.
      * Get the search result by using the `-onPoiCategoriesResult(PoiCategoryResult poiCategoryResult)` callback method.
 
-###Search POI in the specified scene
+### Search POI in the specified scene
 
 * File name：[SearchPoiInBuildingActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiInBuildingActivity.java)
 
@@ -283,7 +283,7 @@ dependencies {
      * Create an instance of the search class PoiSearch.
      * Get the search result by using the `-onGetPoiResult(PoiResult poiResult)` callback method.
      
-###Search POI in the specified area
+### Search POI in the specified area
 
 * File name：[SearchPoiInboundActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiInboundActivity.java)
 
@@ -296,7 +296,7 @@ dependencies {
      * Get the search result by using the `-onGetPoiResult(PoiResult poiResult)` callback method.
 
 
-###Search POI nearby
+### Search POI nearby
 
 * File name：[SearchPoiNearbyActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiNearbyActivity.java)
 
@@ -308,7 +308,7 @@ dependencies {
      * Create an instance of the search class PoiSearch.
      * Get the search result by using the `-onGetPoiResult(PoiResult poiResult)` callback method.
 
-###Search POI by POI ID
+### Search POI by POI ID
 
 * File name：[SearchPoiDetailActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiDetailActivity.java)
 
@@ -323,7 +323,7 @@ dependencies {
 
 ## Integration Cases
 
-###Surrounding environment recognition
+### Surrounding environment recognition
 
 * File name：[SearchPoiWithOrientationActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/SearchPoiWithOrientationActivity.java)
 
@@ -337,7 +337,7 @@ dependencies {
      * Get the search result by using the `-onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult)` callback method.
 
 
-###Route planning and navigation
+### Route planning and navigation
 
 * File name：[RoutePlanningActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/route/RoutePlanningActivity.java)
 
@@ -353,7 +353,7 @@ dependencies {
      * Create an instance of RouteShortener to follow a shortened route.
 
 
-###Visual map
+### Visual map
 
 * File name：[DisplayVisualActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/DisplayVisualActivity.java)
 
@@ -374,7 +374,7 @@ dependencies {
 ```
 
 
-###Explore building
+### Explore building
 
 * File name：[ExploreBuildingActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/explore/ExploreBuildingActivity.java)
 

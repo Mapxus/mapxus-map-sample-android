@@ -126,7 +126,7 @@ dependencies {
   * 设置聚焦效果：不缩放、通过动画缩放、无动画缩放
   * 设置建筑自适应边距
   
-###事件交互（监听点击）
+### 事件交互（监听点击）
 
 * 文件名：[ClickEventListenerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapinteraction/ClickEventListenerActivity.java)
 
@@ -138,7 +138,7 @@ dependencies {
     * 单击地图空白，触发 `-onMapClick(LatLng latLng, String floor, String buildingId, String floorId)` 回调方法
     * 长按地图，触发 `-onMapLongClick(LatLng latLng, String floor, String buildingId, String floorId)` 回调方法
 
-###事件交互（监听室内场景切换）
+### 事件交互（监听室内场景切换）
 
 * 文件名：[IndoorSceneSwitchingListenerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapinteraction/IndoorSceneSwitchingListenerActivity.java)
 
@@ -148,7 +148,7 @@ dependencies {
 
     * 切换室内场景时，触发  `-onFloorChange(IndoorBuilding indoorBuilding, String floor)`  回调方法
    
-###事件交互（监听进出室内场景）
+### 事件交互（监听进出室内场景）
 
 * 文件名：[IndoorSceneInAndOutListenerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapinteraction/IndoorSceneInAndOutListenerActivity.java)
 
@@ -159,9 +159,9 @@ dependencies {
     * 进出室内场景时，触发 `-onBuildingChange(IndoorBuilding indoorBuilding)` 回调方法
    
 
-##地图上绘制
+## 地图上绘制
 
-###按楼层绘制标注
+### 按楼层绘制标注
 
 * 文件名：[DrawMarkerActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapediting/DrawMarkerActivity.java)
 
@@ -171,7 +171,7 @@ dependencies {
 
    * 创建多个不同楼层的Mapxus Marker实例，并添加到地图上
 
-###按楼层绘制多边形
+### 按楼层绘制多边形
 
 * 文件名：[DrawPolygonActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapediting/DrawPolygonActivity.java)
 
@@ -183,9 +183,9 @@ dependencies {
    * 添加layer到mapview
    * 监听楼层切换，过滤layer数据
    
-##室内定位效果展示
+## 室内定位效果展示
 
-###室内定位效果展示
+### 室内定位效果展示
 
 * 文件名：[LocationProviderActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/indoorpositioning/LocationProviderActivity.java)
 
@@ -208,7 +208,7 @@ dependencies {
 
 ## 地图数据检索
 
-###全球范围内搜索建筑
+### 全球范围内搜索建筑
 
 * 文件名：[SearchBuildingGlobalActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingGlobalActivity.java)
 
@@ -220,7 +220,7 @@ dependencies {
      * 创建检索类 BuildingSearch的实例
      * 通过 `-onGetBuildingResult(BuildingResult buildingResult)` 回调方法获取检索结果
    
-###指定矩形区域内搜索建筑
+### 指定矩形区域内搜索建筑
 
 * 文件名：[SearchBuildingInboundActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuildingInboundActivity.java)
 
@@ -245,7 +245,7 @@ dependencies {
      * 创建检索类 BuildingSearch的实例
      * 通过 `-onGetBuildingResult(BuildingResult buildingResult)` 回调方法获取检索结果
 
-###指定建筑ID搜索建筑
+### 指定建筑ID搜索建筑
 
 * 文件名：[SearchBuilding详述Activity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchBuilding详述Activity.java)
 
@@ -257,7 +257,7 @@ dependencies {
      * 创建检索类  BuildingSearch的实例
      * 通过 `-onGetBuildingDetailResult(BuildingDetailResult building详述Result)` 回调方法获取检索结果
 
-###获取指定场景内包含的POI分类
+### 获取指定场景内包含的POI分类
 
 * 文件名：[SearchPoiCategoriesInBuildingActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiCategoriesInBuildingActivity.java)
 
@@ -269,7 +269,7 @@ dependencies {
      * 创建检索类PoiSearch的实例
      * 通过 `-onPoiCategoriesResult(PoiCategoryResult poiCategoryResult)` 回调方法获取检索结果
 
-###指定场景内搜索POI
+### 指定场景内搜索POI
 
 * 文件名：[SearchPoiInBuildingActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiInBuildingActivity.java)
 
@@ -281,7 +281,7 @@ dependencies {
      * 创建检索类PoiSearch的实例
      * 通过 `-onGetPoiResult(PoiResult poiResult)` 回调方法获取检索结果
      
-###指定矩形区域内搜索POI
+### 指定矩形区域内搜索POI
 
 * 文件名：[SearchPoiInboundActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiInboundActivity.java)
 
@@ -294,7 +294,7 @@ dependencies {
      * 通过 `-onGetPoiResult(PoiResult poiResult)` 回调方法获取检索结果
 
 
-###周边POI搜索
+### 周边POI搜索
 
 * 文件名：[SearchPoiNearbyActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoiNearbyActivity.java)
 
@@ -306,7 +306,7 @@ dependencies {
      * 创建检索类PoiSearch的实例
      * 通过 `-onGetPoiResult(PoiResult poiResult)` 回调方法获取检索结果
 
-###指定POI ID搜索
+### 指定POI ID搜索
 
 * 文件名：[SearchPoi详述Activity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/searchservices/SearchPoi详述Activity.java)
 
@@ -320,7 +320,7 @@ dependencies {
 
 ## 集成案例
 
-###周边环境识别
+### 周边环境识别
 
 * 文件名：[SearchPoiWithOrientationActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/SearchPoiWithOrientationActivity.java)
 
@@ -334,7 +334,7 @@ dependencies {
      * 通过 `-onGetPoiResult(PoiResult poiResult)` 回调方法获取检索结果
 
 
-###路线规划与路线吸附
+### 路线规划与路线吸附
 
 * 文件名：[RoutePlanningActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/route/RoutePlanningActivity.java)
 
@@ -349,7 +349,7 @@ dependencies {
      * 创建 Navigation的实例 ，进行路线吸附
      * 创建 RouteShortener的实例 ，进行定位跟随缩短路线
 
-###Visual map
+### Visual map
 
 * 文件名：[DisplayVisualActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/DisplayVisualActivity.java)
 
@@ -370,7 +370,7 @@ dependencies {
 ```
 
 
-###Explore搜索
+### Explore搜索
 
 * 文件名：[ExploreBuildingActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/integrationcases/explore/ExploreBuildingActivity.java)
 
