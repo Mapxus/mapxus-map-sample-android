@@ -19,10 +19,10 @@ Please contact us  <support@mapxus.com> to get appid and secret if you do not ha
 
 All the follwing sample is based on the latest Mapxus Map SDK version , please add sdk dependency to your own project's builid.gradle file:
 ```groovy
-	dependencies {
+dependencies {
     	implementation 'com.mapxus.map:mapxusmap:4.0.4'
 	}
-    ```
+```
 
 For more information about Mapxus Indoor Map and Location Service, please check our website: [https://www.mapxus.com/](https://www.mapxus.com/).
 
@@ -201,11 +201,11 @@ For more information about Mapxus Indoor Map and Location Service, please check 
 * Before using
 
    *  Add positioning sdk dependency to your project's build.gradle file:
-   ```groovy
-	dependencies {
+```groovy
+dependencies {
     	implementation 'com.mapxus.positioning:positioning:2.0.4'
 	}
-    ```
+```
 
 
 ## Search Service
@@ -367,11 +367,11 @@ For more information about Mapxus Indoor Map and Location Service, please check 
 * Before using
 
    *  Add visual map sdk dependency to your project's build.gradle file:
-   ```groovy
-	dependencies {
+```groovy
+dependencies {
     	implementation 'com.mapxus.visual:mapxusvisual:0.2.3'
 	}
-    ```
+```
 
 
 ###Explore building

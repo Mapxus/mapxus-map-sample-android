@@ -19,10 +19,10 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
 
 以下所有示例均基于最新的Mapxus Map SDK版本，请在您自己项目的builid.gradle文件中添加sdk依赖项：
 ```groovy
-	dependencies {
+dependencies {
     	implementation 'com.mapxus.map:mapxusmap:4.0.4'
 	}
-    ```
+```
 
 有关Mapxus室内地图和定位服务的更多信息，请访问我们的网站： [https://www.mapxus.com/](https://www.mapxus.com/).
 
@@ -199,11 +199,11 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
 * 使用前
 
    *  请在您自己项目的builid.gradle文件中添加positioning sdk依赖项：
-   ```groovy
-	dependencies {
+```groovy
+dependencies {
     	implementation 'com.mapxus.positioning:positioning:2.0.4'
 	}
-    ```
+```
 
 
 ## 地图数据检索
@@ -363,11 +363,11 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
 * 使用前
 
    *  请在您自己项目的builid.gradle文件中添加visual map sdk依赖项：
-   ```groovy
-	dependencies {
+```groovy
+dependencies {
     	implementation 'com.mapxus.visual:mapxusvisual:0.2.3'
 	}
-    ```
+```
 
 
 ###Explore搜索
