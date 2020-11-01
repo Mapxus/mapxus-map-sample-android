@@ -30,6 +30,7 @@ public class ThridFragment extends Fragment {
     private RecyclerView recyclerView;
     private PoiSearch poiSearch;
     private String buildingId;
+    private ExploreBuildingActivity exploreBuildingActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,23 @@ public class ThridFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        exploreBuildingActivity = (ExploreBuildingActivity) this.getActivity();
+        super.onActivityCreated(savedInstanceState);
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_thrid, container, false);
         tvTitle = view.findViewById(R.id.tv_title);
-        view.findViewById(R.id.iv_close).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        view.findViewById(R.id.iv_close).setOnClickListener(v -> {
+            Navigation.findNavController(v).navigateUp();
+            if (exploreBuildingActivity != null) {
+                exploreBuildingActivity.removeMarker();
+            }
+        });
         recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
@@ -73,6 +86,10 @@ public class ThridFragment extends Fragment {
                 bundle.putInt("catgegoryImage", catgegoryImage);
                 bundle.putString("buildingId", buildingId);
                 Navigation.findNavController(v).navigate(R.id.action_thridFragment_to_fourthFragment, bundle);
+
+                if (exploreBuildingActivity != null) {
+                    exploreBuildingActivity.addMarker(poiResult.getAllPoi().get(position));
+                }
             });
         }
     };

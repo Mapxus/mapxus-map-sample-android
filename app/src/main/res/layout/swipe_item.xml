@@ -33,7 +33,7 @@
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
-            android:inputType="number"
+            android:inputType="text"
             android:padding="8dp"
             android:textStyle="bold" />
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases.route;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.LatLng;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.model.Poi;
 import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
 import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusMarker;
 import com.mapxus.map.mapxusmap.api.services.RoutePlanning;
@@ -188,7 +190,8 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         mMapxusMap.switchFloor(origin.getFloor());
     }
 
-    private View.OnClickListener pointClickListener = v -> {
+    @SuppressLint("NonConstantResourceId")
+    private final View.OnClickListener pointClickListener = v -> {
         switch (v.getId()) {
             case R.id.tv_start:
                 pointStartClick();
@@ -202,6 +205,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     private void pointStartClick() {
         removeAllSelectedMapClickListener();
         mMapxusMap.addOnMapClickListener(pointStartMapClickListener);
+        mMapxusMap.addOnIndoorPoiClickListener(pointStartPoiClickListener);
         if (tvStart.getText().toString().equals(getString(R.string.start))) {
             tvStart.setText(R.string.tap_screen_for_start);
         } else {
@@ -218,6 +222,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     private void pointEndClick() {
         removeAllSelectedMapClickListener();
         mMapxusMap.addOnMapClickListener(pointEndMapClickListener);
+        mMapxusMap.addOnIndoorPoiClickListener(pointEndPoiClickListener);
         if (tvEnd.getText().toString().equals(getString(R.string.end))) {
             tvEnd.setText(R.string.tap_screen_for_end);
         } else {
@@ -231,7 +236,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         }
     }
 
-    private View.OnClickListener planningBtnClickListener = v -> {
+    private final View.OnClickListener planningBtnClickListener = v -> {
         if (origin == null || destination == null) {
             Toast.makeText(this, "Please select point", Toast.LENGTH_SHORT).show();
             return;
@@ -244,7 +249,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         getRoute();
     };
 
-    private View.OnClickListener goBtnClickListener = v -> {
+    private final View.OnClickListener goBtnClickListener = v -> {
         if (goBtn.getText().toString().equals(getString(R.string.go))) {
             if (routeResponseDto == null) {
                 new MaterialDialog.Builder(this)
@@ -256,7 +261,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             }
             goBtn.setText(R.string.stop);
             mMapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
-            mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0),mapboxMap);
+            mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapboxMap);
             mapxusPositioningProvider.setOnReachListener(() -> {
                 walkRouteOverlay.removeFromMap();
                 Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
@@ -272,9 +277,11 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     private void removeAllSelectedMapClickListener() {
         mMapxusMap.removeOnMapClickListener(pointEndMapClickListener);
         mMapxusMap.removeOnMapClickListener(pointStartMapClickListener);
+        mMapxusMap.removeOnIndoorPoiClickListener(pointStartPoiClickListener);
+        mMapxusMap.removeOnIndoorPoiClickListener(pointEndPoiClickListener);
     }
 
-    private MapxusMap.OnMapClickListener pointStartMapClickListener = new MapxusMap.OnMapClickListener() {
+    private final MapxusMap.OnMapClickListener pointStartMapClickListener = new MapxusMap.OnMapClickListener() {
         @Override
         public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
             origin = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
@@ -286,7 +293,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         }
     };
 
-    private MapxusMap.OnMapClickListener pointEndMapClickListener = new MapxusMap.OnMapClickListener() {
+    private final MapxusMap.OnMapClickListener pointEndMapClickListener = new MapxusMap.OnMapClickListener() {
         @Override
         public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
             destination = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
@@ -296,6 +303,31 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
                 endMarker = null;
             }
             endMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(latLng, floor, buildingId));
+        }
+    };
+
+    private final MapxusMap.OnIndoorPoiClickListener pointStartPoiClickListener = new MapxusMap.OnIndoorPoiClickListener() {
+        @Override
+        public void onIndoorPoiClick(Poi poi) {
+            origin = new RoutePlanningPoint(poi.getBuildingId(), mMapxusMap.getCurrentFloor(), poi.getLongitude(), poi.getLatitude());
+            if (startMarker != null) {
+                mMapxusMap.removeMarker(startMarker);
+                startMarker = null;
+            }
+            startMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
+        }
+    };
+
+    private final MapxusMap.OnIndoorPoiClickListener pointEndPoiClickListener = new MapxusMap.OnIndoorPoiClickListener() {
+        @Override
+        public void onIndoorPoiClick(Poi poi) {
+            destination = new RoutePlanningPoint(poi.getBuildingId(), mMapxusMap.getCurrentFloor(), poi.getLongitude(), poi.getLatitude());
+
+            if (endMarker != null) {
+                mMapxusMap.removeMarker(endMarker);
+                endMarker = null;
+            }
+            endMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
         }
     };
 
@@ -314,7 +346,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
-        RoutePlanningActivity.this.mMapxusMap = mapxusMap;
+        this.mMapxusMap = mapxusMap;
         mMapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.CENTER_RIGHT);
         setLocation();
     }

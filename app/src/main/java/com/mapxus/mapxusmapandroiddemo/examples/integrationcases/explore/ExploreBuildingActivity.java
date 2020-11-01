@@ -7,20 +7,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExploreBuildingActivity extends AppCompatActivity implements OnMapxusMapReadyCallback {
 
     private MapView mapView;
     private MapViewProvider mapViewProvider;
+    private MapxusMap mapxusMap;
+    private MapboxMap mapboxMap;
     private OnBuildingChageListener onBuildingChageListener;
     private BottomSheetBehavior<?> bottomSheetBehavior;
+    private MyPoiOverlay poiOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         setContentView(R.layout.activity_explore_building);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(mapboxMap -> this.mapboxMap = mapboxMap);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetLayout));
@@ -78,9 +88,24 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
+        this.mapxusMap = mapxusMap;
         mapxusMap.addOnBuildingChangeListener(indoorBuilding -> onBuildingChageListener.onBuildingChange(indoorBuilding));
 
         mapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.CENTER_RIGHT);
+    }
+
+    public void addMarker(PoiInfo poiInfo) {
+        List<PoiInfo> poiInfos = new ArrayList<>();
+        poiInfos.add(poiInfo);
+        poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
+        poiOverlay.removeFromMap();
+        poiOverlay.addToMap();
+        poiOverlay.zoomToSpan();
+        mapxusMap.switchFloor(poiInfo.getFloor());
+    }
+
+    public void removeMarker(){
+        poiOverlay.removeFromMap();
     }
 
     public interface OnBuildingChageListener {
