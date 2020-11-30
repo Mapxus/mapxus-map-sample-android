@@ -178,6 +178,10 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
     }
 
     private void getValue(View bottomSheetDialogView) {
+        if (indoorBuilding == null) {
+            Toast.makeText(this, "can not get building info.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         EditText etLat = bottomSheetDialogView.findViewById(R.id.et_lat);
         EditText etLon = bottomSheetDialogView.findViewById(R.id.et_lon);
         EditText etFloor = bottomSheetDialogView.findViewById(R.id.et_floor);

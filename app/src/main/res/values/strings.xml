@@ -60,7 +60,7 @@
     <string name="is_always_hidden" translatable="false">isAlwaysHidden</string>
     <string name="position" translatable="false">Position</string>
     <string name="language" translatable="false">Language</string>
-    <string name="is_outdoor_hidden" translatable="false">isOutdoorHiddem</string>
+    <string name="is_outdoor_hidden" translatable="false">isOutdoorHidden</string>
     <string name="default_text" translatable="false">default</string>
     <string name="en" translatable="false">en</string>
     <string name="zh_hant" translatable="false">zh-Hant</string>
