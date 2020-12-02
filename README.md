@@ -20,7 +20,7 @@ Please contact us  <support@mapxus.com> to get appid and secret if you do not ha
 All the follwing sample is based on the latest Mapxus Map SDK version , please add sdk dependency to your own project's builid.gradle file:
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.map:mapxusmap:4.0.4'
+    	implementation 'com.mapxus.map:mapxusmap:[version list](./CHANGELOG.md)'
 	}
 ```
 

@@ -1,5 +1,21 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.7
+
+### Bugs
+* Fix Nullpointer Exception in new marker function.
+
+## 4.0.6
+
+### Features
+* New marker function.
+* Make new map style as default
+
+## 4.0.5
+
+### Features
+* New map style.
+
 ## 4.0.4
 
 ### Features

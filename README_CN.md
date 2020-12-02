@@ -20,7 +20,7 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
 以下所有示例均基于最新的Mapxus Map SDK版本，请在您自己项目的builid.gradle文件中添加sdk依赖项：
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.map:mapxusmap:4.0.4'
+    	implementation 'com.mapxus.map:mapxusmap:[版本列表](./CHANGELOG.md)'
 	}
 ```
 
