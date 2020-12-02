@@ -17,10 +17,10 @@ Please contact us  <support@mapxus.com> to get appid and secret if you do not ha
 
 ## About Mapxus Map SDK
 
-All the follwing sample is based on the latest Mapxus Map SDK version , please add sdk dependency to your own project's builid.gradle file:
+All the follwing sample is based on [the latest Mapxus Map SDK version](./CHANGELOG.md) , please add sdk dependency to your own project's builid.gradle file:
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.map:mapxusmap:[version list](./CHANGELOG.md)'
+    	implementation 'com.mapxus.map:mapxusmap: latest version'
 	}
 ```
 
