@@ -1,5 +1,14 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.8
+
+### Bugs
+* Fix bugs caused by location layer.
+
+### Features
+* Dynamically change the opacity of the building base.
+* Add change navigation track resource function.
+
 ## 4.0.7
 
 ### Bugs
