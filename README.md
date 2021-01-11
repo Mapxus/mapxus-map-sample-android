@@ -203,7 +203,7 @@ For more information about Mapxus Indoor Map and Location Service, please check 
    *  Add positioning sdk dependency to your project's build.gradle file:
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.positioning:positioning:2.0.4'
+    	implementation 'com.mapxus.positioning:positioning:2.0.7'
 	}
 ```
 
