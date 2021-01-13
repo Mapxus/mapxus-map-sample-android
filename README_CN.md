@@ -201,7 +201,7 @@ dependencies {
    *  请在您自己项目的builid.gradle文件中添加positioning sdk依赖项：
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.positioning:positioning:2.0.4'
+    	implementation 'com.mapxus.positioning:positioning:2.0.7'
 	}
 ```
 
