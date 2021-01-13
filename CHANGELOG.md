@@ -1,5 +1,13 @@
 # Mapxus Map SDK Change Log
 
+## 4.0.9
+
+### Features
+* Add get the latest introductions api when in navigation mode.
+* Add change navigation track resource size function.
+* Compatible with Android 11.
+* Use alias to customize style instead of full address.
+
 ## 4.0.8
 
 ### Bugs
