@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.1.0
+
+### Features
+* Add multilingual street names and venue id in IndoorBuilding model
+
 ## 4.0.9
 
 ### Features
