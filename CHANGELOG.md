@@ -1,5 +1,45 @@
 # Mapxus Map SDK Change Log
 
+## 4.1.6
+
+### Bugs
+* Fix ArrayIndexOutOfBoundsException when navigating.
+
+## 4.1.5
+
+### Bugs
+* Fix bugs , current navigation path instruction's distance not updated with current location.
+
+### Features
+* New mapxus map logo.
+* Developer can get two parameters to set the bottom padding mapxus logo and open street map text.
+
+## 4.1.4
+
+### Bugs
+* Fix bugs , can not get the current navigation path instruction.
+
+## 4.1.3
+
+### Bugs
+* Fix bugs , incomplete display of floor selector text.
+* Fix bugs , when initializing map, the building did not set the underground as the default floor.
+
+### Features
+* Now you can customize the distance in navigation's setOnReachListener callback.
+
+## 4.1.2
+
+### Features
+* Floor selector can set selected font color
+* Open api to set maximum allowable drift distance and maximum allowable drift times in Navigation function
+* Add adsorption failed callback in Navigation function.
+
+## 4.1.1
+
+### Features
+* Floor selector can set font color and selected box background color
+
 ## 4.1.0
 
 ### Features
