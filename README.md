@@ -369,7 +369,7 @@ dependencies {
    *  Add visual map sdk dependency to your project's build.gradle file:
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.visual:mapxusvisual:0.2.3'
+    	implementation 'com.mapxus.visual:mapxusvisual:0.2.5'
 	}
 ```
 

@@ -365,7 +365,7 @@ dependencies {
    *  请在您自己项目的builid.gradle文件中添加visual map sdk依赖项：
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.visual:mapxusvisual:0.2.3'
+    	implementation 'com.mapxus.visual:mapxusvisual:0.2.5'
 	}
 ```
 

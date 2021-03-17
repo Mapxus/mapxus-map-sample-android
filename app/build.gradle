@@ -60,7 +60,7 @@ dependencies {
     implementation "pub.devrel:easypermissions:3.0.0"
 
     // MapxusMap
-    implementation "com.mapxus.visual:mapxusvisual:0.2.3"
+    implementation "com.mapxus.visual:mapxusvisual:0.2.5"
     implementation "com.mapxus.map:mapxusmap:4.1.6"
     implementation 'com.mapxus.positioning:positioning:2.0.8'
 
