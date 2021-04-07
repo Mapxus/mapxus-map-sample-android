@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.1.7
+
+### Features
+* set a new parameter(hiddenTranslucentPaths) in WalkRouteResource to choose show the route of the current floor of way finding results or all floors.
+
 ## 4.1.6
 
 ### Bugs
