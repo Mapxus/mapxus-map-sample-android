@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.1.8
+
+### Features
+* Migrate public repo from Jcenter to Maven Central.
+
 ## 4.1.7
 
 ### Features
