@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.1.9
+
+### Features
+* Add floor name on Poi object.
+
 ## 4.1.8
 
 ### Features
