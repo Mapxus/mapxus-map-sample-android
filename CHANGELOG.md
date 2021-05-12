@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.2.0
+
+### Bugs
+* Fix Exception when call Positioning Module.
+
 ## 4.1.9
 
 ### Features
