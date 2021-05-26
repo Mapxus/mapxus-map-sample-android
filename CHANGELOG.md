@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.2.1
+
+### Bugs
+* Fix gesture interaction switch is not working in some extreme situations.
+
 ## 4.2.0
 
 ### Bugs
