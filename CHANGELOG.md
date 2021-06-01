@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.2.2
+
+### Bugs
+* Fix can not response poi click event when turen off building gesture switch.
+
 ## 4.2.1
 
 ### Bugs
