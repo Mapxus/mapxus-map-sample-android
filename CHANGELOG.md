@@ -1,4 +1,8 @@
 # Mapxus Map SDK Change Log
+## 4.2.3
+
+### Features
+* Update address of default style.
 
 ## 4.2.2
 
