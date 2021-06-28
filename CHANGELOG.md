@@ -1,4 +1,10 @@
 # Mapxus Map SDK Change Log
+
+## 4.2.4
+
+### Bugs
+* Developer can switch between different overlap indoor buildings by clicking on the map.
+
 ## 4.2.3
 
 ### Features
