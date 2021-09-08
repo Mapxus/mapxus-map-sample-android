@@ -1,5 +1,15 @@
 # Mapxus Map SDK Change Log
 
+## 4.2.5
+
+### Bugs
+* Fix bugs , incomplete logo display when this map is zoomed out.
+
+### Features
+* New route painter 'RoutePainter' to replace 'WalkRouteOverlay'.
+* New switch building method 'selectBuilding' and switch floor method 'selectFloor'.
+* Developer can get a callback when setting the follow user mode.
+
 ## 4.2.4
 
 ### Bugs
