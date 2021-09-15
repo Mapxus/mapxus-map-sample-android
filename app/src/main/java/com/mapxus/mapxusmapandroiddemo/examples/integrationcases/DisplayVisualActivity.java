@@ -99,7 +99,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
             }
 
             @Override
-            public void loadingChanged() {
+            public void loadingChanged(boolean b) {
 
             }
 
@@ -108,6 +108,11 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
                 if (visualPolylineOverlay != null) {
                     visualPolylineOverlay.setMapMarker(node.getKey());
                 }
+
+            }
+
+            @Override
+            public void renderComplete() {
 
             }
         });

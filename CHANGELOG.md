@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 4.2.6
+
+### Bugs
+* Optimize switching building logic.
+
 ## 4.2.5
 
 ### Bugs
