@@ -129,12 +129,12 @@ public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity imp
             Toast.makeText(this, poiCategoryResult.error.toString(), Toast.LENGTH_LONG).show();
             return;
         }
-        if (poiCategoryResult.getResult() == null || poiCategoryResult.getResult().isEmpty()) {
+        if (poiCategoryResult.getPoiCategoryInfos() == null || poiCategoryResult.getPoiCategoryInfos().isEmpty()) {
             Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
             return;
         }
 
-        initBottomSheetDialog(poiCategoryResult.getResult());
+        initBottomSheetDialog(poiCategoryResult.getPoiCategoryInfos());
     }
 
     private void initBottomSheetDialog(List<PoiCategoryInfo> categoryInfos) {

@@ -6,16 +6,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.DetailSearchOption;
@@ -101,27 +101,6 @@ public class FocusOnIndoorSceneActivity extends BaseWithParamMenuActivity implem
                     .cancelable(false)
                     .show();
         });
-    }
-
-    private void switchingIndoorScenes(LatLng latLng) {
-        switch (zoomMode) {
-            case ZOOM_DISABLE:
-                mapboxMap.easeCamera(CameraUpdateFactory.newLatLngPadding(latLng, paddingLeft, paddingTop, paddingRight, paddingBottom));
-                mapboxMap.cancelTransitions();
-                break;
-            case ZOOM_ANIMATED:
-                CameraPosition cameraPosition1 = new CameraPosition.Builder()
-                        .target(latLng)
-                        .tilt(20)
-                        .padding(paddingLeft, paddingTop, paddingRight, paddingBottom)
-                        .build();
-                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition1), 7500);
-
-                break;
-            case ZOOM_DIRECT:
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngPadding(latLng, paddingLeft, paddingTop, paddingRight, paddingBottom));
-                break;
-        }
     }
 
     private void getValue(View bottomSheetDialogView) {
@@ -214,20 +193,21 @@ public class FocusOnIndoorSceneActivity extends BaseWithParamMenuActivity implem
 
         IndoorBuildingInfo indoorBuildingInfo = buildingDetailResult.getIndoorBuildingInfo();
 
-        if (zoomMode.equals(ZOOM_DISABLE)) {
-            mapxusMap.switchBuilding(indoorBuildingInfo.getBuildingId());
+        switch (zoomMode) {
+            case ZOOM_DISABLE:
+                mapxusMap.selectBuilding(indoorBuildingInfo.getBuildingId(), floorName , MapxusMapZoomMode.ZoomDisable, Insets.NONE);
+                break;
+            case ZOOM_ANIMATED:
+                mapxusMap.selectBuilding(indoorBuildingInfo.getBuildingId(), floorName ,MapxusMapZoomMode.ZoomAnimated, Insets.of(paddingLeft, paddingTop, paddingRight, paddingBottom));
+                break;
+            case ZOOM_DIRECT:
+                mapxusMap.selectBuilding(indoorBuildingInfo.getBuildingId(), floorName ,MapxusMapZoomMode.ZoomDirect, Insets.of(paddingLeft, paddingTop, paddingRight, paddingBottom));
+                break;
         }
-
-        switchingIndoorScenes(new LatLng(indoorBuildingInfo.getLabelCenter().getLat(), indoorBuildingInfo.getLabelCenter().getLon()));
     }
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         this.mapxusMap = mapxusMap;
-        mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {
-            if (indoorBuilding != null && buildingId != null && indoorBuilding.getBuildingId().equals(buildingId) && !floorName.isEmpty()) {
-                mapxusMap.switchFloor(floorName);
-            }
-        });
     }
 }

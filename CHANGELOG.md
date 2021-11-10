@@ -1,5 +1,15 @@
 # Mapxus Map SDK Change Log
 
+## 5.0.0
+
+### Features
+* MapLibre GL replaces Mapbox GL as the new map rendering engine.
+* Delete the code marked @Deprecated.
+* MapxusPointAnnotation replace SymbolMarker.
+* RoutePainter replace  WalkRouteOverlay.
+* selectBuilding selectFloor replace switchBuilding switchFloor.
+* There are also some data structure changes, please refer to our api doc
+
 ## 4.2.6
 
 ### Bugs

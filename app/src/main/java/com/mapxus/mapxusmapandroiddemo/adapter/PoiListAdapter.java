@@ -22,11 +22,13 @@ public class PoiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private List<PoiInfo> poiInfos;
     private String categoryName;
+    private String category;
     private onItemClickListener onItemClickListener;
 
-    public PoiListAdapter(List<PoiInfo> poiInfos, String categoryName) {
+    public PoiListAdapter(List<PoiInfo> poiInfos, String categoryName, String category) {
         this.poiInfos = poiInfos;
         this.categoryName = categoryName;
+        this.category = category;
     }
 
     @NotNull
@@ -43,9 +45,9 @@ public class PoiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         PoiInfo poiInfo = poiInfos.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
 
-        viewHolder.tvPoiName.setText(LocalLanguageUtils.getLocalLanguage(poiInfo.getName()));
+        viewHolder.tvPoiName.setText(LocalLanguageUtils.getLocalLanguageWithPoiInfo(poiInfo));
         viewHolder.tvPoiInfo.setText(String.format("%s · %s", categoryName, poiInfo.getFloor()));
-        int catgegoryImage = SetImageByCategoryUtils.setImageByCategory(categoryName.toLowerCase());
+        int catgegoryImage = SetImageByCategoryUtils.setImageByCategory(category.toLowerCase());
         viewHolder.ivCategory.setImageResource(catgegoryImage);
         viewHolder.llCategory.setOnClickListener(v -> {
             if (onItemClickListener != null) {

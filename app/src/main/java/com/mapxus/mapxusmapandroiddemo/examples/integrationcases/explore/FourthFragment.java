@@ -59,8 +59,8 @@ public class FourthFragment extends Fragment {
                 return;
             }
 
-            tvBuildingName.setText(LocalLanguageUtils.getLocalLanguage(buildingDetailResult.getIndoorBuildingInfo().getName()));
-            tvLocationInfo.setText(String.format("%s , %s · %s", buildingDetailResult.getIndoorBuildingInfo().getRegion(), LocalLanguageUtils.getLocalLanguageWithAddress(buildingDetailResult.getIndoorBuildingInfo().getAddress()), floorName));
+            tvBuildingName.setText(LocalLanguageUtils.getLocalLanguageWithIndoorBuildingInfo(buildingDetailResult.getIndoorBuildingInfo()));
+            tvLocationInfo.setText(String.format("%s , %s · %s", buildingDetailResult.getIndoorBuildingInfo().getRegion(), LocalLanguageUtils.getLocalLanguageWithAddress(buildingDetailResult.getIndoorBuildingInfo()), floorName));
         }
     };
 

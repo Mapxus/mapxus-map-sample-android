@@ -1,7 +1,9 @@
 package com.mapxus.mapxusmapandroiddemo.utils;
 
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
-import com.mapxus.map.mapxusmap.api.services.model.building.Address;
+import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryInfo;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 
 import java.util.Locale;
 import java.util.Map;
@@ -36,6 +38,70 @@ public class LocalLanguageUtils {
     }
 
     /**
+     * for PoiCategoryInfo
+     */
+    public static String getLocalLanguageWithPoiCategoryInfo(PoiCategoryInfo poiInfo) {
+        Locale locale = Locale.getDefault();
+        String localeLanguage = Locale.getDefault().getLanguage();
+        if ("zh".equals(localeLanguage)) {
+            if (locale.getCountry().equals("CN")) {
+                return poiInfo.getTitleCn();
+            } else {
+                return poiInfo.getTitleZh();
+            }
+        }
+        return poiInfo.getTitleEn();
+    }
+
+    /**
+     * for PoiInfo
+     */
+    public static String getLocalLanguageWithPoiInfo(PoiInfo poiInfo) {
+        Locale locale = Locale.getDefault();
+        String localeLanguage = Locale.getDefault().getLanguage();
+        switch (localeLanguage) {
+            case "en":
+                return poiInfo.getNameEn();
+            case "zh":
+                if (locale.getCountry().equals("CN")) {
+                    return poiInfo.getNameCn();
+                } else {
+                    return poiInfo.getNameZh();
+                }
+            case "ja":
+                return poiInfo.getNameJa();
+            case "ko":
+                return poiInfo.getNameKo();
+            default:
+                return poiInfo.getNameDefault();
+        }
+    }
+
+    /**
+     * for indoorbuildingInfo
+     */
+    public static String getLocalLanguageWithIndoorBuildingInfo(IndoorBuildingInfo indoorBuilding) {
+        Locale locale = Locale.getDefault();
+        String localeLanguage = Locale.getDefault().getLanguage();
+        switch (localeLanguage) {
+            case "en":
+                return indoorBuilding.getNameEn();
+            case "zh":
+                if (locale.getCountry().equals("CN")) {
+                    return indoorBuilding.getNameCn();
+                } else {
+                    return indoorBuilding.getNameZh();
+                }
+            case "ja":
+                return indoorBuilding.getNameJa();
+            case "ko":
+                return indoorBuilding.getNameKo();
+            default:
+                return indoorBuilding.getNameDefault();
+        }
+    }
+
+    /**
      * for indoorbuilding
      */
     public static String getLocalLanguageWithIndoorBuilding(IndoorBuilding indoorBuilding) {
@@ -62,22 +128,22 @@ public class LocalLanguageUtils {
     /**
      * for address
      */
-    public static String getLocalLanguageWithAddress(Map<String, Address> addressName) {
+    public static String getLocalLanguageWithAddress(IndoorBuildingInfo indoorBuildingInfo) {
         Locale locale = Locale.getDefault();
         String localeLanguage = Locale.getDefault().getLanguage();
         switch (localeLanguage) {
             case "zh":
                 if (locale.getCountry().equals("CN")) {
-                    return Objects.requireNonNull(addressName.get("zh-Hans")).getStreet();
+                    return Objects.requireNonNull(indoorBuildingInfo.getAddressCn()).getStreet();
                 } else {
-                    return Objects.requireNonNull(addressName.get("zh-Hant")).getStreet();
+                    return Objects.requireNonNull(indoorBuildingInfo.getAddressZh()).getStreet();
                 }
             case "ja":
-                return Objects.requireNonNull(addressName.get("ja")).getStreet();
+                return Objects.requireNonNull(indoorBuildingInfo.getAddressJa()).getStreet();
             case "ko":
-                return Objects.requireNonNull(addressName.get("ko")).getStreet();
+                return Objects.requireNonNull(indoorBuildingInfo.getAddressKo()).getStreet();
             default:
-                return Objects.requireNonNull(addressName.get("en")).getStreet();
+                return Objects.requireNonNull(indoorBuildingInfo.getAddressEn()).getStreet();
         }
     }
 }

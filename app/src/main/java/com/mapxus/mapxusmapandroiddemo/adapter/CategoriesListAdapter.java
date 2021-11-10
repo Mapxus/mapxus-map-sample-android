@@ -41,7 +41,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         PoiCategoryInfo categoryInfo = categoryInfos.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
 
-        viewHolder.tvCategory.setText(LocalLanguageUtils.getLocalLanguage(categoryInfo.getTitle()));
+        viewHolder.tvCategory.setText(LocalLanguageUtils.getLocalLanguageWithPoiCategoryInfo(categoryInfo));
         viewHolder.ivCategory.setImageResource(SetImageByCategoryUtils.setImageByCategory(categoryInfo.getCategory()));
         viewHolder.llCategory.setOnClickListener(v -> {
             if (onItemClickListener != null) {

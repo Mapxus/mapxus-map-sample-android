@@ -10,6 +10,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
@@ -101,11 +102,21 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan();
-        mapxusMap.switchFloor(poiInfo.getFloor());
+        mapxusMap.selectFloor(poiInfo.getFloor(), MapxusMapZoomMode.ZoomDisable, null);
     }
 
-    public void removeMarker(){
+    public void addMarkers(List<PoiInfo> poiInfos) {
+        poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
         poiOverlay.removeFromMap();
+        poiOverlay.addToMap();
+        poiOverlay.zoomToSpan();
+        mapxusMap.selectFloor(poiInfos.get(0).getFloor(), MapxusMapZoomMode.ZoomDisable, null);
+    }
+
+    public void removeMarker() {
+        if (poiOverlay != null) {
+            poiOverlay.removeFromMap();
+        }
     }
 
     public interface OnBuildingChageListener {

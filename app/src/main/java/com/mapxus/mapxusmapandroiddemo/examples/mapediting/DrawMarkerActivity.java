@@ -12,7 +12,7 @@ import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.LatLng;
-import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -85,11 +85,11 @@ public class DrawMarkerActivity extends AppCompatActivity implements OnMapxusMap
         mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {
             if (indoorBuilding != null && mapboxMap.getMarkers().isEmpty()) {
                 String buildingId = getString(R.string.default_search_text_building_id);
-                mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.370779, 114.111341)));
-                mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.371144, 114.111062)).setFloor("L1").setBuildingId(buildingId));
-                mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.371003, 114.111679)).setFloor("L2").setBuildingId(buildingId));
-                mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.370557, 114.111291)).setFloor("L2").setBuildingId(buildingId));
-                mapxusMap.addMarker(new MapxusMarkerOptions().setPosition(new LatLng(22.370603, 114.111828)).setFloor("L3").setBuildingId(buildingId));
+                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.370779, 114.111341)));
+                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.371144, 114.111062)).setFloor("L1").setBuildingId(buildingId));
+                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.371003, 114.111679)).setFloor("L2").setBuildingId(buildingId));
+                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.370557, 114.111291)).setFloor("L2").setBuildingId(buildingId));
+                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.370603, 114.111828)).setFloor("L3").setBuildingId(buildingId));
             }
         });
     }

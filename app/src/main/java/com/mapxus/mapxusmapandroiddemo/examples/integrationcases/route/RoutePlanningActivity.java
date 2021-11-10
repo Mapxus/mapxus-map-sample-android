@@ -20,10 +20,10 @@ import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.LatLng;
-import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.map.model.Poi;
 import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
-import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusMarker;
+import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusPointAnnotation;
 import com.mapxus.map.mapxusmap.api.services.RoutePlanning;
 import com.mapxus.map.mapxusmap.api.services.constant.RoutePlanningVehicle;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningPoint;
@@ -31,7 +31,7 @@ import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningRequest
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningResult;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RouteResponseDto;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
-import com.mapxus.map.mapxusmap.overlay.route.WalkRouteOverlay;
+import com.mapxus.map.mapxusmap.overlay.route.RoutePainter;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.customizeview.SwitchView;
 
@@ -49,7 +49,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private RoutePlanningPoint origin, destination = null;
 
-    private MapxusMarker startMarker, endMarker;
+    private MapxusPointAnnotation startMarker, endMarker;
 
     private TextView tvStart, tvEnd;
     private Button goBtn;
@@ -59,7 +59,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     private RelativeLayout progressBarView;
 
     private MapxusNavigationPositioningProvider mapxusPositioningProvider;
-    private WalkRouteOverlay walkRouteOverlay;
+    private RoutePainter routePainter;
 
     private RouteResponseDto routeResponseDto = null;
 
@@ -108,16 +108,16 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private void drawRoute(RouteResponseDto route) {
         if (startMarker != null) {
-            mMapxusMap.removeMarker(startMarker);
+            mMapxusMap.removeMapxusPointAnnotation(startMarker);
             startMarker = null;
         }
         if (endMarker != null) {
-            mMapxusMap.removeMarker(endMarker);
+            mMapxusMap.removeMapxusPointAnnotation(endMarker);
             endMarker = null;
         }
         mapboxMap.setMaxZoomPreference(22);
-        walkRouteOverlay = new WalkRouteOverlay(this, mapboxMap, mMapxusMap, route, origin, destination, false);
-        walkRouteOverlay.addToMap();
+        routePainter = new RoutePainter(this, mapboxMap, mMapxusMap);
+        routePainter.paintRouteUsingResult(route);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         }
         routeResponseDto = routePlanningResult.getRouteResponseDto();
         drawRoute(routeResponseDto);
-        mMapxusMap.switchFloor(origin.getFloor());
+        mMapxusMap.selectFloor(origin.getFloor());
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -263,13 +263,13 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             mMapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
             mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapboxMap);
             mapxusPositioningProvider.setOnReachListener(() -> {
-                walkRouteOverlay.removeFromMap();
+                routePainter.cleanRoute();
                 Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
-                mapxusPositioningProvider.setNavigation(null);
+                mapxusPositioningProvider.setRouteAdsorber(null);
             });
         } else {
             goBtn.setText(R.string.go);
-            mapxusPositioningProvider.setNavigation(null);
+            mapxusPositioningProvider.setRouteAdsorber(null);
         }
 
     };
@@ -286,10 +286,10 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
             origin = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
             if (startMarker != null) {
-                mMapxusMap.removeMarker(startMarker);
+                mMapxusMap.removeMapxusPointAnnotation(startMarker);
                 startMarker = null;
             }
-            startMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(latLng, floor, buildingId));
+            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(latLng, floor, buildingId));
         }
     };
 
@@ -299,10 +299,10 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             destination = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
 
             if (endMarker != null) {
-                mMapxusMap.removeMarker(endMarker);
+                mMapxusMap.removeMapxusPointAnnotation(endMarker);
                 endMarker = null;
             }
-            endMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(latLng, floor, buildingId));
+            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(latLng, floor, buildingId));
         }
     };
 
@@ -311,10 +311,10 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         public void onIndoorPoiClick(Poi poi) {
             origin = new RoutePlanningPoint(poi.getBuildingId(), mMapxusMap.getCurrentFloor(), poi.getLongitude(), poi.getLatitude());
             if (startMarker != null) {
-                mMapxusMap.removeMarker(startMarker);
+                mMapxusMap.removeMapxusPointAnnotation(startMarker);
                 startMarker = null;
             }
-            startMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
+            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
         }
     };
 
@@ -324,16 +324,16 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             destination = new RoutePlanningPoint(poi.getBuildingId(), mMapxusMap.getCurrentFloor(), poi.getLongitude(), poi.getLatitude());
 
             if (endMarker != null) {
-                mMapxusMap.removeMarker(endMarker);
+                mMapxusMap.removeMapxusPointAnnotation(endMarker);
                 endMarker = null;
             }
-            endMarker = mMapxusMap.addMarker(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
+            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
         }
     };
 
     @NotNull
-    private MapxusMarkerOptions getMapxusMarkerOptions(LatLng latLng, String floor, String buildingId) {
-        MapxusMarkerOptions mapxusMarkerOptions = new MapxusMarkerOptions();
+    private MapxusPointAnnotationOptions getMapxusMarkerOptions(LatLng latLng, String floor, String buildingId) {
+        MapxusPointAnnotationOptions mapxusMarkerOptions = new MapxusPointAnnotationOptions();
         mapxusMarkerOptions.setPosition(latLng);
         mapxusMarkerOptions.setBuildingId(buildingId);
         mapxusMarkerOptions.setFloor(floor);

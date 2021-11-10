@@ -43,7 +43,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (detailItem.getImg() == 0) {
             viewHolder.imageView.setImageDrawable(null);
         } else {
-            Picasso.with(context)
+            Picasso.get()
                     .load(detailItem.getImg())
                     .into(viewHolder.imageView);
         }

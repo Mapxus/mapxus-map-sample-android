@@ -5,17 +5,19 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
-import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
-import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationInfo;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
+
+import org.w3c.dom.Document;
 
 import java.util.List;
 
 public class MyPoiOrientationOverlay {
     private MapboxMap mapboxMap;
     private MapxusMap mapxusMap;
-    private List<PoiOrientationInfo> mPoiInfoList;
+    private List<PoiInfo> mPoiInfoList;
 
-    public MyPoiOrientationOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<PoiOrientationInfo> poiInfos) {
+    public MyPoiOrientationOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<PoiInfo> poiInfos) {
         this.mapboxMap = mapboxMap;
         this.mapxusMap = mapxusMap;
         mPoiInfoList = poiInfos;
@@ -28,7 +30,7 @@ public class MyPoiOrientationOverlay {
      */
     public void addToMap() {
         for (int i = 0; i < mPoiInfoList.size(); i++) {
-            mapxusMap.addMarker(getMarkerOptions(i));
+            mapxusMap.addMapxusPointAnnotation(getMarkerOptions(i));
         }
     }
 
@@ -42,7 +44,7 @@ public class MyPoiOrientationOverlay {
             if (mapboxMap == null)
                 return;
             if (mPoiInfoList.size() == 1) {
-                PoiOrientationInfo firstPoiInfo = mPoiInfoList.get(0);
+                PoiInfo firstPoiInfo = mPoiInfoList.get(0);
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstPoiInfo.getLocation().getLat(), firstPoiInfo.getLocation().getLon()),
                         17));
@@ -65,11 +67,11 @@ public class MyPoiOrientationOverlay {
 
 
     public void removeFromMap() {
-        mapxusMap.removeMarkers();
+        mapxusMap.removeMapxusPointAnnotations();
     }
 
-    private MapxusMarkerOptions getMarkerOptions(int index) {
-        return new MapxusMarkerOptions()
+    private MapxusPointAnnotationOptions getMarkerOptions(int index) {
+        return new MapxusPointAnnotationOptions()
                 .setPosition(
                         new com.mapxus.map.mapxusmap.api.map.model.LatLng(mPoiInfoList.get(index).getLocation()
                                 .getLat(), mPoiInfoList.get(index)
@@ -80,11 +82,11 @@ public class MyPoiOrientationOverlay {
     }
 
     protected String getTitle(int index) {
-        return mPoiInfoList.get(index).getName().get("default");
+        return mPoiInfoList.get(index).getNameDefault();
     }
 
     protected String getSnippet(int index) {
-        int angle = mPoiInfoList.get(index).getAngle();
+        double angle = mPoiInfoList.get(index).getAngle();
         if (angle <= 45 || angle >= 315) {
             return "in the front";
         } else if (angle <= 135) {

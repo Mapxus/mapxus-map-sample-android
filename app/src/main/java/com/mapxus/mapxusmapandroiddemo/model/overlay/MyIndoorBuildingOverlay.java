@@ -1,14 +1,16 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
-import com.mapxus.map.mapxusmap.api.services.model.building.Address;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyIndoorBuildingOverlay {
@@ -28,9 +30,11 @@ public class MyIndoorBuildingOverlay {
      * @since V2.1.0
      */
     public void addToMap() {
+        List<MapxusPointAnnotationOptions> options = new ArrayList<>();
         for (int i = 0; i < mIndoorBuildingInfos.size(); i++) {
-            mapboxMap.addMarker(getMarkerOptions(i));
+            options.add(getMarkerOptions(i));
         }
+        mapxusMap.addMapxusPointAnnotations(options);
     }
 
     /**
@@ -66,33 +70,24 @@ public class MyIndoorBuildingOverlay {
 
 
     public void removeFromMap() {
-        mapxusMap.removeMarkers();
+        mapxusMap.removeMapxusPointAnnotations();
     }
 
 
-    private MarkerOptions getMarkerOptions(int index) {
+    private MapxusPointAnnotationOptions getMarkerOptions(int index) {
 
         IndoorBuildingInfo indoorBuildingInfo = mIndoorBuildingInfos.get(index);
-        return new MarkerOptions()
-                .position(
-                        new LatLng(indoorBuildingInfo.getLabelCenter()
+        return new MapxusPointAnnotationOptions()
+                .setPosition(
+                        new com.mapxus.map.mapxusmap.api.map.model.LatLng(indoorBuildingInfo.getLabelCenter()
                                 .getLat(), indoorBuildingInfo.getLabelCenter().getLon()))
-                .title(getTitle(index)).snippet(getSnippet(index));
+                .setTitle(getTitle(index));
     }
 
     protected String getTitle(int index) {
-        String name = mIndoorBuildingInfos.get(index).getName().get("default") == null ? mIndoorBuildingInfos.get(index).getName().get("en") : mIndoorBuildingInfos.get(index).getName().get("default");
+        String name = mIndoorBuildingInfos.get(index).getNameDefault() == null ? mIndoorBuildingInfos.get(index).getNameEn() : mIndoorBuildingInfos.get(index).getNameDefault();
         if (name != null) {
             return name;
-        } else {
-            return "";
-        }
-    }
-
-    protected String getSnippet(int index) {
-        Address address = mIndoorBuildingInfos.get(index).getAddress().get("default") == null ? mIndoorBuildingInfos.get(index).getAddress().get("en") : mIndoorBuildingInfos.get(index).getAddress().get("default");
-        if (address != null) {
-            return address.getStreet();
         } else {
             return "";
         }

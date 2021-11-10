@@ -61,11 +61,11 @@ public class SecondFragment extends Fragment {
                 Toast.makeText(requireContext(), poiCategoryResult.error.toString(), Toast.LENGTH_LONG).show();
                 return;
             }
-            if (poiCategoryResult.getResult() == null || poiCategoryResult.getResult().isEmpty()) {
+            if (poiCategoryResult.getPoiCategoryInfos() == null || poiCategoryResult.getPoiCategoryInfos().isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.no_result), Toast.LENGTH_LONG).show();
                 return;
             }
-            CategoriesListAdapter adapter = new CategoriesListAdapter(poiCategoryResult.getResult());
+            CategoriesListAdapter adapter = new CategoriesListAdapter(poiCategoryResult.getPoiCategoryInfos());
             recyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener((category, categoryName, position, v) -> {
                 Bundle bundle = new Bundle();

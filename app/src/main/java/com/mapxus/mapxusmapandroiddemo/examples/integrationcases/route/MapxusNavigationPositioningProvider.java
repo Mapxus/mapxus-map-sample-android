@@ -8,8 +8,8 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto;
-import com.mapxus.map.mapxusmap.overlay.navi.Navigation;
 import com.mapxus.map.mapxusmap.overlay.navi.NavigationPathDto;
+import com.mapxus.map.mapxusmap.overlay.navi.RouteAdsorber;
 import com.mapxus.map.mapxusmap.overlay.navi.RouteShortener;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
@@ -30,7 +30,7 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
     private MapxusPositioningClient positioningClient;
     private LifecycleOwner lifecycleOwner;
     private boolean started;
-    private Navigation navigation = null;
+    private RouteAdsorber routeAdsorber = null;
     private RouteShortener routeShortener = null;
     private MapboxMap mapboxMap;
 
@@ -110,8 +110,8 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
             IndoorLocation indoorLocation = new IndoorLocation(location, building, floor);
             indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
 
-            if (null != navigation) {
-                IndoorLocation indoorLatLon = navigation.updateIndoorLatLon(indoorLocation);
+            if (null != routeAdsorber) {
+                IndoorLocation indoorLatLon = routeAdsorber.calculateTheAdsorptionLocationFromActual(indoorLocation);
                 routeShortener.cutFromTheLocationProjection(indoorLatLon, mapboxMap);
                 indoorLocation.setLatitude(indoorLatLon.getLatitude());
                 indoorLocation.setLongitude(indoorLatLon.getLongitude());
@@ -121,22 +121,22 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
         }
     };
 
-    public Navigation getNavigation() {
-        return navigation;
+    public RouteAdsorber getRouteAdsorber() {
+        return routeAdsorber;
     }
 
-    public void setNavigation(Navigation navigation) {
-        this.navigation = navigation;
+    public void setRouteAdsorber(RouteAdsorber routeAdsorber) {
+        this.routeAdsorber = routeAdsorber;
     }
 
     public void updatePath(PathDto pathDto, MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
         NavigationPathDto navigationPathDto = new NavigationPathDto(pathDto);
-        navigation = new Navigation(navigationPathDto);
+        routeAdsorber = new RouteAdsorber(navigationPathDto);
         routeShortener = new RouteShortener(navigationPathDto, pathDto, pathDto.getIndoorPoints());
     }
 
-    public void setOnReachListener(Navigation.OnReachListener onReachListener) {
-        navigation.setOnReachListener(onReachListener);
+    public void setOnReachListener(RouteAdsorber.OnReachListener onReachListener) {
+        routeAdsorber.setOnReachListener(onReachListener);
     }
 }

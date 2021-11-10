@@ -38,9 +38,9 @@ public class CategoriesNameInfoAdapter extends RecyclerView.Adapter<RecyclerView
         ViewHolder viewHolder = (ViewHolder) holder;
 
         viewHolder.tvCategory.setText(String.format("%s%s", "category : ", categoryInfo.getCategory()));
-        viewHolder.tvTitleEn.setText(String.format("%s%s", "title_en : ", categoryInfo.getTitle().get("en")));
-        viewHolder.tvTitleZh.setText(String.format("%s%s", "title_zh : ", categoryInfo.getTitle().get("zh-Hant")));
-        viewHolder.tvTitleCn.setText(String.format("%s%s", "title_cn : ", categoryInfo.getTitle().get("zh-Hans")));
+        viewHolder.tvTitleEn.setText(String.format("%s%s", "title_en : ", categoryInfo.getTitleEn()));
+        viewHolder.tvTitleZh.setText(String.format("%s%s", "title_zh : ", categoryInfo.getTitleZh()));
+        viewHolder.tvTitleCn.setText(String.format("%s%s", "title_cn : ", categoryInfo.getTitleCn()));
     }
 
     @Override

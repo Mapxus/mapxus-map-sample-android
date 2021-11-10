@@ -178,7 +178,7 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
 
         if (!floorName.isEmpty()) {
-            mapxusMap.switchFloor(floorName);
+            mapxusMap.selectBuilding(floorName);
         }
     }
 

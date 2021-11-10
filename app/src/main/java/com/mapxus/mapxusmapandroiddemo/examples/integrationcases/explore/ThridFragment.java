@@ -27,6 +27,7 @@ import java.util.Objects;
 public class ThridFragment extends Fragment {
 
     private TextView tvTitle;
+    private String category;
     private RecyclerView recyclerView;
     private PoiSearch poiSearch;
     private String buildingId;
@@ -77,8 +78,11 @@ public class ThridFragment extends Fragment {
                 Toast.makeText(requireContext(), getString(R.string.no_result), Toast.LENGTH_LONG).show();
                 return;
             }
-            PoiListAdapter adapter = new PoiListAdapter(poiResult.getAllPoi(), tvTitle.getText().toString().trim());
+            PoiListAdapter adapter = new PoiListAdapter(poiResult.getAllPoi(), tvTitle.getText().toString().trim(),category);
             recyclerView.setAdapter(adapter);
+            if (exploreBuildingActivity != null) {
+                exploreBuildingActivity.addMarkers(poiResult.getAllPoi());
+            }
             adapter.setOnItemClickListener((floorName, poiName, catgegoryImage, position, v) -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("poiName", poiName);
@@ -106,7 +110,7 @@ public class ThridFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            String category = arguments.getString("category");
+            category = arguments.getString("category");
             tvTitle.setText(arguments.getString("categoryName"));
             buildingId = arguments.getString("buildingId");
             if (category != null && buildingId != null) {

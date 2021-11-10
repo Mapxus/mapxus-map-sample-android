@@ -5,7 +5,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
-import com.mapxus.map.mapxusmap.api.map.model.MapxusMarkerOptions;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class MyPoiOverlay {
      */
     public void addToMap() {
         for (int i = 0; i < mPoiInfoList.size(); i++) {
-            mapxusMap.addMarker(getMarkerOptions(i));
+            mapxusMap.addMapxusPointAnnotation(getMarkerOptions(i));
         }
     }
 
@@ -65,11 +65,11 @@ public class MyPoiOverlay {
 
 
     public void removeFromMap() {
-        mapxusMap.removeMarkers();
+        mapxusMap.removeMapxusPointAnnotations();
     }
 
-    private MapxusMarkerOptions getMarkerOptions(int index) {
-        return new MapxusMarkerOptions()
+    private MapxusPointAnnotationOptions getMarkerOptions(int index) {
+        return new MapxusPointAnnotationOptions()
                 .setPosition(
                         new com.mapxus.map.mapxusmap.api.map.model.LatLng(mPoiInfoList.get(index).getLocation()
                                 .getLat(), mPoiInfoList.get(index)
@@ -80,7 +80,7 @@ public class MyPoiOverlay {
     }
 
     protected String getTitle(int index) {
-        return mPoiInfoList.get(index).getName().get("default");
+        return mPoiInfoList.get(index).getNameDefault();
     }
 
     protected String getSnippet(int index) {
