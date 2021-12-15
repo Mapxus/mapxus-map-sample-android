@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 5.0.1
+
+### Bugs
+* Fix the bug can not deal with the Building with multi polygon geometry.
+
 ## 5.0.0
 
 ### Features
