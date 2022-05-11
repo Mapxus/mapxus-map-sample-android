@@ -1,5 +1,14 @@
 # Mapxus Map SDK Change Log
 
+## 5.0.2
+
+### Bugs
+* Optimize point annotation logic. .
+
+### Features
+* Add building type field in IndoorBuilding model.
+* User can choose whether to see the full route on the map view ， when use Route Shortener.
+
 ## 5.0.1
 
 ### Bugs
