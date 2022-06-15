@@ -1,9 +1,14 @@
 # Mapxus Map SDK Change Log
 
+## 5.0.3
+
+### Bugs
+* Fix can not switch building when use function focus on key cross building in RoutePainter class.
+
 ## 5.0.2
 
 ### Bugs
-* Optimize point annotation logic. .
+* Optimize point annotation logic.
 
 ### Features
 * Add building type field in IndoorBuilding model.
