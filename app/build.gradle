@@ -6,13 +6,13 @@ def secretProperties = new Properties()
 secretProperties.load(new FileInputStream(secretPropertiesFile))
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
 
     defaultConfig {
         applicationId "com.mapxus.mapxusmapandroiddemo"
 
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 32
 
         versionCode 4
         versionName 'v1.0.0'
