@@ -1,5 +1,11 @@
 # Mapxus Map SDK Change Log
 
+## 5.0.4
+
+### Bugs
+* Fix can not open building venue when use 'selectBuilding' method sometimes.
+* Fix can not switch floor correctly when camera mode change from none to follow user.
+
 ## 5.0.3
 
 ### Bugs
