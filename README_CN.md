@@ -8,6 +8,8 @@ This is a sample project to demonstrate how to use mapxus map android sdk.
 
 我们强烈建议使用最新的稳定版Android Studio打开此项目。
 
+由于AGP版本是7.2.1 , 所以请使用java 11来构建本项目。
+
 在运行此项目之前，请在项目根目录中创建** secret.properties **文件，并以以下格式填写应用程序appid和secret：
 
 	appid=
