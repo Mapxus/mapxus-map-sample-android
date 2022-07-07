@@ -168,17 +168,18 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
 
+        String buildingId = etBuildingId.getText().toString().trim();
         String floorName = etFloor.getText().toString().trim();
 
         doSearchQuery(etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
-                etBuildingId.getText().toString().trim(),
+                buildingId,
                 floorName,
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
 
-        if (!floorName.isEmpty()) {
-            mapxusMap.selectBuilding(floorName);
+        if (!buildingId.isEmpty() && !floorName.isEmpty()) {
+            mapxusMap.selectBuilding(buildingId, floorName);
         }
     }
 

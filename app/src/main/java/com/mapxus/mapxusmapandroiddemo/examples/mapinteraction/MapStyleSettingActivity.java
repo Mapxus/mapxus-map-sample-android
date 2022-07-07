@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.model.MapLanguage;
 import com.mapxus.map.mapxusmap.api.map.model.Style;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
@@ -154,22 +155,22 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
                 mapViewProvider.setStyle(Style.MAPXUS);
                 break;
             case R.id.tv_default:
-                mapViewProvider.setLanguage("default");
+                mapViewProvider.setLanguage(MapLanguage.DEFAULT);
                 break;
             case R.id.tv_en:
-                mapViewProvider.setLanguage("en");
+                mapViewProvider.setLanguage(MapLanguage.EN);
                 break;
             case R.id.tv_zh_hant:
-                mapViewProvider.setLanguage("zh-Hant");
+                mapViewProvider.setLanguage(MapLanguage.ZH_HK);
                 break;
             case R.id.tv_zh_hans:
-                mapViewProvider.setLanguage("zh-Hans");
+                mapViewProvider.setLanguage(MapLanguage.ZH_CN);
                 break;
             case R.id.tv_ja:
-                mapViewProvider.setLanguage("ja");
+                mapViewProvider.setLanguage(MapLanguage.JA);
                 break;
             case R.id.tv_ko:
-                mapViewProvider.setLanguage("ko");
+                mapViewProvider.setLanguage(MapLanguage.KO);
                 break;
             case R.id.btn_cancel:
                 break;
