@@ -1,5 +1,11 @@
 # Mapxus Map SDK Change Log
 
+## 5.1.0
+
+### Features
+* Update MAPPYBEE Style url.
+* User can see all indoor map of ordinal=0 or nearest 0 instead of the gray building extent.
+
 ## 5.0.4
 
 ### Bugs
