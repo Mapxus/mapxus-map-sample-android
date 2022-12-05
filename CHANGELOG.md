@@ -1,5 +1,12 @@
 # Mapxus Map SDK Change Log
 
+## 5.2.0
+
+### Features
+* New privatization logic.
+* Set the default maximum zoom of the map to 22.
+* Mark some variables as deprecated in RoutePlanningInstructionSign.java.
+
 ## 5.1.0
 
 ### Features
