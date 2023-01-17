@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/textview_shape_white_top_radius"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/textview_shape_white_top_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 android:autofillHints=""
                 android:background="@android:drawable/editbox_background_normal"
                 android:hint="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="@string/default_min_lat"
                 android:textStyle="bold" />
@@ -120,7 +120,7 @@
                 android:autofillHints=""
                 android:background="@android:drawable/editbox_background_normal"
                 android:hint="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="@string/default_min_lon"
                 android:textStyle="bold" />
@@ -151,7 +151,7 @@
                 android:autofillHints=""
                 android:background="@android:drawable/editbox_background_normal"
                 android:hint="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="@string/default_max_lat"
                 android:textStyle="bold" />
@@ -182,7 +182,7 @@
                 android:autofillHints=""
                 android:background="@android:drawable/editbox_background_normal"
                 android:hint="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="@string/default_max_lon"
                 android:textStyle="bold" />
@@ -207,7 +207,7 @@
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
-            android:inputType="text"
+            android:inputType="number"
             android:padding="8dp"
             android:singleLine="true"
             android:text="@string/default_offset"
@@ -231,7 +231,7 @@
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
-            android:inputType="text"
+            android:inputType="number"
             android:padding="8dp"
             android:singleLine="true"
             android:text="@string/default_page"

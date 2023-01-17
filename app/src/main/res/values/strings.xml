@@ -15,6 +15,7 @@
     <string name="menu_map_style_hallowmas">Hallowmas</string>
     <string name="menu_map_style_mappy_bee">MappyBee</string>
     <string name="menu_map_style_mapxus">Mapxus</string>
+    <string name="menu_map_style_mapxus_v2">Mapxus_V2</string>
     <string name="cancel">Cancel</string>
 
 
@@ -46,7 +47,6 @@
 
     <string name="building_id_with_star" translatable="false">buildingId *</string>
     <string name="floor" translatable="false">floor</string>
-    <string name="default_floor_name" translatable="false">L3</string>
     <string name="zoom_insets" translatable="false">zoomInsets</string>
     <string name="right" translatable="false">right</string>
     <string name="left" translatable="false">left</string>
@@ -87,10 +87,6 @@
     <string name="min_longitude" translatable="false">min_longitude</string>
     <string name="max_latitude" translatable="false">max_latitude</string>
     <string name="max_longitude" translatable="false">max_longitude</string>
-    <string name="default_min_lat" translatable="false">22.292540</string>
-    <string name="default_min_lon" translatable="false">114.158608</string>
-    <string name="default_max_lat" translatable="false">22.310600</string>
-    <string name="default_max_lon" translatable="false">114.172422</string>
     <string name="center" translatable="false">center</string>
     <string name="latitude" translatable="false">latitude</string>
     <string name="longitude" translatable="false">longitude</string>
@@ -121,12 +117,13 @@
     <string name="delete" translatable="false">delete</string>
     <string name="sort" translatable="false">sort</string>
     <string name="meter_distance" translatable="false">meterDistance</string>
-    <string name="default_meter_distance" translatable="false">10</string>
     <string name="actual_distance" translatable="false">ActualDistance</string>
     <string name="absoulute_distance" translatable="false">AbsouluteDistance</string>
     <string name="download" translatable="false">Download</string>
     <string name="warning" translatable="false">Warning</string>
     <string name="search_first" translatable="false">Please search the route first</string>
     <string name="reach_toast_text" translatable="false">You have arrived . </string>
+    <string name="foot" translatable="false">foot</string>
+    <string name="wheelchair" translatable="false">wheelchair</string>
 
 </resources>

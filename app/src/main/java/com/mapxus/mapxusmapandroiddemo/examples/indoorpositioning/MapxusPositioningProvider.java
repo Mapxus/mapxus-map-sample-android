@@ -93,8 +93,10 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
             location.setLatitude(mapxusLocation.getLatitude());
             location.setLongitude(mapxusLocation.getLongitude());
             location.setTime(System.currentTimeMillis());
+
             String floor = mapxusLocation.getMapxusFloor() == null ? null : mapxusLocation.getMapxusFloor().getCode();
             String building = mapxusLocation.getBuildingId();
+
             IndoorLocation indoorLocation = new IndoorLocation(location, building, floor);
             indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
 

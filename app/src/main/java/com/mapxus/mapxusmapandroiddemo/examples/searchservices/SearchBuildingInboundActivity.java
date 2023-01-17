@@ -11,9 +11,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.plugins.annotation.AnnotationManager;
-import com.mapbox.mapboxsdk.plugins.annotation.FillManager;
-import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
@@ -28,10 +25,6 @@ import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, BuildingSearch.BuildingSearchResultListener {
 
@@ -60,58 +53,6 @@ public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity imp
         buildingSearch = BuildingSearch.newInstance();
         buildingSearch.setBuildingSearchResultListener(this);
 
-    }
-
-    @Override
-    public void onMapReady(@NotNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mapView.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mapView.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NotNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (buildingSearch != null) {
-            buildingSearch.destroy();
-        }
-        mapView.onDestroy();
-        mapViewProvider.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
     }
 
     protected void doSearchQuery(LatLngBounds latLngBounds, String keyWord, int offset, int page) {
@@ -144,7 +85,7 @@ public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity imp
         }
         indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
         indoorBuildingOverlay.addToMap();
-        indoorBuildingOverlay.zoomToSpan();
+        indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
     }
 
     @Override
@@ -201,6 +142,57 @@ public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity imp
                 etKeywords.getText().toString().trim(),
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+    }
+
+    @Override
+    public void onMapReady(@NotNull MapboxMap mapboxMap) {
+        this.mapboxMap = mapboxMap;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (buildingSearch != null) {
+            buildingSearch.destroy();
+        }
+        mapView.onDestroy();
+        mapViewProvider.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }
 

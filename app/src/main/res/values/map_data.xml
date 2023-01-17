@@ -1,18 +1,77 @@
 <resources>
     <string name="default_lat" translatable="false">22.3707866</string>
     <string name="default_lon" translatable="false">114.1112654</string>
+    <string name="default_floor_name" translatable="false">L3</string>
+    <string name="default_zoom_level_value" translatable="false">17</string>
 
-    <string name="vivo_lat" translatable="false">23.0357815</string>
-    <string name="vivo_lon" translatable="false">113.1824111</string>
+    <string name="default_switch_indoor_buiding_id" translatable="false">f20017ba7d9d41c0b277fc48b7a4bf02</string>
+    <string name="default_switch_indoor_floor_name" translatable="false">L3</string>
 
-    <string name="harbour_city_lat" translatable="false">22.296943</string>
-    <string name="harbour_city_lon" translatable="false">114.168458</string>
-    <string name="harbour_city_building_id" translatable="false">f20017ba7d9d41c0b277fc48b7a4bf02</string>
+    <string name="default_visual_lat" translatable="false">22.3707866</string>
+    <string name="default_visual_lon" translatable="false">114.1112654</string>
+    <string name="default_visual_floor" translatable="false">L3</string>
+    <string name="default_visual_zoom" translatable="false">17</string>
 
     <string name="default_search_text_building_id" translatable="false">tsuenwanplaza_hk_369d01</string>
-    <string name="default_poi_id" translatable="false">12586</string>
+    <string name="default_poi_id" translatable="false">9478263</string>
 
     <string name="route_plan_lat" translatable="false">22.296943</string>
     <string name="route_plan_lon" translatable="false">114.168458</string>
+
+    <string-array name="default_marker_lat" translatable="false">
+        <item>22.370779</item>
+        <item>22.371144</item>
+        <item>22.371003</item>
+        <item>22.370557</item>
+        <item>22.370603</item>
+    </string-array>
+
+    <string-array name="default_marker_lng" translatable="false">
+        <item>114.111341</item>
+        <item>114.111062</item>
+        <item>114.111679</item>
+        <item>114.111291</item>
+        <item>114.111828</item>
+    </string-array>
+
+    <string-array name="default_marker_floor" translatable="false">
+        <item></item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>L2</item>
+        <item>L3</item>
+    </string-array>
+
+    <string-array name="default_draw_polygon_lat" translatable="false">
+        <item>22.371396</item>
+        <item>22.371366</item>
+        <item>22.371111</item>
+        <item>22.370941</item>
+        <item>22.371117</item>
+        <item>22.371090</item>
+        <item>22.371223</item>
+    </string-array>
+
+    <string-array name="default_draw_polygon_lng" translatable="false">
+        <item>114.111065</item>
+        <item>114.110958</item>
+        <item>114.110801</item>
+        <item>114.111143</item>
+        <item>114.111251</item>
+        <item>114.111297</item>
+        <item>114.111375</item>
+    </string-array>
+
+    <string name="default_min_lat" translatable="false">22.292540</string>
+    <string name="default_min_lon" translatable="false">114.158608</string>
+    <string name="default_max_lat" translatable="false">22.310600</string>
+    <string name="default_max_lon" translatable="false">114.172422</string>
+
+    <string name="default_min_lat_poi" translatable="false">22.292540</string>
+    <string name="default_min_lon_poi" translatable="false">114.158608</string>
+    <string name="default_max_lat_poi" translatable="false">22.310600</string>
+    <string name="default_max_lon_poi" translatable="false">114.172422</string>
+
+    <string name="default_poi_meter_distance" translatable="false">10</string>
 
 </resources>

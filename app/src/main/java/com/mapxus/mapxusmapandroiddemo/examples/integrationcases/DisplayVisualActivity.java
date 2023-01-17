@@ -42,14 +42,11 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
     private RelativeLayout.LayoutParams bigViewLayoutParams;
     private RelativeLayout.LayoutParams smallViewLayoutParams;
 
-
     private boolean mapViewIsBig = true;
 
     private String lastShowVisualBuildingId = "";
 
-
     private double preMapZoomLevel = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +66,15 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
         });
 
-        mapView.getMapAsync(mapboxMap -> this.mapboxMap = mapboxMap);
+        mapView.getMapAsync(mapboxMap -> {
+            this.mapboxMap = mapboxMap;
+            mapboxMap.getUiSettings().setCompassEnabled(false);
+        });
 
         visualImageRepository = new VisualImageRepository(DisplayVisualActivity.this);
 
         bigViewLayoutParams = (RelativeLayout.LayoutParams) mapView.getLayoutParams();
         smallViewLayoutParams = (RelativeLayout.LayoutParams) mapxusVisual.getLayoutParams();
-
 
     }
 
@@ -125,7 +124,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
                 mapView.setLayoutParams(smallViewLayoutParams);
                 mapxusMap.getMapxusUiSettings().setSelectorEnabled(false);
                 preMapZoomLevel = mapxusMap.getCameraPosition().zoom;
-                mapboxMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                mapboxMap.animateCamera(CameraUpdateFactory.zoomTo(Double.parseDouble(getString(R.string.default_visual_zoom))));
                 mapView.bringToFront();
                 mapViewIsBig = false;
                 mapxusVisual.resize();

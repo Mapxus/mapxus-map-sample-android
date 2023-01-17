@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/textview_shape_white_top_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -37,11 +36,11 @@
             android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:text="@string/category"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/et_category"
@@ -54,82 +53,14 @@
             android:inputType="text"
             android:padding="8dp"
             android:singleLine="true"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/sort"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_soft_mode"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_shape_blue"
-            android:text="@string/actual_distance"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            tools:text="AbsouluteDistance" />
-
-        <TextView
-            android:id="@+id/tv_tips_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/building_id"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_id"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:autofillHints=""
-            android:background="@android:drawable/editbox_background_normal"
-            android:hint="@null"
-            android:inputType="text"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_ordinal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/ordinal"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_ordinal"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:autofillHints=""
-            android:background="@android:drawable/editbox_background_normal"
-            android:hint="@null"
-            android:inputType="number"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:text="@string/num_0"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@string/center"
+            android:text="@string/bbox"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -141,17 +72,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_lat"
+                android:id="@+id/tv_min_lat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/latitude"
+                android:text="@string/min_latitude"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_lat"
+                android:id="@+id/et_min_lat"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1.5"
@@ -160,7 +91,7 @@
                 android:hint="@null"
                 android:inputType="numberDecimal"
                 android:padding="8dp"
-                android:text="@string/default_lat"
+                android:text="@string/default_min_lat_poi"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -172,17 +103,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_lon"
+                android:id="@+id/tv_min_lon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/longitude"
+                android:text="@string/min_longitude"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_lon"
+                android:id="@+id/et_min_lon"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1.5"
@@ -191,34 +122,72 @@
                 android:hint="@null"
                 android:inputType="numberDecimal"
                 android:padding="8dp"
-                android:text="@string/default_lon"
+                android:text="@string/default_min_lon_poi"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/meter_distance"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_distance"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:autofillHints=""
-            android:background="@android:drawable/editbox_background_normal"
-            android:hint="@null"
-            android:inputType="text"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:text="@string/default_poi_meter_distance"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_max_lat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/max_latitude"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_max_lat"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1.5"
+                android:autofillHints=""
+                android:background="@android:drawable/editbox_background_normal"
+                android:hint="@null"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:text="@string/default_max_lat_poi"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_max_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/max_longitude"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_max_lon"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1.5"
+                android:autofillHints=""
+                android:background="@android:drawable/editbox_background_normal"
+                android:hint="@null"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:text="@string/default_max_lon_poi"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_offset"
@@ -267,7 +236,6 @@
             android:singleLine="true"
             android:text="@string/default_page"
             android:textStyle="bold" />
-
 
         <Button
             android:id="@+id/create"

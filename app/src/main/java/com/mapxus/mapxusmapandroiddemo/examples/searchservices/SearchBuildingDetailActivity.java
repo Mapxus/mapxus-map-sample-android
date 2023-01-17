@@ -39,7 +39,7 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
     private RelativeLayout progressBarView;
     private BuildingSearch buildingSearch;
 
-    private List<View> views;
+    private List<View> views = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,6 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
         buildingSearch.setBuildingSearchResultListener(this);
 
         progressBarView = findViewById(R.id.loding_view);
-        views = new ArrayList<>();
     }
 
     @Override
@@ -138,7 +137,7 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
         MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingDetailResult.getIndoorBuildingList());
         indoorBuildingOverlay.removeFromMap();
         indoorBuildingOverlay.addToMap();
-        indoorBuildingOverlay.zoomToSpan();
+        indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
     }
 
     @SuppressLint("InflateParams")

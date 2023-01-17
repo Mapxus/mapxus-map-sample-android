@@ -1,7 +1,6 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapediting;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,17 +43,32 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
         mapViewProvider.getMapxusMapAsync(this);
     }
 
+    @Override
+    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+        this.mapboxMap = mapboxMap;
+    }
+
+    @Override
+    public void onMapxusMapReady(MapxusMap mapxusMap) {
+        mapxusMap.addOnFloorChangeListener((indoorBuilding, floorName) -> {
+            if (indoorBuilding.getGroundFloor().equals(floorName)) {
+                drawPolygon(mapboxMap);
+            } else {
+                deletePolygon();
+            }
+        });
+    }
+
     private void drawPolygon(MapboxMap mapboxMap) {
         if (fill == null){
             fillManager = new FillManager(mapView, mapboxMap, Objects.requireNonNull(mapboxMap.getStyle()));
+
             List<LatLng> innerLatLngs = new ArrayList<>();
-            innerLatLngs.add(new LatLng(22.371396, 114.111065));
-            innerLatLngs.add(new LatLng(22.371366, 114.110958));
-            innerLatLngs.add(new LatLng(22.371111, 114.110801));
-            innerLatLngs.add(new LatLng(22.370941, 114.111143));
-            innerLatLngs.add(new LatLng(22.371117, 114.111251));
-            innerLatLngs.add(new LatLng(22.371090, 114.111297));
-            innerLatLngs.add(new LatLng(22.371223, 114.111375));
+            String[] polygonLat = getResources().getStringArray(R.array.default_draw_polygon_lat);
+            String[] polygonLng = getResources().getStringArray(R.array.default_draw_polygon_lng);
+            for (int i = 0; i < polygonLat.length; i++) {
+                innerLatLngs.add(new LatLng(Double.parseDouble(polygonLat[i]), Double.parseDouble(polygonLng[i])));
+            }
 
             List<List<LatLng>> latLngs = new ArrayList<>();
             latLngs.add(innerLatLngs);
@@ -114,21 +128,5 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
         super.onDestroy();
         mapView.onDestroy();
         mapViewProvider.onDestroy();
-    }
-
-    @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-    }
-
-    @Override
-    public void onMapxusMapReady(MapxusMap mapxusMap) {
-        mapxusMap.addOnFloorChangeListener((indoorBuilding, floorName) -> {
-            if (indoorBuilding.getGroundFloor().equals(floorName)) {
-                drawPolygon(mapboxMap);
-            } else {
-                deletePolygon();
-            }
-        });
     }
 }

@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapediting;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,11 +86,16 @@ public class DrawMarkerActivity extends AppCompatActivity implements OnMapxusMap
         mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {
             if (indoorBuilding != null && mapboxMap.getMarkers().isEmpty()) {
                 String buildingId = getString(R.string.default_search_text_building_id);
-                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.370779, 114.111341)));
-                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.371144, 114.111062)).setFloor("L1").setBuildingId(buildingId));
-                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.371003, 114.111679)).setFloor("L2").setBuildingId(buildingId));
-                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.370557, 114.111291)).setFloor("L2").setBuildingId(buildingId));
-                mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(22.370603, 114.111828)).setFloor("L3").setBuildingId(buildingId));
+                String[] latArray = getResources().getStringArray(R.array.default_marker_lat);
+                String[] lngArray = getResources().getStringArray(R.array.default_marker_lng);
+                String[] floorArray = getResources().getStringArray(R.array.default_marker_floor);
+                for (int i = 0; i < latArray.length; i++) {
+                    if (TextUtils.isEmpty(floorArray[i])) {
+                        mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(Double.parseDouble(latArray[i]), Double.parseDouble(lngArray[i]))));
+                    } else {
+                        mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(Double.parseDouble(latArray[i]), Double.parseDouble(lngArray[i]))).setFloor(floorArray[i]).setBuildingId(buildingId));
+                    }
+                }
             }
         });
     }

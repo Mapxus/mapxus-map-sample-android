@@ -96,7 +96,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
             MyPoiOrientationOverlay poiOverlay = new MyPoiOrientationOverlay(mMapboxMap, mapxusMap, poiOrientationResult.getPoiOrientationInfos());
             poiOverlay.removeFromMap();
             poiOverlay.addToMap();
-            poiOverlay.zoomToSpan();
+            poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
         }
     };
 

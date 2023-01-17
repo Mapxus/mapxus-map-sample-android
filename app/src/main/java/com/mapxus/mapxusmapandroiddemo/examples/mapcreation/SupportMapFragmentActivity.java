@@ -29,7 +29,7 @@ public class SupportMapFragmentActivity extends AppCompatActivity {
             MapboxMapOptions options = MapboxMapOptions.createFromAttributes(this);
             options.camera(new CameraPosition.Builder()
                     .target(new LatLng(Double.parseDouble(getString(R.string.default_lat)), Double.parseDouble(getString(R.string.default_lon))))
-                    .zoom(17)
+                    .zoom(Integer.parseInt(getString(R.string.default_zoom_level_value)))
                     .build());
 
             MapView mapView = new MapView(SupportMapFragmentActivity.this, options);

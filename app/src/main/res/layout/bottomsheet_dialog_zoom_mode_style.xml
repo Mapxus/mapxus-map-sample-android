@@ -28,7 +28,7 @@
         android:inputType="text"
         android:padding="8dp"
         android:singleLine="true"
-        android:text="@string/harbour_city_building_id"
+        android:text="@string/default_switch_indoor_buiding_id"
         android:textStyle="bold" />
 
     <TextView
@@ -52,7 +52,7 @@
         android:inputType="text"
         android:padding="8dp"
         android:singleLine="true"
-        android:text="@string/default_floor_name"
+        android:text="@string/default_switch_indoor_floor_name"
         android:textStyle="bold" />
 
     <TextView

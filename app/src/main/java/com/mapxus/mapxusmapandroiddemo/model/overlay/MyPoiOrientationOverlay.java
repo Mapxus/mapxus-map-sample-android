@@ -8,8 +8,6 @@ import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 
-import org.w3c.dom.Document;
-
 import java.util.List;
 
 public class MyPoiOrientationOverlay {
@@ -39,7 +37,7 @@ public class MyPoiOrientationOverlay {
      *
      * @since V2.1.0
      */
-    public void zoomToSpan() {
+    public void zoomToSpan(double zoom) {
         if (mPoiInfoList != null && mPoiInfoList.size() > 0) {
             if (mapboxMap == null)
                 return;
@@ -47,7 +45,7 @@ public class MyPoiOrientationOverlay {
                 PoiInfo firstPoiInfo = mPoiInfoList.get(0);
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstPoiInfo.getLocation().getLat(), firstPoiInfo.getLocation().getLon()),
-                        17));
+                        zoom));
             } else {
                 LatLngBounds bounds = getLatLngBounds();
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));

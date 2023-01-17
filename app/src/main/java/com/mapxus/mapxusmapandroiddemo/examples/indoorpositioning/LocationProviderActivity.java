@@ -66,6 +66,24 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         initView();
     }
 
+    private void initView() {
+        latTv = findViewById(R.id.tv_lat);
+        lonTv = findViewById(R.id.tv_lon);
+        floorTv = findViewById(R.id.tv_floor);
+        accuracyTv = findViewById(R.id.tv_accuracy);
+        timestampTv = findViewById(R.id.tv_timestamp);
+        compassTv = findViewById(R.id.tv_compass);
+        btnPositioningMode = findViewById(R.id.btn_positioning_mode);
+        btnPositioningMode.setText(getString(R.string.follow_me_none));
+        btnPositioningMode.setOnClickListener(this);
+    }
+
+    @Override
+    public void onMapxusMapReady(MapxusMap mapxusMap) {
+        this.mapxusMap = mapxusMap;
+        mapxusMap.setFollowUserMode(FollowUserMode.NONE);
+    }
+
     private ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
         @Override
         public void onAvailable(@NonNull Network network) {
@@ -95,16 +113,87 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         }
     };
 
-    private void initView() {
-        latTv = findViewById(R.id.tv_lat);
-        lonTv = findViewById(R.id.tv_lon);
-        floorTv = findViewById(R.id.tv_floor);
-        accuracyTv = findViewById(R.id.tv_accuracy);
-        timestampTv = findViewById(R.id.tv_timestamp);
-        compassTv = findViewById(R.id.tv_compass);
-        btnPositioningMode = findViewById(R.id.btn_positioning_mode);
-        btnPositioningMode.setText(getString(R.string.follow_me_none));
-        btnPositioningMode.setOnClickListener(this);
+    private void setLocation() {
+        dialog = new MaterialDialog.Builder(LocationProviderActivity.this)
+                .title(getString(R.string.location_dialog_title))
+                .content(getString(R.string.location_dialog_message))
+                .progress(true, 0).show();
+
+        mapxusPositioningProvider.addListener(new IndoorLocationProviderListener() {
+            @Override
+            public void onProviderStarted() {
+
+            }
+
+            @Override
+            public void onProviderStopped() {
+
+            }
+
+            @Override
+            public void onProviderError(ErrorInfo error) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                    dialog = null;
+                }
+                if (error.getErrorCode() == ErrorInfo.WARNING || error.getErrorCode() == 109) {
+                    Log.w(TAG, error.getErrorMessage());
+                    return;
+                }
+
+                new MaterialDialog.Builder(LocationProviderActivity.this)
+                        .content(error.getErrorMessage())
+                        .positiveText(R.string.ok)
+                        .onAny((dialog, which) -> dialog.dismiss()).show();
+
+                isPositioningFailed = true;
+            }
+
+            @Override
+            public void onIndoorLocationChange(IndoorLocation indoorLocation) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                    dialog = null;
+                }
+                showLocationInfo(indoorLocation);
+            }
+
+            @Override
+            public void onCompassChanged(float angle, int sensorAccuracy) {
+                compassTv.setText(String.format("%s%s", getString(R.string.compass), angle));
+            }
+
+        });
+
+        mapxusMap.setLocationProvider(mapxusPositioningProvider);
+    }
+
+    private void showLocationInfo(IndoorLocation indoorLocation) {
+        latTv.setText(String.format("%s%s", getString(R.string.lat), indoorLocation.getLatitude()));
+        lonTv.setText(String.format("%s%s", getString(R.string.lon), indoorLocation.getLongitude()));
+        floorTv.setText(String.format("%s%s", getString(R.string.floor_tips), indoorLocation.getFloor()));
+        accuracyTv.setText(String.format("%s%s", getString(R.string.accuracy), indoorLocation.getAccuracy()));
+        timestampTv.setText(String.format("%s%s", getString(R.string.time_stamp), indoorLocation.getTime()));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (mapxusMap.getFollowUserMode()) {
+            case FollowUserMode.NONE:
+                if (mapxusPositioningProvider != null && !mapxusPositioningProvider.isStarted()) {
+                    setLocation();
+                }
+                btnPositioningMode.setText(getString(R.string.follow_me_follow_user));
+                mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER);
+                break;
+            case FollowUserMode.FOLLOW_USER:
+                btnPositioningMode.setText(getString(R.string.follow_me_follow_user_and_heading));
+                mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
+                break;
+            case FollowUserMode.FOLLOW_USER_AND_HEADING:
+                btnPositioningMode.setText(getString(R.string.follow_me_none));
+                mapxusMap.setFollowUserMode(FollowUserMode.NONE);
+        }
     }
 
     @Override
@@ -160,93 +249,5 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
     protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onMapxusMapReady(MapxusMap mapxusMap) {
-        this.mapxusMap = mapxusMap;
-        mapxusMap.setFollowUserMode(FollowUserMode.NONE);
-    }
-
-    private void setLocation() {
-        dialog = new MaterialDialog.Builder(LocationProviderActivity.this)
-                .title(getString(R.string.location_dialog_title))
-                .content(getString(R.string.location_dialog_message))
-                .progress(true, 0).show();
-        mapxusPositioningProvider.addListener(new IndoorLocationProviderListener() {
-            @Override
-            public void onProviderStarted() {
-
-            }
-
-            @Override
-            public void onProviderStopped() {
-
-            }
-
-            @Override
-            public void onProviderError(ErrorInfo error) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                    dialog = null;
-                }
-                if (error.getErrorCode() == ErrorInfo.WARNING || error.getErrorCode() == 109) {
-                    Log.w(TAG, error.getErrorMessage());
-                    return;
-                }
-
-                new MaterialDialog.Builder(LocationProviderActivity.this)
-                        .content(error.getErrorMessage())
-                        .positiveText(R.string.ok)
-                        .onAny((dialog, which) -> dialog.dismiss()).show();
-
-                isPositioningFailed = true;
-            }
-
-            @Override
-            public void onIndoorLocationChange(IndoorLocation indoorLocation) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                    dialog = null;
-                }
-                showLocationInfo(indoorLocation);
-            }
-
-            @Override
-            public void onCompassChanged(float angle, int sensorAccuracy) {
-                compassTv.setText(String.format("%s%s", getString(R.string.compass), angle));
-            }
-
-        });
-        mapxusMap.setLocationProvider(mapxusPositioningProvider);
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (mapxusMap.getFollowUserMode()) {
-            case FollowUserMode.NONE:
-                if (mapxusPositioningProvider != null && !mapxusPositioningProvider.isStarted()) {
-                    setLocation();
-                }
-                btnPositioningMode.setText(getString(R.string.follow_me_follow_user));
-                mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER);
-                break;
-            case FollowUserMode.FOLLOW_USER:
-                btnPositioningMode.setText(getString(R.string.follow_me_follow_user_and_heading));
-                mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
-                break;
-            case FollowUserMode.FOLLOW_USER_AND_HEADING:
-                btnPositioningMode.setText(getString(R.string.follow_me_none));
-                mapxusMap.setFollowUserMode(FollowUserMode.NONE);
-        }
-    }
-
-    private void showLocationInfo(IndoorLocation indoorLocation) {
-        latTv.setText(String.format("%s%s", getString(R.string.lat), indoorLocation.getLatitude()));
-        lonTv.setText(String.format("%s%s", getString(R.string.lon), indoorLocation.getLongitude()));
-        floorTv.setText(String.format("%s%s", getString(R.string.floor_tips), indoorLocation.getFloor()));
-        accuracyTv.setText(String.format("%s%s", getString(R.string.accuracy), indoorLocation.getAccuracy()));
-        timestampTv.setText(String.format("%s%s", getString(R.string.time_stamp), indoorLocation.getTime()));
     }
 }

@@ -136,7 +136,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
             MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
             poiOverlay.removeFromMap();
             poiOverlay.addToMap();
-            poiOverlay.zoomToSpan();
+            poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
         }
     };
 

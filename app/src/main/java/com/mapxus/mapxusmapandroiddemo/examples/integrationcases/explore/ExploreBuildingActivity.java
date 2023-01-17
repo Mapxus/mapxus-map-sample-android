@@ -101,7 +101,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
-        poiOverlay.zoomToSpan();
+        poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
         mapxusMap.selectFloor(poiInfo.getFloor(), MapxusMapZoomMode.ZoomDisable, null);
     }
 
@@ -109,7 +109,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
-        poiOverlay.zoomToSpan();
+        poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
         mapxusMap.selectFloor(poiInfos.get(0).getFloor(), MapxusMapZoomMode.ZoomDisable, null);
     }
 

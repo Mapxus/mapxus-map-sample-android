@@ -131,7 +131,7 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
         MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
-        poiOverlay.zoomToSpan();
+        poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
     }
 
     @Override
@@ -178,7 +178,7 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
 
-        if (!buildingId.isEmpty() && !floorName.isEmpty()) {
+        if (!buildingId.isEmpty()) {
             mapxusMap.selectBuilding(buildingId, floorName);
         }
     }

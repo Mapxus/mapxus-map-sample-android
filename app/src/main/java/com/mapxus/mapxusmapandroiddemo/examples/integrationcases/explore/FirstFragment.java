@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases.explore;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.utils.LocalLanguageUtils;
-
-import java.util.Locale;
 
 public class FirstFragment extends Fragment implements ExploreBuildingActivity.OnBuildingChageListener {
 
@@ -49,9 +48,11 @@ public class FirstFragment extends Fragment implements ExploreBuildingActivity.O
         button = view.findViewById(R.id.btn_explore);
         button.setOnClickListener(v -> {
             if (indoorBuilding != null) {
+                String buildingId = indoorBuilding.getBuildingId();
+                String buildingName = LocalLanguageUtils.getLocalLanguageWithIndoorBuilding(indoorBuilding);
                 Bundle bundle = new Bundle();
-                bundle.putString("buildingId", indoorBuilding.getBuildingId());
-                bundle.putString("buildingName", LocalLanguageUtils.getLocalLanguageWithIndoorBuilding(indoorBuilding));
+                bundle.putString("buildingId", buildingId);
+                bundle.putString("buildingName", buildingName);
                 Navigation.findNavController(v).navigate(R.id.action_firstFragment_to_secondFragment, bundle);
                 exploreBuildingActivity.getBottomSheetBehavior().setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
             }
@@ -71,7 +72,8 @@ public class FirstFragment extends Fragment implements ExploreBuildingActivity.O
     public void onBuildingChange(IndoorBuilding indoorBuilding) {
         if (indoorBuilding != null) {
             this.indoorBuilding = indoorBuilding;
-            button.setText(String.format("%s%s", "Explore ", LocalLanguageUtils.getLocalLanguageWithIndoorBuilding(indoorBuilding)));
+            String buildingName = LocalLanguageUtils.getLocalLanguageWithIndoorBuilding(indoorBuilding);
+            button.setText(String.format("%s%s", "Explore ", TextUtils.isEmpty(buildingName) ? indoorBuilding.getBuildingName() : buildingName));
         }
     }
 }

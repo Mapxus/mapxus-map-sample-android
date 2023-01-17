@@ -1,7 +1,5 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
@@ -42,7 +40,7 @@ public class MyIndoorBuildingOverlay {
      *
      * @since V2.1.0
      */
-    public void zoomToSpan() {
+    public void zoomToSpan(double zoom) {
         if (mIndoorBuildingInfos != null && mIndoorBuildingInfos.size() > 0) {
             if (mapboxMap == null)
                 return;
@@ -50,7 +48,7 @@ public class MyIndoorBuildingOverlay {
                 IndoorBuildingInfo firstIndoorBuildingInfo = mIndoorBuildingInfos.get(0);
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstIndoorBuildingInfo.getLabelCenter().getLat(), firstIndoorBuildingInfo.getLabelCenter().getLon()),
-                        16));
+                        zoom));
             } else {
                 LatLngBounds bounds = getLatLngBounds();
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));

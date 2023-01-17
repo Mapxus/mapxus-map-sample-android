@@ -37,7 +37,7 @@ public class MyPoiOverlay {
      *
      * @since V2.1.0
      */
-    public void zoomToSpan() {
+    public void zoomToSpan(double zoom) {
         if (mPoiInfoList != null && mPoiInfoList.size() > 0) {
             if (mapboxMap == null)
                 return;
@@ -45,7 +45,7 @@ public class MyPoiOverlay {
                 PoiInfo firstPoiInfo = mPoiInfoList.get(0);
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstPoiInfo.getLocation().getLat(), firstPoiInfo.getLocation().getLon()),
-                        17));
+                        zoom));
             } else {
                 LatLngBounds bounds = getLatLngBounds();
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));

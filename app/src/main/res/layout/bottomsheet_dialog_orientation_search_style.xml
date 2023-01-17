@@ -42,7 +42,7 @@
                 android:autofillHints=""
                 android:background="@android:drawable/editbox_background_normal"
                 android:hint="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="@string/default_lat"
                 android:textStyle="bold" />
@@ -73,7 +73,7 @@
                 android:autofillHints=""
                 android:background="@android:drawable/editbox_background_normal"
                 android:hint="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="@string/default_lon"
                 android:textStyle="bold" />

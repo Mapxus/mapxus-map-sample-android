@@ -12,6 +12,9 @@
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/button_shape_red"
+        android:ellipsize="middle"
+        android:maxLines="1"
+        android:paddingHorizontal="10dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
         tools:text="Explore Harbour city" />

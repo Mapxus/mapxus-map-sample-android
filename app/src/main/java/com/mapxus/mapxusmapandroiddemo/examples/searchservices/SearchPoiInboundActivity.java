@@ -11,8 +11,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.plugins.annotation.FillManager;
-import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
@@ -28,10 +26,6 @@ import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener {
 
@@ -138,7 +132,7 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
         MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
-        poiOverlay.zoomToSpan();
+        poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
     }
 
     @Override
@@ -172,7 +166,7 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
     @Override
     protected void initBottomSheetDialog() {
         MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
-        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_bound_search_style, this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_bound_search_poi_style, this);
         bottomSheetDialogView.findViewById(R.id.tv_category).setVisibility(View.VISIBLE);
         bottomSheetDialogView.findViewById(R.id.et_category).setVisibility(View.VISIBLE);
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mapxus.mapxusmapandroiddemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,6 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
 
     <uses-feature
         android:name="android.hardware.location.gps"
@@ -32,10 +37,10 @@
 
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -166,7 +171,7 @@
         </activity>
         <activity
             android:name=".examples.searchservices.SearchPoiInBuildingActivity"
-            android:label="@string/activity_search_service_poi_in_building_description"
+            android:label="@string/activity_search_service_poi_in_building_title"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -272,9 +277,6 @@
                 android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
         </activity>
 
-        <meta-data
-            android:name="PGYER_APPID"
-            android:value="7b4ab9d0b2ff7de6a6a9cc1bb5b54fc0" />
         <meta-data
             android:name="design_width_in_dp"
             android:value="360" />

@@ -48,6 +48,59 @@ public class SearchBuildingGlobalActivity extends BaseWithParamMenuActivity impl
         buildingSearch.setBuildingSearchResultListener(this);
     }
 
+    protected void doSearchQuery(String keyWord, int offset, int page) {
+        GlobalSearchOption globalSearchOption = new GlobalSearchOption();
+        globalSearchOption.keyword(keyWord);
+        globalSearchOption.pageCapacity(offset);
+        globalSearchOption.pageNum(page);
+        buildingSearch.searchInGlobal(globalSearchOption);
+    }
+
+    @Override
+    public void onGetBuildingResult(BuildingResult buildingResult) {
+
+        progressBarView.setVisibility(View.GONE);
+        if (buildingResult.status != 0) {
+            Toast.makeText(this, buildingResult.error.toString(), Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (buildingResult.getIndoorBuildingList() == null || buildingResult.getIndoorBuildingList().isEmpty()) {
+            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
+        indoorBuildingOverlay.removeFromMap();
+        indoorBuildingOverlay.addToMap();
+        indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
+    }
+
+    @Override
+    public void onGetBuildingDetailResult(BuildingDetailResult buildingDetailResult) {
+
+    }
+
+    @Override
+    protected void initBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_global_search_style, this);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            progressBarView.setVisibility(View.VISIBLE);
+            getValueAndSearch(bottomSheetDialogView);
+        });
+    }
+
+    private void getValueAndSearch(View bottomSheetDialogView) {
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
+        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
+
+        doSearchQuery(etKeywords.getText().toString().trim(),
+                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
+                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
+    }
+
     @Override
     public void onMapReady(@NotNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
@@ -97,58 +150,6 @@ public class SearchBuildingGlobalActivity extends BaseWithParamMenuActivity impl
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
-    }
-
-    protected void doSearchQuery(String keyWord, int offset, int page) {
-        GlobalSearchOption globalSearchOption = new GlobalSearchOption();
-        globalSearchOption.keyword(keyWord);
-        globalSearchOption.pageCapacity(offset);
-        globalSearchOption.pageNum(page);
-        buildingSearch.searchInGlobal(globalSearchOption);
-    }
-
-    @Override
-    public void onGetBuildingResult(BuildingResult buildingResult) {
-
-        progressBarView.setVisibility(View.GONE);
-        if (buildingResult.status != 0) {
-            Toast.makeText(this, buildingResult.error.toString(), Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (buildingResult.getIndoorBuildingList() == null || buildingResult.getIndoorBuildingList().isEmpty()) {
-            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
-        indoorBuildingOverlay.removeFromMap();
-        indoorBuildingOverlay.addToMap();
-        indoorBuildingOverlay.zoomToSpan();
-    }
-
-    @Override
-    public void onGetBuildingDetailResult(BuildingDetailResult buildingDetailResult) {
-
-    }
-
-    protected void initBottomSheetDialog() {
-        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
-        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_global_search_style, this);
-        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
-            bottomSheetDialog.dismiss();
-            progressBarView.setVisibility(View.VISIBLE);
-            getValueAndSearch(bottomSheetDialogView);
-        });
-    }
-
-    private void getValueAndSearch(View bottomSheetDialogView) {
-        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
-        EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
-        EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
-
-        doSearchQuery(etKeywords.getText().toString().trim(),
-                etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
-                etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
     }
 }
 
