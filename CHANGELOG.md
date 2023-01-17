@@ -1,5 +1,11 @@
 # Mapxus Map SDK Change Log
 
+## 5.2.1
+
+### Bugs
+* Fix can not see building without 'building name'.
+* Fix the cache of other building floors outside the current building is invalid.
+
 ## 5.2.0
 
 ### Features
