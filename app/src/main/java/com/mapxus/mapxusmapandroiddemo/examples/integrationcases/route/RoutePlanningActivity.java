@@ -309,25 +309,25 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     private final MapxusMap.OnIndoorPoiClickListener pointStartPoiClickListener = new MapxusMap.OnIndoorPoiClickListener() {
         @Override
         public void onIndoorPoiClick(Poi poi) {
-            origin = new RoutePlanningPoint(poi.getBuildingId(), mMapxusMap.getCurrentFloor(), poi.getLongitude(), poi.getLatitude());
+            origin = new RoutePlanningPoint(poi.getBuildingId(), poi.getFloorName(), poi.getLongitude(), poi.getLatitude());
             if (startMarker != null) {
                 mMapxusMap.removeMapxusPointAnnotation(startMarker);
                 startMarker = null;
             }
-            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
+            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), poi.getFloorName(), poi.getBuildingId()));
         }
     };
 
     private final MapxusMap.OnIndoorPoiClickListener pointEndPoiClickListener = new MapxusMap.OnIndoorPoiClickListener() {
         @Override
         public void onIndoorPoiClick(Poi poi) {
-            destination = new RoutePlanningPoint(poi.getBuildingId(), mMapxusMap.getCurrentFloor(), poi.getLongitude(), poi.getLatitude());
+            destination = new RoutePlanningPoint(poi.getBuildingId(), poi.getFloorName(), poi.getLongitude(), poi.getLatitude());
 
             if (endMarker != null) {
                 mMapxusMap.removeMapxusPointAnnotation(endMarker);
                 endMarker = null;
             }
-            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), mMapxusMap.getCurrentFloor(), poi.getBuildingId()));
+            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), poi.getFloorName(), poi.getBuildingId()));
         }
     };
 
