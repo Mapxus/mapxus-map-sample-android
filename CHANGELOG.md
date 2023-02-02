@@ -1,5 +1,10 @@
 # Mapxus Map SDK Change Log
 
+## 5.2.2
+
+### Bugs
+* Fixed bug with custom floor selector cache.
+
 ## 5.2.1
 
 ### Bugs
