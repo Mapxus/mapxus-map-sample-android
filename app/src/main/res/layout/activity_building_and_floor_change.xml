@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="10dp">
@@ -32,7 +32,7 @@
                 android:id="@+id/building_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
+                android:ellipsize="middle"
                 android:maxLines="1"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
@@ -69,7 +69,7 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="8.5"
         app:mapbox_cameraTargetLat="@string/default_lat"
         app:mapbox_cameraTargetLng="@string/default_lon"
         app:mapbox_cameraZoom="@string/default_zoom_level_value" />

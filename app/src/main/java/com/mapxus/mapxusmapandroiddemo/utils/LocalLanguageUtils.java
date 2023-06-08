@@ -3,6 +3,7 @@ package com.mapxus.mapxusmapandroiddemo.utils;
 import android.text.TextUtils;
 
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.api.services.constant.RoutePlanningLocale;
 import com.mapxus.map.mapxusmap.api.services.model.building.Address;
 import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryInfo;
@@ -16,6 +17,38 @@ import java.util.Map;
  * Describe:
  */
 public class LocalLanguageUtils {
+
+    /**
+     * for route planning
+     *
+     * @return RoutePlanningLocale
+     */
+    public static String getLocalLanguage() {
+        Locale locale = Locale.getDefault();
+        String localeLanguage = Locale.getDefault().getLanguage();
+        String routePlanningLocale;
+        switch (localeLanguage) {
+            case "zh":
+                if (locale.getCountry().equals("CN")) {
+                    routePlanningLocale = RoutePlanningLocale.ZH_CN;
+                } else {
+                    routePlanningLocale = RoutePlanningLocale.ZH_HK;
+                }
+                break;
+            case "ja":
+                routePlanningLocale = RoutePlanningLocale.JA;
+                break;
+            case "ko":
+                routePlanningLocale = RoutePlanningLocale.KO;
+                break;
+            default:
+                routePlanningLocale = RoutePlanningLocale.EN;
+                break;
+        }
+
+        return routePlanningLocale;
+    }
+
 
     /**
      * common

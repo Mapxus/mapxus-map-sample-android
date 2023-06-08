@@ -1,6 +1,8 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases.route;
 
 
+import static com.mapxus.mapxusmapandroiddemo.utils.LocalLanguageUtils.getLocalLanguage;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -26,6 +31,8 @@ import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
 import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusPointAnnotation;
 import com.mapxus.map.mapxusmap.api.services.RoutePlanning;
 import com.mapxus.map.mapxusmap.api.services.constant.RoutePlanningVehicle;
+import com.mapxus.map.mapxusmap.api.services.model.planning.InstructionDto;
+import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningPoint;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningRequest;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningResult;
@@ -33,11 +40,16 @@ import com.mapxus.map.mapxusmap.api.services.model.planning.RouteResponseDto;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.map.mapxusmap.overlay.route.RoutePainter;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.adapter.InstructionsAdapter;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.customizeview.SwitchView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RoutePlanningActivity extends AppCompatActivity implements RoutePlanning.RoutePlanningResultListener, OnMapxusMapReadyCallback {
 
@@ -53,6 +65,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private TextView tvStart, tvEnd;
     private Button goBtn;
+    private Button openInstructions;
 
     private String vehicle = RoutePlanningVehicle.FOOT;
     private boolean toDoor = false;
@@ -60,8 +73,40 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
     private MapxusNavigationPositioningProvider mapxusPositioningProvider;
     private RoutePainter routePainter;
+    private InstructionsAdapter instructionsAdapter;
 
     private RouteResponseDto routeResponseDto = null;
+    private final View.OnClickListener goBtnClickListener = v -> {
+        if (goBtn.getText().toString().equals(getString(R.string.go))) {
+            if (routeResponseDto == null) {
+                new MaterialDialog.Builder(this)
+                        .title(getString(R.string.warning))
+                        .content(getString(R.string.search_first))
+                        .positiveText(getString(R.string.ok))
+                        .onPositive((dialog, which) -> dialog.dismiss()).show();
+                return;
+            }
+            goBtn.setText(R.string.stop);
+            mMapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
+            mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapboxMap);
+            mapxusPositioningProvider.setOnReachListener(() -> {
+                mapxusPositioningProvider.setOnPathChange(null);
+                routePainter.cleanRoute();
+                Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
+                instructionsAdapter.notifyCurrentPosition(routeResponseDto.getPaths().get(0).getInstructions().size() - 1);
+                mapxusPositioningProvider.setRouteAdsorber(null);
+            });
+            mapxusPositioningProvider.setOnPathChange(pathDto -> {
+                int size = routeResponseDto.getPaths().get(0).getInstructions().size();
+                int size1 = pathDto.getInstructions().size();
+                instructionsAdapter.notifyCurrentPosition(size - size1);
+            });
+        } else {
+            goBtn.setText(R.string.go);
+            mapxusPositioningProvider.setRouteAdsorber(null);
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +124,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
 
         progressBarView = findViewById(R.id.loding_view);
 
+
         SwitchView switchView = findViewById(R.id.switch_view);
         switchView.setOnCheckChangedListener(checked -> vehicle = checked ? RoutePlanningVehicle.WHEELCHAIR : RoutePlanningVehicle.FOOT);
 
@@ -90,6 +136,8 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         tvStart.setOnClickListener(pointClickListener);
         tvEnd.setOnClickListener(pointClickListener);
         findViewById(R.id.btn_search).setOnClickListener(planningBtnClickListener);
+        openInstructions = findViewById(R.id.open_instructions);
+        openInstructions.setOnClickListener(v -> initBottomSheetDialog());
         goBtn = findViewById(R.id.btn_go);
         goBtn.setOnClickListener(goBtnClickListener);
 
@@ -103,6 +151,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         RoutePlanningRequest request = new RoutePlanningRequest(origin, destination);
         request.setVehicle(vehicle);
         request.setToDoor(toDoor);
+        request.setLocale(getLocalLanguage());
         routePlanning.route(request);
     }
 
@@ -115,7 +164,6 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             mMapxusMap.removeMapxusPointAnnotation(endMarker);
             endMarker = null;
         }
-        mapboxMap.setMaxZoomPreference(22);
         routePainter = new RoutePainter(this, mapboxMap, mMapxusMap);
         routePainter.paintRouteUsingResult(route);
     }
@@ -174,20 +222,33 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         mapView.onLowMemory();
     }
 
-    @Override
-    public void onGetRoutePlanningResult(RoutePlanningResult routePlanningResult) {
-        progressBarView.setVisibility(View.GONE);
-        if (routePlanningResult.status != 0) {
-            Toast.makeText(this, routePlanningResult.error.toString(), Toast.LENGTH_LONG).show();
-            return;
+    private void initBottomSheetDialog() {
+
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        bottomSheetDialog.getBehavior().setDraggable(false);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_instructions_style, this);
+        bottomSheetDialogView.findViewById(R.id.iv_close).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        TextView tvTotalDistance = bottomSheetDialogView.findViewById(R.id.tv_total_distance);
+        TextView tvTotalTime = bottomSheetDialogView.findViewById(R.id.tv_total_time);
+
+        double _totalDistance = 0;
+        long _totaltime = 0;
+
+        List<InstructionDto> instructionDtos = new ArrayList<>();
+        for (PathDto pathDto : routeResponseDto.getPaths()) {
+            instructionDtos.addAll(pathDto.getInstructions());
+            _totalDistance += pathDto.getDistance();
+            _totaltime += pathDto.getTime();
         }
-        if (routePlanningResult.getRouteResponseDto() == null) {
-            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
-            return;
-        }
-        routeResponseDto = routePlanningResult.getRouteResponseDto();
-        drawRoute(routeResponseDto);
-        mMapxusMap.selectFloor(origin.getFloor());
+
+
+        tvTotalDistance.setText(String.format("%s m", (int) Math.floor(_totalDistance)));
+        tvTotalTime.setText(String.format("%s min", TimeUnit.MILLISECONDS.toMinutes(_totaltime)));
+
+        RecyclerView recyclerView = bottomSheetDialogView.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(instructionsAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -249,30 +310,24 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         getRoute();
     };
 
-    private final View.OnClickListener goBtnClickListener = v -> {
-        if (goBtn.getText().toString().equals(getString(R.string.go))) {
-            if (routeResponseDto == null) {
-                new MaterialDialog.Builder(this)
-                        .title(getString(R.string.warning))
-                        .content(getString(R.string.search_first))
-                        .positiveText(getString(R.string.ok))
-                        .onPositive((dialog, which) -> dialog.dismiss()).show();
-                return;
-            }
-            goBtn.setText(R.string.stop);
-            mMapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
-            mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapboxMap);
-            mapxusPositioningProvider.setOnReachListener(() -> {
-                routePainter.cleanRoute();
-                Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
-                mapxusPositioningProvider.setRouteAdsorber(null);
-            });
-        } else {
-            goBtn.setText(R.string.go);
-            mapxusPositioningProvider.setRouteAdsorber(null);
+    @Override
+    public void onGetRoutePlanningResult(RoutePlanningResult routePlanningResult) {
+        progressBarView.setVisibility(View.GONE);
+        if (routePlanningResult.status != 0) {
+            Toast.makeText(this, routePlanningResult.error.toString(), Toast.LENGTH_LONG).show();
+            return;
         }
+        if (routePlanningResult.getRouteResponseDto() == null) {
+            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
+            return;
+        }
+        routeResponseDto = routePlanningResult.getRouteResponseDto();
+        drawRoute(routeResponseDto);
+        instructionsAdapter = new InstructionsAdapter(routeResponseDto.getPaths().get(0).getInstructions());
 
-    };
+        mMapxusMap.selectFloor(origin.getFloor());
+        openInstructions.setEnabled(true);
+    }
 
     private void removeAllSelectedMapClickListener() {
         mMapxusMap.removeOnMapClickListener(pointEndMapClickListener);

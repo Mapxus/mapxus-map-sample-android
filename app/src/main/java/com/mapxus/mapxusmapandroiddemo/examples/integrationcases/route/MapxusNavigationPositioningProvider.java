@@ -138,6 +138,10 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
         routeShortener = new RouteShortener(navigationPathDto, pathDto, pathDto.getIndoorPoints());
     }
 
+    public void setOnPathChange(RouteShortener.OnPathChangeListener onPathChange) {
+        routeShortener.setOnPathChangeListener(onPathChange);
+    }
+
     public void setOnReachListener(RouteAdsorber.OnReachListener onReachListener) {
         routeAdsorber.setOnReachListener(onReachListener);
     }

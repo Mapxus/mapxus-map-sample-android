@@ -62,6 +62,8 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mapxusMap = mapxusMap;
 
+//            mapxusMap.selectFloor(getString(R.string.default_visual_floor));
+
             initListener();
 
         });

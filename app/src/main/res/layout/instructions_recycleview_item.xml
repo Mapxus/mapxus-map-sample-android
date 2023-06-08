@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/instruction_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="22dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_instruction_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="40dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        tools:text="Turn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn rightTurn right" />
+
+    <TextView
+        android:id="@+id/tv_instruction_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        tools:text="25m" />
+
+
+</RelativeLayout>

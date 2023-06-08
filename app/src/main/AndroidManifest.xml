@@ -187,7 +187,7 @@
         </activity>
         <activity
             android:name=".examples.integrationcases.SearchPoiWithOrientationActivity"
-            android:label="@string/activity_search_service_poi_in_building_title"
+            android:label="@string/activity_search_service_poi_with_orientation_title"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

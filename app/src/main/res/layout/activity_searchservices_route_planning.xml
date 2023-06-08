@@ -117,6 +117,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp" />
+
+            <Button
+                android:id="@+id/open_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:enabled="false"
+                android:text="Instructions"
+                android:textAllCaps="false" />
         </LinearLayout>
 
     </LinearLayout>
