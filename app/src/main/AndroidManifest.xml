@@ -106,6 +106,14 @@
                 android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
         </activity>
         <activity
+            android:name=".examples.mapinteraction.FloorSwitchModeActivity"
+            android:label="@string/activity_floor_switch_mode_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
             android:name=".examples.mapinteraction.IndoorSceneInAndOutListenerActivity"
             android:label="@string/activity_listener_camera_change_listener_title"
             android:screenOrientation="portrait">
@@ -140,6 +148,40 @@
         <activity
             android:name=".examples.searchservices.SearchBuildingGlobalActivity"
             android:label="@string/activity_search_service_building_global_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".examples.searchservices.SearchVenueGlobalActivity"
+            android:label="@string/activity_search_service_venue_global_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".examples.searchservices.SearchVenueInboundActivity"
+            android:label="@string/activity_search_service_venue_in_bound_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name=".examples.searchservices.SearchVenueNearbyActivity"
+            android:label="@string/activity_search_service_venue_nearby_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
+            android:name=".examples.searchservices.SearchVenueDetailActivity"
+            android:label="@string/activity_search_service_venue_by_id_title"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

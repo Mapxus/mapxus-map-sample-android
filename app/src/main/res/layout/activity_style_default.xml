@@ -11,7 +11,7 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="10"
         app:mapbox_cameraTargetLat="@string/default_lat"
         app:mapbox_cameraTargetLng="@string/default_lon"
         app:mapbox_cameraZoom="@string/default_zoom_level_value" />
@@ -19,7 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -42,20 +42,19 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/style_language_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/switch_button"
-            android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp">
 
             <Button
                 android:id="@+id/btn_style"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_shape_blue"
                 android:text="@string/style"
@@ -64,10 +63,9 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/btn_laguage"
+                android:id="@+id/btn_language"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_shape_blue"
                 android:text="@string/language"
@@ -75,6 +73,18 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_building_outline_style"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/style_language_layout"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_shape_blue"
+            android:text="@string/building_outline_style"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 </LinearLayout>

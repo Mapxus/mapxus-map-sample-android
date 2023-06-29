@@ -49,6 +49,8 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
 
     private boolean isPositioningFailed;
 
+    private MaterialDialog errorMessageDialog;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,10 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         mapViewProvider.getMapxusMapAsync(this);
         mapxusPositioningProvider = new MapxusPositioningProvider(this, getApplicationContext());
         initView();
+        errorMessageDialog = new MaterialDialog.Builder(LocationProviderActivity.this)
+                .positiveText(R.string.ok)
+                .onAny((dialog, which) -> dialog.dismiss())
+                .build();
     }
 
     private void initView() {
@@ -132,7 +138,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
 
             @Override
             public void onProviderError(ErrorInfo error) {
-                if (dialog != null && dialog.isShowing()) {
+                if (dialog != null && dialog.isShowing() && !isFinishing()) {
                     dialog.dismiss();
                     dialog = null;
                 }
@@ -141,10 +147,10 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
                     return;
                 }
 
-                new MaterialDialog.Builder(LocationProviderActivity.this)
-                        .content(error.getErrorMessage())
-                        .positiveText(R.string.ok)
-                        .onAny((dialog, which) -> dialog.dismiss()).show();
+                if (errorMessageDialog != null && errorMessageDialog.isShowing() && !isFinishing()) {
+                    errorMessageDialog.setContent(error.getErrorMessage());
+                    errorMessageDialog.show();
+                }
 
                 isPositioningFailed = true;
             }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +15,11 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.api.map.model.Venue;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.PoiCategorySearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryInfo;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
@@ -151,9 +155,19 @@ public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity imp
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
-        mapxusMap.addOnFloorChangeListener((indoorBuilding, floor) -> {
-            this.floor = floor;
-            buildingId = indoorBuilding.getBuildingId();
+        mapxusMap.addOnFloorChangedListener(new MapxusMap.OnFloorChangedListener() {
+            @Override
+            public void onFloorChange(@Nullable Venue venue, @Nullable IndoorBuilding indoorBuilding, @Nullable FloorInfo floorInfo) {
+                SearchPoiCategoriesInBuildingActivity.this.floor = floor;
+                buildingId = indoorBuilding.getBuildingId();
+            }
+        });
+        mapxusMap.addOnFloorChangeListener(new MapxusMap.OnFloorChangeListener() {
+
+            @Override
+            public void onFloorChange(@Nullable IndoorBuilding indoorBuilding, @Nullable String floor) {
+
+            }
         });
     }
 

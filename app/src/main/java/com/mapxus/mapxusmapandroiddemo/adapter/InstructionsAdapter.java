@@ -23,16 +23,16 @@ public class InstructionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private int currentPosition = -1;
 
-    public InstructionsAdapter(List<InstructionDto> instructionDtos) {
-        this.instructionDtos = instructionDtos;
-    }
-
     public void notifyCurrentPosition(int position) {
         if (currentPosition != position) {
             currentPosition = position;
             notifyDataSetChanged();
         }
 
+    }
+
+    public InstructionsAdapter(List<InstructionDto> instructionDtos) {
+        this.instructionDtos = instructionDtos;
     }
 
     @NotNull

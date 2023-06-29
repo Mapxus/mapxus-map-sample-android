@@ -14,6 +14,7 @@
     <string name="activity_gesture_interaction_for_switching_building">切换建筑的手势交互</string>
     <string name="activity_camera_animate_title">方法交互（切换室内场景）</string>
     <string name="activity_listener_click_title">事件交互（监听点击）</string>
+    <string name="activity_floor_switch_mode_title">切换室内楼层模式</string>
     <string name="activity_listener_building_floor_change_title">事件交互（监听室内场景切换）</string>
     <string name="activity_listener_camera_change_listener_title">事件交互（监听进出室内场景）</string>
 
@@ -21,6 +22,11 @@
     <string name="activity_annotation_polygon_title">按楼层绘制多边形</string>
 
     <string name="activity_display_location_title">室内定位效果展示</string>
+
+    <string name="activity_search_service_venue_global_title">全球范围内搜索地点</string>
+    <string name="activity_search_service_venue_in_bound_title">指定矩形区域内搜索地点</string>
+    <string name="activity_search_service_venue_nearby_title">在附近搜索地点</string>
+    <string name="activity_search_service_venue_by_id_title">指定venueID搜索地点</string>
 
     <string name="activity_search_service_building_global_title">全球范围内搜索建筑</string>
     <string name="activity_search_service_building_in_bound_title">指定矩形区域内搜索建筑 </string>

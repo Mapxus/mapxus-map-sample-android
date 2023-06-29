@@ -14,6 +14,7 @@
     <string name="activity_gesture_interaction_for_switching_building_description">設置切換建築手勢。</string>
     <string name="activity_camera_animate_description">代碼設置聚焦的室內場景。</string>
     <string name="activity_listener_click_description">監聽單擊、長按地圖事件，單擊POI事件。</string>
+    <string name="activity_floor_switch_mode_description">通過參數選擇不同的切換樓層的模式。</string>
     <string name="activity_listener_building_floor_change_description">監聽室內場景切換事件。</string>
     <string name="activity_listener_camera_change_listener_description">監聽進出室內場景事件。 </string>
 
@@ -21,6 +22,11 @@
     <string name="activity_annotation_polygon_description">當前場景只顯示對應樓層的繪制多邊形。</string>
 
     <string name="activity_display_location_description">展示室內定位及地圖跟隨的效果。</string>
+
+    <string name="activity_search_service_venue_global_description">在全球範圍內搜索地点。 </string>
+    <string name="activity_search_service_venue_in_bound_description">在指定的矩形區域內搜索地点。 </string>
+    <string name="activity_search_service_venue_nearby_description">在指定的圓形區域內搜索地点。 </string>
+    <string name="activity_search_service_venue_by_id_description">按venueID搜索地点。 </string>
 
     <string name="activity_search_service_building_global_description">在全球範圍內搜索建築。 </string>
     <string name="activity_search_service_building_in_bound_description">在指定的矩形區域內搜索建築。 </string>

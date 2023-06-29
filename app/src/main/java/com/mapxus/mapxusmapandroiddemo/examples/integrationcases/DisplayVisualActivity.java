@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -14,6 +15,8 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.api.map.model.Venue;
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.visual.MapxusVisual;
@@ -25,7 +28,7 @@ import com.mapxus.visual.repository.image.VisualImageRepository;
 
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener, MapxusMap.OnFloorChangeListener {
+public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener, MapxusMap.OnFloorChangeListener, MapxusMap.OnFloorChangedListener {
 
     private MapView mapView;
     private MapxusMap mapxusMap;
@@ -261,10 +264,14 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         }
     };
 
+    @Override
+    public void onFloorChange(@Nullable Venue venue, @Nullable IndoorBuilding indoorBuilding, @Nullable FloorInfo floorInfo) {
+        mapxusVisual.setVisibility(View.GONE);
+        switchBtn.setVisibility(View.GONE);
+    }
 
     @Override
     public void onFloorChange(IndoorBuilding indoorBuilding, String floorName) {
-        mapxusVisual.setVisibility(View.GONE);
-        switchBtn.setVisibility(View.GONE);
+
     }
 }

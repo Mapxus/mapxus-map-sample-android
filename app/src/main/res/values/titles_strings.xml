@@ -14,6 +14,7 @@
     <string name="activity_gesture_interaction_for_switching_building">Gesture interaction for switching buildings</string>
     <string name="activity_camera_animate_title">Method interaction(Switching indoor scenes)</string>
     <string name="activity_listener_click_title">Click event listener</string>
+    <string name="activity_floor_switch_mode_title">Switching indoor floor mode</string>
     <string name="activity_listener_building_floor_change_title">Indoor scene switching event listener</string>
     <string name="activity_listener_camera_change_listener_title">Get in or leave indoor scene event listener </string>
 
@@ -21,6 +22,11 @@
     <string name="activity_annotation_polygon_title">Drawing polygons by floor</string>
 
     <string name="activity_display_location_title">Indoor positioning </string>
+
+    <string name="activity_search_service_venue_global_title">Search venue globally </string>
+    <string name="activity_search_service_venue_in_bound_title">Search venue in the specified area </string>
+    <string name="activity_search_service_venue_nearby_title">Search venue nearby </string>
+    <string name="activity_search_service_venue_by_id_title">Search venue by venue id </string>
 
     <string name="activity_search_service_building_global_title">Search building globally </string>
     <string name="activity_search_service_building_in_bound_title">Search building in the specified area </string>

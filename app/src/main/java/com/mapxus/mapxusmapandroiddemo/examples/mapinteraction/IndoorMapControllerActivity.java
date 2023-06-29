@@ -2,8 +2,8 @@ package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -16,6 +16,7 @@ import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -43,6 +44,7 @@ public class IndoorMapControllerActivity extends AppCompatActivity implements On
         switchButton.setOnCheckedChangeListener(this);
         currentPosition = SelectorPosition.CENTER_LEFT;
         findViewById(R.id.btn_position).setOnClickListener(this);
+        findViewById(R.id.btn_box_length).setOnClickListener(this);
     }
 
     @Override
@@ -96,32 +98,50 @@ public class IndoorMapControllerActivity extends AppCompatActivity implements On
 
     @Override
     public void onClick(View v) {
-        switch (currentPosition) {
-            case SelectorPosition.CENTER_LEFT:
-                uiSettings.setSelectorPosition(SelectorPosition.CENTER_RIGHT);
-                currentPosition = SelectorPosition.CENTER_RIGHT;
+        switch (v.getId()) {
+            case R.id.btn_position:
+                switch (currentPosition) {
+                    case SelectorPosition.CENTER_LEFT:
+                        uiSettings.setSelectorPosition(SelectorPosition.CENTER_RIGHT);
+                        currentPosition = SelectorPosition.CENTER_RIGHT;
+                        break;
+                    case SelectorPosition.CENTER_RIGHT:
+                        uiSettings.setSelectorPosition(SelectorPosition.BOTTOM_LEFT);
+                        currentPosition = SelectorPosition.BOTTOM_LEFT;
+                        break;
+                    case SelectorPosition.BOTTOM_LEFT:
+                        uiSettings.setSelectorPosition(SelectorPosition.BOTTOM_RIGHT);
+                        currentPosition = SelectorPosition.BOTTOM_RIGHT;
+                        break;
+                    case SelectorPosition.BOTTOM_RIGHT:
+                        uiSettings.setSelectorPosition(SelectorPosition.TOP_LEFT);
+                        currentPosition = SelectorPosition.TOP_LEFT;
+                        break;
+                    case SelectorPosition.TOP_LEFT:
+                        uiSettings.setSelectorPosition(SelectorPosition.TOP_RIGHT);
+                        currentPosition = SelectorPosition.TOP_RIGHT;
+                        break;
+                    case SelectorPosition.TOP_RIGHT:
+                        uiSettings.setSelectorPosition(SelectorPosition.CENTER_LEFT);
+                        currentPosition = SelectorPosition.CENTER_LEFT;
+                        break;
+                }
                 break;
-            case SelectorPosition.CENTER_RIGHT:
-                uiSettings.setSelectorPosition(SelectorPosition.BOTTOM_LEFT);
-                currentPosition = SelectorPosition.BOTTOM_LEFT;
-                break;
-            case SelectorPosition.BOTTOM_LEFT:
-                uiSettings.setSelectorPosition(SelectorPosition.BOTTOM_RIGHT);
-                currentPosition = SelectorPosition.BOTTOM_RIGHT;
-                break;
-            case SelectorPosition.BOTTOM_RIGHT:
-                uiSettings.setSelectorPosition(SelectorPosition.TOP_LEFT);
-                currentPosition = SelectorPosition.TOP_LEFT;
-                break;
-            case SelectorPosition.TOP_LEFT:
-                uiSettings.setSelectorPosition(SelectorPosition.TOP_RIGHT);
-                currentPosition = SelectorPosition.TOP_RIGHT;
-                break;
-            case SelectorPosition.TOP_RIGHT:
-                uiSettings.setSelectorPosition(SelectorPosition.CENTER_LEFT);
-                currentPosition = SelectorPosition.CENTER_LEFT;
+            case R.id.btn_box_length:
+                openBottomSheetDialog();
                 break;
         }
+    }
+
+    private void openBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_box_length_style, this);
+        EditText etVisibleFloors = bottomSheetDialogView.findViewById(R.id.et_visible_item);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            uiSettings.setSelectorVisibleItem(Integer.parseInt(etVisibleFloors.getText().toString()));
+
+        });
     }
 
     @Override

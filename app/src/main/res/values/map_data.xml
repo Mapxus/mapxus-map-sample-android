@@ -13,6 +13,7 @@
     <string name="default_visual_zoom" translatable="false">17</string>
 
     <string name="default_search_text_building_id" translatable="false">tsuenwanplaza_hk_369d01</string>
+    <string name="default_search_text_venue_id" translatable="false">eee1fae0c18447a8b6b86a80ad53ff88</string>
     <string name="default_poi_id" translatable="false">9478263</string>
 
     <string name="route_plan_lat" translatable="false">22.296943</string>

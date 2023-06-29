@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,10 +44,13 @@ public class IndoorSceneSwitchingListenerActivity extends AppCompatActivity impl
                 buildingNameTv.setText(indoorBuildingInfo.getBuildingName());
             }
         });
-        mapxusMap.addOnFloorChangeListener((indoorBuilding, floor) -> {
-            if (indoorBuilding != null) {
-                floorTv.setText(floor);
+        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
+            if (indoorBuilding != null && floorInfo != null) {
+                floorTv.setText(floorInfo.getCode());
             }
+        });
+        mapxusMap.addOnFloorChangeListener((indoorBuilding, floor) -> {
+            Log.i("TAG", "onMapxusMapReady: " + floor);
         });
     }
 

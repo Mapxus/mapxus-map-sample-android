@@ -14,6 +14,7 @@
     <string name="activity_gesture_interaction_for_switching_building_description">Setting gestures for switching buildings.</string>
     <string name="activity_camera_animate_description">Use code settings to focus on indoor scenes.</string>
     <string name="activity_listener_click_description">Listener for click or long on the map, and click POI event.</string>
+    <string name="activity_floor_switch_mode_description">Select different modes of switching floors by parameters.</string>
     <string name="activity_listener_building_floor_change_description">Listener for indoor scene switching events.</string>
     <string name="activity_listener_camera_change_listener_description">Listener for get in indoor or leave indoor scene. </string>
 
@@ -21,6 +22,11 @@
     <string name="activity_annotation_polygon_description">Only display the polygon on current floor.</string>
 
     <string name="activity_display_location_description">Show the positioning location and different following mode. </string>
+
+    <string name="activity_search_service_venue_global_description">Search venue globally. </string>
+    <string name="activity_search_service_venue_in_bound_description">Search venue in the specified rectangular area. </string>
+    <string name="activity_search_service_venue_nearby_description">Search venue in the specified circular area. </string>
+    <string name="activity_search_service_venue_by_id_description">Search venue by venue id. </string>
 
     <string name="activity_search_service_building_global_description">Search building globally. </string>
     <string name="activity_search_service_building_in_bound_description">Search building in the specified rectangular area. </string>

@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -238,6 +239,8 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
             }
         });
 
-        mapxusMap.addOnFloorChangeListener((indoorBuilding, floor) -> this.indoorBuilding = indoorBuilding);
+        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> SearchPoiWithOrientationActivity.this.indoorBuilding = indoorBuilding);
+
+        mapxusMap.addOnFloorChangeListener((indoorBuilding, s) -> Log.i("TAG", "onFloorChange: " + indoorBuilding));
     }
 }

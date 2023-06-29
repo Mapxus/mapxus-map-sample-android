@@ -60,8 +60,8 @@ dependencies {
     implementation "pub.devrel:easypermissions:3.0.0"
 
     // MapxusMap
-    implementation "com.mapxus.visual:mapxusvisual:0.2.7"
-    implementation "com.mapxus.map:mapxusmap:5.2.2"
+    implementation "com.mapxus.visual:mapxusvisual:0.3.1"
+    implementation "com.mapxus.map:mapxusmap:7.1.0"
     implementation 'com.mapxus.positioning:positioning:2.2.4'
 
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'

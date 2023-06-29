@@ -18,6 +18,9 @@
     <string name="menu_map_style_mapxus_v2">Mapxus_V2</string>
     <string name="cancel">Cancel</string>
 
+    <!--floor switch mode-->
+    <string name="menu_floor_switch_mode_venue">Switching By Venue</string>
+    <string name="menu_floor_switch_mode_building">Switching By Building</string>
 
     <!--Fragment below textview in support fragment activity-->
     <string name="fragment_in_card_below" translatable="false">Map fragment container in card below</string>
@@ -59,7 +62,10 @@
     <string name="zoom_level_value" translatable="false">20</string>
     <string name="is_always_hidden" translatable="false">isAlwaysHidden</string>
     <string name="position" translatable="false">Position</string>
+    <string name="box_length" translatable="false">Box Length</string>
     <string name="language" translatable="false">Language</string>
+    <string name="building_outline_style" translatable="false">Active Building Outline</string>
+    <string name="floor_switch_mode" translatable="false">Floor Switch Mode</string>
     <string name="is_outdoor_hidden" translatable="false">isOutdoorHidden</string>
     <string name="default_text" translatable="false">default</string>
     <string name="en" translatable="false">en</string>
@@ -78,6 +84,10 @@
     <string name="compass" translatable="false">compass :</string>
     <string name="time_stamp" translatable="false">timestamp :</string>
     <string name="keywords" translatable="false">keywords</string>
+    <string name="visible_floor" translatable="false">Maximum number of visible floors</string>
+    <string name="building_outline_opacity" translatable="false">Opacity (from 0 to 1)</string>
+    <string name="building_outline_color" translatable="false">color(Hex)</string>
+    <string name="building_outline_line_width" translatable="false">line width</string>
     <string name="offset" translatable="false">offset</string>
     <string name="default_offset" translatable="false">10</string>
     <string name="page" translatable="false">page</string>

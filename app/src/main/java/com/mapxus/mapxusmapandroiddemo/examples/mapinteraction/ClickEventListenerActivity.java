@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +26,7 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
     private MapView mapView;
     private MapViewProvider mapViewProvider;
     private IndoorBuilding indoorBuilding;
-    private String buildingName, floorName;
+    private String venueName, buildingName, floorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +41,29 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
-
-        mapxusMap.addOnMapClickListener((latLng, floor, buildingId, floorId) -> {
-            setBuildingName(buildingId);
-            displayDialog("You have tap at coordinate " + latLng.latitude + "," + latLng.longitude + "," + floor + "," + buildingName);
+        mapxusMap.addOnMapClickedListener((latLng, floorInfo, indoorBuilding, venue) -> {
+            if (indoorBuilding != null) {
+                buildingName = indoorBuilding.getBuildingName();
+                venueName = venue.getVenueName();
+            } else {
+                buildingName = null;
+                venueName = null;
+            }
+            displayDialog("You have tap at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floorInfo != null ? floorInfo.getCode() : "") + "," + buildingName + "," + venueName);
+        });
+        mapxusMap.addOnMapClickListener((latLng, floor, buildingId, floorId) -> Log.i("TAG", "onMapClick: " + floor));
+        mapxusMap.addOnMapLongClickedListener((latLng, floorInfo, indoorBuilding, venue) -> {
+            if (indoorBuilding != null) {
+                buildingName = indoorBuilding.getBuildingName();
+                venueName = venue.getVenueName();
+            } else {
+                buildingName = null;
+                venueName = null;
+            }
+            displayDialog("You have long press at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floorInfo != null ? floorInfo.getCode() : "") + "," + buildingName + "," + venueName);
         });
 
-        mapxusMap.addOnMapLongClickListener((latLng, floor, buildingId, floorId) -> {
-            setBuildingName(buildingId);
-            displayDialog("You have long press at coordinate " + latLng.latitude + "," + latLng.longitude + "," + floor + "," + buildingName);
-        });
+        mapxusMap.addOnMapLongClickListener((latLng, floor, buildingId, floorId) -> Log.i("TAG", "onMapLongClick: " + floor));
 
         mapxusMap.addOnIndoorPoiClickListener(poi -> {
             setBuildingName(poi.getBuildingId());
@@ -58,7 +72,7 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
                     floorName = entry.getKey();
                 }
             }
-            displayDialog("You have tap on POI " + poi.getName() + "," + floorName + "," + buildingName);
+            displayDialog("You have tap on POI " + poi.getName() + "," + floorName + "," + buildingName + "," + venueName);
         });
 
         mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {

@@ -33,6 +33,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.SupportMapFragmentAc
 import com.mapxus.mapxusmapandroiddemo.examples.mapediting.DrawMarkerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapediting.DrawPolygonActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.ClickEventListenerActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.FloorSwitchModeActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.FocusOnIndoorSceneActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.GestureInteractionSwitchBuildingActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.IndoorMapControllerActivity;
@@ -48,12 +49,15 @@ import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiDetailAc
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInBuildingActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInboundActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiNearbyActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchVenueDetailActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchVenueGlobalActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchVenueInboundActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchVenueNearbyActivity;
 import com.mapxus.mapxusmapandroiddemo.model.ExampleItemModel;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -172,6 +176,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_search_service:
 
                 exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_search_service_venue_global_title,
+                        R.string.activity_search_service_venue_global_description,
+                        new Intent(MainActivity.this, SearchVenueGlobalActivity.class),
+                        R.drawable.search_building_global));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_search_service_venue_in_bound_title,
+                        R.string.activity_search_service_venue_in_bound_description,
+                        new Intent(MainActivity.this, SearchVenueInboundActivity.class),
+                        R.drawable.search_building_in_bound));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_search_service_venue_nearby_title,
+                        R.string.activity_search_service_venue_nearby_description,
+                        new Intent(MainActivity.this, SearchVenueNearbyActivity.class),
+                        R.drawable.search_building_nearby));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_search_service_venue_by_id_title,
+                        R.string.activity_search_service_venue_by_id_description,
+                        new Intent(MainActivity.this, SearchVenueDetailActivity.class),
+                        R.drawable.search_building_by_id));
+
+                exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_search_service_building_global_title,
                         R.string.activity_search_service_building_global_description,
                         new Intent(MainActivity.this, SearchBuildingGlobalActivity.class),
@@ -275,6 +303,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_gesture_interaction_for_switching_building_description,
                         new Intent(MainActivity.this, GestureInteractionSwitchBuildingActivity.class),
                         R.drawable.switching_building_gestures));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_floor_switch_mode_title,
+                        R.string.activity_floor_switch_mode_description,
+                        new Intent(MainActivity.this, FloorSwitchModeActivity.class),
+                        R.drawable.focus_on_indoor_scene));
 
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_camera_animate_title,

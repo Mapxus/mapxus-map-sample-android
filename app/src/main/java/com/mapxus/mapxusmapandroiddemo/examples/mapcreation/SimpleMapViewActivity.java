@@ -25,6 +25,7 @@ public class SimpleMapViewActivity extends AppCompatActivity {
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider.getMapxusMapAsync(mapxusMap -> mapxusMap.getMapxusUiSettings().setCollapseCopyright(true));
     }
 
     @Override

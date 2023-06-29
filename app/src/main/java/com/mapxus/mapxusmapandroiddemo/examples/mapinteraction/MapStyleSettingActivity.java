@@ -1,10 +1,12 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
@@ -12,12 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.model.BuildingBorderStyle;
 import com.mapxus.map.mapxusmap.api.map.model.MapLanguage;
 import com.mapxus.map.mapxusmap.api.map.model.Style;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +52,8 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
         mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
 
         findViewById(R.id.btn_style).setOnClickListener(this);
-        findViewById(R.id.btn_laguage).setOnClickListener(this);
+        findViewById(R.id.btn_language).setOnClickListener(this);
+        findViewById(R.id.btn_building_outline_style).setOnClickListener(this);
 
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         navigationHeight = getResources().getDimensionPixelSize(resourceId);
@@ -184,10 +190,31 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
             case R.id.btn_style:
                 openPopupWindow(v, STYLE);
                 break;
-            case R.id.btn_laguage:
+            case R.id.btn_language:
                 openPopupWindow(v, LANGUAGE);
                 break;
+            case R.id.btn_building_outline_style:
+                openBottomSheetDialog();
+                break;
         }
+    }
+
+    private void openBottomSheetDialog() {
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_building_outline_style, this);
+        bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+
+            EditText etOpacity = bottomSheetDialogView.findViewById(R.id.et_building_outline_opacity);
+            EditText etLineColor = bottomSheetDialogView.findViewById(R.id.et_building_outline_color);
+            EditText etLineWidth = bottomSheetDialogView.findViewById(R.id.et_building_outline_line_width);
+
+            BuildingBorderStyle buildingBorderStyle = new BuildingBorderStyle();
+            buildingBorderStyle.setLineOpacity(Expression.literal(Float.parseFloat(etOpacity.getText().toString())));
+            buildingBorderStyle.setLineColor(Expression.color(Color.parseColor(String.format("#%s", etLineColor.getText().toString()))));
+            buildingBorderStyle.setLineWidth(Expression.literal(Float.parseFloat(etLineWidth.getText().toString())));
+            mapxusMap.getMapxusUiSettings().setSelectedBuildingBorderStyle(buildingBorderStyle);
+        });
     }
 
     @Override

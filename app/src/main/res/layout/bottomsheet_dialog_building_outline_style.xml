@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/textview_shape_white_top_radius"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".examples.mapcreation.MapxusMapInitWithBuildingParamsActivity">
+
+    <TextView
+        android:id="@+id/tv_building_outline_opacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/building_outline_opacity"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_building_outline_opacity"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="@null"
+        android:inputType="numberDecimal"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_building_outline_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/building_outline_color"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_building_outline_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="@null"
+        android:inputType="text"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="F56004"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_building_outline_line_width"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/building_outline_line_width"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_building_outline_line_width"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="@null"
+        android:inputType="number"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="5"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_shape_blue"
+        android:text="@string/create"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>
