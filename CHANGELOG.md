@@ -3,13 +3,11 @@
 ## 7.1.0
 
 ### Bugs
-
 * Fixed bug where getImplMapAsync function only returns mapxusmap object the first time.
 * Fix overlapped levels problem.
 * Fix can not see building without 'building name'.
 
 ### Features
-
 * MinSdkVersion changed from 21 to 24.
 * Optimize the map display to prevent floors from overlapping during initialization.
 * New style for displaying copyright icons.
@@ -18,14 +16,15 @@
 * New search error return information.
 * Mapxus Point Annotation incoming images are now supported as bitmap
 * New Floor Selector style.
-* Add a Building outline when building is selected.
-* Route planning api changed from v1 to v2.
+* Add a Building outline when building is selected and support change its style.
+* Optimize the Route planning api.
 * Support venue related search functions.
 * Added the setting of indoor floor switching mode。
 * Optimize the RouteAdsorber.
 * Add default display floor logic.
 * New floor change ,map click , map long click event.
 * Deprecated some function and object.
+* Add defaultDisplayedFloorId property to IndoorBuilding and IndoorBuildingInfo.
 
 ## 5.2.2
 
