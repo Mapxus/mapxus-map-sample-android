@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -145,6 +146,8 @@ public class SearchVenueDetailActivity extends BaseWithParamMenuActivity impleme
 
         LinearLayout linearLayout = bottomSheetDialogView.findViewById(R.id.ll_buildingId);
         View startView = LayoutInflater.from(this).inflate(R.layout.swipe_item, null);
+        TextView textView = startView.findViewById(R.id.tv_tips_id);
+        textView.setText("venueId");
         EditText editText = startView.findViewById(R.id.et_id);
         editText.setText(getString(R.string.default_search_text_venue_id));
         linearLayout.addView(startView);

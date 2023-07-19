@@ -52,9 +52,9 @@ public class SearchBuildingNearbyActivity extends BaseWithParamMenuActivity impl
         buildingSearch.setBuildingSearchResultListener(this);
     }
 
-    protected void doSearchQuery(LatLng location, int radius, String keyWord, int offset, int page) {
+    protected void doSearchQuery(LatLng location, double radius, String keyWord, int offset, int page) {
         NearbySearchOption nearbySearchOption = new NearbySearchOption();
-        nearbySearchOption.radius(radius);
+        nearbySearchOption.distance(radius);
         nearbySearchOption.location(location);
         nearbySearchOption.keyword(keyWord);
         nearbySearchOption.pageCapacity(offset);
@@ -115,7 +115,7 @@ public class SearchBuildingNearbyActivity extends BaseWithParamMenuActivity impl
         );
 
         doSearchQuery(latLng,
-                etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim()),
+                etDistance.getText().toString().isEmpty() ? 0 : Double.parseDouble(etDistance.getText().toString().trim()),
                 etKeywords.getText().toString().trim(),
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));

@@ -159,6 +159,8 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
         boundsArea.add(new LatLng(latLngBounds.southwest.latitude, latLngBounds.southwest.longitude));
 
         boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color_gray));
+        boundsArea.alpha(0.5f);
+        mapboxMap.clear();
         mapboxMap.addPolygon(boundsArea);
     }
 
@@ -195,8 +197,10 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
                 etMaxLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMaxLat.getText().toString().trim()),
                 etMaxLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMaxLon.getText().toString().trim()));
 
-        LatLngBounds latLngBounds = new LatLngBounds(southweast, northeast);
-
+        LatLngBounds latLngBounds = new LatLngBounds.Builder()
+                .include(southweast)
+                .include(northeast)
+                .build();
         showBoundsArea(latLngBounds);
 
         doSearchQuery(latLngBounds,

@@ -11,6 +11,7 @@ import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.api.map.model.Venue;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -27,6 +28,7 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
     private MapViewProvider mapViewProvider;
     private IndoorBuilding indoorBuilding;
     private String venueName, buildingName, floorName;
+    private Venue venue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +77,11 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             displayDialog("You have tap on POI " + poi.getName() + "," + floorName + "," + buildingName + "," + venueName);
         });
 
-        mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {
+
+        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
             if (indoorBuilding != null) {
-                this.indoorBuilding = indoorBuilding;
+                ClickEventListenerActivity.this.indoorBuilding = indoorBuilding;
+                ClickEventListenerActivity.this.venue = venue;
             }
         });
 
@@ -95,9 +99,12 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
     private void setBuildingName(String buildingId) {
         if (indoorBuilding.getBuildingId().equals(buildingId)) {
             buildingName = indoorBuilding.getBuildingName();
+            venueName = venue.getVenueName();
         } else {
             buildingName = null;
+            venueName = null;
         }
+
     }
 
     @Override

@@ -238,19 +238,19 @@ public class SwitchView extends View {
 
    @Override
    protected void onDraw(Canvas canvas) {
-       super.onDraw(canvas);
-       backgroundDrawable.draw(canvas);
-       genderDrawable.draw(canvas);
-       canvas.drawText(getContext().getString(R.string.foot), drawTextX, drawTextY, textPaint);
-       canvas.drawText(getContext().getString(R.string.wheelchair), width / 2f + drawTextX, drawTextY, textPaint);
+      super.onDraw(canvas);
+      backgroundDrawable.draw(canvas);
+      genderDrawable.draw(canvas);
+      canvas.drawText(getContext().getString(R.string.foot), drawTextX, drawTextY, textPaint);
+      canvas.drawText(getContext().getString(R.string.wheelchair), width / 2f + drawTextX, drawTextY, textPaint);
    }
 
-    public interface onCheckChangedListener {
-        void onCheck(boolean checked);
-    }
+   public interface onCheckChangedListener {
+      void onCheck(boolean checked);
+   }
 
-    public void setOnCheckChangedListener(SwitchView.onCheckChangedListener onCheckChangedListener) {
-        this.onCheckChangedListener = onCheckChangedListener;
-    }
+   public void setOnCheckChangedListener(SwitchView.onCheckChangedListener onCheckChangedListener) {
+      this.onCheckChangedListener = onCheckChangedListener;
+   }
 }
 
