@@ -1,13 +1,26 @@
 # Mapxus Map SDK Change Log
 
+## 7.1.1
+
+### Bugs
+
+* Fixed bug on map click listener.
+* Fixed bug init with poi id can not show correct floor.
+
+### Features
+
+* Nearby search in building or in venue ,the distance can be a decimal.
+
 ## 7.1.0
 
 ### Bugs
+
 * Fixed bug where getImplMapAsync function only returns mapxusmap object the first time.
 * Fix overlapped levels problem.
 * Fix can not see building without 'building name'.
 
 ### Features
+
 * MinSdkVersion changed from 21 to 24.
 * Optimize the map display to prevent floors from overlapping during initialization.
 * New style for displaying copyright icons.
