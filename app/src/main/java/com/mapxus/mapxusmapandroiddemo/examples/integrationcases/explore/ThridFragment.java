@@ -1,5 +1,6 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases.explore;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,11 +40,10 @@ public class ThridFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onAttach(@NonNull Context context) {
         exploreBuildingActivity = (ExploreBuildingActivity) this.getActivity();
-        super.onActivityCreated(savedInstanceState);
+        super.onAttach(context);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -27,8 +27,11 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_init_with_building);
         Intent intent = getIntent();
-        String buildingId = intent.getStringExtra("building_id");
-        String floorName = intent.getStringExtra("floor_name");
+        String id = intent.getStringExtra("id");
+        if (id == null) {
+            id = "";
+        }
+        int selectedTab = intent.getIntExtra("selectedTab", 0);
         paddingTop = intent.getIntExtra("top", 0);
         paddingBottom = intent.getIntExtra("bottom", 0);
         paddingLeft = intent.getIntExtra("left", 0);
@@ -36,7 +39,18 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
 
         mapboxMapView = findViewById(R.id.mapView);
 
-        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setBuildingId(buildingId).setFloor(floorName);
+        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions();
+        switch (selectedTab) {
+            case 0:
+                mapxusMapOptions.setFloorId(id);
+                break;
+            case 1:
+                mapxusMapOptions.setBuildingId(id);
+                break;
+            default:
+                mapxusMapOptions.setVenueId(id);
+                break;
+        }
 
         mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
 

@@ -48,8 +48,8 @@
     <string name="update_dialog_title" translatable="false">Update Available</string>
     <string name="ok" translatable="false">OK</string>
 
-    <string name="building_id_with_star" translatable="false">buildingId *</string>
     <string name="floor" translatable="false">floor</string>
+    <string name="floor_id" translatable="false">floorId</string>
     <string name="zoom_insets" translatable="false">zoomInsets</string>
     <string name="right" translatable="false">right</string>
     <string name="left" translatable="false">left</string>
@@ -109,6 +109,7 @@
     <string name="close" translatable="false">Close</string>
     <string name="category" translatable="false">category</string>
     <string name="building_id" translatable="false">buildingId</string>
+    <string name="venue_id" translatable="false">venueId</string>
     <string name="search" translatable="false">Search</string>
     <string name="location" translatable="false">location</string>
     <string name="ordinal" translatable="false">ordinal</string>

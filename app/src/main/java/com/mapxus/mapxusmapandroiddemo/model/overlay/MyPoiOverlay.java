@@ -74,8 +74,7 @@ public class MyPoiOverlay {
                         new com.mapxus.map.mapxusmap.api.map.model.LatLng(mPoiInfoList.get(index).getLocation()
                                 .getLat(), mPoiInfoList.get(index)
                                 .getLocation().getLon()))
-                .setFloor(mPoiInfoList.get(index).getFloor())
-                .setBuildingId(mPoiInfoList.get(index).getBuildingId())
+                .setFloorId(mPoiInfoList.get(index).getFloorId())
                 .setTitle(getTitle(index)).setSnippet(getSnippet(index));
     }
 

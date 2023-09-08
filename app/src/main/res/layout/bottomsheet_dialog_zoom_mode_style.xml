@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +9,36 @@
     android:padding="20dp"
     tools:context=".examples.mapcreation.MapxusMapInitWithBuildingParamsActivity">
 
-    <TextView
-        android:id="@+id/tv_tips_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/building_id_with_star"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_shape_gray"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="50dp"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/MyTabLayout"
+        app:tabTextColor="@color/black">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/appPink"
+            android:text="floorId" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="buildingId" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="venueId" />
+
+    </com.google.android.material.tabs.TabLayout>
 
     <EditText
         android:id="@+id/et_id"
@@ -28,31 +51,7 @@
         android:inputType="text"
         android:padding="8dp"
         android:singleLine="true"
-        android:text="@string/default_switch_indoor_buiding_id"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tv_floor_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/floor"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/et_floor_name"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:autofillHints=""
-        android:background="@android:drawable/editbox_background_normal"
-        android:hint="@null"
-        android:inputType="text"
-        android:padding="8dp"
-        android:singleLine="true"
-        android:text="@string/default_switch_indoor_floor_name"
+        android:text="@string/default_switch_indoor_floor_id"
         android:textStyle="bold" />
 
     <TextView
@@ -71,9 +70,9 @@
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_shape_blue"
-        android:textSize="16sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textSize="16sp"
         tools:text="MXMZoomAnimated" />
 
     <TextView

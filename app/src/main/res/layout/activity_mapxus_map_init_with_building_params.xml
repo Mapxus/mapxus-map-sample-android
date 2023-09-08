@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:background="@color/white"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".examples.mapcreation.MapxusMapInitWithBuildingParamsActivity">
 
-    <TextView
-        android:id="@+id/tv_tips_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/building_id_with_star"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_shape_gray"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="50dp"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/MyTabLayout"
+        app:tabTextColor="@color/black">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_floor_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/appPink"
+            android:text="floorId" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_building_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="buildingId" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_venue_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="venueId" />
+
+    </com.google.android.material.tabs.TabLayout>
 
     <EditText
         android:id="@+id/et_id"
@@ -28,31 +54,7 @@
         android:inputType="text"
         android:padding="8dp"
         android:singleLine="true"
-        android:text="@string/default_search_text_building_id"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tv_floor_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/floor"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/et_floor_name"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:autofillHints=""
-        android:background="@android:drawable/editbox_background_normal"
-        android:hint="@null"
-        android:inputType="text"
-        android:padding="8dp"
-        android:singleLine="true"
-        android:text="@string/default_floor_name"
+        android:text="@string/default_floor_id"
         android:textStyle="bold" />
 
     <TextView
@@ -66,15 +68,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_top"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/top"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -83,13 +85,13 @@
         <EditText
             android:id="@+id/et_top"
             android:layout_width="0dp"
-            android:layout_weight="2.5"
             android:layout_height="40dp"
+            android:layout_weight="2.5"
             android:autofillHints=""
-            android:padding="8dp"
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
             android:inputType="number"
+            android:padding="8dp"
             android:text="@string/num_0"
             android:textStyle="bold" />
 
@@ -97,15 +99,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_bottom"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/bottom"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -114,28 +116,29 @@
         <EditText
             android:id="@+id/et_bottom"
             android:layout_width="0dp"
-            android:layout_weight="2.5"
             android:layout_height="40dp"
+            android:layout_weight="2.5"
             android:autofillHints=""
-            android:padding="8dp"
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
             android:inputType="number"
+            android:padding="8dp"
             android:text="@string/num_0"
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_left"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/left"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -144,28 +147,29 @@
         <EditText
             android:id="@+id/et_left"
             android:layout_width="0dp"
-            android:layout_weight="2.5"
             android:layout_height="40dp"
+            android:layout_weight="2.5"
             android:autofillHints=""
-            android:padding="8dp"
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
             android:inputType="number"
+            android:padding="8dp"
             android:text="@string/num_0"
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_right"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/right"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -174,13 +178,13 @@
         <EditText
             android:id="@+id/et_right"
             android:layout_width="0dp"
-            android:layout_weight="2.5"
             android:layout_height="40dp"
+            android:layout_weight="2.5"
             android:autofillHints=""
-            android:padding="8dp"
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
             android:inputType="number"
+            android:padding="8dp"
             android:text="@string/num_0"
             android:textStyle="bold" />
 
@@ -191,13 +195,12 @@
         android:id="@+id/create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_shape_blue"
         android:text="@string/create"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        />
+        android:textStyle="bold" />
 
 </LinearLayout>

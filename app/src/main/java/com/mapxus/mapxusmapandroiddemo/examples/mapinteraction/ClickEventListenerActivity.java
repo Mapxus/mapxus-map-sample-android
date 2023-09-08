@@ -1,7 +1,6 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,7 +52,6 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             }
             displayDialog("You have tap at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floorInfo != null ? floorInfo.getCode() : "") + "," + buildingName + "," + venueName);
         });
-        mapxusMap.addOnMapClickListener((latLng, floor, buildingId, floorId) -> Log.i("TAG", "onMapClick: " + floor));
         mapxusMap.addOnMapLongClickedListener((latLng, floorInfo, indoorBuilding, venue) -> {
             if (indoorBuilding != null) {
                 buildingName = indoorBuilding.getBuildingName();
@@ -65,7 +63,6 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             displayDialog("You have long press at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floorInfo != null ? floorInfo.getCode() : "") + "," + buildingName + "," + venueName);
         });
 
-        mapxusMap.addOnMapLongClickListener((latLng, floor, buildingId, floorId) -> Log.i("TAG", "onMapLongClick: " + floor));
 
         mapxusMap.addOnIndoorPoiClickListener(poi -> {
             setBuildingName(poi.getBuildingId());

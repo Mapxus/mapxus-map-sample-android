@@ -165,6 +165,8 @@ public class SearchVenueDetailActivity extends BaseWithParamMenuActivity impleme
 
         bottomSheetDialogView.findViewById(R.id.btn_add_id).setOnClickListener(v -> {
             View view = LayoutInflater.from(this).inflate(R.layout.swipe_item, null);
+            TextView textView1 = view.findViewById(R.id.tv_tips_id);
+            textView1.setText("venueId");
             view.findViewById(R.id.btnDelete).setOnClickListener(view1 -> {
                 linearLayout.removeView(view);
                 views.remove(view);

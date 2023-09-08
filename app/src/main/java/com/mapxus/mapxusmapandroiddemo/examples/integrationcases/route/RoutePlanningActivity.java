@@ -75,14 +75,13 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             if (floorInfo != null) {
                 endFloor = floorInfo.getCode();
             }
-            //            destination = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
             destination = new RoutePlanningPoint(latLng.getLongitude(), latLng.getLatitude(), indoorBuilding != null ? indoorBuilding.getBuildingId() : null, floorInfo != null ? floorInfo.getId() : null);
 
             if (endMarker != null) {
                 mMapxusMap.removeMapxusPointAnnotation(endMarker);
                 endMarker = null;
             }
-            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(latLng, floorInfo != null ? floorInfo.getCode() : null, indoorBuilding != null ? indoorBuilding.getBuildingId() : null));
+            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(latLng, floorInfo != null ? floorInfo.getId() : null));
         }
     };
     private Button goBtn;
@@ -295,21 +294,15 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         @Override
         public void onIndoorPoiClick(Poi poi) {
             endFloor = poi.getFloorName();
-//            destination = new RoutePlanningPoint(poi.getBuildingId(), poi.getFloorName(), poi.getLongitude(), poi.getLatitude());
             destination = new RoutePlanningPoint(poi.getLongitude(), poi.getLatitude(), poi.getBuildingId(), poi.getFloor());
 
             if (endMarker != null) {
                 mMapxusMap.removeMapxusPointAnnotation(endMarker);
                 endMarker = null;
             }
-            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), poi.getFloorName(), poi.getBuildingId()));
+            endMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), poi.getFloor()));
         }
     };
-    //    private final MapxusMap.OnMapClickListener pointEndMapClickListener = new MapxusMap.OnMapClickListener() {
-//        @Override
-//        public void onMapClick(LatLng latLng, String floor, String buildingId, String floorId) {
-//        }
-//    };
     private String startFloor, endFloor;
     private final MapxusMap.OnMapClickedListener pointStartMapClickListener = new MapxusMap.OnMapClickedListener() {
 
@@ -318,13 +311,12 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             if (floorInfo != null) {
                 startFloor = floorInfo.getCode();
             }
-            //            origin = new RoutePlanningPoint(buildingId, floor, latLng.getLongitude(), latLng.getLatitude());
             origin = new RoutePlanningPoint(latLng.getLongitude(), latLng.getLatitude(), indoorBuilding != null ? indoorBuilding.getBuildingId() : null, floorInfo != null ? floorInfo.getId() : null);
             if (startMarker != null) {
                 mMapxusMap.removeMapxusPointAnnotation(startMarker);
                 startMarker = null;
             }
-            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(latLng, floorInfo != null ? floorInfo.getCode() : null, indoorBuilding != null ? indoorBuilding.getBuildingId() : null));
+            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(latLng, floorInfo != null ? floorInfo.getId() : null));
         }
 
     };
@@ -358,13 +350,12 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         @Override
         public void onIndoorPoiClick(Poi poi) {
             startFloor = poi.getFloorName();
-//            origin = new RoutePlanningPoint(poi.getBuildingId(), poi.getFloorName(), poi.getLongitude(), poi.getLatitude());
             origin = new RoutePlanningPoint(poi.getLongitude(), poi.getLatitude(), poi.getBuildingId(), poi.getFloor());
             if (startMarker != null) {
                 mMapxusMap.removeMapxusPointAnnotation(startMarker);
                 startMarker = null;
             }
-            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), poi.getFloorName(), poi.getBuildingId()));
+            startMarker = mMapxusMap.addMapxusPointAnnotation(getMapxusMarkerOptions(new LatLng(poi.getLatitude(), poi.getLongitude()), poi.getFloor()));
         }
     };
     private final View.OnClickListener planningBtnClickListener = v -> {
@@ -415,11 +406,10 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
     }
 
     @NotNull
-    private MapxusPointAnnotationOptions getMapxusMarkerOptions(LatLng latLng, String floor, String buildingId) {
+    private MapxusPointAnnotationOptions getMapxusMarkerOptions(LatLng latLng, String floorId) {
         MapxusPointAnnotationOptions mapxusMarkerOptions = new MapxusPointAnnotationOptions();
         mapxusMarkerOptions.setPosition(latLng);
-        mapxusMarkerOptions.setBuildingId(buildingId);
-        mapxusMarkerOptions.setFloor(floor);
+        mapxusMarkerOptions.setFloorId(floorId);
         return mapxusMarkerOptions;
     }
 

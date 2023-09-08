@@ -102,7 +102,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
-        mapxusMap.selectFloor(poiInfo.getFloor(), MapxusMapZoomMode.ZoomDisable, null);
+        mapxusMap.selectFloorById(poiInfo.getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
     }
 
     public void addMarkers(List<PoiInfo> poiInfos) {
@@ -110,7 +110,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
-        mapxusMap.selectFloor(poiInfos.get(0).getFloor(), MapxusMapZoomMode.ZoomDisable, null);
+        mapxusMap.selectFloorById(poiInfos.get(0).getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
     }
 
     public void removeMarker() {

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
 
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
 import com.mapxus.positioning.positioning.api.ErrorInfo;
@@ -81,7 +82,7 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
 
         @Override
         public void onOrientationChange(float orientation, int sensorAccuracy) {
-            dispatchCompassChange(orientation,sensorAccuracy);
+            dispatchCompassChange(orientation, sensorAccuracy);
         }
 
         @Override
@@ -94,10 +95,12 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
             location.setLongitude(mapxusLocation.getLongitude());
             location.setTime(System.currentTimeMillis());
 
-            String floor = mapxusLocation.getMapxusFloor() == null ? null : mapxusLocation.getMapxusFloor().getCode();
             String building = mapxusLocation.getBuildingId();
+            FloorInfo floorInfo = mapxusLocation.getMapxusFloor() == null ? null : new FloorInfo(
+                    mapxusLocation.getMapxusFloor().getId(), mapxusLocation.getMapxusFloor().getCode(), mapxusLocation.getMapxusFloor().getOrdinal()
+            );
 
-            IndoorLocation indoorLocation = new IndoorLocation(location, building, floor);
+            IndoorLocation indoorLocation = new IndoorLocation(building, floorInfo, location);
             indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
 
             dispatchIndoorLocationChange(indoorLocation);

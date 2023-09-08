@@ -14,9 +14,9 @@
             android:id="@id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:mapbox_cameraTargetLat="@string/default_lat"
-            app:mapbox_cameraTargetLng="@string/default_lon"
-            app:mapbox_cameraZoom="@string/default_zoom_level_value" />
+            app:maplibre_cameraTargetLat="@string/default_lat"
+            app:maplibre_cameraTargetLng="@string/default_lon"
+            app:maplibre_cameraZoom="@string/default_zoom_level_value" />
 
 
         <RelativeLayout

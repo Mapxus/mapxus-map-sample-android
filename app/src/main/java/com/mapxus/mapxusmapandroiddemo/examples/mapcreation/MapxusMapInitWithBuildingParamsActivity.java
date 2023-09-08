@@ -7,28 +7,57 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.tabs.TabLayout;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 public class MapxusMapInitWithBuildingParamsActivity extends AppCompatActivity {
 
     Button btnCreate;
-    EditText etBuildingId, etFloorName, etTop, etBottom, etLeft, etRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapxus_map_init_with_building_params);
         btnCreate = findViewById(R.id.create);
-        etBuildingId = findViewById(R.id.et_id);
-        etFloorName = findViewById(R.id.et_floor_name);
-        etTop = findViewById(R.id.et_top);
-        etBottom = findViewById(R.id.et_bottom);
-        etLeft = findViewById(R.id.et_left);
-        etRight = findViewById(R.id.et_right);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+
+        EditText etId = findViewById(R.id.et_id);
+        EditText etTop = findViewById(R.id.et_top);
+        EditText etBottom = findViewById(R.id.et_bottom);
+        EditText etLeft = findViewById(R.id.et_left);
+        EditText etRight = findViewById(R.id.et_right);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        etId.setText(getString(R.string.default_floor_id));
+                        break;
+                    case 1:
+                        etId.setText(getString(R.string.default_search_text_building_id));
+                        break;
+                    default:
+                        etId.setText(getString(R.string.default_venue_id));
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         btnCreate.setOnClickListener(v -> {
             Intent intent = new Intent(this, MapxusMapInitWithBuildingActivity.class);
-            intent.putExtra("building_id", etBuildingId.getText().toString().trim());
-            intent.putExtra("floor_name", etFloorName.getText().toString().trim());
+            intent.putExtra("id", etId.getText().toString().trim());
+            intent.putExtra("selectedTab", tabLayout.getSelectedTabPosition());
             intent.putExtra("top", etTop.getText().toString().trim().isEmpty() ? 0 : Integer.parseInt(etTop.getText().toString().trim()));
             intent.putExtra("bottom", etBottom.getText().toString().trim().isEmpty() ? 0 : Integer.parseInt(etBottom.getText().toString().trim()));
             intent.putExtra("left", etLeft.getText().toString().trim().isEmpty() ? 0 : Integer.parseInt(etLeft.getText().toString().trim()));

@@ -177,7 +177,9 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
     private void showLocationInfo(IndoorLocation indoorLocation) {
         latTv.setText(String.format("%s%s", getString(R.string.lat), indoorLocation.getLatitude()));
         lonTv.setText(String.format("%s%s", getString(R.string.lon), indoorLocation.getLongitude()));
-        floorTv.setText(String.format("%s%s", getString(R.string.floor_tips), indoorLocation.getFloor()));
+        if (indoorLocation.getFloorInfo() != null) {
+            floorTv.setText(String.format("%s%s", getString(R.string.floor_tips), indoorLocation.getFloorInfo().getCode()));
+        }
         accuracyTv.setText(String.format("%s%s", getString(R.string.accuracy), indoorLocation.getAccuracy()));
         timestampTv.setText(String.format("%s%s", getString(R.string.time_stamp), indoorLocation.getTime()));
     }

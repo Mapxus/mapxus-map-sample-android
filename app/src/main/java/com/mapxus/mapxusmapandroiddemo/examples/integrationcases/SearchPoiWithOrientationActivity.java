@@ -1,7 +1,6 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +20,7 @@ import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.constant.DistanceSearchType;
 import com.mapxus.map.mapxusmap.api.services.model.IndoorLatLng;
 import com.mapxus.map.mapxusmap.api.services.model.PoiOrientationSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.map.mapxusmap.positioning.ErrorInfo;
@@ -185,18 +185,19 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
         }
         EditText etLat = bottomSheetDialogView.findViewById(R.id.et_lat);
         EditText etLon = bottomSheetDialogView.findViewById(R.id.et_lon);
-        EditText etFloor = bottomSheetDialogView.findViewById(R.id.et_floor);
+        EditText etFloorId = bottomSheetDialogView.findViewById(R.id.et_floor_id);
         EditText etDistance = bottomSheetDialogView.findViewById(R.id.et_distance);
 
-        String floor = etFloor.getText().toString().trim();
+        String floorId = etFloorId.getText().toString().trim();
         indoorLatLng = new IndoorLatLng();
         indoorLatLng.setBuildingId(indoorBuilding.getBuildingId());
-        indoorLatLng.setFloor(floor);
+        indoorLatLng.setFloorId(floorId);
         indoorLatLng.setLat(etLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLat.getText().toString().trim()));
         indoorLatLng.setLon(etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim()));
         radius = etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim());
 
-        IndoorLocation indoorLocation = new IndoorLocation("Fake", indoorLatLng.getLat(), indoorLatLng.getLon(), floor, indoorBuilding.getBuildingId(), System.currentTimeMillis());
+
+        IndoorLocation indoorLocation = new IndoorLocation("Fake", new FloorInfo(floorId, "", 0), indoorBuilding.getBuildingId(), indoorLatLng.getLat(), indoorLatLng.getLon(), System.currentTimeMillis());
         indoorLocationProvider.setIndoorLocation(indoorLocation);
         mapxusMap.setLocationProvider(indoorLocationProvider);
         mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER);
@@ -240,7 +241,5 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
         });
 
         mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> SearchPoiWithOrientationActivity.this.indoorBuilding = indoorBuilding);
-
-        mapxusMap.addOnFloorChangeListener((indoorBuilding, s) -> Log.i("TAG", "onFloorChange: " + indoorBuilding));
     }
 }

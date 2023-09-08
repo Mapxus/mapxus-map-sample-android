@@ -3,12 +3,9 @@ package com.mapxus.mapxusmapandroiddemo.examples.mapediting;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
@@ -20,11 +17,10 @@ import com.mapxus.mapxusmapandroiddemo.R;
 import org.jetbrains.annotations.NotNull;
 
 
-public class DrawMarkerActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, OnMapReadyCallback {
+public class DrawMarkerActivity extends AppCompatActivity implements OnMapxusMapReadyCallback {
 
     private MapView mapView;
     private MapViewProvider mapViewProvider;
-    private MapboxMap mapboxMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,6 @@ public class DrawMarkerActivity extends AppCompatActivity implements OnMapxusMap
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
-        mapView.getMapAsync(this);
         mapViewProvider.getMapxusMapAsync(this);
     }
 
@@ -84,24 +79,19 @@ public class DrawMarkerActivity extends AppCompatActivity implements OnMapxusMap
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {
-            if (indoorBuilding != null && mapboxMap.getMarkers().isEmpty()) {
-                String buildingId = getString(R.string.default_search_text_building_id);
+            if (indoorBuilding != null) {
                 String[] latArray = getResources().getStringArray(R.array.default_marker_lat);
                 String[] lngArray = getResources().getStringArray(R.array.default_marker_lng);
-                String[] floorArray = getResources().getStringArray(R.array.default_marker_floor);
+                String[] floorArray = getResources().getStringArray(R.array.default_marker_floor_id);
                 for (int i = 0; i < latArray.length; i++) {
                     if (TextUtils.isEmpty(floorArray[i])) {
                         mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(Double.parseDouble(latArray[i]), Double.parseDouble(lngArray[i]))));
                     } else {
-                        mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(Double.parseDouble(latArray[i]), Double.parseDouble(lngArray[i]))).setFloor(floorArray[i]).setBuildingId(buildingId));
+                        mapxusMap.addMapxusPointAnnotation(new MapxusPointAnnotationOptions().setPosition(new LatLng(Double.parseDouble(latArray[i]), Double.parseDouble(lngArray[i]))).setFloorId(floorArray[i]));
                     }
                 }
             }
         });
     }
 
-    @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-    }
 }

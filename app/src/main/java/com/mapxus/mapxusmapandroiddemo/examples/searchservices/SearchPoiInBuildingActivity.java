@@ -103,12 +103,12 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(String keyWord, String category, String buildingId, String floor, int offset, int page) {
+    protected void doSearchQuery(String keyWord, String category, String buildingId, String floorId, int offset, int page) {
         PoiInBuildingSearchOption inBuildingSearchOption = new PoiInBuildingSearchOption();
         inBuildingSearchOption.keyword(keyWord);
         inBuildingSearchOption.category(category);
         inBuildingSearchOption.buildingId(buildingId);
-        inBuildingSearchOption.floor(floor);
+        inBuildingSearchOption.floorId(floorId);
         inBuildingSearchOption.pageCapacity(offset);
         inBuildingSearchOption.pageNum(page);
 
@@ -164,22 +164,23 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
         EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
         EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
         EditText etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
-        EditText etFloor = bottomSheetDialogView.findViewById(R.id.et_floor_name);
+        EditText etFloorId = bottomSheetDialogView.findViewById(R.id.et_floor_id);
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
 
         String buildingId = etBuildingId.getText().toString().trim();
-        String floorName = etFloor.getText().toString().trim();
+        String floorId = etFloorId.getText().toString().trim();
 
         doSearchQuery(etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
                 buildingId,
-                floorName,
+                floorId,
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
-
-        if (!buildingId.isEmpty()) {
-            mapxusMap.selectBuilding(buildingId, floorName);
+        if (!floorId.isEmpty()) {
+            mapxusMap.selectFloorById(floorId);
+        } else if (!buildingId.isEmpty()) {
+            mapxusMap.selectBuildingById(buildingId);
         }
     }
 

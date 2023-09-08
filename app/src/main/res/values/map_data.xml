@@ -74,5 +74,6 @@
     <string name="default_max_lon_poi" translatable="false">114.172422</string>
 
     <string name="default_poi_meter_distance" translatable="false">10</string>
+    <string name="default_poi_id" translatable="false">263231</string>
 
 </resources>

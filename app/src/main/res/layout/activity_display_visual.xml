@@ -13,9 +13,9 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:mapbox_cameraTargetLat="@string/default_visual_lat"
-        app:mapbox_cameraTargetLng="@string/default_visual_lon"
-        app:mapbox_cameraZoom="@string/default_visual_zoom" />
+        app:maplibre_cameraTargetLat="@string/default_visual_lat"
+        app:maplibre_cameraTargetLng="@string/default_visual_lon"
+        app:maplibre_cameraZoom="@string/default_visual_zoom" />
 
     <CheckBox
         android:id="@+id/cb_visual"

@@ -28,7 +28,7 @@ import com.mapxus.visual.repository.image.VisualImageRepository;
 
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener, MapxusMap.OnFloorChangeListener, MapxusMap.OnFloorChangedListener {
+public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener, MapxusMap.OnFloorChangedListener {
 
     private MapView mapView;
     private MapxusMap mapxusMap;
@@ -64,11 +64,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mapxusMap = mapxusMap;
-
-//            mapxusMap.selectFloor(getString(R.string.default_visual_floor));
-
             initListener();
-
         });
 
         mapView.getMapAsync(mapboxMap -> {
@@ -88,7 +84,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
      */
     private void initListener() {
 
-        mapxusMap.addOnFloorChangeListener(this);
+        mapxusMap.addOnFloorChangedListener(this);
 
         /*
           视觉地图显示变化时相应对地图显示路线做一些变化
@@ -270,8 +266,4 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         switchBtn.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onFloorChange(IndoorBuilding indoorBuilding, String floorName) {
-
-    }
 }

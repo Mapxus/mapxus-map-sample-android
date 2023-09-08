@@ -3,7 +3,6 @@ package com.mapxus.mapxusmapandroiddemo.examples.mapediting;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -16,9 +15,6 @@ import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
-import com.mapxus.map.mapxusmap.api.map.model.Venue;
-import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -54,21 +50,11 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
-        mapxusMap.addOnFloorChangedListener(new MapxusMap.OnFloorChangedListener() {
-            @Override
-            public void onFloorChange(@Nullable Venue venue, @Nullable IndoorBuilding indoorBuilding, @Nullable FloorInfo floorInfo) {
-                if (indoorBuilding.getGroundFloor().equals(floorInfo.getCode())) {
-                    drawPolygon(mapboxMap);
-                } else {
-                    deletePolygon();
-                }
-            }
-        });
-        mapxusMap.addOnFloorChangeListener(new MapxusMap.OnFloorChangeListener() {
-
-            @Override
-            public void onFloorChange(@Nullable IndoorBuilding indoorBuilding, @Nullable String floorName) {
-
+        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
+            if (indoorBuilding != null && floorInfo != null && (Objects.equals(indoorBuilding.getDefaultDisplayFloorId(), floorInfo.getId()) || Objects.equals(indoorBuilding.getGroundFloor(), floorInfo.getCode()))) {
+                drawPolygon(mapboxMap);
+            } else {
+                deletePolygon();
             }
         });
     }

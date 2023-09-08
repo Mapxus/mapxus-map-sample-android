@@ -78,17 +78,17 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_floor"
+        android:id="@+id/tv_floor_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/floor"
+        android:text="@string/floor_id"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/et_floor_name"
+        android:id="@+id/et_floor_id"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -98,7 +98,7 @@
         android:inputType="text"
         android:padding="8dp"
         android:singleLine="true"
-        android:text="@string/default_floor_name"
+        android:text="@string/default_floor_id"
         android:textStyle="bold" />
 
     <TextView

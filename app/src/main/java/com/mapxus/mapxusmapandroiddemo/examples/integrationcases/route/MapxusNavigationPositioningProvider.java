@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto;
 import com.mapxus.map.mapxusmap.overlay.navi.NavigationPathDto;
 import com.mapxus.map.mapxusmap.overlay.navi.RouteAdsorber;
@@ -106,10 +107,12 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
             location.setLongitude(mapxusLocation.getLongitude());
             location.setTime(System.currentTimeMillis());
 
-            String floor = mapxusLocation.getMapxusFloor() == null ? null : mapxusLocation.getMapxusFloor().getCode();
             String building = mapxusLocation.getBuildingId();
+            FloorInfo floorInfo = mapxusLocation.getMapxusFloor() == null ? null : new FloorInfo(
+                    mapxusLocation.getMapxusFloor().getId(), mapxusLocation.getMapxusFloor().getCode(), mapxusLocation.getMapxusFloor().getOrdinal()
+            );
 
-            IndoorLocation indoorLocation = new IndoorLocation(location, building, floor);
+            IndoorLocation indoorLocation = new IndoorLocation(building, floorInfo, location);
             indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
 
             if (null != routeAdsorber) {
