@@ -1,5 +1,20 @@
 # Mapxus Map SDK Change Log
 
+## 8.0.0
+
+### Bugs
+
+* Fixed bug when switch follow user mode , the blue point did not move to right place.
+
+### Features
+
+* Route Painter , add shuttle bus logic.
+* Update Building Selector Icon.
+* Add 'selectVenueById' funciton.
+* Add "default display" logic.
+* Modify the SDK method to use floorcode section (use floorId instead).
+* Update Maplibre SDK to 10.2.0 version
+
 ## 7.1.1
 
 ### Bugs
