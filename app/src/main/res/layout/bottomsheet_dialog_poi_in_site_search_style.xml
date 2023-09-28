@@ -54,6 +54,30 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/tv_tips_venue_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/venue_id"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_venue_id"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="@null"
+        android:inputType="text"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="@string/default_venue_id_tsuen"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/tv_tips_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

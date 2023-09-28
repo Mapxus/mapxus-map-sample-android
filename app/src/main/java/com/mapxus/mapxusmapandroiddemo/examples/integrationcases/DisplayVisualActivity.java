@@ -15,6 +15,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
 import com.mapxus.map.mapxusmap.api.map.model.Venue;
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
@@ -61,7 +62,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         switchBtn = findViewById(R.id.btn_switch);
         visualCheckbox = findViewById(R.id.cb_visual);
         mapView.onCreate(savedInstanceState);
-        MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_visual_map_building_id)));
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mapxusMap = mapxusMap;
             initListener();

@@ -16,7 +16,7 @@
         app:maplibre_cameraTargetLng="@string/default_lon"
         app:maplibre_cameraZoom="@string/default_zoom_level_value" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
@@ -24,19 +24,26 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_building_outline_style"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_floor_switch_mode"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="@drawable/button_shape_blue"
             android:text="@string/floor_switch_mode"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-    </RelativeLayout>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="@string/is_show_mask_layer" />
+
+    </LinearLayout>
 </LinearLayout>

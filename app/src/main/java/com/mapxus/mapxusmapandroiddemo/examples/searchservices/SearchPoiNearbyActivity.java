@@ -35,7 +35,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
 
     private RelativeLayout progressBarView;
 
-    private EditText etBuildingId, etOrdinal;
+    private EditText etVenueId, etBuildingId, etOrdinal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +106,10 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(String keyWord, String category, String buildingId, int ordinal, LatLng latLng, int meterDistance, int offset, int page) {
+    protected void doSearchQuery(String keyWord, String category, String venueId, String buildingId, int ordinal, LatLng latLng, int meterDistance, int offset, int page) {
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
         nearbySearchOption.keyword(keyWord);
+        nearbySearchOption.venueId(venueId);
         nearbySearchOption.buildingId(buildingId);
         nearbySearchOption.ordinal(ordinal);
         nearbySearchOption.category(category);
@@ -152,6 +153,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         });
 
         etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
+        etVenueId = bottomSheetDialogView.findViewById(R.id.et_venue_id);
         etOrdinal = bottomSheetDialogView.findViewById(R.id.et_ordinal);
 
         TextView tvBuildingId = bottomSheetDialogView.findViewById(R.id.tv_tips_id);
@@ -162,6 +164,8 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         btnSoft.setOnClickListener(v -> {
             if (btnSoft.getText().toString().equals(getString(R.string.actual_distance))) {
                 btnSoft.setText(getString(R.string.absoulute_distance));
+                etVenueId.setEnabled(false);
+                etVenueId.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
                 etBuildingId.setEnabled(false);
                 etBuildingId.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
                 etOrdinal.setEnabled(false);
@@ -172,6 +176,8 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
                 tvOrdinal.setTextColor(getResources().getColor(R.color.lighter_gray));
             } else {
                 btnSoft.setText(getString(R.string.actual_distance));
+                etVenueId.setEnabled(true);
+                etVenueId.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
                 etBuildingId.setEnabled(true);
                 etBuildingId.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
                 etOrdinal.setEnabled(true);
@@ -201,6 +207,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
 
         doSearchQuery(etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
+                etVenueId.getText().toString().trim(),
                 etBuildingId.getText().toString().trim(),
                 etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim()),
                 latLng,

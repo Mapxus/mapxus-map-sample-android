@@ -12,7 +12,7 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
-import com.mapxus.map.mapxusmap.api.services.model.PoiInBuildingSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.PoiInSiteSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
@@ -26,7 +26,7 @@ import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 import org.jetbrains.annotations.NotNull;
 
 
-public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener, OnMapxusMapReadyCallback {
+public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener, OnMapxusMapReadyCallback {
 
     private MapView mapView;
     private MapboxMap mapboxMap;
@@ -38,7 +38,7 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchservices_search_poi_in_building);
+        setContentView(R.layout.activity_searchservices_search_poi_in_site);
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -103,16 +103,17 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(String keyWord, String category, String buildingId, String floorId, int offset, int page) {
-        PoiInBuildingSearchOption inBuildingSearchOption = new PoiInBuildingSearchOption();
-        inBuildingSearchOption.keyword(keyWord);
-        inBuildingSearchOption.category(category);
-        inBuildingSearchOption.buildingId(buildingId);
-        inBuildingSearchOption.floorId(floorId);
-        inBuildingSearchOption.pageCapacity(offset);
-        inBuildingSearchOption.pageNum(page);
+    protected void doSearchQuery(String keyWord, String category, String venueId, String buildingId, String floorId, int offset, int page) {
+        PoiInSiteSearchOption inSiteSearchOption = new PoiInSiteSearchOption();
+        inSiteSearchOption.keyword(keyWord);
+        inSiteSearchOption.category(category);
+        inSiteSearchOption.venueId(venueId);
+        inSiteSearchOption.buildingId(buildingId);
+        inSiteSearchOption.floorId(floorId);
+        inSiteSearchOption.pageCapacity(offset);
+        inSiteSearchOption.pageNum(page);
 
-        poiSearch.searchInBuilding(inBuildingSearchOption);
+        poiSearch.searchInSite(inSiteSearchOption);
 
     }
 
@@ -152,7 +153,7 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
     @Override
     protected void initBottomSheetDialog() {
         MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
-        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_poi_in_building_search_style, this);
+        View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_poi_in_site_search_style, this);
         bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             progressBarView.setVisibility(View.VISIBLE);
@@ -163,16 +164,20 @@ public class SearchPoiInBuildingActivity extends BaseWithParamMenuActivity imple
     private void getValueAndSearch(View bottomSheetDialogView) {
         EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
         EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
+        EditText etVenueId = bottomSheetDialogView.findViewById(R.id.et_venue_id);
         EditText etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
         EditText etFloorId = bottomSheetDialogView.findViewById(R.id.et_floor_id);
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
 
+        String venueId = etVenueId.getText().toString().trim();
         String buildingId = etBuildingId.getText().toString().trim();
         String floorId = etFloorId.getText().toString().trim();
 
-        doSearchQuery(etKeywords.getText().toString().trim(),
+        doSearchQuery(
+                etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
+                venueId,
                 buildingId,
                 floorId,
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),

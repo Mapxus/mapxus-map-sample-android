@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/switch_button_auto"
-            android:text="@string/auton_switch"
+            android:text="@string/auto_switch"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 

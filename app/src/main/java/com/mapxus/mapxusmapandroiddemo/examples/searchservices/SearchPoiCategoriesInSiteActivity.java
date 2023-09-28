@@ -30,17 +30,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, PoiSearch.PoiSearchResultListener, View.OnClickListener {
+public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, PoiSearch.PoiSearchResultListener, View.OnClickListener {
 
     private MapView mapView;
     private PoiSearch poiSearch;
-    private String floor, buildingId = "";
+    private String floor, buildingId, venueId = "";
     private RelativeLayout progressBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchservices_search_poi_categories_in_building);
+        setContentView(R.layout.activity_searchservices_search_poi_categories_in_site);
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -51,6 +51,7 @@ public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity imp
         poiSearch.setPoiSearchResultListener(this);
 
         progressBarView = findViewById(R.id.loding_view);
+        findViewById(R.id.btn_search_in_venue).setOnClickListener(this);
         findViewById(R.id.btn_search_in_building).setOnClickListener(this);
         findViewById(R.id.btn_search_on_floor).setOnClickListener(this);
 
@@ -101,11 +102,12 @@ public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity imp
         mapView.onLowMemory();
     }
 
-    protected void searchAllPoiCategory(String buildingId, String floor) {
+    protected void searchAllPoiCategory(String venueId, String buildingId, String floor) {
         PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
+        poiCategorySearchOption.venueId(venueId);
         poiCategorySearchOption.buildingId(buildingId);
         poiCategorySearchOption.floorId(floor);
-        poiSearch.searchPoiCategoryInBuilding(poiCategorySearchOption);
+        poiSearch.searchPoiCategoryInSite(poiCategorySearchOption);
     }
 
     @Override
@@ -153,8 +155,9 @@ public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity imp
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
             if (floorInfo != null) {
-                SearchPoiCategoriesInBuildingActivity.this.floor = floorInfo.getId();
+                SearchPoiCategoriesInSiteActivity.this.floor = floorInfo.getId();
                 buildingId = indoorBuilding.getBuildingId();
+                venueId = venue.getId();
             }
         });
     }
@@ -162,11 +165,14 @@ public class SearchPoiCategoriesInBuildingActivity extends AppCompatActivity imp
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_search_in_venue:
+                searchAllPoiCategory(venueId, "", "");
+                break;
             case R.id.btn_search_in_building:
-                searchAllPoiCategory(buildingId, "");
+                searchAllPoiCategory("", buildingId, "");
                 break;
             case R.id.btn_search_on_floor:
-                searchAllPoiCategory(buildingId, floor);
+                searchAllPoiCategory("", buildingId, floor);
                 break;
         }
         progressBarView.setVisibility(View.VISIBLE);

@@ -44,9 +44,9 @@ import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingDet
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingGlobalActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingInboundActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingNearbyActivity;
-import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiCategoriesInBuildingActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiCategoriesInSiteActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiDetailActivity;
-import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInBuildingActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInSiteActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInboundActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiNearbyActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchVenueDetailActivity;
@@ -226,13 +226,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_search_service_poi_categories_in_building_title,
                         R.string.activity_search_service_poi_category_in_building_description,
-                        new Intent(MainActivity.this, SearchPoiCategoriesInBuildingActivity.class),
+                        new Intent(MainActivity.this, SearchPoiCategoriesInSiteActivity.class),
                         R.drawable.category_include_in_scene));
 
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_search_service_poi_in_building_title,
                         R.string.activity_search_service_poi_in_building_description,
-                        new Intent(MainActivity.this, SearchPoiInBuildingActivity.class),
+                        new Intent(MainActivity.this, SearchPoiInSiteActivity.class),
                         R.drawable.search_poi_in_scene));
 
                 exampleItemModels.add(new ExampleItemModel(

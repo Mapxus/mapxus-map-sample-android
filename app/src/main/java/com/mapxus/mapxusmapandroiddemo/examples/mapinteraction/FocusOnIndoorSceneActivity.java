@@ -87,7 +87,7 @@ public class FocusOnIndoorSceneActivity extends BaseWithParamMenuActivity implem
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        etId.setText(getString(R.string.default_floor_id));
+                        etId.setText(getString(R.string.default_switch_indoor_floor_id));
                         break;
                     case 1:
                         etId.setText(getString(R.string.default_search_text_building_id));

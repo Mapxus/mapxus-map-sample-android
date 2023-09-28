@@ -9,6 +9,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -60,7 +61,12 @@ public class FloorSwitchModeActivity extends AppCompatActivity implements OnMapR
         mapViewProvider.getMapxusMapAsync(this);
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         navigationHeight = getResources().getDimensionPixelSize(resourceId);
-        findViewById(R.id.btn_building_outline_style).setOnClickListener(this::openPopupWindow);
+        findViewById(R.id.btn_floor_switch_mode).setOnClickListener(this::openPopupWindow);
+        ((SwitchCompat) findViewById(R.id.switch_button)).setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (mapxusMap != null) {
+                mapxusMap.isMaskNonSelectedSite(isChecked);
+            }
+        });
     }
 
     @Override

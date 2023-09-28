@@ -47,25 +47,39 @@
         android:paddingEnd="5dp">
 
         <Button
-            android:id="@+id/btn_search_in_building"
-            android:layout_width="150dp"
+            android:id="@+id/btn_search_in_venue"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape_blue"
+            android:text="@string/search_in_venue"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_search_in_building"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
             android:background="@drawable/button_shape_blue"
             android:text="@string/search_in_building"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/btn_search_on_floor"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:background="@drawable/button_shape_blue"
             android:text="@string/search_on_floor"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 

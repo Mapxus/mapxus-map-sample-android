@@ -74,7 +74,7 @@
     <string name="ja" translatable="false">ja</string>
     <string name="ko" translatable="false">ko</string>
     <string name="gesture_switch" translatable="false">gesture switch</string>
-    <string name="auton_switch" translatable="false">auton switch</string>
+    <string name="auto_switch" translatable="false">auto switch</string>
     <string name="please_long_press_or_click_on_the_map" translatable="false">Please long press or click on the map.</string>
     <string name="params" translatable="false">Params</string>
     <string name="zoom_mode" translatable="false">zoomMode</string>
@@ -104,6 +104,7 @@
     <string name="default_distance" translatable="false">5</string>
     <string name="default_distance_30" translatable="false">30</string>
     <string name="add_id" translatable="false">Add ID</string>
+    <string name="search_in_venue" translatable="false">Search In Venue</string>
     <string name="search_in_building" translatable="false">Search In Building</string>
     <string name="search_on_floor" translatable="false">Search On Floor</string>
     <string name="close" translatable="false">Close</string>
@@ -136,5 +137,6 @@
     <string name="reach_toast_text" translatable="false">You have arrived . </string>
     <string name="foot" translatable="false">foot</string>
     <string name="wheelchair" translatable="false">wheelchair</string>
+    <string name="is_show_mask_layer">show mask layer</string>
 
 </resources>
