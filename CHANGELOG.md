@@ -1,5 +1,22 @@
 # Mapxus Map SDK Change Log
 
+## 8.1.0
+
+### Bugs
+
+* Fixed location camera move bug.
+* Fixed poi click event , can not selecte poi when the current building does not match the poi
+  building.
+* Fixed selecteBuilding , selecteFloor function , no history floors in use.
+
+### Features
+
+* Poi search , add venue Id as parameter.
+* All search function , add a one-to-one result callback.
+* When the indoor map are overlaped together , the current selected building can be selected as the
+  foreground.
+* The user can choose whether to display the grey mask of the building through the parameters.
+
 ## 8.0.0
 
 ### Bugs
