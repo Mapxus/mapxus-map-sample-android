@@ -6,13 +6,13 @@ def secretProperties = new Properties()
 secretProperties.load(new FileInputStream(secretPropertiesFile))
 
 android {
-    compileSdkVersion 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.mapxus.mapxusmapandroiddemo"
 
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdk 24
+        targetSdk 34
 
         versionCode 4
         versionName 'v1.0.0'
@@ -45,6 +45,7 @@ android {
     lintOptions {
         abortOnError false
     }
+    namespace 'com.mapxus.mapxusmapandroiddemo'
 
 }
 
@@ -71,7 +72,7 @@ dependencies {
     //Android auto size
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
     //Slide delete library
-    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+//    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     //navigation
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 }

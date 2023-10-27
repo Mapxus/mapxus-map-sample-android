@@ -1,10 +1,15 @@
 <resources>
     <string name="default_lat" translatable="false">22.3707866</string>
     <string name="default_lon" translatable="false">114.1112654</string>
+    <string name="default_venue_id" translatable="false">eee1fae0c18447a8b6b86a80ad53ff88</string>
     <string name="default_floor_name" translatable="false">L3</string>
+    <string name="default_floor_id" translatable="false">82b062bbe06048f5bb30bf0d7dd993c2</string>
+    <string name="default_venue_id_tsuen" translatable="false">9f0af5f1758040008a7b112d041c0977</string>
     <string name="default_zoom_level_value" translatable="false">17</string>
+    <string name="default_visual_map_building_id" translatable="false">tsuenwanplaza_hk_369d01</string>
 
     <string name="default_switch_indoor_buiding_id" translatable="false">f20017ba7d9d41c0b277fc48b7a4bf02</string>
+    <string name="default_switch_indoor_floor_id" translatable="false">c9c327d034374be5b865c9768b8e402b</string>
     <string name="default_switch_indoor_floor_name" translatable="false">L3</string>
 
     <string name="default_visual_lat" translatable="false">22.3707866</string>
@@ -18,6 +23,14 @@
 
     <string name="route_plan_lat" translatable="false">22.296943</string>
     <string name="route_plan_lon" translatable="false">114.168458</string>
+
+    <string-array name="default_marker_floor_id" translatable="false">
+        <item></item>
+        <item>2cdd6174730d4431b1aa730eda596ed4</item>
+        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
+        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
+        <item>82b062bbe06048f5bb30bf0d7dd993c2</item>
+    </string-array>
 
     <string-array name="default_marker_lat" translatable="false">
         <item>22.370779</item>
@@ -74,6 +87,5 @@
     <string name="default_max_lon_poi" translatable="false">114.172422</string>
 
     <string name="default_poi_meter_distance" translatable="false">10</string>
-    <string name="default_poi_id" translatable="false">263231</string>
 
 </resources>
