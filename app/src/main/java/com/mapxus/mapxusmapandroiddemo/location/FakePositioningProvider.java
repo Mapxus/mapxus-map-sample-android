@@ -89,13 +89,14 @@ public final class FakePositioningProvider extends IndoorLocationProvider {
 
         @Override
         public void onLocationChange(MapxusLocation mapxusLocation) {
-            if (indoorLocation != null) {
-                dispatchIndoorLocationChange(indoorLocation);
-            }
+//            if (indoorLocation != null) {
+//                dispatchIndoorLocationChange(indoorLocation);
+//            }
         }
     };
 
     public void setIndoorLocation(IndoorLocation indoorLocation) {
         this.indoorLocation = indoorLocation;
+        dispatchIndoorLocationChange(indoorLocation);
     }
 }

@@ -3,6 +3,7 @@ package com.mapxus.mapxusmapandroiddemo.examples.integrationcases.route;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LifecycleOwner;
 
@@ -34,6 +35,7 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
     private RouteAdsorber routeAdsorber = null;
     private RouteShortener routeShortener = null;
     private MapboxMap mapboxMap;
+    boolean isInHeadingMode = false;
 
     public MapxusNavigationPositioningProvider(LifecycleOwner lifecycleOwner, Context context) {
         this.lifecycleOwner = lifecycleOwner;
@@ -54,21 +56,6 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
         started = true;
 
     }
-
-    @Override
-    public void stop() {
-        if (positioningClient != null) {
-            positioningClient.stop();
-        }
-        started = false;
-    }
-
-    @Override
-    public boolean isStarted() {
-        return started;
-    }
-
-
     private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
         @Override
         public void onStateChange(PositioningState positionerState) {
@@ -94,7 +81,13 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
 
         @Override
         public void onOrientationChange(float orientation, int sensorAccuracy) {
-            dispatchCompassChange(orientation, sensorAccuracy);
+            if (isInHeadingMode) {
+                if (Math.abs(orientation - getLastCompass()) > 10) {
+                    dispatchCompassChange(orientation, sensorAccuracy);
+                }
+            } else {
+                dispatchCompassChange(orientation, sensorAccuracy);
+            }
         }
 
         @Override
@@ -111,20 +104,37 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
             FloorInfo floorInfo = mapxusLocation.getMapxusFloor() == null ? null : new FloorInfo(
                     mapxusLocation.getMapxusFloor().getId(), mapxusLocation.getMapxusFloor().getCode(), mapxusLocation.getMapxusFloor().getOrdinal()
             );
-
             IndoorLocation indoorLocation = new IndoorLocation(building, floorInfo, location);
             indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
 
             if (null != routeAdsorber) {
                 IndoorLocation indoorLatLon = routeAdsorber.calculateTheAdsorptionLocationFromActual(indoorLocation);
-                routeShortener.cutFromTheLocationProjection(indoorLatLon, mapboxMap);
-                indoorLocation.setLatitude(indoorLatLon.getLatitude());
-                indoorLocation.setLongitude(indoorLatLon.getLongitude());
+                if (indoorLocation.getLatitude() != indoorLatLon.getLatitude() || indoorLocation.getLongitude() != indoorLatLon.getLongitude()) {
+                    Log.i(TAG,
+                            "onLocationChange: " + indoorLatLon.getLatitude() + "," + indoorLatLon.getLongitude() + indoorLocation.getLatitude() + "," + indoorLocation.getLongitude());
+                    routeShortener.cutFromTheLocationProjection(indoorLatLon, mapboxMap);
+                    indoorLocation.setLatitude(indoorLatLon.getLatitude());
+                    indoorLocation.setLongitude(indoorLatLon.getLongitude());
+                }
             }
 
             dispatchIndoorLocationChange(indoorLocation);
         }
     };
+
+    @Override
+    public boolean isStarted() {
+        return started;
+    }
+
+    @Override
+    public void stop() {
+        if (positioningClient != null) {
+//            positioningClient.removePositioningListener(mapxusPositioningListener);
+            positioningClient.stop();
+        }
+        started = false;
+    }
 
     public RouteAdsorber getRouteAdsorber() {
         return routeAdsorber;
@@ -139,6 +149,10 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
         NavigationPathDto navigationPathDto = new NavigationPathDto(pathDto);
         routeAdsorber = new RouteAdsorber(navigationPathDto);
         routeShortener = new RouteShortener(navigationPathDto, pathDto, pathDto.getIndoorPoints());
+        routeAdsorber.setOnDriftsNumberExceededListener(() -> {
+            Log.i(TAG, "发生漂移了: ");
+            Toast.makeText(context, "发生漂移了", Toast.LENGTH_SHORT).show();
+        });
     }
 
     public void setOnPathChange(RouteShortener.OnPathChangeListener onPathChange) {

@@ -5,6 +5,7 @@
     each example's recyclerview card ****** -->
 
     <string name="activity_basic_simple_mapview_title">Create map with code</string>
+    <string name="activity_basic_simple_compose_mapview_title">Create map with Compose</string>
     <string name="activity_basic_support_map_frag_title">Create map with fragment</string>
     <string name="activity_basic_init_with_building_title">Create map (Specify the initial building,floor and building adaptive margin)</string>
     <string name="activity_basic_init_with_poi_title">Create map (Specify the POI and zoom level)</string>

@@ -210,9 +210,22 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
             EditText etLineWidth = bottomSheetDialogView.findViewById(R.id.et_building_outline_line_width);
 
             BuildingBorderStyle buildingBorderStyle = new BuildingBorderStyle();
-            buildingBorderStyle.setLineOpacity(Expression.literal(Float.parseFloat(etOpacity.getText().toString())));
-            buildingBorderStyle.setLineColor(Expression.color(Color.parseColor(String.format("#%s", etLineColor.getText().toString()))));
-            buildingBorderStyle.setLineWidth(Expression.literal(Float.parseFloat(etLineWidth.getText().toString())));
+            try {
+                buildingBorderStyle.setLineOpacity(Expression.literal(Float.parseFloat(etOpacity.getText().toString())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                buildingBorderStyle.setLineColor(Expression.color(Color.parseColor(String.format("#%s", etLineColor.getText().toString()))));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                buildingBorderStyle.setLineWidth(Expression.literal(Float.parseFloat(etLineWidth.getText().toString())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             mapxusMap.getMapxusUiSettings().setSelectedBuildingBorderStyle(buildingBorderStyle);
         });
     }

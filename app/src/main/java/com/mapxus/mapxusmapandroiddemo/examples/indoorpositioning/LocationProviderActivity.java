@@ -24,7 +24,6 @@ import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.map.mapxusmap.positioning.ErrorInfo;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
-import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProviderListener;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -37,7 +36,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
     private MapView mapView;
     private MapxusMap mapxusMap;
     private MapViewProvider mapViewProvider;
-    private IndoorLocationProvider mapxusPositioningProvider;
+    private MapxusPositioningProvider mapxusPositioningProvider;
 
     private Dialog dialog;
 
@@ -119,6 +118,28 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         }
     };
 
+    private MapxusMap.OnFollowUserModeChangedListener listener = new MapxusMap.OnFollowUserModeChangedListener() {
+        @Override
+        public void OnFollowUserModeChanged(int i) {
+            if (i == FollowUserMode.FOLLOW_USER_AND_HEADING) {
+                mapxusPositioningProvider.isInHeadingMode = true;
+            } else {
+                mapxusPositioningProvider.isInHeadingMode = false;
+            }
+
+            switch (i) {
+                case FollowUserMode.NONE:
+                    btnPositioningMode.setText(getString(R.string.follow_me_none));
+                    break;
+                case FollowUserMode.FOLLOW_USER:
+                    btnPositioningMode.setText(getString(R.string.follow_me_follow_user));
+                    break;
+                case FollowUserMode.FOLLOW_USER_AND_HEADING:
+                    btnPositioningMode.setText(getString(R.string.follow_me_follow_user_and_heading));
+            }
+        }
+    };
+
     private void setLocation() {
         dialog = new MaterialDialog.Builder(LocationProviderActivity.this)
                 .title(getString(R.string.location_dialog_title))
@@ -172,6 +193,8 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         });
 
         mapxusMap.setLocationProvider(mapxusPositioningProvider);
+
+        mapxusMap.addOnFollowUserModeChangedListener(listener);
     }
 
     private void showLocationInfo(IndoorLocation indoorLocation) {

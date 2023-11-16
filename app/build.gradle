@@ -1,4 +1,7 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 
 def secretPropertiesFile = rootProject.file("./secret.properties")
@@ -9,12 +12,10 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.mapxus.mapxusmapandroiddemo"
-
         minSdk 24
         targetSdk 34
 
-        versionCode 4
+        versionCode 1
         versionName 'v1.0.0'
 
         vectorDrawables.useSupportLibrary = true
@@ -46,32 +47,58 @@ android {
         abortOnError false
     }
     namespace 'com.mapxus.mapxusmapandroiddemo'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.3'
+    }
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
 
 }
 
 dependencies {
+    implementation "org.jetbrains:annotations:16.0.1"
+
     //Android Libraries
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.browser:browser:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "pub.devrel:easypermissions:3.0.0"
+    //compose
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation platform('androidx.compose:compose-bom:2023.03.00')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    androidTestImplementation platform('androidx.compose:compose-bom:2023.03.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
     // MapxusMap
     implementation "com.mapxus.visual:mapxusvisual:0.3.1"
-    implementation "com.mapxus.map:mapxusmap:8.1.0"
+    implementation "com.mapxus.map:mapxusmap:8.2.0"
     implementation 'com.mapxus.positioning:positioning:2.2.6'
 
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
-
     // Square crew
     implementation "com.squareup.picasso:picasso:2.71828"
     //Android auto size
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
-    //Slide delete library
+    //侧滑删除库
 //    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     //navigation
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'

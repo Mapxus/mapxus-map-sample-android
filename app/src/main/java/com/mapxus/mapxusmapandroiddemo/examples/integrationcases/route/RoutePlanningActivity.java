@@ -422,6 +422,13 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
         this.mMapxusMap = mapxusMap;
         mMapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.CENTER_RIGHT);
         setLocation();
+        mMapxusMap.addOnFollowUserModeChangedListener(i -> {
+            if (i == FollowUserMode.FOLLOW_USER_AND_HEADING) {
+                mapxusPositioningProvider.isInHeadingMode = true;
+            } else {
+                mapxusPositioningProvider.isInHeadingMode = false;
+            }
+        });
     }
 
     private void setLocation() {

@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
     private RelativeLayout progressBarView;
 
     private int angle, radius;
+    private Integer ordinal;
     private IndoorLatLng indoorLatLng;
     private String searchType;
     private Button btnSearchType;
@@ -73,9 +75,12 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
         indoorLocationProvider = new FakePositioningProvider(this, this);
     }
 
-    protected void doSearchQuery(int angle, IndoorLatLng indoorLatLng, int radius, String searchType) {
+    protected void doSearchQuery(int angle, Integer ordinal, IndoorLatLng indoorLatLng, int radius,
+                                 String searchType) {
         PoiOrientationSearchOption option = new PoiOrientationSearchOption();
         option.orientation(angle);
+        option.orientation(angle);
+        option.mOrdinal = ordinal;
         option.indoorLatLng(indoorLatLng);
         option.meterRadius(radius);
         option.searchType(searchType);
@@ -160,6 +165,8 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
 
     @Override
     protected void initBottomSheetDialog() {
+        ordinal = null;
+
         MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
         View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_orientation_search_style, this);
         btnSearchType = bottomSheetDialogView.findViewById(R.id.btn_search_type);
@@ -185,29 +192,68 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
         }
         EditText etLat = bottomSheetDialogView.findViewById(R.id.et_lat);
         EditText etLon = bottomSheetDialogView.findViewById(R.id.et_lon);
+        EditText etBuildingId = bottomSheetDialogView.findViewById(R.id.et_building_id);
         EditText etFloorId = bottomSheetDialogView.findViewById(R.id.et_floor_id);
         EditText etDistance = bottomSheetDialogView.findViewById(R.id.et_distance);
+        EditText etOrdinal = bottomSheetDialogView.findViewById(R.id.et_ordinal);
 
         String floorId = etFloorId.getText().toString().trim();
+        String buildingId = etBuildingId.getText().toString().trim();
+
+        if (!TextUtils.isEmpty(etOrdinal.getText().toString())) {
+            try {
+                ordinal = Integer.parseInt(etOrdinal.getText().toString());
+            } catch (Exception e) {
+                Toast.makeText(this, "Ordinal Not a Number", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         indoorLatLng = new IndoorLatLng();
-        indoorLatLng.setBuildingId(indoorBuilding.getBuildingId());
+        indoorLatLng.setBuildingId(buildingId);
         indoorLatLng.setFloorId(floorId);
         indoorLatLng.setLat(etLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLat.getText().toString().trim()));
         indoorLatLng.setLon(etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim()));
         radius = etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim());
 
+        FloorInfo floorInfoValue = null;
 
-        IndoorLocation indoorLocation = new IndoorLocation("Fake", new FloorInfo(floorId, "", 0), indoorBuilding.getBuildingId(), indoorLatLng.getLat(), indoorLatLng.getLon(), System.currentTimeMillis());
-        indoorLocationProvider.setIndoorLocation(indoorLocation);
+        if (ordinal != null) {
+            for (FloorInfo floorInfo : indoorBuilding.getFloors()) {
+                if (ordinal == floorInfo.getOrdinal()) {
+                    floorInfoValue = floorInfo;
+                }
+            }
+        } else if (!TextUtils.isEmpty(floorId)) {
+            String floorName = "";
+            int ordinalValue = 0;
+
+            for (FloorInfo floorInfo : indoorBuilding.getFloors()) {
+                if (floorId.equals(floorInfo.getId())) {
+                    floorName = floorInfo.getCode();
+                    ordinalValue = floorInfo.getOrdinal();
+                }
+            }
+            floorInfoValue = new FloorInfo(floorId, floorName, ordinalValue);
+        }
+
+        String buildingIdValue = buildingId;
+        if (TextUtils.isEmpty(buildingIdValue)) {
+            buildingIdValue = indoorBuilding.getBuildingId();
+        }
+
+        IndoorLocation indoorLocation = new IndoorLocation("Fake", floorInfoValue,
+                floorInfoValue == null ? null : buildingIdValue,
+                indoorLatLng.getLat(), indoorLatLng.getLon(), System.currentTimeMillis());
         mapxusMap.setLocationProvider(indoorLocationProvider);
         mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER);
+        indoorLocationProvider.setIndoorLocation(indoorLocation);
     }
 
     @Override
     public void onClick(View v) {
         if (indoorLatLng != null) {
             progressBarView.setVisibility(View.VISIBLE);
-            doSearchQuery(angle, indoorLatLng, radius, searchType);
+            doSearchQuery(angle, ordinal, indoorLatLng, radius, searchType);
         } else {
             Toast.makeText(this, "Pleas set params first.", Toast.LENGTH_SHORT).show();
         }

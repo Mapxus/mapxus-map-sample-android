@@ -28,6 +28,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.integrationcases.explore.Explore
 import com.mapxus.mapxusmapandroiddemo.examples.integrationcases.route.RoutePlanningActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.MapxusMapInitWithBuildingParamsActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.MapxusMapInitWithPoiParamsActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.SimpleComposeMapviewActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.SimpleMapViewActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.SupportMapFragmentActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapediting.DrawMarkerActivity;
@@ -342,6 +343,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_basic_simple_mapview_title,
                         R.string.activity_basic_simple_mapview_description,
                         new Intent(MainActivity.this, SimpleMapViewActivity.class),
+                        R.drawable.create_map_by_code));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_basic_simple_compose_mapview_title,
+                        R.string.activity_basic_simple_compose_mapview_description,
+                        new Intent(MainActivity.this, SimpleComposeMapviewActivity.class),
                         R.drawable.create_map_by_code));
 
                 exampleItemModels.add(new ExampleItemModel(

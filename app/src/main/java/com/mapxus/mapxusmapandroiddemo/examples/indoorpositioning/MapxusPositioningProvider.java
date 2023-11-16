@@ -23,6 +23,7 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
     private MapxusPositioningClient positioningClient;
     private LifecycleOwner lifecycleOwner;
     private boolean started;
+    boolean isInHeadingMode = false;
 
     public MapxusPositioningProvider(LifecycleOwner lifecycleOwner, Context context) {
         this.lifecycleOwner = lifecycleOwner;
@@ -42,21 +43,6 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
         started = true;
 
     }
-
-    @Override
-    public void stop() {
-        if (positioningClient != null) {
-            positioningClient.stop();
-        }
-        started = false;
-    }
-
-    @Override
-    public boolean isStarted() {
-        return started;
-    }
-
-
     private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
         @Override
         public void onStateChange(PositioningState positionerState) {
@@ -82,7 +68,13 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
 
         @Override
         public void onOrientationChange(float orientation, int sensorAccuracy) {
-            dispatchCompassChange(orientation, sensorAccuracy);
+            if (isInHeadingMode) {
+                if (Math.abs(orientation - getLastCompass()) > 10) {
+                    dispatchCompassChange(orientation, sensorAccuracy);
+                }
+            } else {
+                dispatchCompassChange(orientation, sensorAccuracy);
+            }
         }
 
         @Override
@@ -106,4 +98,18 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
             dispatchIndoorLocationChange(indoorLocation);
         }
     };
+
+    @Override
+    public boolean isStarted() {
+        return started;
+    }
+
+    @Override
+    public void stop() {
+        if (positioningClient != null) {
+            positioningClient.stop();
+//            positioningClient.removePositioningListener(mapxusPositioningListener);
+        }
+        started = false;
+    }
 }

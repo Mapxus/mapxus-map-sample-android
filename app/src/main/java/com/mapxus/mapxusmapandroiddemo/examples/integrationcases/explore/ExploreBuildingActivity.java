@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases.explore;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,7 +42,9 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         mapView.getMapAsync(mapboxMap -> this.mapboxMap = mapboxMap);
         mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
-        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetLayout));
+        View view = findViewById(R.id.bottomSheetLayout);
+        bottomSheetBehavior = BottomSheetBehavior.from(view);
+        view.setOnTouchListener((v, event) -> true);
     }
 
     @Override

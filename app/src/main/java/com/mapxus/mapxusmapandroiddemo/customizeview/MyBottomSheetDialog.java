@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.mapxus.mapxusmapandroiddemo.R;
 
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class MyBottomSheetDialog extends BottomSheetDialog {
     @Override
     public void show() {
         super.show();
-        FrameLayout bottomSheet = findViewById(R.id.design_bottom_sheet);
+        FrameLayout bottomSheet = findViewById(com.google.android.material.R.id.design_bottom_sheet);
         ViewGroup.LayoutParams originLayoutParams = Objects.requireNonNull(bottomSheet).getLayoutParams();
         originLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
         bottomSheet.setLayoutParams(originLayoutParams);
@@ -38,7 +37,7 @@ public class MyBottomSheetDialog extends BottomSheetDialog {
         View bottomSheetDialogView = LayoutInflater.from(context).inflate(styleRes, null);
         setContentView(bottomSheetDialogView);
         if (getWindow() != null) {
-            getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+            getWindow().findViewById(com.google.android.material.R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
         }
         getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         getBehavior().setSkipCollapsed(true);
