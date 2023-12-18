@@ -19,21 +19,27 @@ Please contact us  <support@mapxus.com> to get appid and secret if you do not ha
 
 ## About Mapxus Map SDK
 
-All the follwing sample is based on [the latest Mapxus Map SDK version](./CHANGELOG.md) , please add sdk dependency to your own project's builid.gradle file:
+All the follwing sample is based on [the latest Mapxus Map SDK version](./CHANGELOG.md) , please add sdk dependency to
+your own project's builid.gradle file:
+
 ```groovy
 dependencies {
-    	implementation 'com.mapxus.map:mapxusmap: latest version'
-	}
+  implementation 'com.mapxus.map:mapxusmap: latest version'
+}
 ```
 
-For more information about Mapxus Indoor Map and Location Service, please check our website: [https://www.mapxus.com/](https://www.mapxus.com/).
+If you are a customer in Japan, you need to replace ***com.mapxus.map:mapxusmap: “latest-version“*** with ***com.mapxus.
+map:mapxusmap-jp: ”latest-version“***
 
+For more information about Mapxus Indoor Map and Location Service, please check our
+website: [https://www.mapxus.com/](https://www.mapxus.com/).
 
 ## Map Creation
 
 ### Create map with code
 
-* File name：[SimpleMapViewActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapcreation/SimpleMapViewActivity.java)
+* File
+  name：[SimpleMapViewActivity](app/src/main/java/com/mapxus/mapxusmapandroiddemo/examples/mapcreation/SimpleMapViewActivity.java)
 
 * Summary：Create map with code.
 
