@@ -43,6 +43,22 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
         started = true;
 
     }
+
+    @Override
+    public void stop() {
+        if (positioningClient != null) {
+            positioningClient.stop();
+//            positioningClient.removePositioningListener(mapxusPositioningListener);
+        }
+        started = false;
+    }
+
+    @Override
+    public boolean isStarted() {
+        return started;
+    }
+
+
     private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
         @Override
         public void onStateChange(PositioningState positionerState) {
@@ -98,18 +114,4 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
             dispatchIndoorLocationChange(indoorLocation);
         }
     };
-
-    @Override
-    public boolean isStarted() {
-        return started;
-    }
-
-    @Override
-    public void stop() {
-        if (positioningClient != null) {
-            positioningClient.stop();
-//            positioningClient.removePositioningListener(mapxusPositioningListener);
-        }
-        started = false;
-    }
 }

@@ -1,5 +1,11 @@
 # Mapxus Map SDK Change Log
 
+## 8.2.1
+
+🎉Features
+
+* Optimized the adsorption algorithm for building to building navigation.
+
 ## 8.2.0
 
 🐛Bugs

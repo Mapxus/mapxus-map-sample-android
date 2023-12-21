@@ -56,6 +56,22 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
         started = true;
 
     }
+
+    @Override
+    public void stop() {
+        if (positioningClient != null) {
+//            positioningClient.removePositioningListener(mapxusPositioningListener);
+            positioningClient.stop();
+        }
+        started = false;
+    }
+
+    @Override
+    public boolean isStarted() {
+        return started;
+    }
+
+
     private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
         @Override
         public void onStateChange(PositioningState positionerState) {
@@ -121,20 +137,6 @@ public class MapxusNavigationPositioningProvider extends IndoorLocationProvider 
             dispatchIndoorLocationChange(indoorLocation);
         }
     };
-
-    @Override
-    public boolean isStarted() {
-        return started;
-    }
-
-    @Override
-    public void stop() {
-        if (positioningClient != null) {
-//            positioningClient.removePositioningListener(mapxusPositioningListener);
-            positioningClient.stop();
-        }
-        started = false;
-    }
 
     public RouteAdsorber getRouteAdsorber() {
         return routeAdsorber;

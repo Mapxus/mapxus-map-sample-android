@@ -16,6 +16,7 @@ import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLng;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.PoiNearbySearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.PoiSearchSortWay;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
@@ -106,11 +107,15 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(String keyWord, String category, String venueId, String buildingId, int ordinal, LatLng latLng, int meterDistance, int offset, int page) {
+    protected void doSearchQuery(Boolean isSearchByActualDistance, String keyWord, String category,
+                                 String venueId,
+                                 String buildingId, int ordinal, LatLng latLng, int meterDistance, int offset, int page) {
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
         nearbySearchOption.keyword(keyWord);
         nearbySearchOption.venueId(venueId);
         nearbySearchOption.buildingId(buildingId);
+        nearbySearchOption.sort(isSearchByActualDistance ? PoiSearchSortWay.ACTUAL_DISTANCE :
+                PoiSearchSortWay.ABSOLUTE_DISTANCE);
         nearbySearchOption.ordinal(ordinal);
         nearbySearchOption.category(category);
         nearbySearchOption.meterRadius(meterDistance);
@@ -195,6 +200,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
+        Button btnSoft = bottomSheetDialogView.findViewById(R.id.btn_soft_mode);
 
         EditText etDistance = bottomSheetDialogView.findViewById(R.id.et_distance);
         EditText etLat = bottomSheetDialogView.findViewById(R.id.et_lat);
@@ -205,7 +211,9 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
                 etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim())
         );
 
-        doSearchQuery(etKeywords.getText().toString().trim(),
+        doSearchQuery(
+                btnSoft.getText().toString().equals(getString(R.string.actual_distance)),
+                etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
                 etVenueId.getText().toString().trim(),
                 etBuildingId.getText().toString().trim(),
