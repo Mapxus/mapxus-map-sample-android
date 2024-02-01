@@ -114,7 +114,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
                 routePainter.cleanRoute();
                 Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
                 instructionsAdapter.notifyCurrentPosition(routeResponseDto.getPaths().get(0).getInstructions().size() - 1);
-                mapxusPositioningProvider.setRouteAdsorber(null);
+                mapxusPositioningProvider.routeAdsorber = null;
             });
             mapxusPositioningProvider.setOnPathChange(pathDto -> {
                 int size = routeResponseDto.getPaths().get(0).getInstructions().size();
@@ -123,7 +123,7 @@ public class RoutePlanningActivity extends AppCompatActivity implements RoutePla
             });
         } else {
             goBtn.setText(R.string.go);
-            mapxusPositioningProvider.setRouteAdsorber(null);
+            mapxusPositioningProvider.routeAdsorber = null;
         }
 
     };

@@ -116,6 +116,7 @@
     <string name="ordinal" translatable="false">ordinal</string>
     <string name="distance_search_type" translatable="false">distanceSearchType</string>
     <string name="point" translatable="false">Point</string>
+    <string name="gate" translatable="false">Gate</string>
     <string name="polygon" translatable="false">Polygon</string>
     <string name="go" translatable="false">Go</string>
     <string name="start" translatable="false">Start</string>

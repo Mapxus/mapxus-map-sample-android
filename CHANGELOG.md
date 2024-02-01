@@ -1,5 +1,16 @@
 # Mapxus Map SDK Change Log
 
+## 8.3.0
+
+🎉Features
+
+* POI orientation search Added the distance search type 'Gate'.
+* Use indoor coding to optimize the situation when you are indoors but receive gps location.
+
+🐛Bugs
+
+* Fixed bugs that select floor by id can not select target when visible box does not contain it.
+
 ## 8.2.1
 
 🎉Features

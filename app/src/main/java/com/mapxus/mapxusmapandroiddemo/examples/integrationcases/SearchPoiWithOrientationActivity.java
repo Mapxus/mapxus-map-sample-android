@@ -1,6 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.integrationcases;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +11,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.FollowUserMode;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
@@ -174,6 +178,9 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
             if (btnSearchType.getText().toString().equals(getString(R.string.point))) {
                 btnSearchType.setText(getString(R.string.polygon));
                 searchType = DistanceSearchType.POLYGON;
+            } else if (btnSearchType.getText().toString().equals(getString(R.string.polygon))) {
+                btnSearchType.setText(getString(R.string.gate));
+                searchType = DistanceSearchType.GATE;
             } else {
                 btnSearchType.setText(getString(R.string.point));
                 searchType = DistanceSearchType.POINT;
@@ -215,38 +222,53 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
         indoorLatLng.setLon(etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim()));
         radius = etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim());
 
-        FloorInfo floorInfoValue = null;
+        mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(indoorLatLng.getLat(),
+                indoorLatLng.getLon()), 17), new MapboxMap.CancelableCallback() {
+            @Override
+            public void onCancel() {
 
-        if (ordinal != null) {
-            for (FloorInfo floorInfo : indoorBuilding.getFloors()) {
-                if (ordinal == floorInfo.getOrdinal()) {
-                    floorInfoValue = floorInfo;
-                }
             }
-        } else if (!TextUtils.isEmpty(floorId)) {
-            String floorName = "";
-            int ordinalValue = 0;
 
-            for (FloorInfo floorInfo : indoorBuilding.getFloors()) {
-                if (floorId.equals(floorInfo.getId())) {
-                    floorName = floorInfo.getCode();
-                    ordinalValue = floorInfo.getOrdinal();
-                }
+            @Override
+            public void onFinish() {
+                new Handler().postDelayed(() -> {
+                    mapxusMap.selectBuildingById(buildingId, MapxusMapZoomMode.ZoomDisable, null);
+                    FloorInfo floorInfoValue = null;
+
+                    if (ordinal != null) {
+                        for (FloorInfo floorInfo : mapxusMap.getBuildings().get(buildingId).getFloors()) {
+                            if (ordinal == floorInfo.getOrdinal()) {
+                                floorInfoValue = floorInfo;
+                            }
+                        }
+                    } else if (!TextUtils.isEmpty(floorId)) {
+                        String floorName = "";
+                        int ordinalValue = 0;
+
+                        for (FloorInfo floorInfo : indoorBuilding.getFloors()) {
+                            if (floorId.equals(floorInfo.getId())) {
+                                floorName = floorInfo.getCode();
+                                ordinalValue = floorInfo.getOrdinal();
+                            }
+                        }
+                        floorInfoValue = new FloorInfo(floorId, floorName, ordinalValue);
+                    }
+
+                    String buildingIdValue = buildingId;
+                    if (TextUtils.isEmpty(buildingIdValue)) {
+                        buildingIdValue = indoorBuilding.getBuildingId();
+                    }
+
+                    IndoorLocation indoorLocation = new IndoorLocation("Fake", floorInfoValue,
+                            floorInfoValue == null ? null : buildingIdValue,
+                            indoorLatLng.getLat(), indoorLatLng.getLon(), System.currentTimeMillis());
+                    mapxusMap.setLocationProvider(indoorLocationProvider);
+                    mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER);
+                    indoorLocationProvider.setIndoorLocation(indoorLocation);
+
+                }, 2000);
             }
-            floorInfoValue = new FloorInfo(floorId, floorName, ordinalValue);
-        }
-
-        String buildingIdValue = buildingId;
-        if (TextUtils.isEmpty(buildingIdValue)) {
-            buildingIdValue = indoorBuilding.getBuildingId();
-        }
-
-        IndoorLocation indoorLocation = new IndoorLocation("Fake", floorInfoValue,
-                floorInfoValue == null ? null : buildingIdValue,
-                indoorLatLng.getLat(), indoorLatLng.getLon(), System.currentTimeMillis());
-        mapxusMap.setLocationProvider(indoorLocationProvider);
-        mapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER);
-        indoorLocationProvider.setIndoorLocation(indoorLocation);
+        });
     }
 
     @Override
