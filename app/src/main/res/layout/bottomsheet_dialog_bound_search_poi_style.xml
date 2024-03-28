@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/textview_shape_white_top_radius">
@@ -23,7 +24,7 @@
             android:id="@+id/et_keywords"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
@@ -31,6 +32,28 @@
             android:padding="8dp"
             android:singleLine="true"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_order_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/order_by"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_order_by"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_shape_blue"
+            android:text="@string/order_by_none"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:text="@string/order_by_none" />
 
         <TextView
             android:id="@+id/tv_category"
@@ -39,27 +62,47 @@
             android:text="@string/category"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_category"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
             android:inputType="text"
             android:padding="8dp"
             android:singleLine="true"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_exclude_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exclude_category"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_exclude_category"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:autofillHints=""
+            android:background="@android:drawable/editbox_background_normal"
+            android:hint="@null"
+            android:inputType="text"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/bbox"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -68,7 +111,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -99,7 +142,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -130,7 +173,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -161,7 +204,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -193,7 +236,7 @@
             android:id="@+id/tv_offset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/offset"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -203,7 +246,7 @@
             android:id="@+id/et_offset"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
@@ -217,7 +260,7 @@
             android:id="@+id/tv_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/page"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -227,7 +270,7 @@
             android:id="@+id/et_page"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:autofillHints=""
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@null"
@@ -242,7 +285,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_shape_blue"
             android:text="@string/create"
             android:textAllCaps="false"

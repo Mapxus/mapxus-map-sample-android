@@ -18,6 +18,8 @@
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="50dp"
+        app:tabRippleColor="@color/transparent"
+        app:tabUnboundedRipple="true"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/MyTabLayout"
         app:tabTextColor="@color/black">
@@ -26,7 +28,6 @@
             android:id="@+id/tab_floor_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/appPink"
             android:text="floorId" />
 
         <com.google.android.material.tabs.TabItem

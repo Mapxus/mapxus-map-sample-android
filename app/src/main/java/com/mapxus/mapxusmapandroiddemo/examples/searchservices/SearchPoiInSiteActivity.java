@@ -2,8 +2,10 @@ package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -13,6 +15,7 @@ import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.PoiInSiteSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.PoiSearchOrderBy;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
@@ -24,6 +27,8 @@ import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 
 public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener, OnMapxusMapReadyCallback {
@@ -103,10 +108,15 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(String keyWord, String category, String venueId, String buildingId, String floorId, int offset, int page) {
+    protected void doSearchQuery(String keyWord, String orderBy,
+                                 String category, String excludeCategory,
+                                 String venueId, String buildingId, String floorId, int offset, int page) {
         PoiInSiteSearchOption inSiteSearchOption = new PoiInSiteSearchOption();
         inSiteSearchOption.keyword(keyWord);
+        inSiteSearchOption.orderBy(orderBy);
+
         inSiteSearchOption.category(category);
+        inSiteSearchOption.excludeCategories(Arrays.asList(excludeCategory.split(",")));
         inSiteSearchOption.venueId(venueId);
         inSiteSearchOption.buildingId(buildingId);
         inSiteSearchOption.floorId(floorId);
@@ -159,11 +169,31 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
             progressBarView.setVisibility(View.VISIBLE);
             getValueAndSearch(bottomSheetDialogView);
         });
+
+        Button btnOrderBy = bottomSheetDialogView.findViewById(R.id.btn_order_by);
+        TextView tvKeyword = bottomSheetDialogView.findViewById(R.id.tv_keywords);
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        btnOrderBy.setOnClickListener(v -> {
+            if (btnOrderBy.getText().toString().equals(getString(R.string.order_by_default_name))) {
+                btnOrderBy.setText(getString(R.string.order_by_none));
+                etKeywords.setEnabled(true);
+                etKeywords.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
+                tvKeyword.setEnabled(true);
+                tvKeyword.setTextColor(getResources().getColor(R.color.black));
+            } else {
+                btnOrderBy.setText(getString(R.string.order_by_default_name));
+                etKeywords.setEnabled(false);
+                etKeywords.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
+                tvKeyword.setEnabled(false);
+                tvKeyword.setTextColor(getResources().getColor(R.color.lighter_gray));
+            }
+        });
     }
 
     private void getValueAndSearch(View bottomSheetDialogView) {
         EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
         EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
+        EditText etExcludeCategory = bottomSheetDialogView.findViewById(R.id.et_exclude_category);
         EditText etVenueId = bottomSheetDialogView.findViewById(R.id.et_venue_id);
         EditText etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
         EditText etFloorId = bottomSheetDialogView.findViewById(R.id.et_floor_id);
@@ -173,10 +203,17 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
         String venueId = etVenueId.getText().toString().trim();
         String buildingId = etBuildingId.getText().toString().trim();
         String floorId = etFloorId.getText().toString().trim();
+        Button btnOrderBy = bottomSheetDialogView.findViewById(R.id.btn_order_by);
+        String orderBy = null;
+        if (btnOrderBy.getText().toString().equals(getString(R.string.order_by_default_name))) {
+            orderBy = PoiSearchOrderBy.DEFAULT_NAME;
+        }
 
         doSearchQuery(
                 etKeywords.getText().toString().trim(),
+                orderBy,
                 etCategory.getText().toString().trim(),
+                etExcludeCategory.getText().toString().trim(),
                 venueId,
                 buildingId,
                 floorId,

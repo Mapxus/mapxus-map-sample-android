@@ -15,87 +15,123 @@
         app:maplibre_cameraZoom="@string/default_zoom_level_value" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+        <TextView
+            android:id="@+id/tv_start"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:background="@drawable/textview_shape_blue"
+            android:ellipsize="end"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:maxLines="1"
+            android:text="@string/start"
+            android:textColor="@color/white" />
 
-            <TextView
-                android:id="@+id/tv_start"
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:background="@drawable/textview_shape_blue"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="@string/start"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/tv_end"
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/textview_shape_white"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="@string/end"
-                android:textColor="@color/maplibre_blue" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+        <TextView
+            android:id="@+id/tv_end"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_shape_white"
+            android:ellipsize="end"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:maxLines="1"
+            android:text="@string/end"
+            android:textColor="@color/maplibre_blue" />
 
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:background="@drawable/button_shape_blue"
-                android:text="@string/search"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_first_waypoint"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_shape_green"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/first_waypoint"
+            android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/btn_go"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/button_shape_blue"
-                android:text="@string/go"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_second_waypoint"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_shape_green"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/second_waypoint"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_third_waypoint"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_shape_green"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/third_waypoint"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white_transparent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.mapxus.mapxusmapandroiddemo.customizeview.SwitchView
-            android:id="@+id/switch_view"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_shape_gray"
+            app:tabIndicator="@drawable/button_shape_white"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="50dp"
+            app:tabMode="auto"
+            app:tabRippleColor="@color/transparent"
+            app:tabTextAppearance="@style/MyTabLayout"
+            app:tabTextColor="@color/black"
+            app:tabUnboundedRipple="true">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_foot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/foot" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_wheelchair"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wheelchair" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_emergency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emergency" />
+
+        </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,20 +139,24 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/tv_to_door"
+            <Button
+                android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/to_door"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:background="@drawable/button_shape_blue"
+                android:text="@string/search"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_button"
+            <Button
+                android:id="@+id/btn_go"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp" />
+                android:layout_marginStart="15dp"
+                android:background="@drawable/button_shape_blue"
+                android:text="@string/go"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/open_instructions"

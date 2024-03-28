@@ -2,8 +2,10 @@ package com.mapxus.mapxusmapandroiddemo.examples.searchservices;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
@@ -15,6 +17,7 @@ import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.PoiBoundSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.PoiSearchOrderBy;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
@@ -26,6 +29,8 @@ import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener {
 
@@ -105,12 +110,20 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(LatLngBounds latLngBounds, String keyWord, String category, int offset, int page) {
+    protected void doSearchQuery(
+            LatLngBounds latLngBounds,
+            String keyWord,
+            String orderBy,
+            String category,
+            String excludeCategory,
+            int offset,
+            int page) {
         PoiBoundSearchOption boundSearchOption = new PoiBoundSearchOption();
-
+        boundSearchOption.orderBy(orderBy);
         boundSearchOption.bound(latLngBounds);
         boundSearchOption.keyword(keyWord);
         boundSearchOption.category(category);
+        boundSearchOption.excludeCategories(Arrays.asList(excludeCategory.split(",")));
         boundSearchOption.pageCapacity(offset);
         boundSearchOption.pageNum(page);
         poiSearch.searchInBound(boundSearchOption);
@@ -169,19 +182,37 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
     protected void initBottomSheetDialog() {
         MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
         View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_bound_search_poi_style, this);
-        bottomSheetDialogView.findViewById(R.id.tv_category).setVisibility(View.VISIBLE);
-        bottomSheetDialogView.findViewById(R.id.et_category).setVisibility(View.VISIBLE);
 
         bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             progressBarView.setVisibility(View.VISIBLE);
             getValueAndSearch(bottomSheetDialogView);
         });
+
+        Button btnOrderBy = bottomSheetDialogView.findViewById(R.id.btn_order_by);
+        TextView tvKeyword = bottomSheetDialogView.findViewById(R.id.tv_keywords);
+        EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
+        btnOrderBy.setOnClickListener(v -> {
+            if (btnOrderBy.getText().toString().equals(getString(R.string.order_by_default_name))) {
+                btnOrderBy.setText(getString(R.string.order_by_none));
+                etKeywords.setEnabled(true);
+                etKeywords.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
+                tvKeyword.setEnabled(true);
+                tvKeyword.setTextColor(getResources().getColor(R.color.black));
+            } else {
+                btnOrderBy.setText(getString(R.string.order_by_default_name));
+                etKeywords.setEnabled(false);
+                etKeywords.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
+                tvKeyword.setEnabled(false);
+                tvKeyword.setTextColor(getResources().getColor(R.color.lighter_gray));
+            }
+        });
     }
 
     private void getValueAndSearch(View bottomSheetDialogView) {
         EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
         EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
+        EditText etExcludeCategory = bottomSheetDialogView.findViewById(R.id.et_exclude_category);
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
 
@@ -189,6 +220,12 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
         EditText etMaxLon = bottomSheetDialogView.findViewById(R.id.et_max_lon);
         EditText etMinLat = bottomSheetDialogView.findViewById(R.id.et_min_lat);
         EditText etMinLon = bottomSheetDialogView.findViewById(R.id.et_min_lon);
+        Button btnOrderBy = bottomSheetDialogView.findViewById(R.id.btn_order_by);
+        String orderBy = null;
+        if (btnOrderBy.getText().toString().equals(getString(R.string.order_by_default_name))) {
+            orderBy = PoiSearchOrderBy.DEFAULT_NAME;
+        }
+
 
         com.mapxus.map.mapxusmap.api.map.model.LatLng southweast = new com.mapxus.map.mapxusmap.api.map.model.LatLng(
                 etMinLat.getText().toString().isEmpty() ? 0 : Double.parseDouble(etMinLat.getText().toString().trim()),
@@ -205,7 +242,9 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
 
         doSearchQuery(latLngBounds,
                 etKeywords.getText().toString().trim(),
+                orderBy,
                 etCategory.getText().toString().trim(),
+                etExcludeCategory.getText().toString().trim(),
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
     }

@@ -26,6 +26,8 @@ import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback {
 
     private MapView mapView;
@@ -107,19 +109,27 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         mapView.onLowMemory();
     }
 
-    protected void doSearchQuery(Boolean isSearchByActualDistance, String keyWord, String category,
-                                 String venueId,
-                                 String buildingId, int ordinal, LatLng latLng, int meterDistance, int offset, int page) {
+    protected void doSearchQuery(
+            String sortWay,
+            String keyWord,
+            String category,
+            String excludeCategory,
+            String venueId,
+            String buildingId,
+            int ordinal, LatLng latLng,
+            int meterDistance,
+            int offset,
+            int page) {
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
         nearbySearchOption.keyword(keyWord);
         nearbySearchOption.venueId(venueId);
         nearbySearchOption.buildingId(buildingId);
-        nearbySearchOption.sort(isSearchByActualDistance ? PoiSearchSortWay.ACTUAL_DISTANCE :
-                PoiSearchSortWay.ABSOLUTE_DISTANCE);
+        nearbySearchOption.sort(sortWay);
         nearbySearchOption.ordinal(ordinal);
         nearbySearchOption.category(category);
         nearbySearchOption.meterRadius(meterDistance);
         nearbySearchOption.location(latLng);
+        nearbySearchOption.excludeCategories(Arrays.asList(excludeCategory.split(",")));
         nearbySearchOption.pageCapacity(offset);
         nearbySearchOption.pageNum(page);
         poiSearch.searchNearby(nearbySearchOption);
@@ -198,6 +208,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
     private void getValueAndSearch(View bottomSheetDialogView) {
         EditText etKeywords = bottomSheetDialogView.findViewById(R.id.et_keywords);
         EditText etCategory = bottomSheetDialogView.findViewById(R.id.et_category);
+        EditText etExcludeCategory = bottomSheetDialogView.findViewById(R.id.et_exclude_category);
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
         Button btnSoft = bottomSheetDialogView.findViewById(R.id.btn_soft_mode);
@@ -211,10 +222,18 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
                 etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim())
         );
 
+        String sortWay;
+        if (btnSoft.getText().toString().equals(getString(R.string.actual_distance))) {
+            sortWay = PoiSearchSortWay.ACTUAL_DISTANCE;
+        } else {
+            sortWay = PoiSearchSortWay.ABSOLUTE_DISTANCE;
+        }
+
         doSearchQuery(
-                btnSoft.getText().toString().equals(getString(R.string.actual_distance)),
+                sortWay,
                 etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
+                etExcludeCategory.getText().toString().trim(),
                 etVenueId.getText().toString().trim(),
                 etBuildingId.getText().toString().trim(),
                 etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim()),

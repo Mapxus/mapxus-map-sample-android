@@ -29,5 +29,7 @@
     <color name="bound_polygon_color">#20FF0000</color>
     <color name="darker_blue">#6A5ACD</color>
     <color name="black">#000000</color>
+    <color name="way_point_green">#75D38F</color>
+
 
 </resources>

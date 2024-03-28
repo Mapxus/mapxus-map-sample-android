@@ -6,18 +6,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
-import com.mapxus.map.mapxusmap.api.map.model.Venue;
-import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.visual.MapxusVisual;
@@ -29,7 +25,7 @@ import com.mapxus.visual.repository.image.VisualImageRepository;
 
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener, MapxusMap.OnFloorChangedListener {
+public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener {
 
     private MapView mapView;
     private MapxusMap mapxusMap;
@@ -50,8 +46,6 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
     private String lastShowVisualBuildingId = "";
 
-    private double preMapZoomLevel = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +59,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_visual_map_building_id)));
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mapxusMap = mapxusMap;
+            mapxusMap.getMapxusUiSettings().setBuildingSelectorEnabled(false);
             initListener();
         });
 
@@ -84,9 +79,6 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
      * 添加监听
      */
     private void initListener() {
-
-        mapxusMap.addOnFloorChangedListener(this);
-
         /*
           视觉地图显示变化时相应对地图显示路线做一些变化
          */
@@ -122,20 +114,19 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         switchBtn.setOnClickListener(v -> {
 
             if (mapViewIsBig) {
+                mapxusMap.getMapxusUiSettings().setCollapseCopyright(true);
                 mapxusVisual.setLayoutParams(bigViewLayoutParams);
                 mapView.setLayoutParams(smallViewLayoutParams);
                 mapxusMap.getMapxusUiSettings().setSelectorEnabled(false);
-                preMapZoomLevel = mapxusMap.getCameraPosition().zoom;
-                mapboxMap.animateCamera(CameraUpdateFactory.zoomTo(Double.parseDouble(getString(R.string.default_visual_zoom))));
                 mapView.bringToFront();
                 mapViewIsBig = false;
                 mapxusVisual.resize();
                 visualCheckbox.setVisibility(View.GONE);
             } else {
+                mapxusMap.getMapxusUiSettings().setCollapseCopyright(false);
                 mapView.setLayoutParams(bigViewLayoutParams);
                 mapxusVisual.setLayoutParams(smallViewLayoutParams);
                 mapxusMap.getMapxusUiSettings().setSelectorEnabled(true);
-                mapboxMap.animateCamera(CameraUpdateFactory.zoomTo(preMapZoomLevel));
                 mapxusVisual.bringToFront();
                 mapxusVisual.resize();
                 mapViewIsBig = true;
@@ -213,6 +204,8 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
     public void onBuildingChange(IndoorBuilding indoorBuilding) {
         //地图建筑变化，查询新建筑的图片
         if (indoorBuilding != null && !lastShowVisualBuildingId.equals(indoorBuilding.getBuildingId())) {
+            mapxusVisual.setVisibility(View.GONE);
+            switchBtn.setVisibility(View.GONE);
             visualImageRepository.queryImages(indoorBuilding.getBuildingId(), visualMapImageQueryListener);
         }
 
@@ -260,11 +253,4 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
         }
     };
-
-    @Override
-    public void onFloorChange(@Nullable Venue venue, @Nullable IndoorBuilding indoorBuilding, @Nullable FloorInfo floorInfo) {
-        mapxusVisual.setVisibility(View.GONE);
-        switchBtn.setVisibility(View.GONE);
-    }
-
 }
