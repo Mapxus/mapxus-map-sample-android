@@ -1,5 +1,24 @@
 # Mapxus Map SDK Change Log
 
+## 8.4.0
+
+🎉Features
+
+* Update Auth SDK.
+* Add RoutePlanningVehicle 'EMERGENCY'.
+* Poi Search add exclude_categories parameter.
+* Poi Search add PoiSearchOrderBy parameter 'DEFAULT_NAME'.
+* Route planning search , add waypoints functino, and some function was deprecated.
+
+|    Class/Protocol    |                                                                      Deprecated Interfaces/Properties                                                                      |      Replacement Class/Interfaces/Properties      |
+|:--------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------:|
+|    RoutePlanning     | route(@NonNull RoutePlanningPoint fromPoint, @NonNull RoutePlanningPoint toPoint,@NonNull @RoutePlanningLocale.Locale String routePlanningLocale, @NonNull Boolean toDoor) | route(@NonNull RoutePlanningQueryRequest request) |
+|                      |                                 route(@NonNull RoutePlanningPoint fromPoint, @NonNull RoutePlanningPoint toPoint, @NonNull Boolean toDoor)                                 | route(@NonNull RoutePlanningQueryRequest request) |
+|                      |                                                                route(@NonNull RoutePlanningRequest request)                                                                | route(@NonNull RoutePlanningQueryRequest request) |
+|                      |                               route(@NonNull RoutePlanningRequest request, @NonNull RoutePlanningResultListener routePlanningResultListener)                               | route(@NonNull RoutePlanningQueryRequest request) |
+| RoutePlanningRequest |                                                                                   toDoor                                                                                   |                                                   |
+| RoutePlanningRequest |                                                                                                                                                                            |             RoutePlanningQueryRequest             |
+
 ## 8.3.0
 
 🎉Features
