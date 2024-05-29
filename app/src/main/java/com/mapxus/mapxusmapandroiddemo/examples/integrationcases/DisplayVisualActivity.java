@@ -34,7 +34,9 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
     private CheckBox visualCheckbox;
 
+    private MapViewProvider mapViewProvider;
     private MapxusVisual mapxusVisual;
+
     private VisualImageRepository visualImageRepository;
 
     private VisualPolylineOverlay visualPolylineOverlay;
@@ -56,7 +58,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         switchBtn = findViewById(R.id.btn_switch);
         visualCheckbox = findViewById(R.id.cb_visual);
         mapView.onCreate(savedInstanceState);
-        MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_visual_map_building_id)));
+        mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_visual_map_building_id)));
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mapxusMap = mapxusMap;
             mapxusMap.getMapxusUiSettings().setBuildingSelectorEnabled(false);
@@ -112,7 +114,6 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
         //切换显示大小屏监听
         switchBtn.setOnClickListener(v -> {
-
             if (mapViewIsBig) {
                 mapxusMap.getMapxusUiSettings().setCollapseCopyright(true);
                 mapxusVisual.setLayoutParams(bigViewLayoutParams);
@@ -123,15 +124,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
                 mapxusVisual.resize();
                 visualCheckbox.setVisibility(View.GONE);
             } else {
-                mapxusMap.getMapxusUiSettings().setCollapseCopyright(false);
-                mapView.setLayoutParams(bigViewLayoutParams);
-                mapxusVisual.setLayoutParams(smallViewLayoutParams);
-                mapxusMap.getMapxusUiSettings().setSelectorEnabled(true);
-                mapxusVisual.bringToFront();
-                mapxusVisual.resize();
-                mapViewIsBig = true;
-                visualCheckbox.setVisibility(View.VISIBLE);
-                visualCheckbox.bringToFront();
+                setMpaViewBig();
             }
         });
 
@@ -155,6 +148,18 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
         });
 
+    }
+
+    private void setMpaViewBig() {
+        mapxusMap.getMapxusUiSettings().setCollapseCopyright(false);
+        mapView.setLayoutParams(bigViewLayoutParams);
+        mapxusVisual.setLayoutParams(smallViewLayoutParams);
+        mapxusMap.getMapxusUiSettings().setSelectorEnabled(true);
+        mapxusVisual.bringToFront();
+        mapxusVisual.resize();
+        mapViewIsBig = true;
+        visualCheckbox.setVisibility(View.VISIBLE);
+        visualCheckbox.bringToFront();
     }
 
     @Override
@@ -207,8 +212,12 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
             mapxusVisual.setVisibility(View.GONE);
             switchBtn.setVisibility(View.GONE);
             visualImageRepository.queryImages(indoorBuilding.getBuildingId(), visualMapImageQueryListener);
-        }
 
+            if (!mapViewIsBig) {
+                setMpaViewBig();
+                visualCheckbox.setChecked(false);
+            }
+        }
     }
 
     /**
