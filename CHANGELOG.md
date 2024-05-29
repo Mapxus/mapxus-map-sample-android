@@ -1,5 +1,22 @@
 # Mapxus Map SDK Change Log
 
+## 8.5.0
+
+🐛Bugs
+
+- Fixed waypoints function drawing bug.
+- Fixed map locale bug,
+
+🎉Features
+
+- PoiInfo from Poi Search by id add descriptions with locale.
+- IndoorBuildingInfo add buildName properties.
+- Some functions/properties was deprecated.
+
+| Class/Protocol | Deprecated Interfaces/Properties | Replacement Class/Interfaces/Properties |
+|:--------------:|:--------------------------------:|:---------------------------------------:|
+|    PoiInfo     |           description            |         getDescriptionDefault()         |
+
 ## 8.4.0
 
 🎉Features
