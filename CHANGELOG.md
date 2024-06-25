@@ -1,5 +1,18 @@
 # Mapxus Map SDK Change Log
 
+## 8.6.0
+
+🐛Bugs
+
+- Fixed NPE caused by IndoorBuildingInfo.getBuildingNameXXX.
+
+🎉Features
+
+- IllegalArgumentException will be thrown when a null or empty id is passed to DetailSearchOption.id().
+- The id list passed to DetailSearchOption.ids() will filter out all null or empty elements and throw an IllegalArgumentException if the filtered list size is 0.
+- Route planning drawing supports the multi-icon feature by using the `waypointIconList` attribute of RoutePainterResource.
+- The `waypointIcon` attribute of RoutePainterResource is now deprecated!
+
 ## 8.5.0
 
 🐛Bugs

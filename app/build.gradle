@@ -89,8 +89,8 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
     // MapxusMap
-    implementation "com.mapxus.visual:mapxusvisual:0.3.1"
-    implementation "com.mapxus.map:mapxusmap:8.5.0"
+    implementation "com.mapxus.visual:mapxusvisual:0.4.1"
+    implementation "com.mapxus.map:mapxusmap:8.6.0"
     implementation 'com.mapxus.positioning:positioning:2.2.6'
 
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
