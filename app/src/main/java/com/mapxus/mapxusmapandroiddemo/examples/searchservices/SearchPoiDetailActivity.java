@@ -159,9 +159,14 @@ public class SearchPoiDetailActivity extends BaseWithParamMenuActivity implement
         views.add(startView);
 
         bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
-            bottomSheetDialog.dismiss();
-            progressBarView.setVisibility(View.VISIBLE);
-            getValueAndSearch();
+            List<String> ids = getValue();
+            if (!ids.isEmpty()) {
+                bottomSheetDialog.dismiss();
+                progressBarView.setVisibility(View.VISIBLE);
+                doSearchQuery(ids);
+            } else {
+                Toast.makeText(this, "Please input poiId at least one .", Toast.LENGTH_LONG).show();
+            }
         });
 
         bottomSheetDialogView.findViewById(R.id.btn_add_id).setOnClickListener(v -> {
@@ -177,20 +182,16 @@ public class SearchPoiDetailActivity extends BaseWithParamMenuActivity implement
         });
     }
 
-    private void getValueAndSearch() {
-        List<String> poiIds = new ArrayList<>();
+    private List<String> getValue() {
+        List<String> venueIds = new ArrayList<>();
         for (View view : views) {
             EditText editText = view.findViewById(R.id.et_id);
-            String poiId = editText.getText().toString().trim();
-            if (!TextUtils.isEmpty(poiId)) {
-                poiIds.add(poiId);
+            String buildingId = editText.getText().toString().trim();
+            if (!TextUtils.isEmpty(buildingId)) {
+                venueIds.add(buildingId);
             }
         }
-        if (!poiIds.isEmpty()) {
-            doSearchQuery(poiIds);
-        } else {
-            Toast.makeText(this, "Please input poiId at least one .", Toast.LENGTH_LONG).show();
-        }
+        return venueIds;
     }
 }
 

@@ -26,13 +26,15 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.*
-import kotlin.math.abs
 
 /**
  * Created by Edison on 2020/9/25.
  * Describe:
  */
-class MapxusNavigationPositioningProvider(private val lifecycleOwner: LifecycleOwner, private val context: Context) :
+class MapxusNavigationPositioningProvider(
+    private val lifecycleOwner: LifecycleOwner,
+    private val context: Context
+) :
     IndoorLocationProvider() {
     private var positioningClient: MapxusPositioningClient? = null
     private var started = false
@@ -52,7 +54,8 @@ class MapxusNavigationPositioningProvider(private val lifecycleOwner: LifecycleO
     }
 
     override fun start() {
-        positioningClient = MapxusPositioningClient.getInstance(lifecycleOwner, context.applicationContext)
+        positioningClient =
+            MapxusPositioningClient.getInstance(lifecycleOwner, context.applicationContext)
         positioningClient?.addPositioningListener(mapxusPositioningListener)
         positioningClient?.start()
         started = true
@@ -71,78 +74,79 @@ class MapxusNavigationPositioningProvider(private val lifecycleOwner: LifecycleO
         return started
     }
 
-    private val mapxusPositioningListener: MapxusPositioningListener = object : MapxusPositioningListener {
-        override fun onStateChange(positionerState: PositioningState) {
-            when (positionerState) {
-                PositioningState.STOPPED -> {
-                    dispatchOnProviderStopped()
-                }
+    private val mapxusPositioningListener: MapxusPositioningListener =
+        object : MapxusPositioningListener {
+            override fun onStateChange(positionerState: PositioningState) {
+                when (positionerState) {
+                    PositioningState.STOPPED -> {
+                        dispatchOnProviderStopped()
+                    }
 
-                PositioningState.RUNNING -> {
-                    dispatchOnProviderStarted()
-                }
+                    PositioningState.RUNNING -> {
+                        dispatchOnProviderStarted()
+                    }
 
-                else -> {
-                    //ignore
-                }
-            }
-        }
-
-        override fun onError(errorInfo: ErrorInfo) {
-            Log.e(TAG, errorInfo.errorMessage)
-            dispatchOnProviderError(
-                com.mapxus.map.mapxusmap.positioning.ErrorInfo(
-                    errorInfo.errorCode,
-                    errorInfo.errorMessage
-                )
-            )
-        }
-
-        override fun onOrientationChange(orientation: Float, sensorAccuracy: Int) {
-            if (isInHeadingMode) {
-                if (abs(orientation - lastCompass) > 10) {
-                    dispatchCompassChange(orientation, sensorAccuracy)
-                }
-            } else {
-                dispatchCompassChange(orientation, sensorAccuracy)
-            }
-        }
-
-        override fun onLocationChange(mapxusLocation: MapxusLocation?) {
-            if (mapxusLocation == null) {
-                return
-            }
-            coroutineScope.launch {
-                val location = Location("MapxusPositioning")
-                location.latitude = mapxusLocation.latitude
-                location.longitude = mapxusLocation.longitude
-                location.time = System.currentTimeMillis()
-                val building = mapxusLocation.buildingId
-                val floorInfo = if (mapxusLocation.mapxusFloor == null) null else FloorInfo(
-                    mapxusLocation.mapxusFloor.id, mapxusLocation.mapxusFloor.code, mapxusLocation.mapxusFloor.ordinal
-                )
-                val indoorLocation = IndoorLocation(building, floorInfo, location)
-                indoorLocation.accuracy = mapxusLocation.accuracy
-                if (null != routeAdsorber) {
-                    val indoorLatLon = routeAdsorber!!.calculateTheAdsorptionLocation(indoorLocation)
-                    if (indoorLocation.latitude != indoorLatLon!!.latitude || indoorLocation.longitude != indoorLatLon.longitude) {
-                        Log.i(
-                            TAG,
-                            "onLocationChange: " + indoorLatLon.latitude + "," + indoorLatLon.longitude + indoorLocation.latitude + "," + indoorLocation.longitude
-                        )
-                        withContext(Dispatchers.Main) {
-                            routeShortener!!.cutFromTheLocationProjection(indoorLatLon, mapboxMap)
-                        }
-                        indoorLocation.latitude = indoorLatLon.latitude
-                        indoorLocation.longitude = indoorLatLon.longitude
+                    else -> {
+                        //ignore
                     }
                 }
-                withContext(Dispatchers.Main) {
-                    dispatchIndoorLocationChange(indoorLocation)
+            }
+
+            override fun onError(errorInfo: ErrorInfo) {
+                Log.e(TAG, errorInfo.errorMessage)
+                dispatchOnProviderError(
+                    com.mapxus.map.mapxusmap.positioning.ErrorInfo(
+                        errorInfo.errorCode,
+                        errorInfo.errorMessage
+                    )
+                )
+            }
+
+            override fun onOrientationChange(orientation: Float, sensorAccuracy: Int) {
+                dispatchCompassChange(orientation, sensorAccuracy)
+            }
+
+            override fun onLocationChange(mapxusLocation: MapxusLocation?) {
+                if (mapxusLocation == null) {
+                    return
+                }
+                coroutineScope.launch {
+                    val location = Location("MapxusPositioning")
+                    location.latitude = mapxusLocation.latitude
+                    location.longitude = mapxusLocation.longitude
+                    location.time = System.currentTimeMillis()
+                    val building = mapxusLocation.buildingId
+                    val floorInfo = if (mapxusLocation.mapxusFloor == null) null else FloorInfo(
+                        mapxusLocation.mapxusFloor.id,
+                        mapxusLocation.mapxusFloor.code,
+                        mapxusLocation.mapxusFloor.ordinal
+                    )
+                    val indoorLocation = IndoorLocation(building, floorInfo, location)
+                    indoorLocation.accuracy = mapxusLocation.accuracy
+                    if (null != routeAdsorber) {
+                        val indoorLatLon =
+                            routeAdsorber!!.calculateTheAdsorptionLocation(indoorLocation)
+                        if (indoorLocation.latitude != indoorLatLon!!.latitude || indoorLocation.longitude != indoorLatLon.longitude) {
+                            Log.i(
+                                TAG,
+                                "onLocationChange: " + indoorLatLon.latitude + "," + indoorLatLon.longitude + indoorLocation.latitude + "," + indoorLocation.longitude
+                            )
+                            withContext(Dispatchers.Main) {
+                                routeShortener!!.cutFromTheLocationProjection(
+                                    indoorLatLon,
+                                    mapboxMap
+                                )
+                            }
+                            indoorLocation.latitude = indoorLatLon.latitude
+                            indoorLocation.longitude = indoorLatLon.longitude
+                        }
+                    }
+                    withContext(Dispatchers.Main) {
+                        dispatchIndoorLocationChange(indoorLocation)
+                    }
                 }
             }
         }
-    }
 
     fun updatePath(pathDto: PathDto, mapboxMap: MapboxMap?) {
         this.mapboxMap = mapboxMap

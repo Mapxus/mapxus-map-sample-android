@@ -40,8 +40,8 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             String buildingName = null;
             String venueName = null;
             if (indoorBuilding != null) {
-                buildingName = indoorBuilding.getBuildingName();
-                venueName = venue.getVenueName();
+                buildingName = indoorBuilding.getBuildingNameMap().getDefault();
+                venueName = venue.getNameMap().getDefault();
             }
             displayDialog("You have tap at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floorInfo != null ? floorInfo.getCode() : "") + "," + buildingName + "," + venueName);
         });
@@ -49,8 +49,8 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             String buildingName = null;
             String venueName = null;
             if (indoorBuilding != null) {
-                buildingName = indoorBuilding.getBuildingName();
-                venueName = venue.getVenueName();
+                buildingName = indoorBuilding.getBuildingNameMap().getDefault();
+                venueName = venue.getNameMap().getDefault();
             }
             displayDialog("You have long press at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floorInfo != null ? floorInfo.getCode() : "") + "," + buildingName + "," + venueName);
         });
@@ -61,11 +61,11 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             String venueName = null;
             IndoorBuilding poiBuilding = mapxusMap.getBuildings().get(poi.getBuildingId());
             if (poiBuilding != null) {
-                buildingName = poiBuilding.getBuildingName();
-                venueName = mapxusMap.getVenues().get(poiBuilding.getVenueId()).getVenueName();
+                buildingName = poiBuilding.getBuildingNameMap().getDefault();
+                venueName = mapxusMap.getVenues().get(poiBuilding.getVenueId()).getNameMap().getDefault();
             }
 
-            displayDialog("You have tap on POI " + poi.getName() + "," + poi.getFloorName() + "," + buildingName + "," + venueName);
+            displayDialog("You have tap on POI " + poi.getNameMap().getDefault() + "," + poi.getFloorName() + "," + buildingName + "," + venueName);
         });
     }
 

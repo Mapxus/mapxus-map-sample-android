@@ -158,9 +158,14 @@ public class SearchVenueDetailActivity extends BaseWithParamMenuActivity impleme
         views.add(startView);
 
         bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
-            bottomSheetDialog.dismiss();
-            progressBarView.setVisibility(View.VISIBLE);
-            getValueAndSearch();
+            List<String> ids = getValue();
+            if (!ids.isEmpty()) {
+                bottomSheetDialog.dismiss();
+                progressBarView.setVisibility(View.VISIBLE);
+                doSearchQuery(ids);
+            } else {
+                Toast.makeText(this, "Please input venueId at least one .", Toast.LENGTH_LONG).show();
+            }
         });
 
         bottomSheetDialogView.findViewById(R.id.btn_add_id).setOnClickListener(v -> {
@@ -176,7 +181,7 @@ public class SearchVenueDetailActivity extends BaseWithParamMenuActivity impleme
         });
     }
 
-    private void getValueAndSearch() {
+    private List<String> getValue() {
         List<String> venueIds = new ArrayList<>();
         for (View view : views) {
             EditText editText = view.findViewById(R.id.et_id);
@@ -185,11 +190,7 @@ public class SearchVenueDetailActivity extends BaseWithParamMenuActivity impleme
                 venueIds.add(buildingId);
             }
         }
-        if (!venueIds.isEmpty()) {
-            doSearchQuery(venueIds);
-        } else {
-            Toast.makeText(this, "Please input buildingId at least one .", Toast.LENGTH_LONG).show();
-        }
+        return venueIds;
     }
 }
 

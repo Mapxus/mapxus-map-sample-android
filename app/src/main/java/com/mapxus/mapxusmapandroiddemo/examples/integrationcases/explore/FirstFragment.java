@@ -68,7 +68,7 @@ public class FirstFragment extends Fragment implements ExploreBuildingActivity.O
         if (indoorBuilding != null) {
             this.indoorBuilding = indoorBuilding;
             String buildingName = LocalLanguageUtils.getLocalLanguageWithIndoorBuilding(indoorBuilding);
-            button.setText(String.format("%s%s", "Explore ", TextUtils.isEmpty(buildingName) ? indoorBuilding.getBuildingName() : buildingName));
+            button.setText(String.format("%s%s", "Explore ", TextUtils.isEmpty(buildingName) ? indoorBuilding.getBuildingNameMap().getDefault() : buildingName));
         }
     }
 }

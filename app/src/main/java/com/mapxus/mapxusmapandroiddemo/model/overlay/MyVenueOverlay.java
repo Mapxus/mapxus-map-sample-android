@@ -82,7 +82,7 @@ public class MyVenueOverlay {
     }
 
     protected String getTitle(int index) {
-        String name = mVenueInfo.get(index).getVenueName() == null ? mVenueInfo.get(index).getVenueNameEn() : mVenueInfo.get(index).getVenueName();
+        String name = mVenueInfo.get(index).getNameMap().getDefault() == null ? mVenueInfo.get(index).getNameMap().getEn() : mVenueInfo.get(index).getNameMap().getDefault();
         if (name != null) {
             return name;
         } else {

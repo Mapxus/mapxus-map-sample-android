@@ -83,7 +83,7 @@ public class MyIndoorBuildingOverlay {
     }
 
     protected String getTitle(int index) {
-        String name = mIndoorBuildingInfos.get(index).getNameDefault() == null ? mIndoorBuildingInfos.get(index).getNameEn() : mIndoorBuildingInfos.get(index).getNameDefault();
+        String name = mIndoorBuildingInfos.get(index).getNameMap().getDefault() == null ? mIndoorBuildingInfos.get(index).getNameMap().getEn() : mIndoorBuildingInfos.get(index).getNameMap().getDefault();
         if (name != null) {
             return name;
         } else {

@@ -159,9 +159,14 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
         views.add(startView);
 
         bottomSheetDialogView.findViewById(R.id.create).setOnClickListener(v -> {
-            bottomSheetDialog.dismiss();
-            progressBarView.setVisibility(View.VISIBLE);
-            getValueAndSearch();
+            List<String> ids = getValue();
+            if (!ids.isEmpty()) {
+                bottomSheetDialog.dismiss();
+                progressBarView.setVisibility(View.VISIBLE);
+                doSearchQuery(ids);
+            } else {
+                Toast.makeText(this, "Please input buildingId at least one .", Toast.LENGTH_LONG).show();
+            }
         });
 
         bottomSheetDialogView.findViewById(R.id.btn_add_id).setOnClickListener(v -> {
@@ -175,20 +180,16 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
         });
     }
 
-    private void getValueAndSearch() {
-        List<String> buildingIds = new ArrayList<>();
+    private List<String> getValue() {
+        List<String> venueIds = new ArrayList<>();
         for (View view : views) {
             EditText editText = view.findViewById(R.id.et_id);
             String buildingId = editText.getText().toString().trim();
             if (!TextUtils.isEmpty(buildingId)) {
-                buildingIds.add(buildingId);
+                venueIds.add(buildingId);
             }
         }
-        if (!buildingIds.isEmpty()) {
-            doSearchQuery(buildingIds);
-        } else {
-            Toast.makeText(this, "Please input buildingId at least one .", Toast.LENGTH_LONG).show();
-        }
+        return venueIds;
     }
 }
 

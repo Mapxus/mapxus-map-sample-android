@@ -97,40 +97,40 @@ public class LocalLanguageUtils {
         String showName = "";
         switch (localeLanguage) {
             case "en":
-                if (poiInfo.getNameEn() != null) {
-                    showName = poiInfo.getNameEn();
+                if (poiInfo.getNameMap().getEn() != null) {
+                    showName = poiInfo.getNameMap().getEn();
                 }
                 break;
             case "zh":
                 if (locale.getCountry().equals("CN")) {
-                    if (poiInfo.getNameCn() != null) {
-                        showName = poiInfo.getNameCn();
+                    if (poiInfo.getNameMap().getZhHans() != null) {
+                        showName = poiInfo.getNameMap().getZhHans();
                     }
                 } else {
-                    if (poiInfo.getNameZh() != null) {
-                        showName = poiInfo.getNameZh();
+                    if (poiInfo.getNameMap().getZhHant() != null) {
+                        showName = poiInfo.getNameMap().getZhHant();
                     }
                 }
                 break;
             case "ja":
-                if (poiInfo.getNameJa() != null) {
-                    showName = poiInfo.getNameJa();
+                if (poiInfo.getNameMap().getJa() != null) {
+                    showName = poiInfo.getNameMap().getJa();
                 }
                 break;
             case "ko":
-                if (poiInfo.getNameKo() != null) {
-                    showName = poiInfo.getNameKo();
+                if (poiInfo.getNameMap().getKo() != null) {
+                    showName = poiInfo.getNameMap().getKo();
                 }
                 break;
             default:
-                if (poiInfo.getNameDefault() != null) {
-                    showName = poiInfo.getNameDefault();
+                if (poiInfo.getNameMap().getDefault() != null) {
+                    showName = poiInfo.getNameMap().getDefault();
                 }
                 break;
         }
 
         if (TextUtils.isEmpty(showName)) {
-            return TextUtils.isEmpty(poiInfo.getNameDefault()) ? "" : poiInfo.getNameDefault();
+            return TextUtils.isEmpty(poiInfo.getNameMap().getDefault()) ? "" : poiInfo.getNameMap().getDefault();
         } else {
             return showName;
         }
@@ -145,28 +145,28 @@ public class LocalLanguageUtils {
         String buildingName = "";
         switch (localeLanguage) {
             case "en":
-                buildingName = indoorBuilding.getNameEn();
+                buildingName = indoorBuilding.getNameMap().getEn();
                 break;
             case "zh":
                 if (locale.getCountry().equals("CN")) {
-                    buildingName = indoorBuilding.getNameCn();
+                    buildingName = indoorBuilding.getNameMap().getZhHans();
                 } else {
-                    buildingName = indoorBuilding.getNameZh();
+                    buildingName = indoorBuilding.getNameMap().getZhHant();
                 }
                 break;
             case "ja":
-                buildingName = indoorBuilding.getNameJa();
+                buildingName = indoorBuilding.getNameMap().getJa();
                 break;
             case "ko":
-                buildingName = indoorBuilding.getNameKo();
+                buildingName = indoorBuilding.getNameMap().getKo();
                 break;
             default:
-                buildingName = indoorBuilding.getNameDefault();
+                buildingName = indoorBuilding.getNameMap().getDefault();
                 break;
         }
 
         if (TextUtils.isEmpty(buildingName)) {
-            buildingName = indoorBuilding.getNameDefault();
+            buildingName = indoorBuilding.getNameMap().getDefault();
         }
 
         return buildingName;
@@ -181,28 +181,28 @@ public class LocalLanguageUtils {
         String buildingName = "";
         switch (localeLanguage) {
             case "en":
-                buildingName = indoorBuilding.getNameEn();
+                buildingName = indoorBuilding.getBuildingNameMap().getEn();
                 break;
             case "zh":
                 if (locale.getCountry().equals("CN")) {
-                    buildingName = indoorBuilding.getNameCn();
+                    buildingName = indoorBuilding.getBuildingNameMap().getZhHans();
                 } else {
-                    buildingName = indoorBuilding.getNameZh();
+                    buildingName = indoorBuilding.getBuildingNameMap().getZhHant();
                 }
                 break;
             case "ja":
-                buildingName = indoorBuilding.getNameJa();
+                buildingName = indoorBuilding.getBuildingNameMap().getJa();
                 break;
             case "ko":
-                buildingName = indoorBuilding.getNameKo();
+                buildingName = indoorBuilding.getBuildingNameMap().getKo();
                 break;
             default:
-                buildingName = indoorBuilding.getBuildingName();
+                buildingName = indoorBuilding.getBuildingNameMap().getDefault();
                 break;
         }
 
         if (TextUtils.isEmpty(buildingName)) {
-            buildingName = indoorBuilding.getBuildingName();
+            buildingName = indoorBuilding.getBuildingNameMap().getDefault();
         }
 
         return buildingName;
@@ -219,8 +219,8 @@ public class LocalLanguageUtils {
         switch (localeLanguage) {
             case "zh":
                 String country = locale.getCountry();
-                Address addressCn = indoorBuildingInfo.getAddressCn();
-                Address addressZh = indoorBuildingInfo.getAddressZh();
+                Address addressCn = indoorBuildingInfo.getAddressMap().getZhHans();
+                Address addressZh = indoorBuildingInfo.getAddressMap().getZhHant();
                 if (country.equals("CN") && addressCn != null) {
                     street = addressCn.getStreet();
                 } else if (addressZh != null) {
@@ -228,13 +228,13 @@ public class LocalLanguageUtils {
                 }
                 break;
             case "ja":
-                Address addressJa = indoorBuildingInfo.getAddressJa();
+                Address addressJa = indoorBuildingInfo.getAddressMap().getJa();
                 if (addressJa != null) {
                     street = addressJa.getStreet();
                 }
                 break;
             case "ko":
-                Address addressKo = indoorBuildingInfo.getAddressKo();
+                Address addressKo = indoorBuildingInfo.getAddressMap().getKo();
                 if (addressKo != null) {
                     street = addressKo.getStreet();
                 }

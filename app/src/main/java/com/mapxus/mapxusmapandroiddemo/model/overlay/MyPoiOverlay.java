@@ -79,7 +79,7 @@ public class MyPoiOverlay {
     }
 
     protected String getTitle(int index) {
-        return mPoiInfoList.get(index).getNameDefault();
+        return mPoiInfoList.get(index).getNameMap().getDefault();
     }
 
     protected String getSnippet(int index) {

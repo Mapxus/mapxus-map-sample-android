@@ -122,7 +122,7 @@
             android:inputType="text"
             android:padding="8dp"
             android:singleLine="true"
-            android:text="@string/default_venue_id_tsuen"
+            android:text="@string/default_venue_id"
             android:textStyle="bold" />
 
         <TextView

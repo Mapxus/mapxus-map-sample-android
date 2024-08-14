@@ -1,5 +1,169 @@
 # Mapxus Map SDK Change Log
 
+## 8.7.0
+
+🐛Bugs
+
+- Fixed ambiguous declaration of `RoutePainterResourse`'s functions'.
+
+🎉Features
+
+- New apis of some models' multilingual datas are now provided. Therefore the old apis are deprecated!
+
+| Class              | Deprecated                                                      | New                                                                |
+|--------------------|-----------------------------------------------------------------|--------------------------------------------------------------------|
+| Venue              | `setVenueNameMap`                                               | `setNameMap`                                                       |
+|                    | `getVenueName`                                                  | `getNameMap().getDefault()`                                        |
+|                    | `getVenueNameEn`                                                | `getNameMap().getEn()`                                             |
+|                    | `getVenueNameCn`                                                | `getNameMap().getZhHans()`                                         |
+|                    | `getVenueNameZh`                                                | `getNameMap().getZhHant()`                                         |
+|                    | `getVenueNameJa`                                                | `getNameMap().getJa()`                                             |
+|                    | `getVenueNameKo`                                                | `getNameMap().getKo()`                                             |
+|                    | `setVenueAddressMap`                                            | `setAddressMap`                                                    |
+|                    | `getAddress`                                                    | `getAddressMap().getDefault()`                                     |
+|                    | `getAddressEn`                                                  | `getAddressMap().getEn()`                                          |
+|                    | `getAddressCn`                                                  | `getAddressMap().getZhHans()`                                      |
+|                    | `getAddressZh`                                                  | `getAddressMap().getZhHant()`                                      |
+|                    | `getAddressJa`                                                  | `getAddressMap().getJa()`                                          |
+|                    | `getAddressKo`                                                  | `getAddressMap().getKo()`                                          |
+| IndoorBuilding     | `getAddrName`                                                   | `getAddressMap().getDefault()`                                     |
+|                    | `setAddrName`                                                   | `setAddressMap`                                                    |
+|                    | `getAddrNameEn`                                                 | `getAddressMap().getEn()`                                          |
+|                    | `setAddrNameEn`                                                 | `setAddressMap`                                                    |
+|                    | `getAddrNameCn`                                                 | `getAddressMap().getZhHans()`                                      |
+|                    | `setAddrNameCn`                                                 | `setAddressMap`                                                    |
+|                    | `getAddrNameZh`                                                 | `getAddressMap().getZhHant()`                                      |
+|                    | `setAddrNameZh`                                                 | `setAddressMap`                                                    |
+|                    | `getAddrNameJa`                                                 | `getAddressMap().getJa()`                                          |
+|                    | `setAddrNameJa`                                                 | `setAddressMap`                                                    |
+|                    | `getAddrNameKo`                                                 | `getAddressMap().getKo()`                                          |
+|                    | `setAddrNameKo`                                                 | `setAddressMap`                                                    |
+|                    | `getBuildingName`                                               | `getBuildingNameMap().getDefault()`                                |
+|                    | `setBuildingName`                                               | `setBuildingNameMap`                                               |
+|                    | `getNameEn`                                                     | `getBuildingNameMap().getEn()`                                     |
+|                    | `setNameEn`                                                     | `setBuildingNameMap`                                               |
+|                    | `getNameCn`                                                     | `getBuildingNameMap().getZhHans()`                                 |
+|                    | `setNameCn`                                                     | `setBuildingNameMap`                                               |
+|                    | `getNameZh`                                                     | `getBuildingNameMap().getZhHant()`                                 |
+|                    | `setNameZh`                                                     | `setBuildingNameMap`                                               |
+|                    | `getNameJa`                                                     | `getBuildingNameMap().getJa()`                                     |
+|                    | `setNameJa`                                                     | `setBuildingNameMap`                                               |
+|                    | `getNameKo`                                                     | `getBuildingNameMap().getKo()`                                     |
+|                    | `setNameKo`                                                     | `setBuildingNameMap`                                               |
+| Poi                | `getName`                                                       | `getNameMap().getDefault()`                                        |
+|                    | `setName`                                                       | `setNameMap`                                                       |
+|                    | `getNameEn`                                                     | `getNameMap().getEn()`                                             |
+|                    | `setNameEn`                                                     | `setNameMap`                                                       |
+|                    | `getNameCn`                                                     | `getNameMap().getZhHans()`                                         |
+|                    | `setNameCn`                                                     | `setNameMap`                                                       |
+|                    | `getNameZh`                                                     | `getNameMap().getZhHant()`                                         |
+|                    | `setNameZh`                                                     | `setNameMap`                                                       |
+|                    | `getNameJa`                                                     | `getNameMap().getJa()`                                             |
+|                    | `setNameJa`                                                     | `setNameMap`                                                       |
+|                    | `getNameKo`                                                     | `getNameMap().getKo()`                                             |
+|                    | `setNameKo`                                                     | `setNameMap`                                                       |
+|                    | `getAccessibilityDetail`                                        | `getAccessibilityDetailMap().getDefault()`                         |
+|                    | `setAccessibilityDetail`                                        | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailEn`                                      | `getAccessibilityDetailMap().getEn()`                              |
+|                    | `setAccessibilityDetailEn`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailCn`                                      | `getAccessibilityDetailMap().getZhHans()`                          |
+|                    | `setAccessibilityDetailCn`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailZh`                                      | `getAccessibilityDetailMap().getZhHant()`                          |
+|                    | `setAccessibilityDetailZh`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailJa`                                      | `getAccessibilityDetailMap().getJa()`                              |
+|                    | `setAccessibilityDetailJa`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailKo`                                      | `getAccessibilityDetailMap().getKo()`                              |
+|                    | `setAccessibilityDetailKo`                                      | `setAccessibilityDetailMap`                                        |
+| VenueInfo          | `setVenueNameMap`                                               | `setNameMap`                                                       |
+|                    | `getVenueName`                                                  | `getNameMap().getDefault()`                                        |
+|                    | `getVenueNameEn`                                                | `getNameMap().getEn()`                                             |
+|                    | `getVenueNameZh`                                                | `getNameMap().getZhHant()`                                         |
+|                    | `getVenueNameCn`                                                | `getNameMap().getZhHans()`                                         |
+|                    | `getVenueNameJa`                                                | `getNameMap().getJa()`                                             |
+|                    | `getVenueNameKo`                                                | `getNameMap().getKo()`                                             |
+|                    | `setVenueAddressMap`                                            | `setAddressMap`                                                    |
+|                    | `getAddress`                                                    | `getAddressMap().getDefault()`                                     |
+|                    | `getAddressEn`                                                  | `getAddressMap().getEn()`                                          |
+|                    | `getAddressZh`                                                  | `getAddressMap().getZhHant()`                                      |
+|                    | `getAddressCn`                                                  | `getAddressMap().getZhHans()`                                      |
+|                    | `getAddressJa`                                                  | `getAddressMap().getJa()`                                          |
+|                    | `getAddressKo`                                                  | `getAddressMap().getKo()`                                          |
+| IndoorBuildingInfo | `getNameDefault`                                                | `getNameMap().getDefault()`                                        |
+|                    | `setNameDefault`                                                | `setNameMap`                                                       |
+|                    | `getNameEn`                                                     | `getNameMap().getEn()`                                             |
+|                    | `setNameEn`                                                     | `setNameMap`                                                       |
+|                    | `getNameCn`                                                     | `getNameMap().getZhHans()`                                         |
+|                    | `setNameCn`                                                     | `setNameMap`                                                       |
+|                    | `getNameZh`                                                     | `getNameMap().getZhHant()`                                         |
+|                    | `setNameZh`                                                     | `setNameMap`                                                       |
+|                    | `getNameJa`                                                     | `getNameMap().getJa()`                                             |
+|                    | `setNameJa`                                                     | `setNameMap`                                                       |
+|                    | `getNameKo`                                                     | `getNameMap().getKo()`                                             |
+|                    | `setNameKo`                                                     | `setNameMap`                                                       |
+|                    | `setBuildingNameMap(`*`Map`*`<String, String> buildingNameMap)` | `setBuildingNamesMap(MultilingualObject<String> buildingNamesMap)` |
+|                    | *`Map`*`<String, String> getBuildingNameMap()`                  | `MultilingualObject<String> getBuildingNamesMap()`                 |
+|                    | `getBuildingNameDefault`                                        | `getBuildingNameMap().getDefault()`                                |
+|                    | `getBuildingNameEn`                                             | `getBuildingNameMap().getEn()`                                     |
+|                    | `getBuildingNameCn`                                             | `getBuildingNameMap().getZhHans()`                                 |
+|                    | `getBuildingNameZh`                                             | `getBuildingNameMap().getZhHant()`                                 |
+|                    | `getBuildingNameJa`                                             | `getBuildingNameMap().getJa()`                                     |
+|                    | `getBuildingNameKo`                                             | `getBuildingNameMap().getKo()`                                     |
+|                    | `getAddressDefault`                                             | `getAddressMap().getDefault()`                                     |
+|                    | `getAddressEn`                                                  | `getAddressMap().getEn()`                                          |
+|                    | `getAddressCn`                                                  | `getAddressMap().getZhHans()`                                      |
+|                    | `getAddressZh`                                                  | `getAddressMap().getZhHant()`                                      |
+|                    | `getAddressJa`                                                  | `getAddressMap().getJa()`                                          |
+|                    | `getAddressKo`                                                  | `getAddressMap().getKo()`                                          |
+|                    | `setAddressDefault`                                             | `setAddressMap`                                                    |
+|                    | `setAddressEn`                                                  | `setAddressMap`                                                    |
+|                    | `setAddressCn`                                                  | `setAddressMap`                                                    |
+|                    | `setAddressZh`                                                  | `setAddressMap`                                                    |
+|                    | `setAddressJa`                                                  | `setAddressMap`                                                    |
+|                    | `setAddressKo`                                                  | `setAddressMap`                                                    |
+|                    | `getVenueNameDefault`                                           | `getVenueNameMap().getDefault()`                                   |
+|                    | `getVenueNameEn`                                                | `getVenueNameMap().getEn()`                                        |
+|                    | `getVenueNameCn`                                                | `getVenueNameMap().getZhHans()`                                    |
+|                    | `getVenueNameZh`                                                | `getVenueNameMap().getZhHant()`                                    |
+|                    | `getVenueNameJa`                                                | `getVenueNameMap().getJa()`                                        |
+|                    | `getVenueNameKo`                                                | `getVenueNameMap().getKo()`                                        |
+|                    | `setVenueNameDefault`                                           | `setVenueNameMap`                                                  |
+|                    | `setVenueNameEn`                                                | `setVenueNameMap`                                                  |
+|                    | `setVenueNameCn`                                                | `setVenueNameMap`                                                  |
+|                    | `setVenueNameZh`                                                | `setVenueNameMap`                                                  |
+|                    | `setVenueNameJa`                                                | `setVenueNameMap`                                                  |
+|                    | `setVenueNameKo`                                                | `setVenueNameMap`                                                  |
+| PoiInfo            | `getNameDefault`                                                | `getNameMap().getDefault()`                                        |
+|                    | `setNameDefault`                                                | `setNameMap`                                                       |
+|                    | `getNameEn`                                                     | `getNameMap().getEn()`                                             |
+|                    | `setNameEn`                                                     | `setNameMap`                                                       |
+|                    | `getNameCn`                                                     | `getNameMap().getZhHans()`                                         |
+|                    | `setNameCn`                                                     | `setNameMap`                                                       |
+|                    | `getNameZh`                                                     | `getNameMap().getZhHant()`                                         |
+|                    | `setNameZh`                                                     | `setNameMap`                                                       |
+|                    | `getNameJa`                                                     | `getNameMap().getJa()`                                             |
+|                    | `setNameJa`                                                     | `setNameMap`                                                       |
+|                    | `getNameKo`                                                     | `getNameMap().getKo()`                                             |
+|                    | `setNameKo`                                                     | `setNameMap`                                                       |
+|                    | `getAccessibilityDetailDefault`                                 | `getAccessibilityDetailMap().getDefault()`                         |
+|                    | `setAccessibilityDetailDefault`                                 | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailEn`                                      | `getAccessibilityDetailMap().getEn()`                              |
+|                    | `setAccessibilityDetailEn`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailCn`                                      | `getAccessibilityDetailMap().getZhHans()`                          |
+|                    | `setAccessibilityDetailCn`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailZh`                                      | `getAccessibilityDetailMap().getZhHant()`                          |
+|                    | `setAccessibilityDetailZh`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailJa`                                      | `getAccessibilityDetailMap().getJa()`                              |
+|                    | `setAccessibilityDetailJa`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getAccessibilityDetailKo`                                      | `getAccessibilityDetailMap().getKo()`                              |
+|                    | `setAccessibilityDetailKo`                                      | `setAccessibilityDetailMap`                                        |
+|                    | `getDescriptionDefault`                                         | `getDescriptionMap().getDefault()`                                 |
+|                    | `getDescriptionEn`                                              | `getDescriptionMap().getEn()`                                      |
+|                    | `getDescriptionCn`                                              | `getDescriptionMap().getZhHans()`                                  |
+|                    | `getDescriptionZh`                                              | `getDescriptionMap().getZhHant()`                                  |
+|                    | `getDescriptionJa`                                              | `getDescriptionMap().getJa()`                                      |
+|                    | `getDescriptionKo`                                              | `getDescriptionMap().getKo()`                                      |
+|                    | `setDescriptions`                                               | `setDescriptionMap`                                                |
+
 ## 8.6.0
 
 🐛Bugs
