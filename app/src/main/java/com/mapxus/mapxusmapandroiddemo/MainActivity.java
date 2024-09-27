@@ -45,6 +45,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingDet
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingGlobalActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingInboundActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingNearbyActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchCategoryInBoundActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiCategoriesInSiteActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiDetailActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchPoiInSiteActivity;
@@ -253,6 +254,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_search_service_poi_by_id_description,
                         new Intent(MainActivity.this, SearchPoiDetailActivity.class),
                         R.drawable.search_poi_by_id));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_search_service_category_in_bound_title,
+                        R.string.activity_search_service_category_in_bound_description,
+                        new Intent(MainActivity.this, SearchCategoryInBoundActivity.class),
+                        R.drawable.category_include_in_scene));
 
                 currentCategory = R.id.nav_search_service;
                 break;

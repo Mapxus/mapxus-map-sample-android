@@ -226,6 +226,14 @@
                 android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
         </activity>
         <activity
+            android:name=".examples.searchservices.SearchCategoryInBoundActivity"
+            android:label="@string/activity_search_service_category_in_bound_title"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
             android:name=".examples.searchservices.SearchPoiCategoriesInSiteActivity"
             android:label="@string/activity_search_service_poi_categories_in_building_title"
             android:screenOrientation="portrait">

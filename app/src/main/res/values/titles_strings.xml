@@ -38,6 +38,7 @@
     <string name="activity_search_service_poi_in_bound_title">Search POI in the specified area </string>
     <string name="activity_search_service_poi_nearby_title">Search POI nearby </string>
     <string name="activity_search_service_poi_by_id_title">Search POI by POI ID </string>
+    <string name="activity_search_service_category_in_bound_title">Get POI categories by Bbox </string>
 
     <string name="activity_search_service_poi_with_orientation_title">Surrounding environment recognition </string>
     <string name="activity_search_service_route_planning_title">Route planning and navigation  </string>

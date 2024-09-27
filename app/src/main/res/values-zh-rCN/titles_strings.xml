@@ -38,6 +38,7 @@
     <string name="activity_search_service_poi_in_bound_title">指定矩形区域内POI搜索 </string>
     <string name="activity_search_service_poi_nearby_title">周边POI搜索 </string>
     <string name="activity_search_service_poi_by_id_title">指定POI ID搜索 </string>
+    <string name="activity_search_service_category_in_bound_title">获取特定范围内包含的POI分类 </string>
 
     <string name="activity_search_service_poi_with_orientation_title">周边环境识别 </string>
     <string name="activity_search_service_route_planning_title">路线规划与路线吸附</string>

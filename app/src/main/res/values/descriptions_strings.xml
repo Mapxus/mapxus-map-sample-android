@@ -38,6 +38,7 @@
     <string name="activity_search_service_poi_in_bound_description">Search POI in the specified rectangular area. </string>
     <string name="activity_search_service_poi_nearby_description">Search POI in the specified circular area. </string>
     <string name="activity_search_service_poi_by_id_description">Search POI by POI ID. </string>
+    <string name="activity_search_service_category_in_bound_description">Get all POI categories of a specified region. </string>
 
     <string name="activity_search_service_poi_with_orientation_description">Make a virtual location and identify POI information around the location. </string>
     <string name="activity_search_service_route_planning_description">Search the route between the starting point and end point, and show the road adsorption. </string>

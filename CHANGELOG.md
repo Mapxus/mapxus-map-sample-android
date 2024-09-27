@@ -1,5 +1,13 @@
 # Mapxus Map SDK Change Log
 
+## 8.8.0
+
+🎉Features
+
+- Provide `CategorySearch` to search category by bbox.
+- Provide fil, id, pt, th, vi, ar for `MultilingualObject`.
+- Optimize HeadMode performance.
+
 ## 8.7.0
 
 🐛Bugs

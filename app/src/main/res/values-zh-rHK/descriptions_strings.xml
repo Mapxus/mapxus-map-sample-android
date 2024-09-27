@@ -38,6 +38,7 @@
     <string name="activity_search_service_poi_in_bound_description">在指定的矩形區域內搜索POI。 </string>
     <string name="activity_search_service_poi_nearby_description">在指定的圓形區域內搜索POI。</string>
     <string name="activity_search_service_poi_by_id_description">按ID搜索POI。 </string>
+    <string name="activity_search_service_category_in_bound_description">獲取特定範圍內所有的POI涉及到的分類。</string>
 
     <string name="activity_search_service_poi_with_orientation_description">制作虛擬定位並識別定位周邊POI信息。</string>
     <string name="activity_search_service_route_planning_description">檢索起始點間的路線並實現路網吸附、縮短功能。</string>

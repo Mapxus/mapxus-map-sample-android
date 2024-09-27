@@ -2,7 +2,7 @@
     <string name="default_lat" translatable="false">22.3707866</string>
     <string name="default_lon" translatable="false">114.1112654</string>
     <string name="default_floor_name" translatable="false">L3</string>
-    <string name="default_floor_id" translatable="false">82b062bbe06048f5bb30bf0d7dd993c2</string>
+    <string name="default_floor_id" translatable="false">2cdd6174730d4431b1aa730eda596ed4</string>
     <string name="default_venue_id" translatable="false">eee1fae0c18447a8b6b86a80ad53ff88</string>
     <string name="default_venue_id_tsuen" translatable="false">9f0af5f1758040008a7b112d041c0977</string>
     <string name="default_zoom_level_value" translatable="false">17</string>
@@ -23,14 +23,6 @@
 
     <string name="route_plan_lat" translatable="false">22.296943</string>
     <string name="route_plan_lon" translatable="false">114.168458</string>
-
-    <string-array name="default_marker_floor_id" translatable="false">
-        <item></item>
-        <item>2cdd6174730d4431b1aa730eda596ed4</item>
-        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
-        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
-        <item>82b062bbe06048f5bb30bf0d7dd993c2</item>
-    </string-array>
 
     <string-array name="default_marker_lat" translatable="false">
         <item>22.370779</item>
@@ -54,6 +46,14 @@
         <item>L2</item>
         <item>L2</item>
         <item>L3</item>
+    </string-array>
+
+    <string-array name="default_marker_floor_id" translatable="false">
+        <item></item>
+        <item>2cdd6174730d4431b1aa730eda596ed4</item>
+        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
+        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
+        <item>82b062bbe06048f5bb30bf0d7dd993c2</item>
     </string-array>
 
     <string-array name="default_draw_polygon_lat" translatable="false">
