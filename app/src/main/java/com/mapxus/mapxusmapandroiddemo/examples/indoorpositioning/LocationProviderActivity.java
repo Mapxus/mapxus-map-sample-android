@@ -202,6 +202,8 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         lonTv.setText(String.format("%s%s", getString(R.string.lon), indoorLocation.getLongitude()));
         if (indoorLocation.getFloorInfo() != null) {
             floorTv.setText(String.format("%s%s", getString(R.string.floor_tips), indoorLocation.getFloorInfo().getCode()));
+        } else {
+            floorTv.setText(String.format("%s%s", getString(R.string.floor_tips), ""));
         }
         accuracyTv.setText(String.format("%s%s", getString(R.string.accuracy), indoorLocation.getAccuracy()));
         timestampTv.setText(String.format("%s%s", getString(R.string.time_stamp), indoorLocation.getTime()));

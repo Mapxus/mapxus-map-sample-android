@@ -1,5 +1,11 @@
 # Mapxus Map SDK Change Log
 
+## 8.8.1
+
+🐛Bugs
+
+- Fixed outdoor positioning crash while user is using Follow Mode or Heading Mode.
+
 ## 8.8.0
 
 🎉Features
