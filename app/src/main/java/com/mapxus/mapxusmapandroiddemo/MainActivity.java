@@ -41,6 +41,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.IndoorMapControll
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.IndoorSceneInAndOutListenerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.IndoorSceneSwitchingListenerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.MapStyleSettingActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.ModifyRouteStyleActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingDetailActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingGlobalActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.searchservices.SearchBuildingInboundActivity;
@@ -305,6 +306,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.activity_styles_default_description,
                         new Intent(MainActivity.this, MapStyleSettingActivity.class),
                         R.drawable.map_style_setting));
+
+                exampleItemModels.add(new ExampleItemModel(
+                        R.string.activity_route_style_title,
+                        R.string.activity_route_style_description,
+                        new Intent(MainActivity.this, ModifyRouteStyleActivity.class),
+                        R.drawable.route_style_setting));
 
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_gesture_interaction_for_switching_building,

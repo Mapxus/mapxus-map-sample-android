@@ -103,6 +103,7 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
     }
 
     protected void searchAllPoiCategory(String venueId, String buildingId, String floor) {
+        progressBarView.setVisibility(View.VISIBLE);
         PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
         poiCategorySearchOption.venueId(venueId);
         poiCategorySearchOption.buildingId(buildingId);
@@ -154,28 +155,40 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
-            if (floorInfo != null) {
-                SearchPoiCategoriesInSiteActivity.this.floor = floorInfo.getId();
-                buildingId = indoorBuilding.getBuildingId();
-                venueId = venue.getId();
-            }
+            floor = floorInfo == null ? "" : floorInfo.getId();
+            buildingId = indoorBuilding == null ? "" : indoorBuilding.getBuildingId();
+            venueId = venue == null ? "" : venue.getId();
         });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_search_in_venue:
-                searchAllPoiCategory(venueId, "", "");
+            case R.id.btn_search_in_venue: {
+                if (venueId == null || venueId.isEmpty()) {
+                    Toast.makeText(this, "Please select a venue", Toast.LENGTH_SHORT).show();
+                } else {
+                    searchAllPoiCategory(venueId, "", "");
+                }
                 break;
-            case R.id.btn_search_in_building:
-                searchAllPoiCategory("", buildingId, "");
+            }
+            case R.id.btn_search_in_building: {
+                if (buildingId == null || buildingId.isEmpty()) {
+                    Toast.makeText(this, "Please select a building", Toast.LENGTH_SHORT).show();
+                } else {
+                    searchAllPoiCategory("", buildingId, "");
+                }
                 break;
-            case R.id.btn_search_on_floor:
-                searchAllPoiCategory("", buildingId, floor);
+            }
+            case R.id.btn_search_on_floor: {
+                if (floor == null || floor.isEmpty()) {
+                    Toast.makeText(this, "Please select a floor", Toast.LENGTH_SHORT).show();
+                } else {
+                    searchAllPoiCategory("", buildingId, floor);
+                }
                 break;
+            }
         }
-        progressBarView.setVisibility(View.VISIBLE);
     }
 }
 

@@ -9,24 +9,22 @@
         android:id="@id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="1"
         app:maplibre_cameraTargetLat="@string/default_lat"
         app:maplibre_cameraTargetLng="@string/default_lon"
         app:maplibre_cameraZoom="@string/default_zoom_level_value" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
 
         <LinearLayout
             android:id="@+id/switcher_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_layout"
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
@@ -48,7 +46,6 @@
             android:id="@+id/btn_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_margin="10dp">
 
             <Button
@@ -73,7 +70,7 @@
                 android:textColor="@color/white" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -12,6 +12,7 @@
 
     <string name="activity_indoor_map_controller_title">室内地图控件交互 </string>
     <string name="activity_styles_default_title">修改地图外观</string>
+    <string name="activity_route_style_title">修改路线外观</string>
     <string name="activity_gesture_interaction_for_switching_building">切换建筑的手势交互</string>
     <string name="activity_camera_animate_title">方法交互（切换室内场景）</string>
     <string name="activity_listener_click_title">事件交互（监听点击）</string>

@@ -1,5 +1,44 @@
 # Mapxus Map SDK Change Log
 
+## 9.0.0
+
+💥 Breaking
+
+- All funtions, classes, parameters was marked by `@Deprecated`annotation from version 5.2.0 to version 8.7.0 are deleted.
+- Parameter `buildingId` of `RoutePlanningPoint` is nolongger needed now.
+- Some classes are rewritten in Kotlin. Although their functionalities are preserved, there might be slight differences in the way they are called.
+
+🎉Features
+
+- `RoutePainterResource` provides `lineWidth`, `dashedLineWidth`, `inactiveRouteOpacity` settings now.
+- `MapViewProvider.setLanguage` provides some new language options.
+  - `MapLanguage.AR`
+  - `MapLanguage.FIL`
+  - `MapLanguage.ID`
+  - `MapLanguage.TH`
+  - `MapLanguage.VI`
+  - `MapLanguage.PT`
+- Following items are deprecated now:
+
+| Class                 | Deprecated                     | New                                 |
+| --------------------- | ------------------------------ | ----------------------------------- |
+| MapViewProvider       | setBuildingAutoSwitch          | IMapxusMap.setBuildingAutoSwitch    |
+|                       | setBuildingGestureSwitch       | IMapxusMap.setBuildingGestureSwitch |
+| MapboxMapViewProvider | setHiddenOutdoor               | IMapxusMap.setHiddenOutdoor         |
+| MapxusMapOption       | getFloorSwitchMode             |                                     |
+|                       | setFloorSwitchMode             |                                     |
+| FloorSwitchMode       | the whole Class was deprecated |                                     |
+| IMapxusMap            | setFloorSwitchMode             |                                     |
+| RoutePainterResource  | dashLineColor                  | dashedLineColor                     |
+|                       | arrowIconSize                  | lineSymbolSize                      |
+|                       | arrowIcon                      | lineSymbol                          |
+|                       | hiddenTranslucentPaths         | inactiveRouteOpacity                |
+|                       | setDashLineColor               | setDashedLineColor                  |
+|                       | setArrowIconSize               | setLineSymbolSize                   |
+|                       | setArrowIcon                   | setLineSymbol                       |
+
+
+
 ## 8.8.1
 
 🐛Bugs

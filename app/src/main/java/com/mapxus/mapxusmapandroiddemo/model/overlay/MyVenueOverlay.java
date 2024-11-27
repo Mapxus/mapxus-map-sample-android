@@ -45,8 +45,15 @@ public class MyVenueOverlay {
         if (mVenueInfo != null && !mVenueInfo.isEmpty()) {
             if (mapboxMap == null)
                 return;
-            LatLngBounds bounds = getLatLngBounds();
-            mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+            if (mVenueInfo.size() == 1) {
+                VenueInfo firstVenue = mVenueInfo.get(0);
+                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(firstVenue.getLabelCenter().getLat(), firstVenue.getLabelCenter().getLon()),
+                        zoom));
+            } else {
+                LatLngBounds bounds = getLatLngBounds();
+                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -52,9 +53,9 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
                 break;
         }
 
-        mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
+        mapxusMapOptions.setZoomInsets(Insets.of(paddingLeft, paddingTop, paddingRight, paddingBottom));
 
-        mapboxMapView.getMapAsync(mapboxMap -> mapboxMap.animateCamera(CameraUpdateFactory.paddingTo(paddingLeft, paddingTop, paddingRight, paddingBottom)));
+        mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
     }
 
     @Override

@@ -77,6 +77,13 @@
                 android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
         </activity>
         <activity
+            android:name=".examples.mapinteraction.ModifyRouteStyleActivity"
+            android:label="@string/activity_route_style_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
+        </activity>
+        <activity
             android:name=".examples.mapediting.DrawMarkerActivity"
             android:label="@string/activity_annotation_marker_title">
             <meta-data

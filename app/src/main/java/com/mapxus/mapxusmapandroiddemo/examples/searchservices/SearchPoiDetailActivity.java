@@ -131,6 +131,10 @@ public class SearchPoiDetailActivity extends BaseWithParamMenuActivity implement
                 return;
             }
 
+            if (poiDetailResult.getPoiInfo() != null) {
+                mapxusMap.selectFloorById(poiDetailResult.getPoiInfo().getFloorId());
+            }
+
             MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiDetailResult.getPoiList());
             poiOverlay.removeFromMap();
             poiOverlay.addToMap();

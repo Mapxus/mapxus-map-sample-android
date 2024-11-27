@@ -5,6 +5,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
+import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 
@@ -50,7 +51,7 @@ public class MyPoiOverlay {
                 LatLngBounds bounds = getLatLngBounds();
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
             }
-
+            mapxusMap.selectFloorById(mPoiInfoList.get(0).getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
         }
     }
 

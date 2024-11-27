@@ -11,15 +11,14 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="1"
         app:maplibre_cameraTargetLat="@string/default_lat"
         app:maplibre_cameraTargetLng="@string/default_lon"
         app:maplibre_cameraZoom="@string/default_zoom_level_value" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -41,44 +40,52 @@
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btn_style"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/language_layout"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape_blue"
+            android:text="@string/style"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
         <LinearLayout
-            android:id="@+id/style_language_layout"
+            android:id="@+id/language_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/switch_button"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_marginHorizontal="10dp">
 
-            <Button
-                android:id="@+id/btn_style"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_shape_blue"
-                android:text="@string/style"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/language_field"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/DropdownTheme">
 
-            <Button
-                android:id="@+id/btn_language"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_shape_blue"
-                android:text="@string/language"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:hint="Language"
+                    android:inputType="none"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_building_outline_style"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@id/style_language_layout"
+            android:layout_below="@id/btn_style"
             android:layout_margin="10dp"
             android:background="@drawable/button_shape_blue"
             android:text="@string/building_outline_style"

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
-import com.mapxus.map.mapxusmap.api.services.model.PoiInBuildingSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.PoiInSiteSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.adapter.PoiListAdapter;
@@ -67,7 +67,7 @@ public class ThridFragment extends Fragment {
         return view;
     }
 
-    private PoiSearch.PoiSearchResultListenerAdapter poiSearchResultListener = new PoiSearch.PoiSearchResultListenerAdapter() {
+    private final PoiSearch.PoiSearchResultListenerAdapter poiSearchResultListener = new PoiSearch.PoiSearchResultListenerAdapter() {
         @Override
         public void onGetPoiResult(PoiResult poiResult) {
             if (poiResult.status != 0) {
@@ -78,16 +78,16 @@ public class ThridFragment extends Fragment {
                 Toast.makeText(requireContext(), getString(R.string.no_result), Toast.LENGTH_LONG).show();
                 return;
             }
-            PoiListAdapter adapter = new PoiListAdapter(poiResult.getAllPoi(), tvTitle.getText().toString().trim(),category);
+            PoiListAdapter adapter = new PoiListAdapter(poiResult.getAllPoi(), tvTitle.getText().toString().trim(), category);
             recyclerView.setAdapter(adapter);
             if (exploreBuildingActivity != null) {
                 exploreBuildingActivity.addMarkers(poiResult.getAllPoi());
             }
-            adapter.setOnItemClickListener((floorName, poiName, catgegoryImage, position, v) -> {
+            adapter.setOnItemClickListener((floorName, poiName, categoryImage, position, v) -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("poiName", poiName);
                 bundle.putString("floorName", floorName);
-                bundle.putInt("catgegoryImage", catgegoryImage);
+                bundle.putInt("categoryImage", categoryImage);
                 bundle.putString("buildingId", buildingId);
                 Navigation.findNavController(v).navigate(R.id.action_thridFragment_to_fourthFragment, bundle);
 
@@ -99,10 +99,10 @@ public class ThridFragment extends Fragment {
     };
 
     protected void doSearchQuery(String category, String buildingId) {
-        PoiInBuildingSearchOption inBuildingSearchOption = new PoiInBuildingSearchOption();
+        PoiInSiteSearchOption inBuildingSearchOption = new PoiInSiteSearchOption();
         inBuildingSearchOption.category(category);
         inBuildingSearchOption.buildingId(buildingId);
-        poiSearch.searchInBuilding(inBuildingSearchOption);
+        poiSearch.searchInSite(inBuildingSearchOption);
     }
 
     @Override

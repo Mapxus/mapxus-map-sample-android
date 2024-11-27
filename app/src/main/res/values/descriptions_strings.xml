@@ -12,6 +12,7 @@
 
     <string name="activity_indoor_map_controller_description">Location of indoor map controllers. </string>
     <string name="activity_styles_default_description">Modify map style, mark language and control outdoor map hiding.</string>
+    <string name="activity_route_style_description">Modify route style.</string>
     <string name="activity_gesture_interaction_for_switching_building_description">Setting gestures for switching buildings.</string>
     <string name="activity_camera_animate_description">Use code settings to focus on indoor scenes.</string>
     <string name="activity_listener_click_description">Listener for click or long on the map, and click POI event.</string>

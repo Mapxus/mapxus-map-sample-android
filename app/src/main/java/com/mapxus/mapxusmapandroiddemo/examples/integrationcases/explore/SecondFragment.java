@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.PoiCategorySearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
@@ -54,7 +53,7 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
-    private PoiSearch.PoiSearchResultListenerAdapter poiSearchResultListener = new PoiSearch.PoiSearchResultListenerAdapter() {
+    private final PoiSearch.PoiSearchResultListenerAdapter poiSearchResultListener = new PoiSearch.PoiSearchResultListenerAdapter() {
         @Override
         public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
             if (poiCategoryResult.status != 0) {
@@ -101,6 +100,6 @@ public class SecondFragment extends Fragment {
     protected void searchAllPoiCategory(String buildingId) {
         PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
         poiCategorySearchOption.buildingId(buildingId);
-        poiSearch.searchPoiCategoryInBuilding(poiCategorySearchOption);
+        poiSearch.searchPoiCategoryInSite(poiCategorySearchOption);
     }
 }

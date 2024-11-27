@@ -98,14 +98,12 @@ public class RoutePlanningActivity extends AppCompatActivity {
     private final MapxusMap.OnIndoorPoiClickListener poiClickListener =
             poi -> responseMapClickEvent(
                     new LatLng(poi.getLatitude(), poi.getLongitude()),
-                    poi.getBuildingId(),
                     poi.getFloor(),
                     poi.getFloorName()
             );
     private final MapxusMap.OnMapClickedListener mapClickListener =
             (latLng, floorInfo, indoorBuilding, venue) -> responseMapClickEvent(
                     latLng,
-                    indoorBuilding != null ? indoorBuilding.getBuildingId() : null,
                     floorInfo != null ? floorInfo.getId() : null,
                     floorInfo != null ? floorInfo.getCode() : null
             );
@@ -238,25 +236,26 @@ public class RoutePlanningActivity extends AppCompatActivity {
         mMapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
         //update the path when you are moving
         mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapboxMap);
-        mapxusPositioningProvider.setOnReachListener(() -> {
-            //call back when you reach the destination
-            mapxusPositioningProvider.setOnPathChange(null);
-            routePainter.cleanRoute();
-            Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
-            instructionsAdapter.notifyCurrentPosition(routeResponseDto.getPaths().get(0).getInstructions().size() - 1);
-            mapxusPositioningProvider.routeAdsorber = null;
-        });
         mapxusPositioningProvider.setOnPathChange(pathDto -> {
             //update progress when path changing
             if (pathDto != null) {
-                InstructionDto currentInstruction = pathDto.getInstructions().get(0);
-                if (currentInstruction.getSign() == RoutePlanningInstructionSign.REACHED_VIA) {
-                    Toast.makeText(this, currentInstruction.getText(), Toast.LENGTH_SHORT).show();
-                }
+                if (pathDto.getDistance() <= 5.0) {
+                    //reach the destination
+                    mapxusPositioningProvider.setOnPathChange(null);
+                    routePainter.cleanRoute();
+                    Toast.makeText(RoutePlanningActivity.this, getString(R.string.reach_toast_text), Toast.LENGTH_SHORT).show();
+                    instructionsAdapter.notifyCurrentPosition(routeResponseDto.getPaths().get(0).getInstructions().size() - 1);
+                    mapxusPositioningProvider.routeAdsorber = null;
+                } else {
+                    InstructionDto currentInstruction = pathDto.getInstructions().get(0);
+                    if (currentInstruction.getSign() == RoutePlanningInstructionSign.REACHED_VIA) {
+                        Toast.makeText(this, currentInstruction.getText(), Toast.LENGTH_SHORT).show();
+                    }
 
-                int full = routeResponseDto.getPaths().get(0).getInstructions().size();
-                int current = pathDto.getInstructions().size();
-                instructionsAdapter.notifyCurrentPosition(full - current);
+                    int full = routeResponseDto.getPaths().get(0).getInstructions().size();
+                    int current = pathDto.getInstructions().size();
+                    instructionsAdapter.notifyCurrentPosition(full - current);
+                }
             }
         });
         mMapxusMap.removeOnMapClickedListener(mapClickListener);
@@ -279,7 +278,6 @@ public class RoutePlanningActivity extends AppCompatActivity {
 
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mMapxusMap = mapxusMap;
-            mMapxusMap.getMapxusUiSettings().setBuildingSelectorEnabled(false);
             mMapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.CENTER_RIGHT);
             mMapxusMap.getMapxusUiSettings().setSelectorCollapse(true);
             mMapxusMap.setLocationProvider(mapxusPositioningProvider);
@@ -375,7 +373,6 @@ public class RoutePlanningActivity extends AppCompatActivity {
 
     private void responseMapClickEvent(
             LatLng latLng,
-            @Nullable String buildingId,
             @Nullable String floorId,
             String floorName
     ) {
@@ -383,7 +380,7 @@ public class RoutePlanningActivity extends AppCompatActivity {
         if (currentPointType != null) {
             routePlanningPointMap.put(
                     currentPointType,
-                    new RoutePlanningPoint(latLng.getLongitude(), latLng.getLatitude(), buildingId, floorId)
+                    new RoutePlanningPoint(latLng.getLongitude(), latLng.getLatitude(), floorId)
             );
 
             markers.computeIfPresent(currentPointType, (k, v) -> {

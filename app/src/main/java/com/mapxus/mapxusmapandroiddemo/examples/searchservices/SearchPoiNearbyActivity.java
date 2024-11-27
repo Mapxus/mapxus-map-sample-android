@@ -38,7 +38,7 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
 
     private RelativeLayout progressBarView;
 
-    private EditText etVenueId, etBuildingId, etOrdinal;
+    private EditText etOrdinal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,16 +114,12 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
             String keyWord,
             String category,
             String excludeCategory,
-            String venueId,
-            String buildingId,
             int ordinal, LatLng latLng,
             int meterDistance,
             int offset,
             int page) {
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
         nearbySearchOption.keyword(keyWord);
-        nearbySearchOption.venueId(venueId);
-        nearbySearchOption.buildingId(buildingId);
         nearbySearchOption.sort(sortWay);
         nearbySearchOption.ordinal(ordinal);
         nearbySearchOption.category(category);
@@ -167,11 +163,8 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
             getValueAndSearch(bottomSheetDialogView);
         });
 
-        etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
-        etVenueId = bottomSheetDialogView.findViewById(R.id.et_venue_id);
         etOrdinal = bottomSheetDialogView.findViewById(R.id.et_ordinal);
 
-        TextView tvBuildingId = bottomSheetDialogView.findViewById(R.id.tv_tips_id);
         TextView tvOrdinal = bottomSheetDialogView.findViewById(R.id.tv_ordinal);
 
         Button btnSoft = bottomSheetDialogView.findViewById(R.id.btn_soft_mode);
@@ -179,26 +172,14 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
         btnSoft.setOnClickListener(v -> {
             if (btnSoft.getText().toString().equals(getString(R.string.actual_distance))) {
                 btnSoft.setText(getString(R.string.absoulute_distance));
-                etVenueId.setEnabled(false);
-                etVenueId.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
-                etBuildingId.setEnabled(false);
-                etBuildingId.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
                 etOrdinal.setEnabled(false);
                 etOrdinal.setBackgroundColor(getResources().getColor(R.color.lighter_gray));
-                tvBuildingId.setEnabled(false);
-                tvBuildingId.setTextColor(getResources().getColor(R.color.lighter_gray));
                 tvOrdinal.setEnabled(false);
                 tvOrdinal.setTextColor(getResources().getColor(R.color.lighter_gray));
             } else {
                 btnSoft.setText(getString(R.string.actual_distance));
-                etVenueId.setEnabled(true);
-                etVenueId.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
-                etBuildingId.setEnabled(true);
-                etBuildingId.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
                 etOrdinal.setEnabled(true);
                 etOrdinal.setBackground(getDrawable(android.R.drawable.editbox_background_normal));
-                tvBuildingId.setEnabled(true);
-                tvBuildingId.setTextColor(getResources().getColor(R.color.black));
                 tvOrdinal.setEnabled(true);
                 tvOrdinal.setTextColor(getResources().getColor(R.color.black));
             }
@@ -234,8 +215,6 @@ public class SearchPoiNearbyActivity extends BaseWithParamMenuActivity implement
                 etKeywords.getText().toString().trim(),
                 etCategory.getText().toString().trim(),
                 etExcludeCategory.getText().toString().trim(),
-                etVenueId.getText().toString().trim(),
-                etBuildingId.getText().toString().trim(),
                 etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim()),
                 latLng,
                 etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim()),

@@ -12,6 +12,7 @@
 
     <string name="activity_indoor_map_controller_title">Interaction of indoor map controller </string>
     <string name="activity_styles_default_title">Map style setting</string>
+    <string name="activity_route_style_title">Route Style Setting</string>
     <string name="activity_gesture_interaction_for_switching_building">Gesture interaction for switching buildings</string>
     <string name="activity_camera_animate_title">Method interaction(Switching indoor scenes)</string>
     <string name="activity_listener_click_title">Click event listener</string>

@@ -134,7 +134,7 @@ public class SearchVenueDetailActivity extends BaseWithParamMenuActivity impleme
         MyVenueOverlay venueOverlay = new MyVenueOverlay(mapboxMap, mapxusMap, venueResult.getVenueInfoList());
         venueOverlay.removeFromMap();
         venueOverlay.addToMap();
-        venueOverlay.zoomToSpan(15);
+        venueOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
     }
 
     @SuppressLint("InflateParams")

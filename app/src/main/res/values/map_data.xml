@@ -88,4 +88,21 @@
 
     <string name="default_poi_meter_distance" translatable="false">10</string>
 
+    <string-array name="route_style_points_lon" translatable="false">
+        <item>114.11180770638578</item>
+        <item>114.1115608877733</item>
+        <item>114.11134223746296</item>
+    </string-array>
+
+    <string-array name="route_style_points_lat" translatable="false">
+        <item>22.371690473506533</item>
+        <item>22.370788886238273</item>
+        <item>22.370699436006532</item>
+    </string-array>
+
+    <string-array name="route_style_points_floor_id" translatable="false">
+        <item>2cdd6174730d4431b1aa730eda596ed4</item>
+        <item>36e4546eb75a48ddbbf3518d6e762f28</item>
+    </string-array>
+
 </resources>

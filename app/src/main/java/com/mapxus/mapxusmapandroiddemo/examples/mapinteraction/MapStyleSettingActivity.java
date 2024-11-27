@@ -6,6 +6,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -13,6 +15,7 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
@@ -36,6 +39,8 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
     private PopupWindow popupWindow;
     private int navigationHeight;
 
+    private final String[] languages = {MapLanguage.DEFAULT, MapLanguage.EN, MapLanguage.ZH_HK, MapLanguage.ZH_CN, MapLanguage.JA, MapLanguage.KO, MapLanguage.AR, MapLanguage.FIL, MapLanguage.ID, MapLanguage.PT, MapLanguage.TH, MapLanguage.VI};
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +57,12 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
         mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
 
         findViewById(R.id.btn_style).setOnClickListener(this);
-        findViewById(R.id.btn_language).setOnClickListener(this);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.text_list_item, languages);
+        AutoCompleteTextView autoCompleteTextView = ((AutoCompleteTextView) ((TextInputLayout) findViewById(R.id.language_field)).getEditText());
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
+            mapViewProvider.setLanguage(languages[position]);
+        });
         findViewById(R.id.btn_building_outline_style).setOnClickListener(this);
 
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
@@ -189,9 +199,6 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.btn_style:
                 openPopupWindow(v, STYLE);
-                break;
-            case R.id.btn_language:
-                openPopupWindow(v, LANGUAGE);
                 break;
             case R.id.btn_building_outline_style:
                 openBottomSheetDialog();

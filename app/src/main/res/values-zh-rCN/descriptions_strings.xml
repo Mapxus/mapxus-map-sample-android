@@ -12,6 +12,7 @@
 
     <string name="activity_indoor_map_controller_description">室内地图控件的位置。 </string>
     <string name="activity_styles_default_description">修改地图配色，标注语言及控制室外地图隐藏。</string>
+    <string name="activity_route_style_description">修改路线样式。</string>
     <string name="activity_gesture_interaction_for_switching_building_description">设置切换建筑手势。</string>
     <string name="activity_camera_animate_description">代码设置聚焦的室内场景。</string>
     <string name="activity_listener_click_description">监听单击、长按地图事件，单击POI事件。</string>

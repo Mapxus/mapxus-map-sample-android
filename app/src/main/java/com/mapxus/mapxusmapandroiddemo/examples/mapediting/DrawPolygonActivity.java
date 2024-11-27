@@ -51,7 +51,7 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
-            if (indoorBuilding != null && floorInfo != null && (Objects.equals(indoorBuilding.getDefaultDisplayFloorId(), floorInfo.getId()) || Objects.equals(indoorBuilding.getGroundFloor(), floorInfo.getCode()))) {
+            if (indoorBuilding != null && floorInfo != null && indoorBuilding.getBuildingId().equals(getString(R.string.default_search_text_building_id)) && (Objects.equals(indoorBuilding.getDefaultDisplayFloorId(), floorInfo.getId()) || Objects.equals(indoorBuilding.getFloors().get(0).getId(), floorInfo.getId()))) {
                 drawPolygon(mapboxMap);
             } else {
                 deletePolygon();

@@ -8,6 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DropdownTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/appGrayDark10</item>
+        <item name="colorPrimaryVariant">@color/appGrayDark10</item>
+        <item name="colorPrimaryDark">@color/appGrayExtraDark</item>
+        <item name="colorAccent">@color/appGrayDark10</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
