@@ -1,5 +1,11 @@
 # Mapxus Map SDK Change Log
 
+## 9.1.0
+
+🐛Bugs
+
+- Fixed parcelization problem of `MultilingualObject` .
+- Fixed an issue with some funtions of `VenueSearch` listeners not responding.
 ## 9.0.0
 
 💥 Breaking

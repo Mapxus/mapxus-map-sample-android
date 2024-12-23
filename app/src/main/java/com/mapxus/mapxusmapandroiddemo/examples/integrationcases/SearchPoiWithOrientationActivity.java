@@ -232,13 +232,18 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
             @Override
             public void onFinish() {
                 new Handler().postDelayed(() -> {
-                    mapxusMap.selectBuildingById(buildingId, MapxusMapZoomMode.ZoomDisable, null);
+                    if (!buildingId.isEmpty()) {
+                        mapxusMap.selectBuildingById(buildingId, MapxusMapZoomMode.ZoomDisable, null);
+                    }
                     FloorInfo floorInfoValue = null;
 
                     if (ordinal != null) {
-                        for (FloorInfo floorInfo : mapxusMap.getBuildings().get(buildingId).getFloors()) {
-                            if (ordinal == floorInfo.getOrdinal()) {
-                                floorInfoValue = floorInfo;
+                        IndoorBuilding building = mapxusMap.getBuildings().get(buildingId);
+                        if (building != null){
+                            for (FloorInfo floorInfo : building.getFloors()) {
+                                if (ordinal == floorInfo.getOrdinal()) {
+                                    floorInfoValue = floorInfo;
+                                }
                             }
                         }
                     } else if (!TextUtils.isEmpty(floorId)) {
@@ -255,7 +260,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
                     }
 
                     String buildingIdValue = buildingId;
-                    if (TextUtils.isEmpty(buildingIdValue)) {
+                    if (TextUtils.isEmpty(buildingIdValue) && indoorBuilding != null) {
                         buildingIdValue = indoorBuilding.getBuildingId();
                     }
 

@@ -163,7 +163,7 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
                                 scope.launch { bottomSheetState.bottomSheetState.collapse() }
                             },
                             onError = {
-                                scope.launch { bottomSheetState.snackbarHostState.showSnackbar(it) }
+                                scope.launch { bottomSheetState.snackbarHostState.showSnackbar("Error: $it") }
                             }
                         )
                     }

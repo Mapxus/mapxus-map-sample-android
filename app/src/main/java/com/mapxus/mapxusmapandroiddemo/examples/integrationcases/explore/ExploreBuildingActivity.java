@@ -95,7 +95,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         this.mapxusMap = mapxusMap;
         mapxusMap.addOnBuildingChangeListener(indoorBuilding -> onBuildingChageListener.onBuildingChange(indoorBuilding));
 
-        mapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.CENTER_RIGHT);
+        mapxusMap.getMapxusUiSettings().setSelectorPosition(SelectorPosition.TOP_RIGHT);
     }
 
     public void addMarker(PoiInfo poiInfo) {
