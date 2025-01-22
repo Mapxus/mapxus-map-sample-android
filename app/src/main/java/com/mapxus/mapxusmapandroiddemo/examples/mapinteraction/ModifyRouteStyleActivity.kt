@@ -98,6 +98,7 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
     private var currentWaypointIcon: List<Bitmap>? = null
     private var currentPatternIcon: Bitmap? = null
     private var currentRouteOpacity = RoutePainterResource().inactiveRouteOpacity
+    private var currentOutdoorLineOpacity = RoutePainterResource().outdoorLineOpacity
     private var currentIndoorColor = RoutePainterResource().indoorLineColor
     private var currentOutdoorColor = RoutePainterResource().outdoorLineColor
     private var currentDashColor = RoutePainterResource().dashedLineColor
@@ -152,8 +153,9 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
                             .verticalScroll(rememberScrollState())
                     ) {
                         DetailSettings(
-                            onConfirm = { routeOpacity, indoorColor, outdoorColor, dashColor, routeWidth, dashWidth ->
+                            onConfirm = { routeOpacity, outdoorLineOpacity, indoorColor, outdoorColor, dashColor, routeWidth, dashWidth ->
                                 currentRouteOpacity = routeOpacity
+                                currentOutdoorLineOpacity = outdoorLineOpacity
                                 currentIndoorColor = indoorColor
                                 currentOutdoorColor = outdoorColor
                                 currentDashColor = dashColor
@@ -247,15 +249,17 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
         dashLineColor = currentDashColor,
         lineWidth = Expression.literal(currentRouteWidth),
         dashedLineWidth = Expression.literal(currentDashWidth),
+        outdoorLineOpacity = currentOutdoorLineOpacity,
         inactiveRouteOpacity = currentRouteOpacity
     )
 
     @Composable
     private fun DetailSettings(
-        onConfirm: (Float, Int, Int, Int, Int, Int) -> Unit,
+        onConfirm: (Float, Float, Int, Int, Int, Int, Int) -> Unit,
         onError: (String) -> Unit
     ) {
         var settingRouteOpacity by remember { mutableStateOf("0.5") }
+        var settingOutdoorLineOpacity by remember { mutableStateOf("1.0") }
         var settingIndoorColor by remember { mutableStateOf("#F9D60D") }
         var settingOutdoorColor by remember { mutableStateOf("#2181D0") }
         var settingDashColor by remember { mutableStateOf("#000000") }
@@ -273,6 +277,20 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
                 keyboardType = KeyboardType.Decimal
             ),
             label = { Text("Inactive Route Opacity（From 0 to 1）") }
+        )
+
+        OutlinedTextField(
+            value = settingOutdoorLineOpacity,
+            onValueChange = {
+                settingOutdoorLineOpacity = it
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 30.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Decimal
+            ),
+            label = { Text("Outdoor Line Opacity（From 0 to 1）") }
         )
 
         OutlinedTextField(
@@ -341,8 +359,15 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
         Button(
             onClick = {
                 try {
+                    val routeOpacity = settingRouteOpacity.toFloat()
+                    if (routeOpacity > 1 || routeOpacity < 0)
+                        throw Exception("Inactive Route Opacity should be between 0 and 1")
+                    val outdoorLineOpacity = settingOutdoorLineOpacity.toFloat()
+                    if (outdoorLineOpacity > 1 || outdoorLineOpacity < 0)
+                        throw Exception("Outdoor Line Opacity should be between 0 and 1")
                     onConfirm(
-                        settingRouteOpacity.toFloat(),
+                        routeOpacity,
+                        outdoorLineOpacity,
                         android.graphics.Color.parseColor(settingIndoorColor),
                         android.graphics.Color.parseColor(settingOutdoorColor),
                         android.graphics.Color.parseColor(settingDashColor),

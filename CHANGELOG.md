@@ -1,5 +1,15 @@
 # Mapxus Map SDK Change Log
 
+## 9.2.0 (2025.01.22)
+
+🐛Bugs
+
+- Fixed some known crash bugs.
+- Fixed user location transparency does not change depending on the floor.
+
+🎉Features
+
+- provide `outdoorLineOpacity` setting of `RoutePainterResource`.
 ## 9.1.0
 
 🐛Bugs
