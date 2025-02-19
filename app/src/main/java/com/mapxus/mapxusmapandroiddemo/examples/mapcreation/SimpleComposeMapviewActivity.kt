@@ -29,7 +29,7 @@ class SimpleComposeMapviewActivity : AppCompatActivity() {
                             .maxZoomPreference(22.0)
                             .minZoomPreference(15.0),
                         mapxusMapOptions = MapxusMapOptions()
-                            .setBuildingId(getString(R.string.default_search_text_building_id))
+                            .setBuildingId(getString(R.string.default_search_text_building_id)),
                     )
                 }
             }

@@ -115,7 +115,6 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         //切换显示大小屏监听
         switchBtn.setOnClickListener(v -> {
             if (mapViewIsBig) {
-                mapxusMap.getMapxusUiSettings().setCollapseCopyright(true);
                 mapxusVisual.setLayoutParams(bigViewLayoutParams);
                 mapView.setLayoutParams(smallViewLayoutParams);
                 mapxusMap.getMapxusUiSettings().setSelectorEnabled(false);

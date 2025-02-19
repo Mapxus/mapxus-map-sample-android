@@ -1,5 +1,18 @@
 # Mapxus Map SDK Change Log
 
+## 9.3.0 (2025.02.19)
+
+🐛Bugs
+
+- Fixed a crash that occurred when changing styles while using positioning.
+
+🎉Features
+
+- Deprecated `MapxusUiSettings.setCollapseCopyright()`.
+- Provided`MapxusUiSettings.setMapxusLogoEnabled` to enable/disable Mapxus Logo.
+- Deprecated `Venue.bbox`.
+- Deprecated `IndoorBuilding.bbox`.
+
 ## 9.2.0 (2025.01.22)
 
 🐛Bugs
