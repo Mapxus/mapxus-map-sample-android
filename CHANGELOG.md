@@ -1,5 +1,15 @@
 # Mapxus Map SDK Change Log
 
+## 9.4.0 (2025.03.20)
+
+🐛Bugs
+
+- Fixed a bug where marker could not be displayed when using `MapxusPointAnnotation.iconImage`.
+
+🎉Features
+
+- Support zh-Hant-TW in `MultilingualObject`.
+
 ## 9.3.0 (2025.02.19)
 
 🐛Bugs

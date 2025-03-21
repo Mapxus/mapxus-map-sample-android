@@ -39,7 +39,7 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
     private PopupWindow popupWindow;
     private int navigationHeight;
 
-    private final String[] languages = {MapLanguage.DEFAULT, MapLanguage.EN, MapLanguage.ZH_HK, MapLanguage.ZH_CN, MapLanguage.JA, MapLanguage.KO, MapLanguage.AR, MapLanguage.FIL, MapLanguage.ID, MapLanguage.PT, MapLanguage.TH, MapLanguage.VI};
+    private final String[] languages = {MapLanguage.DEFAULT, MapLanguage.EN, MapLanguage.ZH_HK, MapLanguage.ZH_TW, MapLanguage.ZH_CN, MapLanguage.JA, MapLanguage.KO, MapLanguage.AR, MapLanguage.FIL, MapLanguage.ID, MapLanguage.PT, MapLanguage.TH, MapLanguage.VI};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
