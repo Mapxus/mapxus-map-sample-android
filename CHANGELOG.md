@@ -1,5 +1,18 @@
 # Mapxus Map SDK Change Log
 
+## 9.5.0 (2025.05.12)
+
+🐛Bugs
+
+- When the language data is not present, the corresponding property of the `MultilingualObject`  will be null instead of an empty string.
+- Fixed an bug where indoor tiles were not properly loaded due to locale issues.
+- Fixed a rare crash due to a network state switch.
+- Fixed an incorrect calculation of route distance in a specific scenario.
+
+🎉Features
+
+- Enhanced the security of data transmission within the SDK.
+
 ## 9.4.0 (2025.03.20)
 
 🐛Bugs
