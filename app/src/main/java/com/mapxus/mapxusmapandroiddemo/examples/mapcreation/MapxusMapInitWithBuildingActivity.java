@@ -46,6 +46,9 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
                 mapxusMapOptions.setFloorId(id);
                 break;
             case 1:
+                mapxusMapOptions.setSharedFloorId(id);
+                break;
+            case 2:
                 mapxusMapOptions.setBuildingId(id);
                 break;
             default:

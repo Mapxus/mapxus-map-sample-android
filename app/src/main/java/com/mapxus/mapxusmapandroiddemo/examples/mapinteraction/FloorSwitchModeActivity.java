@@ -17,7 +17,7 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.mapxusmap.api.map.model.FloorSwitchMode;
+//import com.mapxus.map.mapxusmap.api.map.model.FloorSwitchMode;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -36,12 +36,12 @@ public class FloorSwitchModeActivity extends AppCompatActivity implements OnMapR
     private int navigationHeight;
     private View.OnClickListener popupWindowItemClickListener = v -> {
         switch (v.getId()) {
-            case R.id.tv_switching_by_venue:
-                mapxusMap.setFloorSwitchMode(FloorSwitchMode.SWITCHED_BY_VENUE);
-                break;
-            case R.id.tv_switching_by_building:
-                mapxusMap.setFloorSwitchMode(FloorSwitchMode.SWITCHED_BY_BUILDING);
-                break;
+//            case R.id.tv_switching_by_venue:
+//                mapxusMap.setFloorSwitchMode(FloorSwitchMode.SWITCHED_BY_VENUE);
+//                break;
+//            case R.id.tv_switching_by_building:
+//                mapxusMap.setFloorSwitchMode(FloorSwitchMode.SWITCHED_BY_BUILDING);
+//                break;
             case R.id.btn_cancel:
                 break;
         }

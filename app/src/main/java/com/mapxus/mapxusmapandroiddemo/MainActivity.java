@@ -319,11 +319,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new Intent(MainActivity.this, GestureInteractionSwitchBuildingActivity.class),
                         R.drawable.switching_building_gestures));
 
-                exampleItemModels.add(new ExampleItemModel(
-                        R.string.activity_floor_switch_mode_title,
-                        R.string.activity_floor_switch_mode_description,
-                        new Intent(MainActivity.this, FloorSwitchModeActivity.class),
-                        R.drawable.focus_on_indoor_scene));
+//                exampleItemModels.add(new ExampleItemModel(
+//                        R.string.activity_floor_switch_mode_title,
+//                        R.string.activity_floor_switch_mode_description,
+//                        new Intent(MainActivity.this, FloorSwitchModeActivity.class),
+//                        R.drawable.focus_on_indoor_scene));
 
                 exampleItemModels.add(new ExampleItemModel(
                         R.string.activity_camera_animate_title,

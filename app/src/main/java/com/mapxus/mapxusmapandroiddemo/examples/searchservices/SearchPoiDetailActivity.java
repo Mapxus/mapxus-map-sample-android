@@ -18,6 +18,7 @@ import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.DetailSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
+import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
@@ -131,8 +132,14 @@ public class SearchPoiDetailActivity extends BaseWithParamMenuActivity implement
                 return;
             }
 
-            if (poiDetailResult.getPoiInfo() != null) {
-                mapxusMap.selectFloorById(poiDetailResult.getPoiInfo().getFloorId());
+            PoiInfo poiInfo = poiDetailResult.getPoiInfo();
+            if (poiInfo != null) {
+                if (poiInfo.getFloorId() != null) {
+                    mapxusMap.selectFloorById(poiInfo.getFloorId());
+                }
+                if (poiInfo.getSharedFloorId() != null) {
+                    mapxusMap.selectSharedFloorById(poiInfo.getSharedFloorId());
+                }
             }
 
             MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiDetailResult.getPoiList());

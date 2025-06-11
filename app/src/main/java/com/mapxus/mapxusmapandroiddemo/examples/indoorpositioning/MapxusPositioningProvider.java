@@ -7,9 +7,12 @@ import android.util.Log;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
+import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
+import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
 import com.mapxus.positioning.positioning.api.ErrorInfo;
+import com.mapxus.positioning.positioning.api.MapxusFloor;
 import com.mapxus.positioning.positioning.api.MapxusLocation;
 import com.mapxus.positioning.positioning.api.MapxusPositioningClient;
 import com.mapxus.positioning.positioning.api.MapxusPositioningListener;
@@ -104,11 +107,20 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
             location.setTime(System.currentTimeMillis());
 
             String building = mapxusLocation.getBuildingId();
-            FloorInfo floorInfo = mapxusLocation.getMapxusFloor() == null ? null : new FloorInfo(
-                    mapxusLocation.getMapxusFloor().getId(), mapxusLocation.getMapxusFloor().getCode(), mapxusLocation.getMapxusFloor().getOrdinal()
-            );
+            Floor floor = null;
+            MapxusFloor mapxusFloor = mapxusLocation.getMapxusFloor();
+            switch (mapxusFloor.getType()) {
+                case SHARED_FLOOR: {
+                    floor = new SharedFloor(mapxusFloor.getId(), mapxusFloor.getCode(), mapxusFloor.getOrdinal());
+                    break;
+                }
+                case FLOOR: {
+                    floor = new FloorInfo(mapxusFloor.getId(), mapxusFloor.getCode(), mapxusFloor.getOrdinal());
+                    break;
+                }
+            }
 
-            IndoorLocation indoorLocation = new IndoorLocation(building, floorInfo, location);
+            IndoorLocation indoorLocation = new IndoorLocation(building, floor, location);
             indoorLocation.setAccuracy(mapxusLocation.getAccuracy());
 
             dispatchIndoorLocationChange(indoorLocation);

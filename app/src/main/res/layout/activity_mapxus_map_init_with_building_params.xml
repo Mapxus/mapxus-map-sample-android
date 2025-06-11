@@ -31,6 +31,12 @@
             android:text="floorId" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_shared_floor_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sharedFloorId" />
+
+        <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_building_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

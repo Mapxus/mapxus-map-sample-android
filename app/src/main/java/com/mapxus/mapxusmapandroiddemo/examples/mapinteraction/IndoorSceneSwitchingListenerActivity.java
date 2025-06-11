@@ -41,11 +41,15 @@ public class IndoorSceneSwitchingListenerActivity extends AppCompatActivity impl
         mapxusMap.addOnBuildingChangeListener(indoorBuildingInfo -> {
             if (indoorBuildingInfo != null) {
                 buildingNameTv.setText(indoorBuildingInfo.getBuildingNameMap().getDefault());
+            } else {
+                buildingNameTv.setText("null");
             }
         });
         mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
-            if (indoorBuilding != null && floorInfo != null) {
+            if (floorInfo != null) {
                 floorTv.setText(floorInfo.getCode());
+            } else {
+                floorTv.setText("null");
             }
         });
     }

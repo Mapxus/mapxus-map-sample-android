@@ -40,8 +40,8 @@ public class IndoorSceneInAndOutListenerActivity extends AppCompatActivity imple
     @SuppressLint("SetTextI18n")
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
-        mapxusMap.addOnBuildingChangeListener(indoorBuilding -> {
-            if (indoorBuilding != null) {
+        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floor) -> {
+            if (floor != null) {
                 tvInOrOut.setText("Indoor now");
             } else {
                 tvInOrOut.setText("Outdoor now");

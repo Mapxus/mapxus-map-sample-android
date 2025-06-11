@@ -31,6 +31,8 @@ import com.mapxus.map.mapxusmap.api.map.model.overlay.MapxusPointAnnotation;
 import com.mapxus.map.mapxusmap.api.services.RoutePlanning;
 import com.mapxus.map.mapxusmap.api.services.constant.RoutePlanningInstructionSign;
 import com.mapxus.map.mapxusmap.api.services.constant.RoutePlanningVehicle;
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
+import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
 import com.mapxus.map.mapxusmap.api.services.model.planning.InstructionDto;
 import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningPoint;
@@ -63,6 +65,7 @@ public class RoutePlanningActivity extends AppCompatActivity {
     private final Map<PointType, RoutePlanningPoint> routePlanningPointMap = new EnumMap<>(PointType.class);
     private final Map<PointType, MapxusPointAnnotation> markers = new EnumMap<>(PointType.class);
     private final Map<String, String> floorIdToName = new HashMap<>();
+    private final Map<String, String> sharedFloorIdToName = new HashMap<>();
     //map related
     private MapView mapView;
     //route planning search object
@@ -99,14 +102,41 @@ public class RoutePlanningActivity extends AppCompatActivity {
             poi -> responseMapClickEvent(
                     new LatLng(poi.getLatitude(), poi.getLongitude()),
                     poi.getFloor(),
-                    poi.getFloorName()
+                    poi.getFloorName(),
+                    poi.getSharedFloorId(),
+                    poi.getSharedFloorName()
             );
     private final MapxusMap.OnMapClickedListener mapClickListener =
-            (latLng, floorInfo, indoorBuilding, venue) -> responseMapClickEvent(
-                    latLng,
-                    floorInfo != null ? floorInfo.getId() : null,
-                    floorInfo != null ? floorInfo.getCode() : null
-            );
+            (latLng, mapxusSite) -> {
+                Floor floor = mapxusSite.getFloor();
+                if (floor == null) {
+                    responseMapClickEvent(
+                            latLng,
+                            null,
+                            null,
+                            null,
+                            null
+                    );
+                } else {
+                    if (floor instanceof FloorInfo) {
+                        responseMapClickEvent(
+                                latLng,
+                                floor.getId(),
+                                floor.getCode(),
+                                null,
+                                null
+                        );
+                    } else {
+                        responseMapClickEvent(
+                                latLng,
+                                null,
+                                null,
+                                floor.getId(),
+                                floor.getCode()
+                        );
+                    }
+                }
+            };
     private final View.OnClickListener planningBtnClickListener = v -> {
         RoutePlanningPoint origin = routePlanningPointMap.get(PointType.Start);
         RoutePlanningPoint destination = routePlanningPointMap.get(PointType.End);
@@ -374,13 +404,16 @@ public class RoutePlanningActivity extends AppCompatActivity {
     private void responseMapClickEvent(
             LatLng latLng,
             @Nullable String floorId,
-            String floorName
+            String floorName,
+            @Nullable String sharedFloorId,
+            String sharedFloorName
     ) {
         floorIdToName.put(floorId, floorName);
+        sharedFloorIdToName.put(sharedFloorId, sharedFloorName);
         if (currentPointType != null) {
             routePlanningPointMap.put(
                     currentPointType,
-                    new RoutePlanningPoint(latLng.getLongitude(), latLng.getLatitude(), floorId)
+                    new RoutePlanningPoint(latLng.getLongitude(), latLng.getLatitude(), floorId != null ? floorId : sharedFloorId)
             );
 
             markers.computeIfPresent(currentPointType, (k, v) -> {
@@ -390,7 +423,7 @@ public class RoutePlanningActivity extends AppCompatActivity {
             markers.put(
                     currentPointType,
                     mMapxusMap.addMapxusPointAnnotation(
-                            getMapxusMarkerOptions(latLng, floorId)
+                            getMapxusMarkerOptions(latLng, floorId != null ? floorId : sharedFloorId)
                     ));
         }
     }
@@ -413,7 +446,15 @@ public class RoutePlanningActivity extends AppCompatActivity {
     }
 
     private String formatPointText(RoutePlanningPoint point) {
-        return String.format("%s,%s %s", doubleToString(point.getLat()), doubleToString(point.getLon()), floorIdToName.get(point.getFloorId()));
+        String floorName = floorIdToName.get(point.getFloorId());
+        if (floorName != null) {
+            return String.format("%s,%s %s", doubleToString(point.getLat()), doubleToString(point.getLon()), floorName);
+        }
+        floorName = sharedFloorIdToName.get(point.getFloorId());
+        if (floorName != null) {
+            return String.format("%s,%s %s", doubleToString(point.getLat()), doubleToString(point.getLon()), floorName);
+        }
+        return String.format("%s,%s", doubleToString(point.getLat()), doubleToString(point.getLon()));
     }
 
     @NotNull

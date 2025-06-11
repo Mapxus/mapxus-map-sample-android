@@ -69,12 +69,23 @@ public class MyPoiOrientationOverlay {
     }
 
     private MapxusPointAnnotationOptions getMarkerOptions(int index) {
+        PoiInfo poiInfo = mPoiInfoList.get(index);
+        String floorId = poiInfo.getFloorId();
+        String sharedFloorId = poiInfo.getSharedFloorId();
+        String markerFloorId = null;
+        if (floorId != null) {
+            markerFloorId = floorId;
+        } else if (sharedFloorId != null) {
+            markerFloorId = sharedFloorId;
+        }
         return new MapxusPointAnnotationOptions()
                 .setPosition(
-                        new com.mapxus.map.mapxusmap.api.map.model.LatLng(mPoiInfoList.get(index).getLocation()
-                                .getLat(), mPoiInfoList.get(index)
-                                .getLocation().getLon()))
-                .setFloorId(mPoiInfoList.get(index).getFloorId())
+                        new com.mapxus.map.mapxusmap.api.map.model.LatLng(
+                                poiInfo.getLocation().getLat(),
+                                poiInfo.getLocation().getLon()
+                        )
+                )
+                .setFloorId(markerFloorId)
                 .setTitle(getTitle(index)).setSnippet(getSnippet(index));
     }
 

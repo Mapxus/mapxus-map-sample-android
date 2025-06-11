@@ -35,6 +35,9 @@ public class MapxusMapInitWithBuildingParamsActivity extends AppCompatActivity {
                         etId.setText(getString(R.string.default_floor_id));
                         break;
                     case 1:
+                        etId.setText(getString(R.string.default_shared_floor_id));
+                        break;
+                    case 2:
                         etId.setText(getString(R.string.default_search_text_building_id));
                         break;
                     default:

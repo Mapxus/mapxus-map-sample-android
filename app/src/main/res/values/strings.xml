@@ -50,6 +50,7 @@
 
     <string name="floor" translatable="false">floor</string>
     <string name="floor_id" translatable="false">floorId</string>
+    <string name="shared_floor_id" translatable="false">sharedFloorId</string>
     <string name="zoom_insets" translatable="false">zoomInsets</string>
     <string name="right" translatable="false">right</string>
     <string name="left" translatable="false">left</string>

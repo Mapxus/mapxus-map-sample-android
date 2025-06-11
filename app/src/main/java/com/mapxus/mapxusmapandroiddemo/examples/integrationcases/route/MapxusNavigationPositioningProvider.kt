@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo
+import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor
 import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto
 import com.mapxus.map.mapxusmap.overlay.navi.NavigationPathDto
 import com.mapxus.map.mapxusmap.overlay.navi.RouteAdsorber
@@ -15,6 +16,7 @@ import com.mapxus.map.mapxusmap.overlay.navi.RouteShortener
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider
 import com.mapxus.positioning.positioning.api.ErrorInfo
+import com.mapxus.positioning.positioning.api.FloorType
 import com.mapxus.positioning.positioning.api.MapxusLocation
 import com.mapxus.positioning.positioning.api.MapxusPositioningClient
 import com.mapxus.positioning.positioning.api.MapxusPositioningListener
@@ -24,11 +26,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.*
+import java.util.concurrent.Executors
 
 /**
  * Created by Edison on 2020/9/25.
@@ -267,11 +267,13 @@ class MapxusNavigationPositioningProvider(
                     location.longitude = mapxusLocation.longitude
                     location.time = System.currentTimeMillis()
                     val building = mapxusLocation.buildingId
-                    val floorInfo = if (mapxusLocation.mapxusFloor == null) null else FloorInfo(
-                        mapxusLocation.mapxusFloor.id,
-                        mapxusLocation.mapxusFloor.code,
-                        mapxusLocation.mapxusFloor.ordinal
-                    )
+                    val floorInfo = mapxusLocation.mapxusFloor?.run {
+                        when (type) {
+                            null -> null
+                            FloorType.FLOOR -> FloorInfo(id, code, ordinal)
+                            FloorType.SHARED_FLOOR -> SharedFloor(id, code, ordinal)
+                        }
+                    }
                     val indoorLocation = IndoorLocation(building, floorInfo, location)
                     indoorLocation.accuracy = mapxusLocation.accuracy
                     if (null != routeAdsorber) {

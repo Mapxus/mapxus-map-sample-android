@@ -26,6 +26,7 @@ import com.mapxus.map.mapxusmap.api.services.constant.DistanceSearchType;
 import com.mapxus.map.mapxusmap.api.services.model.IndoorLatLng;
 import com.mapxus.map.mapxusmap.api.services.model.PoiOrientationSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
+import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.map.mapxusmap.positioning.ErrorInfo;
@@ -264,7 +265,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
                         buildingIdValue = indoorBuilding.getBuildingId();
                     }
 
-                    IndoorLocation indoorLocation = new IndoorLocation("Fake", floorInfoValue,
+                    IndoorLocation indoorLocation = new IndoorLocation("Fake", (Floor) floorInfoValue,
                             floorInfoValue == null ? null : buildingIdValue,
                             indoorLatLng.getLat(), indoorLatLng.getLon(), System.currentTimeMillis());
                     mapxusMap.setLocationProvider(indoorLocationProvider);

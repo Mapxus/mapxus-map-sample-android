@@ -1,5 +1,44 @@
 # Mapxus Map SDK Change Log
 
+## 10.0.0 (2025.06.10)
+
+🎉Features
+
+- We have introduced shared floor data to describe floor areas without unique subordinate buildings. So we have add new functions in map display, venue search, poi search and select methods.
+  - Map Display：
+    - When users select shared level（level which is not belong to specific one building）, it will only see the current floor name on the floor selector.
+    - When users select shared level, it will display all the other levels which are in the buildings related to the shared level and have the same ordinal with current shared level.
+  - Selected Method:
+    - Add a new selected floor methods.
+  - Search:
+    - Users can get shared level data in the Venue search response if the venue has shared floor data.
+    - When users search POI data with venueId, users can get all POIs result(both in Buildings and on shared floors) in response. And user can see these POIs on shared floor will have sharedFloorId without buildingId.
+- Added a 2.5D effect on the map. Users can view the three-dimensional wall of the units when rotating the map.(The 2.5D effect is only available in the default mapxus style (mapxus_v7) of the latest version of the SDK. If users want to upgrade the SDK but do not want to use the 2.5D effect, they can choose to use the defined style or mapxus_mims2_v5 style.)
+- Add `sharedFloor` property of `IndoorCodingResult`. Besides, property `floor` and `building` are nullable now.
+- Property  `buildingId` of `IndoorLatLng` is nullable now.
+- In order to locate user's position in shared level crrectly, Mapxus Positioning SDKs equal or higher than 2.3.1 are recommanded.
+- Provided `lineOffset` of `BuildingBorderStyle`.
+- Provided `searchCategoriesInSite` of `CategorySearch`.
+- Deprecated `searchPoiCategoryInSite` of `PoiSearch`.
+
+💥 Breaking
+
+- Following items have breaking changes:
+
+| Class            | Deprecated                                                   | New                                                          |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| MapxusMap        | ~~setFloorSwitchMode()~~                                     |                                                              |
+| MapxusMapOptions | ~~floorSwitchMode~~                                          |                                                              |
+| MapxusMap        | OnFloorChangedListener.onFloorChange(@Nullable Venue venue, @Nullable IndoorBuilding indoorBuilding, @Nullable **FloorInfo floorInfo**); | OnFloorChangedListener.onFloorChange(@Nullable Venue venue, @Nullable IndoorBuilding indoorBuilding, @Nullable **Floor floor**); |
+|                  | OnMapClickedListener.onMapClick(@NonNull LatLng latLng, **@Nullable FloorInfo floorInfo, @Nullable IndoorBuilding indoorBuilding, @Nullable Venue venue**); | OnMapClickedListener.onMapClick(@NonNull LatLng latLng, **@NotNull MapxusSite mapxusSite**); |
+|                  | OnMapLongClickedListener.onMapLongClick(@NonNull LatLng latLng, **@Nullable FloorInfo floorInfo, @Nullable IndoorBuilding indoorBuilding, @Nullable Venue venue**); | OnMapLongClickedListener.onMapLongClick(@NonNull LatLng latLng, **@NotNull MapxusSite mapxusSite**); |
+|                  | **FloorInfo** getSelectedFloor()                             | **Floor** getSelectedFloor()                                 |
+| IndoorLocation   | **floorInfo: FloorInfo**                                     | **floor: Floor**                                             |
+
+🐛Bugs
+
+- Fixed highlight selected building/shared floor display bug.
+
 ## 9.5.0 (2025.05.12)
 
 🐛Bugs

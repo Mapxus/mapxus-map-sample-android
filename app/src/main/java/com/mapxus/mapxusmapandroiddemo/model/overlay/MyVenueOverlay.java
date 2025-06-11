@@ -65,6 +65,9 @@ public class MyVenueOverlay {
             b.include(new LatLng(venueInfo.getLabelCenter().getLat(),
                     venueInfo.getLabelCenter().getLon()));
             for (IndoorBuildingInfo indoorBuildingInfo : venueInfo.getBuildings()) {
+                if (indoorBuildingInfo.getLabelCenter() == null) {
+                    continue;
+                }
                 b.include(new LatLng(indoorBuildingInfo.getLabelCenter().getLat(),
                         indoorBuildingInfo.getLabelCenter().getLon()));
             }

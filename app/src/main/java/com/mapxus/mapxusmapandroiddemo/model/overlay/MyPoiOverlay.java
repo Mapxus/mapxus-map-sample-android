@@ -51,7 +51,14 @@ public class MyPoiOverlay {
                 LatLngBounds bounds = getLatLngBounds();
                 mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
             }
-            mapxusMap.selectFloorById(mPoiInfoList.get(0).getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+            String floorId = mPoiInfoList.get(0).getFloorId();
+            String sharedFloorId = mPoiInfoList.get(0).getSharedFloorId();
+            if (floorId != null) {
+                mapxusMap.selectFloorById(floorId, MapxusMapZoomMode.ZoomDisable, null);
+            }
+            if (sharedFloorId != null) {
+                mapxusMap.selectSharedFloorById(sharedFloorId, MapxusMapZoomMode.ZoomDisable, null);
+            }
         }
     }
 
@@ -70,12 +77,23 @@ public class MyPoiOverlay {
     }
 
     private MapxusPointAnnotationOptions getMarkerOptions(int index) {
+        PoiInfo poiInfo = mPoiInfoList.get(index);
+        String floorId = poiInfo.getFloorId();
+        String sharedFloorId = poiInfo.getSharedFloorId();
+        String markerFloorId = null;
+        if (floorId != null) {
+            markerFloorId = floorId;
+        } else if (sharedFloorId != null) {
+            markerFloorId = sharedFloorId;
+        }
         return new MapxusPointAnnotationOptions()
                 .setPosition(
-                        new com.mapxus.map.mapxusmap.api.map.model.LatLng(mPoiInfoList.get(index).getLocation()
-                                .getLat(), mPoiInfoList.get(index)
-                                .getLocation().getLon()))
-                .setFloorId(mPoiInfoList.get(index).getFloorId())
+                        new com.mapxus.map.mapxusmap.api.map.model.LatLng(
+                                poiInfo.getLocation().getLat(),
+                                poiInfo.getLocation().getLon()
+                        )
+                )
+                .setFloorId(markerFloorId)
                 .setTitle(getTitle(index)).setSnippet(getSnippet(index));
     }
 

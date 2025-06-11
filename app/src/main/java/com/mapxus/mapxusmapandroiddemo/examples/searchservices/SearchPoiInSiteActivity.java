@@ -110,7 +110,7 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
 
     protected void doSearchQuery(String keyWord, String orderBy,
                                  String category, String excludeCategory,
-                                 String venueId, String buildingId, String floorId, int offset, int page) {
+                                 String venueId, String buildingId, String floorId, String sharedFloorId, int offset, int page) {
         PoiInSiteSearchOption inSiteSearchOption = new PoiInSiteSearchOption();
         inSiteSearchOption.keyword(keyWord);
         inSiteSearchOption.orderBy(orderBy);
@@ -120,6 +120,7 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
         inSiteSearchOption.venueId(venueId);
         inSiteSearchOption.buildingId(buildingId);
         inSiteSearchOption.floorId(floorId);
+        inSiteSearchOption.sharedFloorId(sharedFloorId);
         inSiteSearchOption.pageCapacity(offset);
         inSiteSearchOption.pageNum(page);
 
@@ -197,12 +198,14 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
         EditText etVenueId = bottomSheetDialogView.findViewById(R.id.et_venue_id);
         EditText etBuildingId = bottomSheetDialogView.findViewById(R.id.et_id);
         EditText etFloorId = bottomSheetDialogView.findViewById(R.id.et_floor_id);
+        EditText etSharedFloorId = bottomSheetDialogView.findViewById(R.id.et_shared_floor_id);
         EditText etOffset = bottomSheetDialogView.findViewById(R.id.et_offset);
         EditText etPage = bottomSheetDialogView.findViewById(R.id.et_page);
 
         String venueId = etVenueId.getText().toString().trim();
         String buildingId = etBuildingId.getText().toString().trim();
         String floorId = etFloorId.getText().toString().trim();
+        String sharedFloorId = etSharedFloorId.getText().toString().trim();
         Button btnOrderBy = bottomSheetDialogView.findViewById(R.id.btn_order_by);
         String orderBy = null;
         if (btnOrderBy.getText().toString().equals(getString(R.string.order_by_default_name))) {
@@ -217,10 +220,13 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
                 venueId,
                 buildingId,
                 floorId,
+                sharedFloorId,
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
         if (!floorId.isEmpty()) {
             mapxusMap.selectFloorById(floorId);
+        } else if (!sharedFloorId.isEmpty()) {
+            mapxusMap.selectSharedFloorById(sharedFloorId);
         } else if (!buildingId.isEmpty()) {
             mapxusMap.selectBuildingById(buildingId);
         }

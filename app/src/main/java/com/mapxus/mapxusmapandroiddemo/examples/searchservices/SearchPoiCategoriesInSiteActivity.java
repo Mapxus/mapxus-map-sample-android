@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +15,14 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.services.CategorySearch;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
-import com.mapxus.map.mapxusmap.api.services.model.PoiCategorySearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.CategoryInSiteSearchOption;
+import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
+import com.mapxus.map.mapxusmap.api.services.model.category.CategoryGroup;
+import com.mapxus.map.mapxusmap.api.services.model.category.CategoryResult;
+import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
+import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryInfo;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
@@ -30,11 +37,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, PoiSearch.PoiSearchResultListener, View.OnClickListener {
+public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, CategorySearch.CategoryResponseListener, View.OnClickListener {
 
     private MapView mapView;
-    private PoiSearch poiSearch;
-    private String floor, buildingId, venueId = "";
+    private CategorySearch categorySearch;
+    private String buildingId, venueId = "";
+    private Floor floor;
     private RelativeLayout progressBarView;
 
     @Override
@@ -47,8 +55,7 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
         MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
 
-        poiSearch = PoiSearch.newInstance();
-        poiSearch.setPoiSearchResultListener(this);
+        categorySearch = CategorySearch.newInstance();
 
         progressBarView = findViewById(R.id.loding_view);
         findViewById(R.id.btn_search_in_venue).setOnClickListener(this);
@@ -90,8 +97,8 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (poiSearch != null) {
-            poiSearch.destroy();
+        if (categorySearch != null) {
+            categorySearch.destroy();
         }
         mapView.onDestroy();
     }
@@ -102,45 +109,23 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
         mapView.onLowMemory();
     }
 
-    protected void searchAllPoiCategory(String venueId, String buildingId, String floor) {
+    protected void searchAllPoiCategory(String venueId, String buildingId, Floor floor) {
         progressBarView.setVisibility(View.VISIBLE);
-        PoiCategorySearchOption poiCategorySearchOption = new PoiCategorySearchOption();
-        poiCategorySearchOption.venueId(venueId);
-        poiCategorySearchOption.buildingId(buildingId);
-        poiCategorySearchOption.floorId(floor);
-        poiSearch.searchPoiCategoryInSite(poiCategorySearchOption);
-    }
-
-    @Override
-    public void onGetPoiResult(PoiResult poiResult) {
-    }
-
-    @Override
-    public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-
-    }
-
-    @Override
-    public void onGetPoiByOrientationResult(PoiOrientationResult poiOrientationResult) {
-
-    }
-
-    @Override
-    public void onPoiCategoriesResult(PoiCategoryResult poiCategoryResult) {
-        progressBarView.setVisibility(View.GONE);
-        if (poiCategoryResult.status != 0) {
-            Toast.makeText(this, poiCategoryResult.error.toString(), Toast.LENGTH_LONG).show();
-            return;
+        CategoryInSiteSearchOption categoryInSiteSearchOption = new CategoryInSiteSearchOption();
+        categoryInSiteSearchOption.venueId(venueId);
+        categoryInSiteSearchOption.buildingId(buildingId);
+        if (floor != null) {
+            if (floor instanceof FloorInfo) {
+                categoryInSiteSearchOption.floorId(floor.getId());
+            }
+            if (floor instanceof SharedFloor) {
+                categoryInSiteSearchOption.sharedFloorId(floor.getId());
+            }
         }
-        if (poiCategoryResult.getPoiCategoryInfos() == null || poiCategoryResult.getPoiCategoryInfos().isEmpty()) {
-            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        initBottomSheetDialog(poiCategoryResult.getPoiCategoryInfos());
+        categorySearch.searchCategoriesInSite(categoryInSiteSearchOption, this);
     }
 
-    private void initBottomSheetDialog(List<PoiCategoryInfo> categoryInfos) {
+    private void initBottomSheetDialog(List<CategoryGroup> categoryInfos) {
         MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
         View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_category_search_style, this);
         bottomSheetDialogView.findViewById(R.id.btn_close).setOnClickListener(v -> bottomSheetDialog.dismiss());
@@ -154,8 +139,8 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
 
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
-        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
-            floor = floorInfo == null ? "" : floorInfo.getId();
+        mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floor) -> {
+            this.floor = floor;
             buildingId = indoorBuilding == null ? "" : indoorBuilding.getBuildingId();
             venueId = venue == null ? "" : venue.getId();
         });
@@ -168,7 +153,7 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
                 if (venueId == null || venueId.isEmpty()) {
                     Toast.makeText(this, "Please select a venue", Toast.LENGTH_SHORT).show();
                 } else {
-                    searchAllPoiCategory(venueId, "", "");
+                    searchAllPoiCategory(venueId, "", null);
                 }
                 break;
             }
@@ -176,12 +161,12 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
                 if (buildingId == null || buildingId.isEmpty()) {
                     Toast.makeText(this, "Please select a building", Toast.LENGTH_SHORT).show();
                 } else {
-                    searchAllPoiCategory("", buildingId, "");
+                    searchAllPoiCategory("", buildingId, null);
                 }
                 break;
             }
             case R.id.btn_search_on_floor: {
-                if (floor == null || floor.isEmpty()) {
+                if (floor == null) {
                     Toast.makeText(this, "Please select a floor", Toast.LENGTH_SHORT).show();
                 } else {
                     searchAllPoiCategory("", buildingId, floor);
@@ -189,6 +174,22 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
                 break;
             }
         }
+    }
+
+    @Override
+    public void onGetCategoryResult(@NonNull CategoryResult categoryResult) {
+        progressBarView.setVisibility(View.GONE);
+        if (categoryResult.status != 0) {
+            Toast.makeText(this, categoryResult.error.toString(), Toast.LENGTH_LONG).show();
+            return;
+        }
+        List<CategoryGroup> categoryGroups = categoryResult.getCategoryGroups();
+        if (categoryGroups.isEmpty()) {
+            Toast.makeText(this, getString(R.string.no_result), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        initBottomSheetDialog(categoryGroups);
     }
 }
 

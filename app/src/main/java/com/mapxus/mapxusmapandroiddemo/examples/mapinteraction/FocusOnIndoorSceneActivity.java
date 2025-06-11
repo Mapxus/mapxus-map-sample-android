@@ -90,6 +90,9 @@ public class FocusOnIndoorSceneActivity extends BaseWithParamMenuActivity implem
                         etId.setText(getString(R.string.default_switch_indoor_floor_id));
                         break;
                     case 1:
+                        etId.setText(getString(R.string.default_shared_floor_id));
+                        break;
+                    case 2:
                         etId.setText(getString(R.string.default_search_text_building_id));
                         break;
                     default:
@@ -124,6 +127,9 @@ public class FocusOnIndoorSceneActivity extends BaseWithParamMenuActivity implem
                                         mapxusMap.selectFloorById(id, zoomMode, insets);
                                         break;
                                     case 1:
+                                        mapxusMap.selectSharedFloorById(id, zoomMode, insets);
+                                        break;
+                                    case 2:
                                         mapxusMap.selectBuildingById(id, zoomMode, insets);
                                         break;
                                     default:

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mapxus.map.mapxusmap.api.services.model.category.CategoryGroup;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryInfo;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -16,9 +17,9 @@ import java.util.List;
 
 public class CategoriesNameInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<PoiCategoryInfo> categoryInfos;
+    private List<CategoryGroup> categoryInfos;
 
-    public CategoriesNameInfoAdapter(List<PoiCategoryInfo> categoryInfos) {
+    public CategoriesNameInfoAdapter(List<CategoryGroup> categoryInfos) {
         this.categoryInfos = categoryInfos;
     }
 
@@ -34,13 +35,13 @@ public class CategoriesNameInfoAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
 
-        PoiCategoryInfo categoryInfo = categoryInfos.get(position);
+        CategoryGroup categoryInfo = categoryInfos.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
 
         viewHolder.tvCategory.setText(String.format("%s%s", "category : ", categoryInfo.getCategory()));
-        viewHolder.tvTitleEn.setText(String.format("%s%s", "title_en : ", categoryInfo.getTitleEn()));
-        viewHolder.tvTitleZh.setText(String.format("%s%s", "title_zh : ", categoryInfo.getTitleZh()));
-        viewHolder.tvTitleCn.setText(String.format("%s%s", "title_cn : ", categoryInfo.getTitleCn()));
+        viewHolder.tvTitleEn.setText(String.format("%s%s", "title_en : ", categoryInfo.getTitle().getEn()));
+        viewHolder.tvTitleZh.setText(String.format("%s%s", "title_zh : ", categoryInfo.getTitle().getZhHant()));
+        viewHolder.tvTitleCn.setText(String.format("%s%s", "title_cn : ", categoryInfo.getTitle().getZhHans()));
     }
 
     @Override

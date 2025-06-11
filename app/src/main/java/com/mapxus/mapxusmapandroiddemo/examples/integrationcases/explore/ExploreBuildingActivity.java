@@ -105,14 +105,25 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
-        mapxusMap.selectFloorById(poiInfo.getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+        if (poiInfo.getFloorId() != null) {
+            mapxusMap.selectFloorById(poiInfo.getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+        }
+        if (poiInfo.getSharedFloorId() != null) {
+            mapxusMap.selectSharedFloorById(poiInfo.getSharedFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+        }
     }
 
     public void addMarkers(List<PoiInfo> poiInfos) {
         poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
-        mapxusMap.selectFloorById(poiInfos.get(0).getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+        PoiInfo firstPoi = poiInfos.get(0);
+        if (firstPoi.getFloorId() != null) {
+            mapxusMap.selectFloorById(firstPoi.getFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+        }
+        if (firstPoi.getSharedFloorId() != null) {
+            mapxusMap.selectSharedFloorById(firstPoi.getSharedFloorId(), MapxusMapZoomMode.ZoomDisable, null);
+        }
     }
 
     public void removeMarker() {
