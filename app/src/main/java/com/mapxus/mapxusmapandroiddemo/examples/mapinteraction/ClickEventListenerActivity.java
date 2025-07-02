@@ -48,9 +48,10 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             IndoorBuilding indoorBuilding = mapxusSite.getIndoorBuilding();
             Venue venue = mapxusSite.getVenue();
             String buildingName = null;
-            String venueName = venue.getNameMap().getDefault();
+            String venueName = null;
             if (indoorBuilding != null) {
                 buildingName = indoorBuilding.getBuildingNameMap().getDefault();
+                venueName = venue.getNameMap().getDefault();
             }
             displayDialog("You have tap at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floor != null ? floor.getCode() : "") + "," + buildingName + "," + venueName);
         });

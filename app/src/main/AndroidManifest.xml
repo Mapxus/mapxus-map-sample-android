@@ -121,8 +121,8 @@
                 android:value="com.mapxus.mapxusmapandroiddemo.MainActivity" />
         </activity>
         <activity
-            android:name=".examples.mapinteraction.FloorSwitchModeActivity"
-            android:label="@string/activity_floor_switch_mode_title"
+            android:name=".examples.mapinteraction.MaskModeActivity"
+            android:label="@string/activity_mask_mode_title"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

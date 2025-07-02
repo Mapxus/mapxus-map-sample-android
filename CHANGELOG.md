@@ -1,5 +1,18 @@
 # Mapxus Map SDK Change Log
 
+## 10.0.2(2025.7.1)
+
+🐛Bugs
+
+- Fixed some known issues.
+
+## 10.0.1(2025.6.26)
+
+🐛Bugs
+
+- Fixed a color error of route drawing in shared floor.
+- Fixed a building search error.
+
 ## 10.0.0 (2025.06.10)
 
 🎉Features

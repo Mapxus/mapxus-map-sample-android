@@ -15,6 +15,7 @@ import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
+import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -39,7 +40,7 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_search_text_building_id)));
         mapViewProvider.getMapxusMapAsync(this);
     }
 
@@ -51,8 +52,13 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapxusMapReady(MapxusMap mapxusMap) {
         mapxusMap.addOnFloorChangedListener((venue, indoorBuilding, floorInfo) -> {
-            if (indoorBuilding != null && floorInfo != null && indoorBuilding.getBuildingId().equals(getString(R.string.default_search_text_building_id)) && (Objects.equals(indoorBuilding.getDefaultDisplayFloorId(), floorInfo.getId()) || Objects.equals(indoorBuilding.getFloors().get(0).getId(), floorInfo.getId()))) {
-                drawPolygon(mapboxMap);
+            if (indoorBuilding != null && floorInfo != null && indoorBuilding.getBuildingId().equals(getString(R.string.default_search_text_building_id))) {
+                String floorId = indoorBuilding.getDefaultDisplayFloorId() == null ? indoorBuilding.getFloors().get(0).getId() : indoorBuilding.getDefaultDisplayFloorId();
+                if (floorId.equals(floorInfo.getId())) {
+                    drawPolygon(mapboxMap);
+                } else {
+                    deletePolygon();
+                }
             } else {
                 deletePolygon();
             }

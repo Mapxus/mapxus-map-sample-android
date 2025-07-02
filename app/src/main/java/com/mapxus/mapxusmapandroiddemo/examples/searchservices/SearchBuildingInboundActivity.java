@@ -18,6 +18,7 @@ import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.BoundSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
+import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
@@ -25,6 +26,8 @@ import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, BuildingSearch.BuildingSearchResultListener {
 
@@ -83,9 +86,15 @@ public class SearchBuildingInboundActivity extends BaseWithParamMenuActivity imp
             indoorBuildingOverlay.removeFromMap();
             indoorBuildingOverlay = null;
         }
-        indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingResult.getIndoorBuildingList());
+
+        List<IndoorBuildingInfo> indoorBuildingList = buildingResult.getIndoorBuildingList();
+        indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, indoorBuildingList);
         indoorBuildingOverlay.addToMap();
-        indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
+        if (indoorBuildingList.size() == 1) {
+            mapxusMap.selectBuildingById(indoorBuildingList.get(0).getBuildingId());
+        } else {
+            indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
+        }
     }
 
     @Override

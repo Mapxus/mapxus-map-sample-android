@@ -16,7 +16,7 @@
     <string name="activity_gesture_interaction_for_switching_building_description">设置切换建筑手势。</string>
     <string name="activity_camera_animate_description">代码设置聚焦的室内场景。</string>
     <string name="activity_listener_click_description">监听单击、长按地图事件，单击POI事件。</string>
-    <string name="activity_floor_switch_mode_description">通过参数选择不同的切换楼层的模式。</string>
+    <string name="activity_mask_mode_description">通过建筑切换，未被选中的建筑将呈现遮罩效果。</string>
     <string name="activity_listener_building_floor_change_description">监听室内场景切换事件。</string>
     <string name="activity_listener_camera_change_listener_description">监听进出室内场景事件。 </string>
 

@@ -16,7 +16,7 @@
     <string name="activity_gesture_interaction_for_switching_building">切換建築的手勢交互</string>
     <string name="activity_camera_animate_title">方法交互（切換室內場景）</string>
     <string name="activity_listener_click_title">事件交互（監聽點擊）</string>
-    <string name="activity_floor_switch_mode_title">切換室內樓層模式</string>
+    <string name="activity_mask_mode_title">建築遮罩模式</string>
     <string name="activity_listener_building_floor_change_title">事件交互（監聽室內場景切換）</string>
     <string name="activity_listener_camera_change_listener_title">事件交互（監聽進出室內場景）</string>
 

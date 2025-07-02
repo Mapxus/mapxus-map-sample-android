@@ -23,18 +23,6 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_floor_switch_mode"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:background="@drawable/button_shape_blue"
-            android:text="@string/floor_switch_mode"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_button"
             android:layout_width="0dp"

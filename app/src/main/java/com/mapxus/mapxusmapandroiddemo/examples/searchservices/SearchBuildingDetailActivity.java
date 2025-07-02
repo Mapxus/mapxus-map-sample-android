@@ -18,6 +18,7 @@ import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.DetailSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
+import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
@@ -134,10 +135,15 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
             return;
         }
 
-        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, buildingDetailResult.getIndoorBuildingList());
+        List<IndoorBuildingInfo> indoorBuildingInfos = buildingDetailResult.getIndoorBuildingList();
+        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, indoorBuildingInfos);
         indoorBuildingOverlay.removeFromMap();
         indoorBuildingOverlay.addToMap();
-        indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
+        if (indoorBuildingInfos.size() == 1) {
+            mapxusMap.selectBuildingById(indoorBuildingInfos.get(0).getBuildingId());
+        } else {
+            indoorBuildingOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -148,7 +154,7 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
         View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_id_search_style, this);
 
         LinearLayout linearLayout = bottomSheetDialogView.findViewById(R.id.ll_buildingId);
-         View startView = LayoutInflater.from(this).inflate(R.layout.swipe_item, null);
+        View startView = LayoutInflater.from(this).inflate(R.layout.swipe_item, null);
         EditText editText = startView.findViewById(R.id.et_id);
         editText.setText(getString(R.string.default_search_text_building_id));
         linearLayout.addView(startView);
