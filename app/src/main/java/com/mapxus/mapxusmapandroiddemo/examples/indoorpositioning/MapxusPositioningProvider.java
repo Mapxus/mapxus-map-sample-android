@@ -109,14 +109,16 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
             String building = mapxusLocation.getBuildingId();
             Floor floor = null;
             MapxusFloor mapxusFloor = mapxusLocation.getMapxusFloor();
-            switch (mapxusFloor.getType()) {
-                case SHARED_FLOOR: {
-                    floor = new SharedFloor(mapxusFloor.getId(), mapxusFloor.getCode(), mapxusFloor.getOrdinal());
-                    break;
-                }
-                case FLOOR: {
-                    floor = new FloorInfo(mapxusFloor.getId(), mapxusFloor.getCode(), mapxusFloor.getOrdinal());
-                    break;
+            if (mapxusFloor != null) {
+                switch (mapxusFloor.getType()) {
+                    case SHARED_FLOOR: {
+                        floor = new SharedFloor(mapxusFloor.getId(), mapxusFloor.getCode(), mapxusFloor.getOrdinal());
+                        break;
+                    }
+                    case FLOOR: {
+                        floor = new FloorInfo(mapxusFloor.getId(), mapxusFloor.getCode(), mapxusFloor.getOrdinal());
+                        break;
+                    }
                 }
             }
 

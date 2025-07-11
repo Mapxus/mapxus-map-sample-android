@@ -1,5 +1,15 @@
 # Mapxus Map SDK Change Log
 
+## 10.1.0(2025.7.10)
+
+🐛Bugs
+
+- Fixed some known issues.
+
+🎉Features
+
+- add `sections` property of `Poi` and `PoiInfo`.
+
 ## 10.0.2(2025.7.1)
 
 🐛Bugs

@@ -137,6 +137,7 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
             view.findViewById(R.id.tv_hallowmas).setOnClickListener(popupWindowItemClickListener);
             view.findViewById(R.id.tv_mappybee).setOnClickListener(popupWindowItemClickListener);
             view.findViewById(R.id.tv_mapxus).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_mapxus_section).setOnClickListener(popupWindowItemClickListener);
         } else {
             view.findViewById(R.id.tv_default).setOnClickListener(popupWindowItemClickListener);
             view.findViewById(R.id.tv_en).setOnClickListener(popupWindowItemClickListener);
@@ -169,6 +170,8 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.tv_mapxus:
                 mapViewProvider.setStyle(Style.MAPXUS);
+            case R.id.tv_mapxus_section:
+                mapViewProvider.setCustomStyle("mapxus_v7_with_section");
                 break;
             case R.id.tv_default:
                 mapViewProvider.setLanguage(MapLanguage.DEFAULT);

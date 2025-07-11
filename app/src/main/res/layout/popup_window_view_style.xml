@@ -99,6 +99,24 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
+            android:id="@+id/tv_mapxus_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector_bottom_radius"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_mapxus_section"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <Button

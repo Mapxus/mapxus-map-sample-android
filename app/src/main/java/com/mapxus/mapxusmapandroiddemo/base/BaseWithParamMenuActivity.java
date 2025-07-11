@@ -22,7 +22,10 @@ public abstract class BaseWithParamMenuActivity extends AppCompatActivity {
         tvParams.setTextSize(AutoSizeUtils.sp2px(this, 4));
         tvParams.setPadding(0, 0, AutoSizeUtils.dp2px(this, 5), 0);
         tvParams.setTextColor(getResources().getColor(R.color.white));
-        tvParams.setOnClickListener(v -> initBottomSheetDialog());
+        tvParams.setOnClickListener(v -> {
+            if (isDestroyed() || isFinishing()) return;
+            initBottomSheetDialog();
+        });
         return true;
     }
 

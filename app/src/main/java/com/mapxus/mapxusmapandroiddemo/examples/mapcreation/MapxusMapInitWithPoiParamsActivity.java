@@ -21,7 +21,10 @@ public class MapxusMapInitWithPoiParamsActivity extends AppCompatActivity {
         etZoomLevel = findViewById(R.id.et_zoom_level);
         btnCreate.setOnClickListener(v -> {
             Intent intent = new Intent(this, MapxusMapInitWithPoiActivity.class);
-            intent.putExtra("poi_id", etPoiId.getText().toString().trim().isEmpty() ? 0 : Integer.parseInt(etPoiId.getText().toString().trim()));
+            String poiId = etPoiId.getText().toString().trim();
+            if (!poiId.isEmpty()) {
+                intent.putExtra("poi_id", poiId);
+            }
             intent.putExtra("zoom_level", etZoomLevel.getText().toString().trim().isEmpty() ? 0 : Integer.parseInt(etZoomLevel.getText().toString().trim()));
             startActivity(intent);
         });

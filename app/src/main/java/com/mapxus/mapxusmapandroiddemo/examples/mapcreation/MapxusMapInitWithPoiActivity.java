@@ -2,6 +2,7 @@ package com.mapxus.mapxusmapandroiddemo.examples.mapcreation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +27,16 @@ public class MapxusMapInitWithPoiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_init_with_building);
         Intent intent = getIntent();
-        int poiId = intent.getIntExtra("poi_id", 0);
+        String poiId = intent.getStringExtra("poi_id");
         int zoomLevel = intent.getIntExtra("zoom_level", 0);
         mapboxMapView = findViewById(R.id.mapView);
-        MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setPoiId(String.valueOf(poiId));
-        mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
+        if (poiId != null && !poiId.isEmpty()) {
+            MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setPoiId(poiId);
+            mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
+        } else {
+            Toast.makeText(this, "poi id is empty", Toast.LENGTH_SHORT).show();
+            mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView);
+        }
         mapboxMapView.getMapAsync(mapboxMap -> mapboxMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel)));
     }
 

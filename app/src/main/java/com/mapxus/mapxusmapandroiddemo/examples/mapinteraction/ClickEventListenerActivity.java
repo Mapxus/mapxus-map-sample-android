@@ -1,10 +1,7 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
 import android.os.Bundle;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
@@ -13,14 +10,12 @@ import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.Venue;
 import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
-import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Animate the map's camera position, tilt, bearing, and zoom.
@@ -73,6 +68,7 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             String buildingName = null;
             String venueName = null;
             String floor = null;
+            String sectionName = null;
             IndoorBuilding poiBuilding = mapxusMap.getBuildings().get(poi.getBuildingId());
             if (poiBuilding != null) {
                 buildingName = poiBuilding.getBuildingNameMap().getDefault();
@@ -95,8 +91,11 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
                 }
             }
 
-            Log.e("TAG", "onMapxusMapReady: " + poi.getFloor() + "," + poi.getFloorName() + "," + poi.getSharedFloorId());
-            displayDialog("You have tap on POI " + poi.getNameMap().getDefault() + "," + floor + "," + buildingName + "," + venueName);
+            if (poi.getSections() != null && !poi.getSections().isEmpty()) {
+                sectionName = poi.getSections().get(0).getSectionName().getDefault();
+            }
+
+            displayDialog("You have tap on POI " + poi.getNameMap().getDefault() + "," + floor + "," + sectionName + "," + buildingName + "," + venueName);
         });
     }
 

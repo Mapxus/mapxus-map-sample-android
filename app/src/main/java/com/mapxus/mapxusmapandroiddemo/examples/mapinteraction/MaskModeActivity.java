@@ -3,10 +3,8 @@ package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;

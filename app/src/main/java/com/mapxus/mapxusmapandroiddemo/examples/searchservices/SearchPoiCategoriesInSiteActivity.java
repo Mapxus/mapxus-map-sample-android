@@ -16,18 +16,12 @@ import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.CategorySearch;
-import com.mapxus.map.mapxusmap.api.services.PoiSearch;
 import com.mapxus.map.mapxusmap.api.services.model.CategoryInSiteSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.api.services.model.category.CategoryGroup;
 import com.mapxus.map.mapxusmap.api.services.model.category.CategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
 import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor;
-import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryInfo;
-import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
-import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
-import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
-import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
 import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.adapter.CategoriesNameInfoAdapter;
@@ -126,6 +120,7 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
     }
 
     private void initBottomSheetDialog(List<CategoryGroup> categoryInfos) {
+        if (isDestroyed() || isFinishing()) return;
         MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this);
         View bottomSheetDialogView = bottomSheetDialog.setStyle(R.layout.bottomsheet_dialog_category_search_style, this);
         bottomSheetDialogView.findViewById(R.id.btn_close).setOnClickListener(v -> bottomSheetDialog.dismiss());
