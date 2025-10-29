@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+
+import org.maplibre.android.maps.MapView;
 
 /**
  * Add a map view in a dynamically created layout
@@ -58,7 +58,7 @@ public class MapxusMapInitWithBuildingActivity extends AppCompatActivity {
 
         mapxusMapOptions.setZoomInsets(Insets.of(paddingLeft, paddingTop, paddingRight, paddingBottom));
 
-        mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapboxMapView, mapxusMapOptions);
     }
 
     @Override

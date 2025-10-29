@@ -5,19 +5,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.plugins.annotation.Fill;
-import com.mapbox.mapboxsdk.plugins.annotation.FillManager;
-import com.mapbox.mapboxsdk.plugins.annotation.FillOptions;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
+import org.maplibre.android.plugins.annotation.Fill;
+import org.maplibre.android.plugins.annotation.FillManager;
+import org.maplibre.android.plugins.annotation.FillOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.Objects;
 public class DrawPolygonActivity extends AppCompatActivity implements OnMapReadyCallback, OnMapxusMapReadyCallback {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapViewProvider mapViewProvider;
     private FillManager fillManager;
     private Fill fill;
@@ -40,13 +41,13 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_search_text_building_id)));
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_search_text_building_id)));
         mapViewProvider.getMapxusMapAsync(this);
     }
 
     @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+    public void onMapReady(@NonNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
             if (indoorBuilding != null && floorInfo != null && indoorBuilding.getBuildingId().equals(getString(R.string.default_search_text_building_id))) {
                 String floorId = indoorBuilding.getDefaultDisplayFloorId() == null ? indoorBuilding.getFloors().get(0).getId() : indoorBuilding.getDefaultDisplayFloorId();
                 if (floorId.equals(floorInfo.getId())) {
-                    drawPolygon(mapboxMap);
+                    drawPolygon(mapLibreMap);
                 } else {
                     deletePolygon();
                 }
@@ -65,9 +66,9 @@ public class DrawPolygonActivity extends AppCompatActivity implements OnMapReady
         });
     }
 
-    private void drawPolygon(MapboxMap mapboxMap) {
+    private void drawPolygon(MapLibreMap mapLibreMap) {
         if (fill == null) {
-            fillManager = new FillManager(mapView, mapboxMap, Objects.requireNonNull(mapboxMap.getStyle()));
+            fillManager = new FillManager(mapView, mapLibreMap, Objects.requireNonNull(mapLibreMap.getStyle()));
 
             List<LatLng> innerLatLngs = new ArrayList<>();
             String[] polygonLat = getResources().getStringArray(R.array.default_draw_polygon_lat);

@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
+import com.mapxus.mapxusmapandroiddemo.BuildConfig;
 import com.mapxus.positioning.positioning.api.ErrorInfo;
 import com.mapxus.positioning.positioning.api.MapxusLocation;
 import com.mapxus.positioning.positioning.api.MapxusPositioningClient;
@@ -21,11 +22,10 @@ public final class FakePositioningProvider extends IndoorLocationProvider {
 
     private static final String TAG = "FakePositioningProvider";
 
-    private Context context;
+    private final Context context;
     private MapxusPositioningClient positioningClient;
     private LifecycleOwner lifecycleOwner;
     private boolean started;
-    private IndoorLocation indoorLocation;
 
     public FakePositioningProvider(LifecycleOwner lifecycleOwner, Context context) {
         this.lifecycleOwner = lifecycleOwner;
@@ -39,7 +39,7 @@ public final class FakePositioningProvider extends IndoorLocationProvider {
 
     @Override
     public void start() {
-        positioningClient = MapxusPositioningClient.getInstance(lifecycleOwner, context.getApplicationContext());
+        positioningClient = MapxusPositioningClient.getInstance(lifecycleOwner, context.getApplicationContext(), BuildConfig.MAPXUS_APPID, BuildConfig.MAPXUS_SECRET);
         positioningClient.addPositioningListener(mapxusPositioningListener);
         positioningClient.start();
         started = true;
@@ -59,10 +59,10 @@ public final class FakePositioningProvider extends IndoorLocationProvider {
     }
 
 
-    private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
+    private final MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
         @Override
-        public void onStateChange(PositioningState positionerState) {
-            switch (positionerState) {
+        public void onStateChange(PositioningState positioningState) {
+            switch (positioningState) {
                 case STOPPED: {
                     dispatchOnProviderStopped();
                     break;
@@ -75,6 +75,7 @@ public final class FakePositioningProvider extends IndoorLocationProvider {
                     break;
             }
         }
+
 
         @Override
         public void onError(ErrorInfo errorInfo) {
@@ -89,14 +90,10 @@ public final class FakePositioningProvider extends IndoorLocationProvider {
 
         @Override
         public void onLocationChange(MapxusLocation mapxusLocation) {
-//            if (indoorLocation != null) {
-//                dispatchIndoorLocationChange(indoorLocation);
-//            }
         }
     };
 
     public void setIndoorLocation(IndoorLocation indoorLocation) {
-        this.indoorLocation = indoorLocation;
         dispatchIndoorLocationChange(indoorLocation);
     }
 }

@@ -5,10 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+
+import org.maplibre.android.maps.MapView;
 
 /**
  * The most basic example of adding a map to an activity.
@@ -24,7 +25,7 @@ public class SimpleMapViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_basic_simple_mapview);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             mapxusMap.getMapxusUiSettings().setMapxusLogoEnabled(false);
         });

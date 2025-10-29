@@ -8,13 +8,11 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.visual.MapxusVisual;
 import com.mapxus.visual.VisualEventListener;
@@ -24,12 +22,14 @@ import com.mapxus.visual.overlay.polyline.VisualPolylineOverlay;
 import com.mapxus.visual.repository.image.VisualImageRepository;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
 
 public class DisplayVisualActivity extends AppCompatActivity implements MapxusMap.OnBuildingChangeListener {
 
     private MapView mapView;
     private MapxusMap mapxusMap;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private Button switchBtn;
 
     private CheckBox visualCheckbox;
@@ -58,7 +58,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         switchBtn = findViewById(R.id.btn_switch);
         visualCheckbox = findViewById(R.id.cb_visual);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_visual_map_building_id)));
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView, new MapxusMapOptions().setBuildingId(getString(R.string.default_visual_map_building_id)));
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
             this.mapxusMap = mapxusMap;
             mapxusMap.getMapxusUiSettings().setBuildingSelectorEnabled(false);
@@ -66,7 +66,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         });
 
         mapView.getMapAsync(mapboxMap -> {
-            this.mapboxMap = mapboxMap;
+            this.mapLibreMap = mapboxMap;
             mapboxMap.getUiSettings().setCompassEnabled(false);
         });
 
@@ -150,7 +150,6 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
     }
 
     private void setMpaViewBig() {
-        mapxusMap.getMapxusUiSettings().setCollapseCopyright(false);
         mapView.setLayoutParams(bigViewLayoutParams);
         mapxusVisual.setLayoutParams(smallViewLayoutParams);
         mapxusMap.getMapxusUiSettings().setSelectorEnabled(true);
@@ -232,7 +231,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
                 visualPolylineOverlay = null;
             }
             //显示图片的路径
-            visualPolylineOverlay = new VisualPolylineOverlay(DisplayVisualActivity.this, mapboxMap, mapxusMap, buildingImage);
+            visualPolylineOverlay = new VisualPolylineOverlay(DisplayVisualActivity.this, mapLibreMap, mapxusMap, buildingImage);
             if (!DisplayVisualActivity.this.isDestroyed()) visualPolylineOverlay.addToMap();
             visualPolylineOverlay.setOnPolylineClickListener(polylineClickListener);
         }

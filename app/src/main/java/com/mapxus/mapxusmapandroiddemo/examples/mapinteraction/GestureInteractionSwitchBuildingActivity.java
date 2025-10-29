@@ -6,12 +6,12 @@ import android.widget.CompoundButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 /**
  * The most basic example of adding a map to an activity.
@@ -28,7 +28,7 @@ public class GestureInteractionSwitchBuildingActivity extends AppCompatActivity 
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         SwitchCompat switchButtonAuto = findViewById(R.id.switch_button_auto);
         switchButtonAuto.setChecked(true);
         switchButtonAuto.setOnCheckedChangeListener(this);

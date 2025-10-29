@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.tabs.TabLayout;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.FollowUserMode;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
@@ -38,13 +36,15 @@ import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningPoint;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RoutePlanningQueryRequest;
 import com.mapxus.map.mapxusmap.api.services.model.planning.RouteResponseDto;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.map.mapxusmap.overlay.route.RoutePainter;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.adapter.InstructionsAdapter;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class RoutePlanningActivity extends AppCompatActivity {
     //ui related
     private final Map<PointType, TextView> textViewMap = new EnumMap<>(PointType.class);
     private MapxusMap mMapxusMap;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapViewProvider mapViewProvider;
     private final Map<PointType, RoutePlanningPoint> routePlanningPointMap = new EnumMap<>(PointType.class);
     private final Map<PointType, MapxusPointAnnotation> markers = new EnumMap<>(PointType.class);
@@ -265,7 +265,7 @@ public class RoutePlanningActivity extends AppCompatActivity {
         goBtn.setText(R.string.stop);
         mMapxusMap.setFollowUserMode(FollowUserMode.FOLLOW_USER_AND_HEADING);
         //update the path when you are moving
-        mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapboxMap);
+        mapxusPositioningProvider.updatePath(routeResponseDto.getPaths().get(0), mapLibreMap);
         mapxusPositioningProvider.setOnPathChange(pathDto -> {
             //update progress when path changing
             if (pathDto != null) {
@@ -300,10 +300,10 @@ public class RoutePlanningActivity extends AppCompatActivity {
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapView.getMapAsync(mapbox -> {
-            RoutePlanningActivity.this.mapboxMap = mapbox;
-            mapboxMap.getUiSettings().setCompassEnabled(false);
+            RoutePlanningActivity.this.mapLibreMap = mapbox;
+            mapLibreMap.getUiSettings().setCompassEnabled(false);
         });
 
         mapViewProvider.getMapxusMapAsync(mapxusMap -> {
@@ -381,7 +381,7 @@ public class RoutePlanningActivity extends AppCompatActivity {
         mMapxusMap.removeMapxusPointAnnotations();
         markers.clear();
 
-        routePainter = new RoutePainter(this, mapboxMap, mMapxusMap);
+        routePainter = new RoutePainter(this, mapLibreMap, mMapxusMap);
         routePainter.paintRouteUsingResult(route);
         Log.i(TAG, "drawRoute: " + routePainter.getPainterPathDto());
     }

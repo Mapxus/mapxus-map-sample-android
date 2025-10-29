@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
@@ -22,12 +21,13 @@ import com.mapxus.map.mapxusmap.api.services.model.category.CategoryGroup;
 import com.mapxus.map.mapxusmap.api.services.model.category.CategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
 import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.adapter.CategoriesNameInfoAdapter;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class SearchPoiCategoriesInSiteActivity extends AppCompatActivity impleme
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapViewProvider mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
 
         categorySearch = CategorySearch.newInstance();

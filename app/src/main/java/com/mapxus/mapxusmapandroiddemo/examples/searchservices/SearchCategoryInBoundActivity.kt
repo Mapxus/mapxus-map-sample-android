@@ -22,8 +22,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions
 import com.mapxus.map.mapxusmap.api.map.model.LatLng
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds
 import com.mapxus.map.mapxusmap.api.services.CategorySearch
@@ -34,6 +32,8 @@ import com.mapxus.mapxusmapandroiddemo.R
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity
 import com.mapxus.mapxusmapandroiddemo.compose.MapxusMap
 import kotlinx.coroutines.launch
+import org.maplibre.android.camera.CameraPosition
+import org.maplibre.android.maps.MapLibreMapOptions
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -45,11 +45,11 @@ class SearchCategoryInBoundActivity : BaseWithParamMenuActivity() {
             MaterialTheme {
                 MapxusMap(
                     modifier = Modifier.fillMaxSize(),
-                    mapboxMapOptions = MapboxMapOptions.createFromAttributes(this).apply {
+                    mapLibreMapOptions = MapLibreMapOptions.createFromAttributes(this).apply {
                         this.camera(
                             CameraPosition.Builder()
                                 .target(
-                                    com.mapbox.mapboxsdk.geometry.LatLng(
+                                    org.maplibre.android.geometry.LatLng(
                                         getString(R.string.default_lat).toDouble(),
                                         getString(R.string.default_lon).toDouble()
                                     )
@@ -58,7 +58,7 @@ class SearchCategoryInBoundActivity : BaseWithParamMenuActivity() {
                                 .build()
                         )
                     },
-                    onGetMapboxMap = {},
+                    onGetMapLibreMap = {},
                     onGetMapxusMap = {}
                 )
             }

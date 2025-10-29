@@ -16,7 +16,7 @@
     <string name="activity_gesture_interaction_for_switching_building_description">Setting gestures for switching buildings.</string>
     <string name="activity_camera_animate_description">Use code settings to focus on indoor scenes.</string>
     <string name="activity_listener_click_description">Listener for click or long on the map, and click POI event.</string>
-    <string name="activity_mask_mode_description">Through building switching, the unselected buildings will present a mask effect.</string>
+    <string name="activity_floor_switch_mode_description">Select different modes of switching floors by parameters.</string>
     <string name="activity_listener_building_floor_change_description">Listener for indoor scene switching events.</string>
     <string name="activity_listener_camera_change_listener_description">Listener for get in indoor or leave indoor scene. </string>
 

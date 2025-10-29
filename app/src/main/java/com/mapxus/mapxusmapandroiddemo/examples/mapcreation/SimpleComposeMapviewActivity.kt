@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions
 import com.mapxus.mapxusmapandroiddemo.R
 import com.mapxus.mapxusmapandroiddemo.compose.MapxusMap
+import org.maplibre.android.maps.MapLibreMapOptions
 
 
 private const val TAG = "SimpleComposeMapviewActivity"
@@ -25,7 +25,7 @@ class SimpleComposeMapviewActivity : AppCompatActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MapxusMap(
-                        mapboxMapOptions = MapboxMapOptions.createFromAttributes(this)
+                        mapLibreMapOptions = MapLibreMapOptions.createFromAttributes(this)
                             .maxZoomPreference(22.0)
                             .minZoomPreference(15.0),
                         mapxusMapOptions = MapxusMapOptions()

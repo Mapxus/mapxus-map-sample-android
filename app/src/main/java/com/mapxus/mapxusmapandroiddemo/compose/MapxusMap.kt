@@ -18,27 +18,27 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider
 import com.mapxus.map.mapxusmap.api.map.MapxusMap
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapLibreMapOptions
+import org.maplibre.android.maps.MapView
 
 private const val TAG = "MapxusMap"
 @Composable
 fun MapxusMap(
     modifier: Modifier = Modifier,
-    mapboxMapOptions: MapboxMapOptions? = null,
+    mapLibreMapOptions: MapLibreMapOptions? = null,
     mapxusMapOptions: MapxusMapOptions = MapxusMapOptions(),
-    onGetMapboxMap: (MapboxMap) -> Unit = {},
+    onGetMapLibreMap: (MapLibreMap) -> Unit = {},
     onGetMapxusMap: (MapxusMap) -> Unit = {}
 ) {
     val context = LocalContext.current
-    val mapView = remember { MapView(context, mapboxMapOptions) }
+    val mapView = remember { MapView(context, mapLibreMapOptions) }
     val mapViewProvider = remember {
-        MapboxMapViewProvider(
+        MapLibreMapViewProvider(
             context,
             mapView,
             mapxusMapOptions
@@ -46,7 +46,7 @@ fun MapxusMap(
     }
 
     var mapxusMap by remember { mutableStateOf<MapxusMap?>(null) }
-    var mapboxMap by remember { mutableStateOf<MapboxMap?>(null) }
+    var mapLibreMap by remember { mutableStateOf<MapLibreMap?>(null) }
 
     MapLifecycle(mapView)
 
@@ -63,8 +63,8 @@ fun MapxusMap(
 
     LaunchedEffect(Unit) {
         mapView.getMapAsync {
-            mapboxMap = it
-            onGetMapboxMap(it)
+            mapLibreMap = it
+            onGetMapLibreMap(it)
         }
 
         mapViewProvider.getMapxusMapAsync {

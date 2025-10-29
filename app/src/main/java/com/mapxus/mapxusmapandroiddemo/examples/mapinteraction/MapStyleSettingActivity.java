@@ -16,20 +16,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.BuildingBorderStyle;
 import com.mapxus.map.mapxusmap.api.map.model.MapLanguage;
 import com.mapxus.map.mapxusmap.api.map.model.Style;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.style.expressions.Expression;
 
-public class MapStyleSettingActivity extends AppCompatActivity implements View.OnClickListener, PopupWindow.OnDismissListener {
+public class MapStyleSettingActivity extends AppCompatActivity implements View.OnClickListener, PopupWindow.OnDismissListener, MapView.OnDidFinishLoadingStyleListener {
 
     public static final int STYLE = 1;
     public static final int LANGUAGE = 2;
@@ -49,7 +49,7 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
 
         SwitchCompat switchButton = findViewById(R.id.switch_button);
         switchButton.setOnCheckedChangeListener((buttonView, isChecked) -> mapxusMap.setHiddenOutdoor(isChecked));
@@ -60,9 +60,7 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.text_list_item, languages);
         AutoCompleteTextView autoCompleteTextView = ((AutoCompleteTextView) ((TextInputLayout) findViewById(R.id.language_field)).getEditText());
         autoCompleteTextView.setAdapter(adapter);
-        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
-            mapViewProvider.setLanguage(languages[position]);
-        });
+        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> setLanguage(languages[position]));
         findViewById(R.id.btn_building_outline_style).setOnClickListener(this);
 
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
@@ -108,6 +106,7 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mapView.removeOnDidFinishLoadingStyleListener(this);
         mapView.onDestroy();
     }
 
@@ -132,12 +131,14 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
     private void setOnPopupViewClick(View view, int type) {
         view.findViewById(R.id.btn_cancel).setOnClickListener(popupWindowItemClickListener);
         if (type == STYLE) {
-            view.findViewById(R.id.tv_common).setOnClickListener(popupWindowItemClickListener);
-            view.findViewById(R.id.tv_chritmas).setOnClickListener(popupWindowItemClickListener);
-            view.findViewById(R.id.tv_hallowmas).setOnClickListener(popupWindowItemClickListener);
-            view.findViewById(R.id.tv_mappybee).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_mocha_mousse).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_city_walk).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_pear_sorbet).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_rose_tea).setOnClickListener(popupWindowItemClickListener);
             view.findViewById(R.id.tv_mapxus).setOnClickListener(popupWindowItemClickListener);
             view.findViewById(R.id.tv_mapxus_section).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_mapxus_section_by_color).setOnClickListener(popupWindowItemClickListener);
+            view.findViewById(R.id.tv_mapxus_section_by_category).setOnClickListener(popupWindowItemClickListener);
         } else {
             view.findViewById(R.id.tv_default).setOnClickListener(popupWindowItemClickListener);
             view.findViewById(R.id.tv_en).setOnClickListener(popupWindowItemClickListener);
@@ -156,46 +157,70 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
 
     private View.OnClickListener popupWindowItemClickListener = v -> {
         switch (v.getId()) {
-            case R.id.tv_common:
-                mapViewProvider.setStyle(Style.COMMON);
+            case R.id.tv_mocha_mousse:
+                setStyle(Style.MOCHA_MOUSSE);
                 break;
-            case R.id.tv_chritmas:
-                mapViewProvider.setStyle(Style.CHRISTMAS);
+            case R.id.tv_city_walk:
+                setStyle(Style.CITY_WALK);
                 break;
-            case R.id.tv_hallowmas:
-                mapViewProvider.setStyle(Style.HALLOWMAS);
+            case R.id.tv_pear_sorbet:
+                setStyle(Style.PEAR_SORBET);
                 break;
-            case R.id.tv_mappybee:
-                mapViewProvider.setStyle(Style.MAPPYBEE);
+            case R.id.tv_rose_tea:
+                setStyle(Style.ROSE_TEA);
                 break;
             case R.id.tv_mapxus:
-                mapViewProvider.setStyle(Style.MAPXUS);
+                setStyle(Style.MAPXUS);
+                break;
             case R.id.tv_mapxus_section:
-                mapViewProvider.setCustomStyle("mapxus_v7_with_section");
+                setCustomStyle("mapxus_v7_with_section");
+                break;
+            case R.id.tv_mapxus_section_by_color:
+                setStyle(Style.SECTION_DISPLAY_BY_COLOR);
+                break;
+            case R.id.tv_mapxus_section_by_category:
+                setStyle(Style.SECTION_DISPLAY_BY_CATEGORY);
                 break;
             case R.id.tv_default:
-                mapViewProvider.setLanguage(MapLanguage.DEFAULT);
+                setLanguage(MapLanguage.DEFAULT);
                 break;
             case R.id.tv_en:
-                mapViewProvider.setLanguage(MapLanguage.EN);
+                setLanguage(MapLanguage.EN);
                 break;
             case R.id.tv_zh_hant:
-                mapViewProvider.setLanguage(MapLanguage.ZH_HK);
+                setLanguage(MapLanguage.ZH_HK);
                 break;
             case R.id.tv_zh_hans:
-                mapViewProvider.setLanguage(MapLanguage.ZH_CN);
+                setLanguage(MapLanguage.ZH_CN);
                 break;
             case R.id.tv_ja:
-                mapViewProvider.setLanguage(MapLanguage.JA);
+                setLanguage(MapLanguage.JA);
                 break;
             case R.id.tv_ko:
-                mapViewProvider.setLanguage(MapLanguage.KO);
+                setLanguage(MapLanguage.KO);
                 break;
             case R.id.btn_cancel:
                 break;
         }
         popupWindow.dismiss();
     };
+
+    private String language;
+
+    private void setLanguage(String language) {
+        this.language = language;
+        mapViewProvider.setLanguage(language);
+    }
+
+    private void setStyle(int style) {
+        mapView.addOnDidFinishLoadingStyleListener(this);
+        mapViewProvider.setStyle(style);
+    }
+
+    private void setCustomStyle(String style) {
+        mapView.addOnDidFinishLoadingStyleListener(this);
+        mapViewProvider.setCustomStyle(style);
+    }
 
     @Override
     public void onClick(View v) {
@@ -243,5 +268,13 @@ public class MapStyleSettingActivity extends AppCompatActivity implements View.O
     @Override
     public void onDismiss() {
         setBackgroundAlpha(1);
+    }
+
+    @Override
+    public void onDidFinishLoadingStyle() {
+        if (language != null) {
+            mapViewProvider.setLanguage(language);
+        }
+        mapView.removeOnDidFinishLoadingStyleListener(this);
     }
 }

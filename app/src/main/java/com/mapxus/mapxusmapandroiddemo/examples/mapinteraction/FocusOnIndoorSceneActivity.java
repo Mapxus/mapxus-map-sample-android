@@ -10,17 +10,17 @@ import androidx.core.graphics.Insets;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.tabs.TabLayout;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 /**
  * Animate the map's camera position, tilt, bearing, and zoom.
@@ -45,7 +45,7 @@ public class FocusOnIndoorSceneActivity extends BaseWithParamMenuActivity implem
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        MapViewProvider mapViewProvider = new MapboxMapViewProvider(FocusOnIndoorSceneActivity.this, mapView);
+        MapViewProvider mapViewProvider = new MapLibreMapViewProvider(FocusOnIndoorSceneActivity.this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
     }
 

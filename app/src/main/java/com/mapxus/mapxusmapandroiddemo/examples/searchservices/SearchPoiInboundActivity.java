@@ -8,11 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapbox.mapboxsdk.annotations.PolygonOptions;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
@@ -22,20 +17,25 @@ import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.annotations.PolygonOptions;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
 
 import java.util.Arrays;
 
 public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
 
     private PoiSearch poiSearch;
@@ -49,7 +49,7 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        MapboxMapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapLibreMapViewProvider mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
         mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
 
@@ -60,8 +60,8 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
     }
 
     @Override
-    public void onMapReady(@NotNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+    public void onMapReady(@NotNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
 
@@ -142,7 +142,7 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
             return;
         }
 
-        MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
+        MyPoiOverlay poiOverlay = new MyPoiOverlay(mapLibreMap, mapxusMap, poiResult.getAllPoi());
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
@@ -173,8 +173,8 @@ public class SearchPoiInboundActivity extends BaseWithParamMenuActivity implemen
 
         boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color_gray));
         boundsArea.alpha(0.5f);
-        mapboxMap.clear();
-        mapboxMap.addPolygon(boundsArea);
+        mapLibreMap.clear();
+        mapLibreMap.addPolygon(boundsArea);
     }
 
 

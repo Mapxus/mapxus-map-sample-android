@@ -1,24 +1,25 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
 import com.mapxus.map.mapxusmap.api.services.model.venue.VenueInfo;
 
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.maps.MapLibreMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyVenueOverlay {
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
     private List<VenueInfo> mVenueInfo;
 
-    public MyVenueOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<VenueInfo> venueInfos) {
-        this.mapboxMap = mapboxMap;
+    public MyVenueOverlay(MapLibreMap mapLibreMap, MapxusMap mapxusMap, List<VenueInfo> venueInfos) {
+        this.mapLibreMap = mapLibreMap;
         this.mapxusMap = mapxusMap;
         mVenueInfo = venueInfos;
     }
@@ -43,16 +44,16 @@ public class MyVenueOverlay {
      */
     public void zoomToSpan(double zoom) {
         if (mVenueInfo != null && !mVenueInfo.isEmpty()) {
-            if (mapboxMap == null)
+            if (mapLibreMap == null)
                 return;
             if (mVenueInfo.size() == 1) {
                 VenueInfo firstVenue = mVenueInfo.get(0);
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstVenue.getLabelCenter().getLat(), firstVenue.getLabelCenter().getLon()),
                         zoom));
             } else {
                 LatLngBounds bounds = getLatLngBounds();
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+                mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
             }
         }
     }

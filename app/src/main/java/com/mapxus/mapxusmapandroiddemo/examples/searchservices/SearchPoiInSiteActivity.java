@@ -8,9 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.services.PoiSearch;
@@ -20,21 +17,25 @@ import com.mapxus.map.mapxusmap.api.services.model.poi.PoiCategoryResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiResult;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, PoiSearch.PoiSearchResultListener, OnMapxusMapReadyCallback {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
 
     private PoiSearch poiSearch;
@@ -47,9 +48,9 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        MapboxMapViewProvider mapboxMapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapLibreMapViewProvider MapLibreMapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
-        mapboxMapViewProvider.getMapxusMapAsync(this);
+        MapLibreMapViewProvider.getMapxusMapAsync(this);
 
         poiSearch = PoiSearch.newInstance();
         poiSearch.setPoiSearchResultListener(this);
@@ -58,8 +59,8 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
     }
 
     @Override
-    public void onMapReady(@NotNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+    public void onMapReady(@NotNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
 
@@ -110,7 +111,7 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
 
     protected void doSearchQuery(String keyWord, String orderBy,
                                  String category, String excludeCategory,
-                                 String venueId, String buildingId, String floorId, String sharedFloorId, int offset, int page) {
+                                 String venueId, String buildingId, List<String> floorIds, List<String> sharedFloorIds, int offset, int page) {
         PoiInSiteSearchOption inSiteSearchOption = new PoiInSiteSearchOption();
         inSiteSearchOption.keyword(keyWord);
         inSiteSearchOption.orderBy(orderBy);
@@ -119,8 +120,12 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
         inSiteSearchOption.excludeCategories(Arrays.asList(excludeCategory.split(",")));
         inSiteSearchOption.venueId(venueId);
         inSiteSearchOption.buildingId(buildingId);
-        inSiteSearchOption.floorId(floorId);
-        inSiteSearchOption.sharedFloorId(sharedFloorId);
+        if (floorIds != null && !floorIds.isEmpty()) {
+            inSiteSearchOption.floorIds(floorIds);
+        }
+        if (sharedFloorIds != null && !sharedFloorIds.isEmpty()) {
+            inSiteSearchOption.sharedFloorIds(sharedFloorIds);
+        }
         inSiteSearchOption.pageCapacity(offset);
         inSiteSearchOption.pageNum(page);
 
@@ -140,7 +145,7 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
             return;
         }
 
-        MyPoiOverlay poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiResult.getAllPoi());
+        MyPoiOverlay poiOverlay = new MyPoiOverlay(mapLibreMap, mapxusMap, poiResult.getAllPoi());
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
@@ -212,6 +217,11 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
             orderBy = PoiSearchOrderBy.DEFAULT_NAME;
         }
 
+        List<String> floorIds = null;
+        if (!floorId.isEmpty()) floorIds = Arrays.asList(floorId.split(","));
+        List<String> sharedFloorIds = null;
+        if (!sharedFloorId.isEmpty()) sharedFloorIds = Arrays.asList(sharedFloorId.split(","));
+
         doSearchQuery(
                 etKeywords.getText().toString().trim(),
                 orderBy,
@@ -219,8 +229,8 @@ public class SearchPoiInSiteActivity extends BaseWithParamMenuActivity implement
                 etExcludeCategory.getText().toString().trim(),
                 venueId,
                 buildingId,
-                floorId,
-                sharedFloorId,
+                floorIds,
+                sharedFloorIds,
                 etOffset.getText().toString().isEmpty() ? 0 : Integer.parseInt(etOffset.getText().toString().trim()),
                 etPage.getText().toString().isEmpty() ? 0 : Integer.parseInt(etPage.getText().toString().trim()));
         if (!floorId.isEmpty()) {

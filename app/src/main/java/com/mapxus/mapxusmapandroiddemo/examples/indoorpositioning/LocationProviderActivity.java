@@ -16,18 +16,18 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.FollowUserMode;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.map.mapxusmap.positioning.ErrorInfo;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProviderListener;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 public class LocationProviderActivity extends AppCompatActivity implements OnMapxusMapReadyCallback, View.OnClickListener {
 
@@ -61,7 +61,7 @@ public class LocationProviderActivity extends AppCompatActivity implements OnMap
         }
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
         mapxusPositioningProvider = new MapxusPositioningProvider(this, getApplicationContext());
         initView();

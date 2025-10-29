@@ -7,12 +7,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
+
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.maps.MapView;
 
 /**
  * Add a map view in a dynamically created layout
@@ -32,10 +33,10 @@ public class MapxusMapInitWithPoiActivity extends AppCompatActivity {
         mapboxMapView = findViewById(R.id.mapView);
         if (poiId != null && !poiId.isEmpty()) {
             MapxusMapOptions mapxusMapOptions = new MapxusMapOptions().setPoiId(poiId);
-            mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView, mapxusMapOptions);
+            mapViewProvider = new MapLibreMapViewProvider(this, mapboxMapView, mapxusMapOptions);
         } else {
             Toast.makeText(this, "poi id is empty", Toast.LENGTH_SHORT).show();
-            mapViewProvider = new MapboxMapViewProvider(this, mapboxMapView);
+            mapViewProvider = new MapLibreMapViewProvider(this, mapboxMapView);
         }
         mapboxMapView.getMapAsync(mapboxMap -> mapboxMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel)));
     }

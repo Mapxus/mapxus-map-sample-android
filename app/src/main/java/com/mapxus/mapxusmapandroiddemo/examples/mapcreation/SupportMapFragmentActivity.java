@@ -5,10 +5,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
+import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMapOptions;
+import org.maplibre.android.maps.MapView;
 import com.mapxus.map.mapxusmap.impl.SupportMapxusMapFragment;
 import com.mapxus.mapxusmapandroiddemo.R;
 
@@ -26,7 +26,7 @@ public class SupportMapFragmentActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create fragment
             final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            MapboxMapOptions options = MapboxMapOptions.createFromAttributes(this);
+            MapLibreMapOptions options = MapLibreMapOptions.createFromAttributes(this);
             options.camera(new CameraPosition.Builder()
                     .target(new LatLng(Double.parseDouble(getString(R.string.default_lat)), Double.parseDouble(getString(R.string.default_lon))))
                     .zoom(Integer.parseInt(getString(R.string.default_zoom_level_value)))

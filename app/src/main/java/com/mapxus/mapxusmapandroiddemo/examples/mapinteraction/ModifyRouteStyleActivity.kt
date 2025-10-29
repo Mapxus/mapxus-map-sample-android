@@ -55,9 +55,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions
-import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapxus.map.mapxusmap.api.map.MapxusMap
 import com.mapxus.map.mapxusmap.api.map.model.MapxusMapOptions
 import com.mapxus.map.mapxusmap.api.services.RoutePlanning
@@ -69,6 +66,9 @@ import com.mapxus.map.mapxusmap.overlay.route.RoutePainter
 import com.mapxus.mapxusmapandroiddemo.R
 import com.mapxus.mapxusmapandroiddemo.compose.MapxusMap
 import kotlinx.coroutines.launch
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapLibreMapOptions
+import org.maplibre.android.style.expressions.Expression
 
 class ModifyRouteStyleActivity : AppCompatActivity() {
     private val markerCandidates = listOf("Default Marker", "Sample New Marker")
@@ -76,7 +76,7 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
 
     private var markerSelectedIndex by mutableStateOf(0)
     private var patternSelectedIndex by mutableStateOf(0)
-    private var mapboxMap: MapboxMap? by mutableStateOf(null)
+    private var mapLibreMap: MapLibreMap? by mutableStateOf(null)
     private var mapxusMap: MapxusMap? by mutableStateOf(null)
     private var painter: RoutePainter? by mutableStateOf(null)
 
@@ -178,13 +178,13 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
-                        mapboxMapOptions = MapboxMapOptions.createFromAttributes(this@ModifyRouteStyleActivity)
+                        mapLibreMapOptions = MapLibreMapOptions.createFromAttributes(this@ModifyRouteStyleActivity)
                             .maxZoomPreference(22.0)
                             .minZoomPreference(15.0),
                         mapxusMapOptions = MapxusMapOptions()
                             .setBuildingId(getString(R.string.default_search_text_building_id)),
                         onGetMapxusMap = { mapxusMap = it },
-                        onGetMapboxMap = { mapboxMap = it }
+                        onGetMapLibreMap = { mapLibreMap = it }
                     )
 
                     Column(
@@ -468,9 +468,9 @@ class ModifyRouteStyleActivity : AppCompatActivity() {
 
 
     @Composable
-    private fun GetPainter() = LaunchedEffect(mapxusMap, mapboxMap) {
-        if (mapxusMap != null && mapboxMap != null) {
-            painter = RoutePainter(this@ModifyRouteStyleActivity, mapboxMap!!, mapxusMap!!)
+    private fun GetPainter() = LaunchedEffect(mapxusMap, mapLibreMap) {
+        if (mapxusMap != null && mapLibreMap != null) {
+            painter = RoutePainter(this@ModifyRouteStyleActivity, mapLibreMap!!, mapxusMap!!)
         }
     }
 

@@ -8,29 +8,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.annotations.PolygonOptions;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.LatLngBounds;
 import com.mapxus.map.mapxusmap.api.services.VenueSearch;
 import com.mapxus.map.mapxusmap.api.services.model.BoundSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.venue.VenueResult;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyVenueOverlay;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.annotations.PolygonOptions;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
 
 public class SearchVenueInboundActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, VenueSearch.VenueSearchResultListener {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
     private MapViewProvider mapViewProvider;
 
@@ -46,7 +46,7 @@ public class SearchVenueInboundActivity extends BaseWithParamMenuActivity implem
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
         mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
         progressBarView = findViewById(R.id.loding_view);
@@ -84,7 +84,7 @@ public class SearchVenueInboundActivity extends BaseWithParamMenuActivity implem
             venueOverlay = null;
         }
 
-        venueOverlay = new MyVenueOverlay(mapboxMap, mapxusMap, venueResult.getVenueInfoList());
+        venueOverlay = new MyVenueOverlay(mapLibreMap, mapxusMap, venueResult.getVenueInfoList());
         venueOverlay.removeFromMap();
         venueOverlay.addToMap();
         venueOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
@@ -101,8 +101,8 @@ public class SearchVenueInboundActivity extends BaseWithParamMenuActivity implem
 
         boundsArea.fillColor(getResources().getColor(R.color.bound_polygon_color_gray));
         boundsArea.alpha(0.5f);
-        mapboxMap.clear();
-        mapboxMap.addPolygon(boundsArea);
+        mapLibreMap.clear();
+        mapLibreMap.addPolygon(boundsArea);
     }
 
 
@@ -148,8 +148,8 @@ public class SearchVenueInboundActivity extends BaseWithParamMenuActivity implem
     }
 
     @Override
-    public void onMapReady(@NotNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+    public void onMapReady(@NotNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
     @Override

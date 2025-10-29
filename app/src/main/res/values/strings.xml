@@ -10,18 +10,20 @@
 
     <!--Default style names-->
     <string name="style">Style</string>
-    <string name="menu_map_style_common">Common</string>
-    <string name="menu_map_style_christmas">Christmas</string>
-    <string name="menu_map_style_hallowmas">Hallowmas</string>
-    <string name="menu_map_style_mappy_bee">MappyBee</string>
+    <string name="menu_map_style_mocha_mousse">Mocha Mousse</string>
+    <string name="menu_map_style_city_walk">City Walk</string>
+    <string name="menu_map_style_pear_sorbet">Pear Sorbet</string>
+    <string name="menu_map_style_rose_tea">Rose Tea</string>
     <string name="menu_map_style_mapxus">Mapxus</string>
     <string name="menu_map_style_mapxus_section">Mapxus Style with Section</string>
+    <string name="menu_map_style_mapxus_section_by_color">Section Display by Color Styler</string>
+    <string name="menu_map_style_mapxus_section_by_category">Section Display by Category Style</string>
     <string name="menu_map_style_mapxus_v2">Mapxus_V2</string>
     <string name="cancel">Cancel</string>
 
     <!--floor switch mode-->
-    <string name="menu_floor_switch_mode_venue">Switching By Venue</string>
-    <string name="menu_floor_switch_mode_building">Switching By Building</string>
+    <string name="menu_floor_switch_scope_venue">Venue Switch Scope</string>
+    <string name="menu_floor_switch_scope_building">Global Switch Scope</string>
 
     <!--Fragment below textview in support fragment activity-->
     <string name="fragment_in_card_below" translatable="false">Map fragment container in card below</string>
@@ -50,8 +52,8 @@
     <string name="ok" translatable="false">OK</string>
 
     <string name="floor" translatable="false">floor</string>
-    <string name="floor_id" translatable="false">floorId</string>
-    <string name="shared_floor_id" translatable="false">sharedFloorId</string>
+    <string name="floor_id" translatable="false">floorId \n(Support multiple floorids input separated by “,”)</string>
+    <string name="shared_floor_id" translatable="false">sharedFloorId \n(Support multiple sharedfloor ids input separated by “,”)</string>
     <string name="zoom_insets" translatable="false">zoomInsets</string>
     <string name="right" translatable="false">right</string>
     <string name="left" translatable="false">left</string>
@@ -67,7 +69,7 @@
     <string name="box_length" translatable="false">Box Length</string>
     <string name="language" translatable="false">Language</string>
     <string name="building_outline_style" translatable="false">Active Building Outline</string>
-    <string name="floor_switch_mode" translatable="false">Floor Switch Mode</string>
+    <string name="floor_switch_scope" translatable="false">Switch Floor Scope</string>
     <string name="is_outdoor_hidden" translatable="false">isOutdoorHidden</string>
     <string name="default_text" translatable="false">default</string>
     <string name="en" translatable="false">en</string>

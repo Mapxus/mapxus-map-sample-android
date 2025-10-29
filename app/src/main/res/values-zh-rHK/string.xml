@@ -2,12 +2,14 @@
 <resources>
     <!--Default style names-->
     <string name="style">Style</string>
-    <string name="menu_map_style_common">通用樣式</string>
-    <string name="menu_map_style_christmas">聖誕節樣式</string>
-    <string name="menu_map_style_hallowmas">萬聖節樣式</string>
-    <string name="menu_map_style_mappy_bee">MAPPYBEE樣式</string>
+    <string name="menu_map_style_mocha_mousse">Mocha Mousse樣式</string>
+    <string name="menu_map_style_city_walk">City Walk樣式</string>
+    <string name="menu_map_style_pear_sorbet">Pear Sorbet樣式</string>
+    <string name="menu_map_style_rose_tea">Rose Tea樣式</string>
     <string name="menu_map_style_mapxus">MAPXUS樣式</string>
     <string name="menu_map_style_mapxus_section">Mapxus Style with Section</string>
+    <string name="menu_map_style_mapxus_section_by_color">Section Display by Color Styler</string>
+    <string name="menu_map_style_mapxus_section_by_category">Section Display by Category Style</string>
     <string name="menu_map_style_mapxus_v2">MAPXUS樣式2</string>
     <string name="cancel">取消</string>
 

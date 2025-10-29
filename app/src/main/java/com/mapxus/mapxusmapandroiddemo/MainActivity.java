@@ -34,7 +34,7 @@ import com.mapxus.mapxusmapandroiddemo.examples.mapcreation.SupportMapFragmentAc
 import com.mapxus.mapxusmapandroiddemo.examples.mapediting.DrawMarkerActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapediting.DrawPolygonActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.ClickEventListenerActivity;
-import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.MaskModeActivity;
+import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.FloorSwitchModeActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.FocusOnIndoorSceneActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.GestureInteractionSwitchBuildingActivity;
 import com.mapxus.mapxusmapandroiddemo.examples.mapinteraction.IndoorMapControllerActivity;
@@ -61,6 +61,7 @@ import com.mapxus.mapxusmapandroiddemo.model.ExampleItemModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -320,9 +321,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.drawable.switching_building_gestures));
 
                 exampleItemModels.add(new ExampleItemModel(
-                        R.string.activity_mask_mode_title,
-                        R.string.activity_mask_mode_description,
-                        new Intent(MainActivity.this, MaskModeActivity.class),
+                        R.string.activity_floor_switch_mode_title,
+                        R.string.activity_floor_switch_mode_description,
+                        new Intent(MainActivity.this, FloorSwitchModeActivity.class),
                         R.drawable.focus_on_indoor_scene));
 
                 exampleItemModels.add(new ExampleItemModel(

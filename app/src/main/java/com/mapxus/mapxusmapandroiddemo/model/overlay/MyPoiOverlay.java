@@ -1,23 +1,24 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
 
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.maps.MapLibreMap;
+
 import java.util.List;
 
 public class MyPoiOverlay {
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
     private List<PoiInfo> mPoiInfoList;
 
-    public MyPoiOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<PoiInfo> poiInfos) {
-        this.mapboxMap = mapboxMap;
+    public MyPoiOverlay(MapLibreMap mapLibreMap, MapxusMap mapxusMap, List<PoiInfo> poiInfos) {
+        this.mapLibreMap = mapLibreMap;
         this.mapxusMap = mapxusMap;
         mPoiInfoList = poiInfos;
     }
@@ -40,16 +41,16 @@ public class MyPoiOverlay {
      */
     public void zoomToSpan(double zoom) {
         if (mPoiInfoList != null && mPoiInfoList.size() > 0) {
-            if (mapboxMap == null)
+            if (mapLibreMap == null)
                 return;
             if (mPoiInfoList.size() == 1) {
                 PoiInfo firstPoiInfo = mPoiInfoList.get(0);
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstPoiInfo.getLocation().getLat(), firstPoiInfo.getLocation().getLon()),
                         zoom));
             } else {
                 LatLngBounds bounds = getLatLngBounds();
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
             }
             String floorId = mPoiInfoList.get(0).getFloorId();
             String sharedFloorId = mPoiInfoList.get(0).getSharedFloorId();

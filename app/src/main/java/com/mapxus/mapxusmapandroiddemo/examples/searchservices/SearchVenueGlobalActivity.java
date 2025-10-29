@@ -8,25 +8,25 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.services.VenueSearch;
 import com.mapxus.map.mapxusmap.api.services.model.GlobalSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.venue.VenueResult;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyVenueOverlay;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
 
 public class SearchVenueGlobalActivity extends BaseWithParamMenuActivity implements VenueSearch.VenueSearchResultListener, OnMapReadyCallback {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
 
     private VenueSearch venueSearch;
@@ -40,7 +40,7 @@ public class SearchVenueGlobalActivity extends BaseWithParamMenuActivity impleme
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        MapboxMapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapLibreMapViewProvider mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
         mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
         progressBarView = findViewById(R.id.loding_view);
@@ -69,7 +69,7 @@ public class SearchVenueGlobalActivity extends BaseWithParamMenuActivity impleme
             return;
         }
 
-        MyVenueOverlay venueOverlay = new MyVenueOverlay(mapboxMap, mapxusMap, venueResult.getVenueInfoList());
+        MyVenueOverlay venueOverlay = new MyVenueOverlay(mapLibreMap, mapxusMap, venueResult.getVenueInfoList());
         venueOverlay.removeFromMap();
         venueOverlay.addToMap();
         venueOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
@@ -98,8 +98,8 @@ public class SearchVenueGlobalActivity extends BaseWithParamMenuActivity impleme
     }
 
     @Override
-    public void onMapReady(@NotNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+    public void onMapReady(@NotNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
 

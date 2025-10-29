@@ -1,5 +1,63 @@
 # Mapxus Map SDK Change Log
 
+## 11.3.0(2025.10.28)
+
+🎉Features
+
+- Optimizing the authentication process for multiple Mapxus product SDKs used at the same time. Accordingly, the old initialization methods are now deprecated. Please refer to the following table.
+
+| Class            | Deprecated                                                   | Replacement                                                  |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| MapxusMapContext | init(context: Context, onSuccess: () -> Unit = {}, onFailure: (Throwable) -> Unit = {} ) | initialize(context: Context, onSuccess: () -> Unit = {}, onFailure: (Throwable) -> Unit = {} ) |
+|                  | init(context: Context, appid: String?, secret: String?, onSuccess: () -> Unit = {}, onFailure: (Throwable) -> Unit = {} ) | initialize(context: Context, onSuccess: () -> Unit = {}, onFailure: (Throwable) -> Unit = {} ) |
+
+> Note❗️
+>
+> Since you have switched to the new initialization method, the approach of adding the API key in the `AndroidManifest.xml` file is deprecated. You must now provide all API keys dynamically in code.
+
+## 11.2.1(2025.9.24)
+
+🐛Bugs
+
+- Fixed some known issues.
+
+## 11.2.0(2025.9.23)
+
+🎉Features
+
+- **Support** dynamic select floor switching scope by using `SwitchFloorScope`
+  - Venue Scope
+    - When the floor is switched ,the same ordinal items within **current venue** are switched.
+  - Global Scope
+    - When the floor is switched ,the same ordinal items within the **map interface** are switched.
+
+## 11.1.0(2025.8.21)
+
+🎉Features
+
+- New map styles are introduced, so that some outdated map styles are deprecated.
+
+| Class   | Deprecated  |
+| ------- | :---------- |
+| `Style` | `COMMON`    |
+|         | `CHRISTMAS` |
+|         | `HALLOWMAS` |
+|         | `MAPPYBEE`  |
+
+- `PoiSearch` supports searching with multiple floor IDs or shared floor IDs using `PoiInSiteSearchOption.floorIds()` and `PoiInSiteSearchOption.sharedFloorIds()`.
+
+## 11.0.0(2025.7.25)
+
+💥 Breaking
+
+- **Updated MapLibre to v11.7.1** (from v10.2.0) to support Android devices with [16KB page sizes]. This upgrade includes [breaking changes].
+
+  [breaking changes]: https://github.com/maplibre/maplibre-native/releases/tag/android-v11.0.0
+  [16KB page sizes]: https://developer.android.google.cn/guide/practices/page-sizes
+
+- For more explicit semantics, class `MapboxMapViewProvider` is renamed to `MapLibreMapViewProvider`.
+- Positioning SDK and Visual SDK may need to be updated as well. For compatible versions of these SDKs, please consult our staff.
+
 ## 10.1.0(2025.7.10)
 
 🐛Bugs

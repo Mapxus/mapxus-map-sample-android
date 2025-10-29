@@ -15,78 +15,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_common"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textview_selector_top_radius"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/menu_map_style_common"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/lighter_gray" />
-
-        <TextView
-            android:id="@+id/tv_chritmas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textview_selector"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/menu_map_style_christmas"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/lighter_gray" />
-
-        <TextView
-            android:id="@+id/tv_hallowmas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textview_selector"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/menu_map_style_hallowmas"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/lighter_gray" />
-
-        <TextView
-            android:id="@+id/tv_mappybee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textview_selector"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/menu_map_style_mappy_bee"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/lighter_gray" />
-
-        <TextView
             android:id="@+id/tv_mapxus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,6 +33,78 @@
             android:background="@color/lighter_gray" />
 
         <TextView
+            android:id="@+id/tv_mocha_mousse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector_top_radius"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_mocha_mousse"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
+            android:id="@+id/tv_city_walk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_city_walk"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
+            android:id="@+id/tv_pear_sorbet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_pear_sorbet"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
+            android:id="@+id/tv_rose_tea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_rose_tea"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
             android:id="@+id/tv_mapxus_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,6 +112,42 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/menu_map_style_mapxus_section"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
+            android:id="@+id/tv_mapxus_section_by_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector_bottom_radius"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_mapxus_section_by_color"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lighter_gray" />
+
+        <TextView
+            android:id="@+id/tv_mapxus_section_by_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_selector_bottom_radius"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/menu_map_style_mapxus_section_by_category"
             android:textAllCaps="true"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"

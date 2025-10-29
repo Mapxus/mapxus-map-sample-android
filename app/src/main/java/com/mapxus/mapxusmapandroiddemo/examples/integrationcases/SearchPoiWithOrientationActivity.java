@@ -11,11 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.FollowUserMode;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
@@ -28,7 +23,7 @@ import com.mapxus.map.mapxusmap.api.services.model.PoiOrientationSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo;
 import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiOrientationResult;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.map.mapxusmap.positioning.ErrorInfo;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProviderListener;
@@ -39,13 +34,18 @@ import com.mapxus.mapxusmapandroiddemo.location.FakePositioningProvider;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOrientationOverlay;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
 
 public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity implements OnMapReadyCallback, View.OnClickListener, OnMapxusMapReadyCallback {
 
     private MapView mapView;
-    private MapboxMap mMapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
-    private MapboxMapViewProvider mapViewProvider;
+    private MapLibreMapViewProvider mapViewProvider;
 
     private PoiSearch poiSearch;
     private RelativeLayout progressBarView;
@@ -67,7 +67,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapView.getMapAsync(this);
         mapViewProvider.getMapxusMapAsync(this);
         progressBarView = findViewById(R.id.loding_view);
@@ -104,7 +104,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
                 Toast.makeText(getApplicationContext(), getString(R.string.no_result), Toast.LENGTH_LONG).show();
                 return;
             }
-            MyPoiOrientationOverlay poiOverlay = new MyPoiOrientationOverlay(mMapboxMap, mapxusMap, poiOrientationResult.getPoiOrientationInfos());
+            MyPoiOrientationOverlay poiOverlay = new MyPoiOrientationOverlay(mapLibreMap, mapxusMap, poiOrientationResult.getPoiOrientationInfos());
             poiOverlay.removeFromMap();
             poiOverlay.addToMap();
             poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
@@ -113,8 +113,8 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
 
 
     @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        mMapboxMap = mapboxMap;
+    public void onMapReady(@NonNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
     @Override
@@ -223,8 +223,8 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
         indoorLatLng.setLon(etLon.getText().toString().isEmpty() ? 0 : Double.parseDouble(etLon.getText().toString().trim()));
         radius = etDistance.getText().toString().isEmpty() ? 0 : Integer.parseInt(etDistance.getText().toString().trim());
 
-        mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(indoorLatLng.getLat(),
-                indoorLatLng.getLon()), 17), new MapboxMap.CancelableCallback() {
+        mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(indoorLatLng.getLat(),
+                indoorLatLng.getLon()), 17), new MapLibreMap.CancelableCallback() {
             @Override
             public void onCancel() {
 
@@ -240,7 +240,7 @@ public class SearchPoiWithOrientationActivity extends BaseWithParamMenuActivity 
 
                     if (ordinal != null) {
                         IndoorBuilding building = mapxusMap.getBuildings().get(buildingId);
-                        if (building != null){
+                        if (building != null) {
                             for (FloorInfo floorInfo : building.getFloors()) {
                                 if (ordinal == floorInfo.getOrdinal()) {
                                     floorInfoValue = floorInfo;

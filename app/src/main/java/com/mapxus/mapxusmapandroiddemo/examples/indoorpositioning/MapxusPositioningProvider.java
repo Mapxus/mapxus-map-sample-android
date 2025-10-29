@@ -11,6 +11,7 @@ import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
 import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation;
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider;
+import com.mapxus.mapxusmapandroiddemo.BuildConfig;
 import com.mapxus.positioning.positioning.api.ErrorInfo;
 import com.mapxus.positioning.positioning.api.MapxusFloor;
 import com.mapxus.positioning.positioning.api.MapxusLocation;
@@ -22,7 +23,7 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
 
     private static final String TAG = MapxusPositioningProvider.class.getSimpleName();
 
-    private Context context;
+    private final Context context;
     private MapxusPositioningClient positioningClient;
     private LifecycleOwner lifecycleOwner;
     private boolean started;
@@ -40,7 +41,10 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
 
     @Override
     public void start() {
-        positioningClient = MapxusPositioningClient.getInstance(lifecycleOwner, context.getApplicationContext());
+        positioningClient = MapxusPositioningClient.getInstance(lifecycleOwner, context.getApplicationContext(),
+                BuildConfig.MAPXUS_APPID,
+                BuildConfig.MAPXUS_SECRET
+        );
         positioningClient.addPositioningListener(mapxusPositioningListener);
         positioningClient.start();
         started = true;
@@ -62,10 +66,10 @@ public final class MapxusPositioningProvider extends IndoorLocationProvider {
     }
 
 
-    private MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
+    private final MapxusPositioningListener mapxusPositioningListener = new MapxusPositioningListener() {
         @Override
-        public void onStateChange(PositioningState positionerState) {
-            switch (positionerState) {
+        public void onStateChange(PositioningState positioningState) {
+            switch (positioningState) {
                 case STOPPED: {
                     dispatchOnProviderStopped();
                     break;

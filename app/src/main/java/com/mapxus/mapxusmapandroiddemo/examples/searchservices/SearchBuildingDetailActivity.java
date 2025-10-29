@@ -10,22 +10,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.services.BuildingSearch;
 import com.mapxus.map.mapxusmap.api.services.model.DetailSearchOption;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingDetailResult;
 import com.mapxus.map.mapxusmap.api.services.model.building.BuildingResult;
 import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.base.BaseWithParamMenuActivity;
 import com.mapxus.mapxusmapandroiddemo.customizeview.MyBottomSheetDialog;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyIndoorBuildingOverlay;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.List;
 public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity implements BuildingSearch.BuildingSearchResultListener, OnMapReadyCallback {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
 
     private RelativeLayout progressBarView;
@@ -50,7 +50,7 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        MapboxMapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapLibreMapViewProvider mapViewProvider = new MapLibreMapViewProvider(this, mapView);
 
         mapView.getMapAsync(this);
         mapViewProvider.getMapxusMapAsync(mapxusMap -> this.mapxusMap = mapxusMap);
@@ -62,8 +62,8 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
     }
 
     @Override
-    public void onMapReady(@NotNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+    public void onMapReady(@NotNull MapLibreMap mapLibreMap) {
+        this.mapLibreMap = mapLibreMap;
     }
 
     @Override
@@ -136,7 +136,7 @@ public class SearchBuildingDetailActivity extends BaseWithParamMenuActivity impl
         }
 
         List<IndoorBuildingInfo> indoorBuildingInfos = buildingDetailResult.getIndoorBuildingList();
-        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapboxMap, mapxusMap, indoorBuildingInfos);
+        MyIndoorBuildingOverlay indoorBuildingOverlay = new MyIndoorBuildingOverlay(mapLibreMap, mapxusMap, indoorBuildingInfos);
         indoorBuildingOverlay.removeFromMap();
         indoorBuildingOverlay.addToMap();
         if (indoorBuildingInfos.size() == 1) {

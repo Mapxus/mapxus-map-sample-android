@@ -1,19 +1,21 @@
 package com.mapxus.mapxusmapandroiddemo.examples.mapinteraction;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.Venue;
 import com.mapxus.map.mapxusmap.api.services.model.floor.Floor;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 import java.util.Collection;
 
@@ -32,7 +34,7 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
     }
 
@@ -46,6 +48,8 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             String venueName = null;
             if (indoorBuilding != null) {
                 buildingName = indoorBuilding.getBuildingNameMap().getDefault();
+            }
+            if (venue != null) {
                 venueName = venue.getNameMap().getDefault();
             }
             displayDialog("You have tap at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floor != null ? floor.getCode() : "") + "," + buildingName + "," + venueName);
@@ -58,6 +62,8 @@ public class ClickEventListenerActivity extends AppCompatActivity implements OnM
             String venueName = null;
             if (indoorBuilding != null) {
                 buildingName = indoorBuilding.getBuildingNameMap().getDefault();
+            }
+            if (venue != null) {
                 venueName = venue.getNameMap().getDefault();
             }
             displayDialog("You have long press at coordinate " + latLng.latitude + "," + latLng.longitude + "," + (floor != null ? floor.getCode() : "") + "," + buildingName + "," + venueName);

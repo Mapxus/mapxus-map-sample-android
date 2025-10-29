@@ -5,7 +5,6 @@ import android.location.Location
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
-import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapxus.map.mapxusmap.api.services.model.building.FloorInfo
 import com.mapxus.map.mapxusmap.api.services.model.floor.SharedFloor
 import com.mapxus.map.mapxusmap.api.services.model.planning.PathDto
@@ -15,6 +14,7 @@ import com.mapxus.map.mapxusmap.overlay.navi.RouteAdsorber.OnDriftsNumberExceede
 import com.mapxus.map.mapxusmap.overlay.navi.RouteShortener
 import com.mapxus.map.mapxusmap.positioning.IndoorLocation
 import com.mapxus.map.mapxusmap.positioning.IndoorLocationProvider
+import com.mapxus.mapxusmapandroiddemo.BuildConfig
 import com.mapxus.positioning.positioning.api.ErrorInfo
 import com.mapxus.positioning.positioning.api.FloorType
 import com.mapxus.positioning.positioning.api.MapxusLocation
@@ -28,6 +28,7 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.maplibre.android.maps.MapLibreMap
 import java.util.concurrent.Executors
 
 /**
@@ -45,7 +46,7 @@ class MapxusNavigationPositioningProvider(
     @JvmField
     var routeAdsorber: RouteAdsorber? = null
     private var routeShortener: RouteShortener? = null
-    private var mapboxMap: MapboxMap? = null
+    private var mapLibreMap: MapLibreMap? = null
 
     @JvmField
     var isInHeadingMode = false
@@ -173,8 +174,12 @@ class MapxusNavigationPositioningProvider(
     }
 
     override fun start() {
-        positioningClient =
-            MapxusPositioningClient.getInstance(lifecycleOwner, context.applicationContext)
+        positioningClient = MapxusPositioningClient.getInstance(
+            lifecycleOwner,
+            context.applicationContext,
+            BuildConfig.MAPXUS_APPID,
+            BuildConfig.MAPXUS_SECRET
+        )
         positioningClient?.addPositioningListener(mapxusPositioningListener)
         positioningClient?.start()
         started = true
@@ -257,25 +262,21 @@ class MapxusNavigationPositioningProvider(
                 dispatchCompassChange(orientation, sensorAccuracy)
             }
 
-            override fun onLocationChange(mapxusLocation: MapxusLocation?) {
-                if (mapxusLocation == null) {
-                    return
-                }
+            override fun onLocationChange(location: MapxusLocation) {
                 coroutineScope.launch {
-                    val location = Location("MapxusPositioning")
-                    location.latitude = mapxusLocation.latitude
-                    location.longitude = mapxusLocation.longitude
-                    location.time = System.currentTimeMillis()
-                    val building = mapxusLocation.buildingId
-                    val floorInfo = mapxusLocation.mapxusFloor?.run {
+                    val theLocation = Location("MapxusPositioning")
+                    theLocation.latitude = location.latitude
+                    theLocation.longitude = location.longitude
+                    theLocation.time = System.currentTimeMillis()
+                    val building = location.buildingId
+                    val floorInfo = location.mapxusFloor?.run {
                         when (type) {
-                            null -> null
                             FloorType.FLOOR -> FloorInfo(id, code, ordinal)
                             FloorType.SHARED_FLOOR -> SharedFloor(id, code, ordinal)
                         }
                     }
-                    val indoorLocation = IndoorLocation(building, floorInfo, location)
-                    indoorLocation.accuracy = mapxusLocation.accuracy
+                    val indoorLocation = IndoorLocation(building, floorInfo, theLocation)
+                    indoorLocation.accuracy = location.accuracy
                     if (null != routeAdsorber) {
                         val indoorLatLon =
                             routeAdsorber!!.calculateTheAdsorptionLocation(indoorLocation)
@@ -287,7 +288,7 @@ class MapxusNavigationPositioningProvider(
                             withContext(Dispatchers.Main) {
                                 routeShortener!!.cutFromTheLocationProjection(
                                     indoorLatLon,
-                                    mapboxMap
+                                    mapLibreMap
                                 )
                             }
                             indoorLocation.latitude = indoorLatLon.latitude
@@ -301,12 +302,14 @@ class MapxusNavigationPositioningProvider(
             }
         }
 
-    fun updatePath(pathDto: PathDto, mapboxMap: MapboxMap?) {
-        this.mapboxMap = mapboxMap
+    fun updatePath(pathDto: PathDto, mapLibreMap: MapLibreMap?) {
+        this.mapLibreMap = mapLibreMap
         val navigationPathDto = NavigationPathDto(pathDto)
         routeAdsorber = RouteAdsorber(navigationPathDto)
-        routeShortener = RouteShortener(navigationPathDto, pathDto, pathDto.indoorPoints)
-        routeAdsorber?.setOnDriftsNumberExceededListener(object : OnDriftsNumberExceededListener {
+        routeShortener =
+            RouteShortener(navigationPathDto, pathDto, pathDto.indoorPoints)
+        routeAdsorber?.setOnDriftsNumberExceededListener(object :
+            OnDriftsNumberExceededListener {
             override fun onExceeded() {
                 Log.i(TAG, "发生漂移了: ")
                 Toast.makeText(context, "发生漂移了", Toast.LENGTH_SHORT).show()

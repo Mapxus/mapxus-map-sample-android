@@ -1,23 +1,24 @@
 package com.mapxus.mapxusmapandroiddemo.model.overlay;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.model.MapxusPointAnnotationOptions;
 import com.mapxus.map.mapxusmap.api.services.model.building.IndoorBuildingInfo;
+
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.maps.MapLibreMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyIndoorBuildingOverlay {
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private MapxusMap mapxusMap;
     private List<IndoorBuildingInfo> mIndoorBuildingInfos;
 
-    public MyIndoorBuildingOverlay(MapboxMap mapboxMap, MapxusMap mapxusMap, List<IndoorBuildingInfo> indoorBuildingInfos) {
-        this.mapboxMap = mapboxMap;
+    public MyIndoorBuildingOverlay(MapLibreMap mapLibreMap, MapxusMap mapxusMap, List<IndoorBuildingInfo> indoorBuildingInfos) {
+        this.mapLibreMap = mapLibreMap;
         this.mapxusMap = mapxusMap;
         mIndoorBuildingInfos = indoorBuildingInfos;
     }
@@ -42,16 +43,16 @@ public class MyIndoorBuildingOverlay {
      */
     public void zoomToSpan(double zoom) {
         if (mIndoorBuildingInfos != null && mIndoorBuildingInfos.size() > 0) {
-            if (mapboxMap == null)
+            if (mapLibreMap == null)
                 return;
             if (mIndoorBuildingInfos.size() == 1) {
                 IndoorBuildingInfo firstIndoorBuildingInfo = mIndoorBuildingInfos.get(0);
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(firstIndoorBuildingInfo.getLabelCenter().getLat(), firstIndoorBuildingInfo.getLabelCenter().getLon()),
                         zoom));
             } else {
                 LatLngBounds bounds = getLatLngBounds();
-                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                mapLibreMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
             }
 
         }

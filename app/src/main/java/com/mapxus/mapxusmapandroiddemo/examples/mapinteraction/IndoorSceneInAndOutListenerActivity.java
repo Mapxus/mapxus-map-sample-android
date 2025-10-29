@@ -6,14 +6,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 /**
  * Animate the map's camera position, tilt, bearing, and zoom.
@@ -33,7 +33,7 @@ public class IndoorSceneInAndOutListenerActivity extends AppCompatActivity imple
         mapView = findViewById(R.id.mapView);
         tvInOrOut = findViewById(R.id.tv_in_or_out);
         mapView.onCreate(savedInstanceState);
-        mapViewProvider = new MapboxMapViewProvider(IndoorSceneInAndOutListenerActivity.this, mapView);
+        mapViewProvider = new MapLibreMapViewProvider(IndoorSceneInAndOutListenerActivity.this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
     }
 

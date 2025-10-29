@@ -5,14 +5,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.maps.MapView;
 
 
 public class IndoorSceneSwitchingListenerActivity extends AppCompatActivity implements OnMapxusMapReadyCallback {
@@ -30,7 +30,7 @@ public class IndoorSceneSwitchingListenerActivity extends AppCompatActivity impl
         buildingNameTv = findViewById(R.id.building_name_tv);
         floorTv = findViewById(R.id.floor_tv);
         mapView.onCreate(savedInstanceState);
-        MapViewProvider mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        MapViewProvider mapViewProvider = new MapLibreMapViewProvider(this, mapView);
 
         mapViewProvider.getMapxusMapAsync(this);
     }

@@ -16,7 +16,7 @@
     <string name="activity_gesture_interaction_for_switching_building_description">設置切換建築手勢。</string>
     <string name="activity_camera_animate_description">代碼設置聚焦的室內場景。</string>
     <string name="activity_listener_click_description">監聽單擊、長按地圖事件，單擊POI事件。</string>
-    <string name="activity_mask_mode_description">通過建築切換，未被選中的建築將呈現遮罩效果。</string>
+    <string name="activity_floor_switch_mode_description">通過參數選擇不同的切換樓層的模式。</string>
     <string name="activity_listener_building_floor_change_description">監聽室內場景切換事件。</string>
     <string name="activity_listener_camera_change_listener_description">監聽進出室內場景事件。 </string>
 

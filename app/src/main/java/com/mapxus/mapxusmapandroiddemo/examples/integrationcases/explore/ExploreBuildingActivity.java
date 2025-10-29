@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapxus.map.mapxusmap.api.map.MapViewProvider;
 import com.mapxus.map.mapxusmap.api.map.MapxusMap;
 import com.mapxus.map.mapxusmap.api.map.MapxusMapZoomMode;
@@ -16,9 +14,12 @@ import com.mapxus.map.mapxusmap.api.map.interfaces.OnMapxusMapReadyCallback;
 import com.mapxus.map.mapxusmap.api.map.model.IndoorBuilding;
 import com.mapxus.map.mapxusmap.api.map.model.SelectorPosition;
 import com.mapxus.map.mapxusmap.api.services.model.poi.PoiInfo;
-import com.mapxus.map.mapxusmap.impl.MapboxMapViewProvider;
+import com.mapxus.map.mapxusmap.impl.MapLibreMapViewProvider;
 import com.mapxus.mapxusmapandroiddemo.R;
 import com.mapxus.mapxusmapandroiddemo.model.overlay.MyPoiOverlay;
+
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
     private MapView mapView;
     private MapViewProvider mapViewProvider;
     private MapxusMap mapxusMap;
-    private MapboxMap mapboxMap;
+    private MapLibreMap mapLibreMap;
     private OnBuildingChageListener onBuildingChageListener;
     private BottomSheetBehavior<?> bottomSheetBehavior;
     private MyPoiOverlay poiOverlay;
@@ -39,8 +40,8 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
         setContentView(R.layout.activity_explore_building);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(mapboxMap -> this.mapboxMap = mapboxMap);
-        mapViewProvider = new MapboxMapViewProvider(this, mapView);
+        mapView.getMapAsync(mapboxMap -> this.mapLibreMap = mapboxMap);
+        mapViewProvider = new MapLibreMapViewProvider(this, mapView);
         mapViewProvider.getMapxusMapAsync(this);
         View view = findViewById(R.id.bottomSheetLayout);
         bottomSheetBehavior = BottomSheetBehavior.from(view);
@@ -101,7 +102,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
     public void addMarker(PoiInfo poiInfo) {
         List<PoiInfo> poiInfos = new ArrayList<>();
         poiInfos.add(poiInfo);
-        poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
+        poiOverlay = new MyPoiOverlay(mapLibreMap, mapxusMap, poiInfos);
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan(Double.parseDouble(getString(R.string.default_zoom_level_value)));
@@ -114,7 +115,7 @@ public class ExploreBuildingActivity extends AppCompatActivity implements OnMapx
     }
 
     public void addMarkers(List<PoiInfo> poiInfos) {
-        poiOverlay = new MyPoiOverlay(mapboxMap, mapxusMap, poiInfos);
+        poiOverlay = new MyPoiOverlay(mapLibreMap, mapxusMap, poiInfos);
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         PoiInfo firstPoi = poiInfos.get(0);
