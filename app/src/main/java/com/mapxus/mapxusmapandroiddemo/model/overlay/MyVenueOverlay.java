@@ -25,7 +25,7 @@ public class MyVenueOverlay {
     }
 
     /**
-     * 添加Marker到地图中。
+     * Add markers to the map.
      *
      * @since V2.1.0
      */
@@ -38,7 +38,7 @@ public class MyVenueOverlay {
     }
 
     /**
-     * 移动镜头到当前的视角。
+     * Move the camera to fit the marker(s) in view.
      *
      * @since V2.1.0
      */
