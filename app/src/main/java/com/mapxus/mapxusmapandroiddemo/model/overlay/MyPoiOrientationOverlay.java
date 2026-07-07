@@ -34,7 +34,7 @@ public class MyPoiOrientationOverlay {
     }
 
     /**
-     * Move the camera to the current viewport.
+     * Move the camera to fit the marker(s) in view.
      *
      * @since V2.1.0
      */
