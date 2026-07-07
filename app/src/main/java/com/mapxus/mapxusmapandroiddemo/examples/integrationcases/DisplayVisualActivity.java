@@ -230,7 +230,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
                 visualPolylineOverlay.removeFromMap();
                 visualPolylineOverlay = null;
             }
-            //显示图片的路径
+            //show image paths
             visualPolylineOverlay = new VisualPolylineOverlay(DisplayVisualActivity.this, mapLibreMap, mapxusMap, buildingImage);
             if (!DisplayVisualActivity.this.isDestroyed()) visualPolylineOverlay.addToMap();
             visualPolylineOverlay.setOnPolylineClickListener(polylineClickListener);
