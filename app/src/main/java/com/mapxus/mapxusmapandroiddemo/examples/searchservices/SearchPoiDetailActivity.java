@@ -110,7 +110,7 @@ public class SearchPoiDetailActivity extends BaseWithParamMenuActivity implement
     }
 
     /**
-     * Start POI search: query detailed POI information by ID.
+     * Start POI search: query detailed POI information by IDs.
      */
     protected void doSearchQuery(List<String> poiIds) {
         DetailSearchOption detailSearchOption = new DetailSearchOption();
