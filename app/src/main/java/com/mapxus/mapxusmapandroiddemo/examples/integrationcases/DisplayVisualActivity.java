@@ -134,7 +134,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
             if (isChecked) {
                 mapxusMap.addOnBuildingChangeListener(DisplayVisualActivity.this);
                 String currentBuildingId = mapxusMap.getCameraPosition().buildingId;
-                //查询当前建筑中的图片
+                //query images for the current building
                 visualImageRepository.queryImages(currentBuildingId, visualMapImageQueryListener);
             } else {
                 mapxusVisual.setVisibility(View.GONE);
