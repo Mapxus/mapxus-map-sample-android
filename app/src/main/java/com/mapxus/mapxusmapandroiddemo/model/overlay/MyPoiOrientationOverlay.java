@@ -23,7 +23,7 @@ public class MyPoiOrientationOverlay {
     }
 
     /**
-     * 添加Marker到地图中。
+     * Add markers to the map.
      *
      * @since V2.1.0
      */
@@ -34,7 +34,7 @@ public class MyPoiOrientationOverlay {
     }
 
     /**
-     * 移动镜头到当前的视角。
+     * Move the camera to the current viewport.
      *
      * @since V2.1.0
      */

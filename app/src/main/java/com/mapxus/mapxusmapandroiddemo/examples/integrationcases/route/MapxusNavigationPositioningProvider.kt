@@ -311,8 +311,8 @@ class MapxusNavigationPositioningProvider(
         routeAdsorber?.setOnDriftsNumberExceededListener(object :
             OnDriftsNumberExceededListener {
             override fun onExceeded() {
-                Log.i(TAG, "发生漂移了: ")
-                Toast.makeText(context, "发生漂移了", Toast.LENGTH_SHORT).show()
+                Log.i(TAG, "Drift detected.")
+                Toast.makeText(context, "Drift detected", Toast.LENGTH_SHORT).show()
             }
         })
     }

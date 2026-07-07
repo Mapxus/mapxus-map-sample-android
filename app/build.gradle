@@ -99,7 +99,7 @@ dependencies {
     //Android auto size
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
     //侧滑删除库
-//    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     //navigation
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 }

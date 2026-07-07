@@ -78,12 +78,12 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
     }
 
     /**
-     * 添加监听
+     * Initialize listeners.
      */
     private void initListener() {
         /*
-          视觉地图显示变化时相应对地图显示路线做一些变化
-         */
+           When visual map display changes, update map route display accordingly.
+          */
         mapxusVisual.addEventListener(new VisualEventListener() {
             @Override
             public void bearingChanged(double bearing) {
@@ -112,7 +112,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
             }
         });
 
-        //切换显示大小屏监听
+        // Listener for switching between large/small display
         switchBtn.setOnClickListener(v -> {
             if (mapViewIsBig) {
                 mapxusVisual.setLayoutParams(bigViewLayoutParams);
@@ -128,7 +128,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
         });
 
         /*
-          是否打开视觉地图
+          Whether to enable visual map
          */
         visualCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -205,7 +205,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
 
     @Override
     public void onBuildingChange(IndoorBuilding indoorBuilding) {
-        //地图建筑变化，查询新建筑的图片
+        // Map building changed: query images for the new building
         if (indoorBuilding != null && !lastShowVisualBuildingId.equals(indoorBuilding.getBuildingId())) {
             mapxusVisual.setVisibility(View.GONE);
             switchBtn.setVisibility(View.GONE);
@@ -219,7 +219,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
     }
 
     /**
-     * 查询当前建筑的所有图片的监听返回，显示图片路径并设置路径点击事件
+     * Listener for current building images: show image paths and set click handlers.
      */
     private VisualImageRepository.VisualMapImageQueryListener visualMapImageQueryListener = new VisualImageRepository.VisualMapImageQueryListener() {
         @Override
@@ -243,7 +243,7 @@ public class DisplayVisualActivity extends AppCompatActivity implements MapxusMa
     };
 
     /**
-     * 点击地图显示的路线时的监听，添加当前显示点、切换Visual显示的图
+     * Listener for clicking displayed route: add current display point, switch Visual display image.
      */
     private VisualPolylineOverlay.OnPolylineClickListener polylineClickListener = new VisualPolylineOverlay.OnPolylineClickListener() {
         @Override
